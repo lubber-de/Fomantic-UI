@@ -731,7 +731,7 @@ $.fn.dropdown = function(parameters) {
                 module.remove.message();
               }
               if(settings.allowAdditions) {
-                module.add.userSuggestion(module.escape.htmlEntities(query));
+                module.add.userSuggestion(module.escape.htmlEntities(module.remove.delimiter(query)));
               }
               if(module.is.searchSelection() && module.can.show() && module.is.focusedOnSearch() ) {
                 module.show();
@@ -2694,6 +2694,7 @@ $.fn.dropdown = function(parameters) {
                   shouldAnimate  = (isMultiple && $selectedItem.length == 1)
                 ;
                 if(isMultiple) {
+                  selectedValue = module.remove.delimiter(selectedValue);
                   if(!isActive || isUserValue) {
                     if(settings.apiSettings && settings.saveRemoteData) {
                       module.save.remoteData(selectedText, selectedValue);
@@ -3162,6 +3163,9 @@ $.fn.dropdown = function(parameters) {
               ;
             }
           },
+          delimiter: function(text){
+            return text.replace(new RegExp(module.escape.string(settings.delimiter),'g'),'');
+          }
           diacritics: function(text) {
             return settings.ignoreDiacritics ?  text.normalize('NFD').replace(/[\u0300-\u036f]/g, '') : text;
           }
