@@ -409,6 +409,19 @@ $.fn.calendar = function(parameters) {
                         }
                       }
                     }
+                  } else if (settings.cellEvents){
+                    var eventDates = module.helper.findDayAsObject(cellDate, mode, settings.eventDates, true);
+                    var eL = eventDates.length;
+                    if (eventDates.length > 0) {
+                      cell.addClass('cellevents');
+                      cellText = '<div class="ui small header">' + cellText + '</div>';
+                      for (var ei = 0; ei < eL; ei++) {
+                        if (eventDates[ei].message) {
+                          cellText += '<div class="ui tiny label ' + (eventDates[ei].class ? eventDates[ei].class : settings.eventClass) + '">' + eventDates[ei].message + '</div>';
+                        }
+                      }
+                      cell.html(cellText);
+                    }
                   } else {
                     eventDate = module.helper.findDayAsObject(cellDate, mode, settings.eventDates);
                     if (eventDate !== null) {
@@ -580,22 +593,24 @@ $.fn.calendar = function(parameters) {
               return;
             }
             var parent = target.parent();
-            if (parent.data(metadata.date) || parent.data(metadata.focusDate) || parent.data(metadata.mode)) {
-              //clicked on a child element, switch to parent (used when clicking directly on prev/next <i> icon element)
-              target = parent;
-            }
-            var date = target.data(metadata.date);
-            var focusDate = target.data(metadata.focusDate);
-            var mode = target.data(metadata.mode);
-            if (date && settings.onSelect.call(element, date, module.get.mode()) !== false) {
-              var forceSet = target.hasClass(className.today);
-              module.selectDate(date, forceSet);
-            }
-            else if (focusDate) {
-              module.set.focusDate(focusDate);
-            }
-            else if (mode) {
-              module.set.mode(mode);
+            if(settings.cellEvents && target.hasClass('label') && parent.hasClass('cellevents')) {
+              settings.onEventSelect.call(element, parent.data(metadata.date), target);
+            } else {
+              if (parent.data(metadata.date) || parent.data(metadata.focusDate) || parent.data(metadata.mode)) {
+                //clicked on a child element, switch to parent (used when clicking directly on prev/next <i> icon element)
+                target = parent;
+              }
+              var date = target.data(metadata.date);
+              var focusDate = target.data(metadata.focusDate);
+              var mode = target.data(metadata.mode);
+              if (date && settings.onSelect.call(element, date, module.get.mode()) !== false) {
+                var forceSet = target.hasClass(className.today);
+                module.selectDate(date, forceSet);
+              } else if (focusDate) {
+                module.set.focusDate(focusDate);
+              } else if (mode) {
+                module.set.mode(mode);
+              }
             }
           },
           keydown: function (event) {
@@ -1143,18 +1158,25 @@ $.fn.calendar = function(parameters) {
               return true;
             }
           },
-          findDayAsObject: function(date, mode, dates) {
+          findDayAsObject: function(date, mode, dates, multiple) {
             if (mode === 'day' || mode === 'month' || mode === 'year') {
               var d;
+              var foundDates=[], dateObject;
               for (var i = 0; i < dates.length; i++) {
                 d = dates[i];
                 if(typeof d === 'string') {
                   d = module.helper.sanitiseDate(d);
                 }
                 if (d instanceof Date && module.helper.dateEqual(date, d, mode)) {
-                  var dateObject = {};
+                  dateObject = {};
                   dateObject[metadata.date] = d;
-                  return dateObject;
+                  if(settings.eventMessage !== '') {
+                    dateObject[metadata.message] = settings.eventMessage;
+                  }
+                  if(!multiple) {
+                    return dateObject;
+                  }
+                  foundDates.push(dateObject);
                 }
                 else if (d !== null && typeof d === 'object') {
                   if (d[metadata.year]) {
@@ -1231,6 +1253,9 @@ $.fn.calendar = function(parameters) {
                     return d;
                   }
                 }
+              }
+              if(multiple) {
+                return foundDates;
               }
             }
             return null;
@@ -1824,6 +1849,10 @@ $.fn.calendar.settings = {
   onSelect: function (date, mode) {
   },
 
+  // callback when a event label is clicked
+  onEventSelect: function (date, label) {
+  },
+
   // is the given date disabled?
   isDisabled: function (date, mode) {
     return false;
@@ -1893,7 +1922,9 @@ $.fn.calendar.settings = {
     days: 'days'
   },
 
-  eventClass: 'blue'
+  eventClass: 'blue',
+  eventMessage: '',
+  cellEvents: false
 };
 
 })(jQuery, window, document);
