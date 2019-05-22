@@ -607,7 +607,9 @@ $.fn.calendar = function(parameters) {
                 var forceSet = target.hasClass(className.today);
                 module.selectDate(date, forceSet);
               } else if (focusDate) {
-                module.set.focusDate(focusDate);
+                if(settings.onBeforeMonthChange.call(element, focusDate) !== false) {
+                  module.set.focusDate(focusDate);
+                }
               } else if (mode) {
                 module.set.mode(mode);
               }
@@ -1851,6 +1853,10 @@ $.fn.calendar.settings = {
 
   // callback when a event label is clicked
   onEventSelect: function (date, label) {
+  },
+
+  // callback when a prev or next button is clicked before the new month gets rendered
+  onBeforeMonthChange: function (date) {
   },
 
   // is the given date disabled?
