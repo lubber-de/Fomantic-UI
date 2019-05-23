@@ -74,6 +74,7 @@ $.fn.calendar = function(parameters) {
         instance = $module.data(moduleNamespace),
         $container = instance && instance.popupId ? $document.find('#'+instance.popupId) : $module.find(selector.popup),
 
+        isEventCalendar = $module.hasClass(className.event),
         isTouch,
         isTouchDown = false,
         isInverted = $module.hasClass(className.inverted),
@@ -409,18 +410,17 @@ $.fn.calendar = function(parameters) {
                         }
                       }
                     }
-                  } else if (settings.cellEvents){
+                  } else if (isEventCalendar){
                     var eventDates = module.helper.findDayAsObject(cellDate, mode, settings.eventDates, true);
                     var eL = eventDates.length;
                     if (eventDates.length > 0) {
-                      cell.addClass('cellevents');
-                      cellText = '<div class="ui small header">' + cellText + '</div>';
+                      cell.addClass(className.event);
+                      cell.html($('<div/>').addClass(className.eventHeader).text(cellText).appendTo(cell));
                       for (var ei = 0; ei < eL; ei++) {
                         if (eventDates[ei].message) {
-                          cellText += '<div class="ui tiny label ' + (eventDates[ei].class ? eventDates[ei].class : settings.eventClass) + '">' + eventDates[ei].message + '</div>';
+                          $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message).appendTo(cell);
                         }
                       }
-                      cell.html(cellText);
                     }
                   } else {
                     eventDate = module.helper.findDayAsObject(cellDate, mode, settings.eventDates);
@@ -589,12 +589,12 @@ $.fn.calendar = function(parameters) {
             event.stopPropagation();
             isTouchDown = false;
             var target = $(event.target);
-            if (target.hasClass("disabled")) {
+            if (target.hasClass(className.disabledCell)) {
               return;
             }
             var parent = target.parent();
-            if(settings.cellEvents && target.hasClass('label') && parent.hasClass('cellevents')) {
-              settings.onEventSelect.call(element, parent.data(metadata.date), target);
+            if(isEventCalendar && target.hasClass('label') && parent.hasClass(className.event)) {
+              settings.onEventClick.call(element, parent.data(metadata.date), target);
             } else {
               if (parent.data(metadata.date) || parent.data(metadata.focusDate) || parent.data(metadata.mode)) {
                 //clicked on a child element, switch to parent (used when clicking directly on prev/next <i> icon element)
@@ -606,10 +606,8 @@ $.fn.calendar = function(parameters) {
               if (date && settings.onSelect.call(element, date, module.get.mode()) !== false) {
                 var forceSet = target.hasClass(className.today);
                 module.selectDate(date, forceSet);
-              } else if (focusDate) {
-                if(settings.onBeforeMonthChange.call(element, focusDate) !== false) {
-                  module.set.focusDate(focusDate);
-                }
+              } else if (focusDate && settings.onBeforeMonthChange.call(element, focusDate) !== false) {
+                module.set.focusDate(focusDate);
               } else if (mode) {
                 module.set.mode(mode);
               }
@@ -1852,7 +1850,7 @@ $.fn.calendar.settings = {
   },
 
   // callback when a event label is clicked
-  onEventSelect: function (date, label) {
+  onEventClick: function (date, label) {
   },
 
   // callback when a prev or next button is clicked before the new month gets rendered
@@ -1896,6 +1894,9 @@ $.fn.calendar.settings = {
     nextIcon: 'chevron right icon',
     link: 'link',
     cell: 'link',
+    event: 'event',
+    eventHeader: 'ui small header',
+    eventLabel: 'ui tiny label',
     disabledCell: 'disabled',
     weekCell: 'disabled',
     adjacentCell: 'adjacent',
@@ -1929,8 +1930,7 @@ $.fn.calendar.settings = {
   },
 
   eventClass: 'blue',
-  eventMessage: '',
-  cellEvents: false
+  eventMessage: ''
 };
 
 })(jQuery, window, document);
