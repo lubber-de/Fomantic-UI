@@ -26,7 +26,9 @@
   "scripts": {
     "install": "gulp install",
     "build": "gulp build",
-    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "jquery": "^3.4.0",
@@ -68,7 +70,8 @@
     "replace-ext": "^1.0.0",
     "require-dot-file": "^0.4.0",
     "wrench-sui": "^0.0.3",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "snyk": "^1.192.0"
   },
   "devDependencies": {
     "conventional-changelog-cli": "^2.0.21"
@@ -78,5 +81,6 @@
     "npm": "6.4.1"
   },
   "title": "Fomantic UI",
-  "style": "dist/semantic.css"
+  "style": "dist/semantic.css",
+  "snyk": true
 }
