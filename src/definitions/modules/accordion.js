@@ -129,7 +129,7 @@ $.fn.accordion = function(parameters) {
                 ? $title.eq(query)
                 : $(query).closest(selector.title)
               : $(this).closest(selector.title),
-            $activeContent = $activeTitle.next($content),
+            $activeContent = $content.eq($title.index($activeTitle)),
             isAnimating = $activeContent.hasClass(className.animating),
             isActive    = $activeContent.hasClass(className.active),
             isOpen      = (isActive && !isAnimating),
@@ -156,7 +156,7 @@ $.fn.accordion = function(parameters) {
                 ? $title.eq(query)
                 : $(query).closest(selector.title)
               : $(this).closest(selector.title),
-            $activeContent = $activeTitle.next($content),
+            $activeContent = $content.eq($title.index($activeTitle)),
             isAnimating = $activeContent.hasClass(className.animating),
             isActive    = $activeContent.hasClass(className.active),
             isOpen      = (isActive || isAnimating)
@@ -226,7 +226,7 @@ $.fn.accordion = function(parameters) {
                 ? $title.eq(query)
                 : $(query).closest(selector.title)
               : $(this).closest(selector.title),
-            $activeContent = $activeTitle.next($content),
+            $activeContent = $content.eq($title.index($activeTitle)),
             isAnimating    = $activeContent.hasClass(className.animating),
             isActive       = $activeContent.hasClass(className.active),
             isOpening      = (!isActive && isAnimating),
@@ -297,13 +297,13 @@ $.fn.accordion = function(parameters) {
           ;
           if(settings.closeNested) {
             $openTitles   = $activeAccordion.find(activeSelector).not($parentTitles);
-            $openContents = $openTitles.next($content);
+            $openContents = $content.eq($title.index($openTitles));
           }
           else {
             $openTitles   = $activeAccordion.find(activeSelector).not($parentTitles);
             $nestedTitles = $activeAccordion.find(activeContent).find(activeSelector).not($parentTitles);
             $openTitles   = $openTitles.not($nestedTitles);
-            $openContents = $openTitles.next($content);
+            $openContents = $content.eq($title.index($openTitles));
           }
           if( ($openTitles.length > 0) ) {
             module.debug('Exclusive enabled, closing other content', $openTitles);
