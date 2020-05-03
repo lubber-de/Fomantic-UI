@@ -20,7 +20,7 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: rgba(0, 0, 0, 0.85);
+  color: #999;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -33,7 +33,7 @@
 ---------------*/
 
 .ui.divider:not(.vertical):not(.horizontal) {
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
+  border-top: 1px solid #464545;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -100,7 +100,7 @@
   left: 50%;
   content: '';
   z-index: 3;
-  border-left: 1px solid rgba(34, 36, 38, 0.15);
+  border-left: 1px solid #464545;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   width: 0;
   height: calc(100% - 1rem);
@@ -207,13 +207,13 @@
 .ui.divider.inverted,
 .ui.vertical.inverted.divider,
 .ui.horizontal.inverted.divider {
-  color: #FFFFFF;
+  color: #fff;
 }
 .ui.divider.inverted,
 .ui.divider.inverted:after,
 .ui.divider.inverted:before {
-  border-top-color: rgba(34, 36, 38, 0.15) !important;
-  border-left-color: rgba(34, 36, 38, 0.15) !important;
+  border-top-color: #464545 !important;
+  border-left-color: #464545 !important;
   border-bottom-color: rgba(255, 255, 255, 0.15) !important;
   border-right-color: rgba(255, 255, 255, 0.15) !important;
 }

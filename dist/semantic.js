@@ -840,7 +840,7 @@ $.fn.form = function(parameters) {
             }
           },
           blank: function($field) {
-            return $.trim($field.val()) === '';
+            return String($field.val()).trim() === '';
           },
           valid: function(field) {
             var
@@ -1632,7 +1632,7 @@ $.fn.form = function(parameters) {
                 $elGroup   = $(el).closest($group),
                 isCheckbox = ($el.filter(selector.checkbox).length > 0),
                 isRequired = $el.prop('required') || $elGroup.hasClass(className.required) || $elGroup.parent().hasClass(className.required),
-                isDisabled = $el.prop('disabled') || $elGroup.hasClass(className.disabled) || $elGroup.parent().hasClass(className.disabled),
+                isDisabled = $el.is(':disabled') || $elGroup.hasClass(className.disabled) || $elGroup.parent().hasClass(className.disabled),
                 validation = module.get.validation($el),
                 hasEmptyRule = validation
                   ? $.grep(validation.rules, function(rule) { return rule.type == "empty" }) !== 0
@@ -1711,13 +1711,7 @@ $.fn.form = function(parameters) {
               module.debug('Using field name as identifier', identifier);
               field.identifier = identifier;
             }
-            var isDisabled = true;
-            $.each($field, function(){
-                if(!$(this).prop('disabled')) {
-                  isDisabled = false;
-                  return false;
-                }
-            });
+            var isDisabled = !$field.filter(':not(:disabled)').length;
             if(isDisabled) {
               module.debug('Field is disabled. Skipping', identifier);
             }
@@ -1774,7 +1768,7 @@ $.fn.form = function(parameters) {
                 // cast to string avoiding encoding special values
                 value = (value === undefined || value === '' || value === null)
                     ? ''
-                    : (settings.shouldTrim) ? $.trim(value + '') : String(value + '')
+                    : (settings.shouldTrim) ? String(value + '').trim() : String(value + '')
                 ;
                 return ruleFunction.call(field, value, ancillary, $module);
               }
@@ -6948,6 +6942,7 @@ $.fn.dropdown = function(parameters) {
           } else if( module.can.click() ) {
               module.unbind.intent();
           }
+          iconClicked = false;
         },
 
         hideOthers: function() {
@@ -8179,7 +8174,7 @@ $.fn.dropdown = function(parameters) {
             return $text.text();
           },
           query: function() {
-            return $.trim($search.val());
+            return String($search.val()).trim();
           },
           searchWidth: function(value) {
             value = (value !== undefined)
@@ -8322,8 +8317,8 @@ $.fn.dropdown = function(parameters) {
               return ($choice.data(metadata.text) !== undefined)
                 ? $choice.data(metadata.text)
                 : (preserveHTML)
-                  ? $.trim($choice.html())
-                  : $.trim($choice.text())
+                  ? $choice.html().trim()
+                  : $choice.text().trim()
               ;
             }
           },
@@ -8335,11 +8330,11 @@ $.fn.dropdown = function(parameters) {
             return ($choice.data(metadata.value) !== undefined)
               ? String( $choice.data(metadata.value) )
               : (typeof choiceText === 'string')
-                ? $.trim(
+                ? String(
                   settings.ignoreSearchCase
                   ? choiceText.toLowerCase()
                   : choiceText
-                )
+                ).trim()
                 : String(choiceText)
             ;
           },
@@ -27629,7 +27624,7 @@ $.fn.visibility = function(parameters) {
               element.offset.top += $context.scrollTop() - $context.offset().top;
             }
             if(module.is.horizontallyScrollableContext()) {
-              element.offset.left += $context.scrollLeft - $context.offset().left;
+              element.offset.left += $context.scrollLeft() - $context.offset().left;
             }
             // store
             module.cache.element = element;

@@ -107,7 +107,7 @@
 .ui.calendar .ui.table tr .disabled {
   pointer-events: auto;
   cursor: default;
-  color: rgba(40, 40, 40, 0.3);
+  color: #fff;
 }
 .ui.calendar .ui.table tr .adjacent:not(.disabled) {
   color: rgba(0, 0, 0, 0.6);

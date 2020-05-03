@@ -31,9 +31,9 @@
 /* Default Styling */
 .ui.accordion .title:not(.ui) {
   padding: 0.5em 0;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: "Lato", 'Helvetica Neue', Arial, Helvetica, sans-serif;
   font-size: 1em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #fff;
 }
 
 /* Default Styling */
@@ -120,17 +120,17 @@
 .ui.styled.accordion,
 .ui.styled.accordion .accordion {
   border-radius: 0.28571429rem;
-  background: #FFFFFF;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15), 0 0 0 1px rgba(34, 36, 38, 0.15);
-          box-shadow: 0 1px 2px 0 rgba(34, 36, 38, 0.15), 0 0 0 1px rgba(34, 36, 38, 0.15);
+  background: #222222;
+  -webkit-box-shadow: 0 1px 2px 0 #464545, 0 0 0 1px #464545;
+          box-shadow: 0 1px 2px 0 #464545, 0 0 0 1px #464545;
 }
 .ui.styled.accordion .title,
 .ui.styled.accordion .accordion .title {
   margin: 0;
   padding: 0.75em 1em;
-  color: rgba(0, 0, 0, 0.4);
+  color: white;
   font-weight: bold;
-  border-top: 1px solid rgba(34, 36, 38, 0.15);
+  border-top: 1px solid #464545;
   -webkit-transition: background 0.1s ease, color 0.1s ease;
   transition: background 0.1s ease, color 0.1s ease;
 }
@@ -156,22 +156,22 @@
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: rgba(0, 0, 0, 0.87);
+  color: #fff;
 }
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: rgba(0, 0, 0, 0.87);
+  color: #375a7f;
 }
 
 /* Active */
 .ui.styled.accordion .active.title {
   background: transparent;
-  color: rgba(0, 0, 0, 0.95);
+  color: #375a7f;
 }
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: rgba(0, 0, 0, 0.95);
+  color: #375a7f;
 }
 
 

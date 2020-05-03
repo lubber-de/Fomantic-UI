@@ -56,7 +56,7 @@
 .ui.form .field > label {
   display: block;
   margin: 0 0 0.28571429rem 0;
-  color: rgba(0, 0, 0, 0.87);
+  color: #fff;
   font-size: 0.92857143em;
   font-weight: bold;
   text-transform: none;
@@ -100,7 +100,7 @@
 .ui.form input[type="text"],
 .ui.form input[type="file"],
 .ui.form input[type="url"] {
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: "Lato", 'Helvetica Neue', Arial, Helvetica, sans-serif;
   margin: 0;
   outline: none;
   -webkit-appearance: none;
@@ -108,9 +108,9 @@
   line-height: 1.21428571em;
   padding: 0.67857143em 1em;
   font-size: 1em;
-  background: #FFFFFF;
-  border: 1px solid rgba(34, 36, 38, 0.15);
-  color: rgba(0, 0, 0, 0.87);
+  background: #fff;
+  border: 1px solid #464545;
+  color: #303030;
   border-radius: 0.28571429rem;
   -webkit-box-shadow: 0 0 0 0 transparent inset;
           box-shadow: 0 0 0 0 transparent inset;
@@ -125,17 +125,17 @@
   -webkit-appearance: none;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   padding: 0.78571429em 1em;
-  background: #FFFFFF;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  background: #222222;
+  border: 1px solid #464545;
   outline: none;
-  color: rgba(0, 0, 0, 0.87);
+  color: #303030;
   border-radius: 0.28571429rem;
   -webkit-box-shadow: 0 0 0 0 transparent inset;
           box-shadow: 0 0 0 0 transparent inset;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
   transition: color 0.1s ease, border-color 0.1s ease;
   font-size: 1em;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: "Lato", 'Helvetica Neue', Arial, Helvetica, sans-serif;
   line-height: 1.2857;
   resize: vertical;
 }
@@ -208,13 +208,13 @@
   display: block;
   height: auto;
   width: 100%;
-  background: #FFFFFF;
-  border: 1px solid rgba(34, 36, 38, 0.15);
+  background: #222222;
+  border: 1px solid #464545;
   border-radius: 0.28571429rem;
   -webkit-box-shadow: 0 0 0 0 transparent inset;
           box-shadow: 0 0 0 0 transparent inset;
   padding: 0.62em 1em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #303030;
   -webkit-transition: color 0.1s ease, border-color 0.1s ease;
   transition: color 0.1s ease, border-color 0.1s ease;
 }
@@ -317,9 +317,9 @@
 
 .ui.form .field .prompt.label {
   white-space: normal;
-  background: #FFFFFF !important;
-  border: 1px solid #E0B4B4 !important;
-  color: #9F3A38 !important;
+  background: #fff !important;
+  border: 1px solid #e74c3c !important;
+  color: #ebebeb !important;
 }
 .ui.form .inline.fields .field .prompt,
 .ui.form .inline.field .prompt {
@@ -365,22 +365,22 @@
 
 /* browsers require these rules separate */
 .ui.form ::-webkit-input-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #464545;
 }
 .ui.form :-ms-input-placeholder {
-  color: rgba(191, 191, 191, 0.87) !important;
+  color: #464545 !important;
 }
 .ui.form ::-moz-placeholder {
-  color: rgba(191, 191, 191, 0.87);
+  color: #464545;
 }
 .ui.form :focus::-webkit-input-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #a3a3a3;
 }
 .ui.form :focus:-ms-input-placeholder {
-  color: rgba(115, 115, 115, 0.87) !important;
+  color: #a3a3a3 !important;
 }
 .ui.form :focus::-moz-placeholder {
-  color: rgba(115, 115, 115, 0.87);
+  color: #a3a3a3;
 }
 
 /*--------------------
@@ -399,48 +399,48 @@
 .ui.form input[type="text"]:focus,
 .ui.form input[type="file"]:focus,
 .ui.form input[type="url"]:focus {
-  color: rgba(0, 0, 0, 0.95);
+  color: #000;
   border-color: #85B7D9;
   border-radius: 0.28571429rem;
-  background: #FFFFFF;
+  background: #222222;
   -webkit-box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.35) inset;
           box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.35) inset;
 }
-.ui.form .ui.action.input:not(.left) input:not([type]):focus,
-.ui.form .ui.action.input:not(.left) input[type="date"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="datetime-local"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="email"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="number"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="password"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="search"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="tel"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="time"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="text"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="file"]:focus,
-.ui.form .ui.action.input:not(.left) input[type="url"]:focus {
+.ui.form .ui.action.input:not([class*="left action"]) input:not([type]):focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="date"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="datetime-local"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="email"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="number"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="password"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="search"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="tel"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="time"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="text"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="file"]:focus,
+.ui.form .ui.action.input:not([class*="left action"]) input[type="url"]:focus {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-.ui.form .ui.action.input.left input:not([type]),
-.ui.form .ui.action.input.left input[type="date"],
-.ui.form .ui.action.input.left input[type="datetime-local"],
-.ui.form .ui.action.input.left input[type="email"],
-.ui.form .ui.action.input.left input[type="number"],
-.ui.form .ui.action.input.left input[type="password"],
-.ui.form .ui.action.input.left input[type="search"],
-.ui.form .ui.action.input.left input[type="tel"],
-.ui.form .ui.action.input.left input[type="time"],
-.ui.form .ui.action.input.left input[type="text"],
-.ui.form .ui.action.input.left input[type="file"],
-.ui.form .ui.action.input.left input[type="url"] {
+.ui.form .ui[class*="left action"].input input:not([type]),
+.ui.form .ui[class*="left action"].input input[type="date"],
+.ui.form .ui[class*="left action"].input input[type="datetime-local"],
+.ui.form .ui[class*="left action"].input input[type="email"],
+.ui.form .ui[class*="left action"].input input[type="number"],
+.ui.form .ui[class*="left action"].input input[type="password"],
+.ui.form .ui[class*="left action"].input input[type="search"],
+.ui.form .ui[class*="left action"].input input[type="tel"],
+.ui.form .ui[class*="left action"].input input[type="time"],
+.ui.form .ui[class*="left action"].input input[type="text"],
+.ui.form .ui[class*="left action"].input input[type="file"],
+.ui.form .ui[class*="left action"].input input[type="url"] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
 .ui.form textarea:focus {
-  color: rgba(0, 0, 0, 0.95);
+  color: #000;
   border-color: #85B7D9;
   border-radius: 0.28571429rem;
-  background: #FFFFFF;
+  background: #222222;
   -webkit-box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.35) inset;
           box-shadow: 0 0 0 0 rgba(34, 36, 38, 0.35) inset;
   -webkit-appearance: none;
@@ -483,12 +483,12 @@
 .ui.ui.form .field.error label,
 .ui.ui.form .fields.error .field .input,
 .ui.ui.form .field.error .input {
-  color: #9F3A38;
+  color: #ebebeb;
 }
 .ui.form .fields.error .field .corner.label,
 .ui.form .field.error .corner.label {
-  border-color: #9F3A38;
-  color: #FFFFFF;
+  border-color: #ebebeb;
+  color: #fff;
 }
 .ui.form .fields.error .field textarea,
 .ui.form .fields.error .field select,
@@ -518,9 +518,9 @@
 .ui.form .field.error input[type="text"],
 .ui.form .field.error input[type="file"],
 .ui.form .field.error input[type="url"] {
-  color: #9F3A38;
-  background: #FFF6F6;
-  border-color: #E0B4B4;
+  color: #ebebeb;
+  background: #e74c3c;
+  border-color: #e74c3c;
   border-radius: '';
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -539,9 +539,9 @@
 .ui.form .field.error input[type="text"]:focus,
 .ui.form .field.error input[type="file"]:focus,
 .ui.form .field.error input[type="url"]:focus {
-  background: #FFF6F6;
-  border-color: #E0B4B4;
-  color: #9F3A38;
+  background: #e74c3c;
+  border-color: #e74c3c;
+  color: #ebebeb;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -561,35 +561,35 @@
 .ui.form .field.error .transparent.input textarea,
 .ui.form .field.error input.transparent,
 .ui.form .field.error textarea.transparent {
-  background-color: #FFF6F6 !important;
-  color: #9F3A38 !important;
+  background-color: #e74c3c;
+  color: #ebebeb;
 }
 
 /* Autofilled */
 .ui.form .error.error input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 100px #FFFAF0 inset !important;
           box-shadow: 0 0 0 100px #FFFAF0 inset !important;
-  border-color: #E0B4B4 !important;
+  border-color: #E0B4B4;
 }
 
 /* Placeholder */
 .ui.form .error ::-webkit-input-placeholder {
-  color: #e7bdbc;
+  color: #ffffff;
 }
 .ui.form .error :-ms-input-placeholder {
-  color: #e7bdbc !important;
+  color: #ffffff;
 }
 .ui.form .error ::-moz-placeholder {
-  color: #e7bdbc;
+  color: #ffffff;
 }
 .ui.form .error :focus::-webkit-input-placeholder {
-  color: #da9796;
+  color: #ffffff;
 }
 .ui.form .error :focus:-ms-input-placeholder {
-  color: #da9796 !important;
+  color: #ffffff;
 }
 .ui.form .error :focus::-moz-placeholder {
-  color: #da9796;
+  color: #ffffff;
 }
 
 /*------------------
@@ -601,25 +601,25 @@
 .ui.form .field.error .ui.dropdown,
 .ui.form .field.error .ui.dropdown .text,
 .ui.form .field.error .ui.dropdown .item {
-  background: #FFF6F6;
-  color: #9F3A38;
+  background: #e74c3c;
+  color: #ebebeb;
 }
 .ui.form .fields.error .field .ui.dropdown,
 .ui.form .field.error .ui.dropdown {
-  border-color: #E0B4B4 !important;
+  border-color: #e74c3c !important;
 }
 .ui.form .fields.error .field .ui.dropdown:hover,
 .ui.form .field.error .ui.dropdown:hover {
-  border-color: #E0B4B4 !important;
+  border-color: #e74c3c !important;
 }
 .ui.form .fields.error .field .ui.dropdown:hover .menu,
 .ui.form .field.error .ui.dropdown:hover .menu {
-  border-color: #E0B4B4;
+  border-color: #e74c3c;
 }
 .ui.form .fields.error .field .ui.multiple.selection.dropdown > .label,
 .ui.form .field.error .ui.multiple.selection.dropdown > .label {
   background-color: #EACBCB;
-  color: #9F3A38;
+  color: #e6e6e6;
 }
 
 /* Hover */
@@ -637,7 +637,7 @@
 /* Active */
 .ui.form .fields.error .field .ui.dropdown .menu .active.item,
 .ui.form .field.error .ui.dropdown .menu .active.item {
-  background-color: #FDCFCF !important;
+  background-color: #FDCFCF;
 }
 
 /*--------------------
@@ -648,20 +648,20 @@
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) label,
 .ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box,
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) .box {
-  color: #9F3A38;
+  color: #ebebeb;
 }
 .ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .fields.error .field .checkbox:not(.toggle):not(.slider) .box:before,
 .ui.form .field.error .checkbox:not(.toggle):not(.slider) .box:before {
-  background: #FFF6F6;
-  border-color: #E0B4B4;
+  background: #e74c3c;
+  border-color: #e74c3c;
 }
 .ui.form .fields.error .field .checkbox label:after,
 .ui.form .field.error .checkbox label:after,
 .ui.form .fields.error .field .checkbox .box:after,
 .ui.form .field.error .checkbox .box:after {
-  color: #9F3A38;
+  color: #ebebeb;
 }
 
 /* On Form */
@@ -696,12 +696,12 @@
 .ui.ui.form .field.info label,
 .ui.ui.form .fields.info .field .input,
 .ui.ui.form .field.info .input {
-  color: #276F86;
+  color: #fff;
 }
 .ui.form .fields.info .field .corner.label,
 .ui.form .field.info .corner.label {
-  border-color: #276F86;
-  color: #FFFFFF;
+  border-color: #fff;
+  color: #fff;
 }
 .ui.form .fields.info .field textarea,
 .ui.form .fields.info .field select,
@@ -731,9 +731,9 @@
 .ui.form .field.info input[type="text"],
 .ui.form .field.info input[type="file"],
 .ui.form .field.info input[type="url"] {
-  color: #276F86;
-  background: #F8FFFF;
-  border-color: #A9D5DE;
+  color: #fff;
+  background: #3498db;
+  border-color: #3498db;
   border-radius: '';
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -752,9 +752,9 @@
 .ui.form .field.info input[type="text"]:focus,
 .ui.form .field.info input[type="file"]:focus,
 .ui.form .field.info input[type="url"]:focus {
-  background: #F8FFFF;
-  border-color: #A9D5DE;
-  color: #276F86;
+  background: #3498db;
+  border-color: #3498db;
+  color: #fff;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -774,35 +774,35 @@
 .ui.form .field.info .transparent.input textarea,
 .ui.form .field.info input.transparent,
 .ui.form .field.info textarea.transparent {
-  background-color: #F8FFFF !important;
-  color: #276F86 !important;
+  background-color: #3498db;
+  color: #fff;
 }
 
 /* Autofilled */
 .ui.form .info.info input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 100px #F0FAFF inset !important;
           box-shadow: 0 0 0 100px #F0FAFF inset !important;
-  border-color: #b3e0e0 !important;
+  border-color: #b3e0e0;
 }
 
 /* Placeholder */
 .ui.form .info ::-webkit-input-placeholder {
-  color: #98cfe1;
+  color: #ffffff;
 }
 .ui.form .info :-ms-input-placeholder {
-  color: #98cfe1 !important;
+  color: #ffffff;
 }
 .ui.form .info ::-moz-placeholder {
-  color: #98cfe1;
+  color: #ffffff;
 }
 .ui.form .info :focus::-webkit-input-placeholder {
-  color: #70bdd6;
+  color: #ffffff;
 }
 .ui.form .info :focus:-ms-input-placeholder {
-  color: #70bdd6 !important;
+  color: #ffffff;
 }
 .ui.form .info :focus::-moz-placeholder {
-  color: #70bdd6;
+  color: #ffffff;
 }
 
 /*------------------
@@ -814,25 +814,25 @@
 .ui.form .field.info .ui.dropdown,
 .ui.form .field.info .ui.dropdown .text,
 .ui.form .field.info .ui.dropdown .item {
-  background: #F8FFFF;
-  color: #276F86;
+  background: #3498db;
+  color: #fff;
 }
 .ui.form .fields.info .field .ui.dropdown,
 .ui.form .field.info .ui.dropdown {
-  border-color: #A9D5DE !important;
+  border-color: #3498db !important;
 }
 .ui.form .fields.info .field .ui.dropdown:hover,
 .ui.form .field.info .ui.dropdown:hover {
-  border-color: #A9D5DE !important;
+  border-color: #3498db !important;
 }
 .ui.form .fields.info .field .ui.dropdown:hover .menu,
 .ui.form .field.info .ui.dropdown:hover .menu {
-  border-color: #A9D5DE;
+  border-color: #3498db;
 }
 .ui.form .fields.info .field .ui.multiple.selection.dropdown > .label,
 .ui.form .field.info .ui.multiple.selection.dropdown > .label {
   background-color: #cce3ea;
-  color: #276F86;
+  color: #fff;
 }
 
 /* Hover */
@@ -850,7 +850,7 @@
 /* Active */
 .ui.form .fields.info .field .ui.dropdown .menu .active.item,
 .ui.form .field.info .ui.dropdown .menu .active.item {
-  background-color: #cef1fd !important;
+  background-color: #cef1fd;
 }
 
 /*--------------------
@@ -861,20 +861,20 @@
 .ui.form .field.info .checkbox:not(.toggle):not(.slider) label,
 .ui.form .fields.info .field .checkbox:not(.toggle):not(.slider) .box,
 .ui.form .field.info .checkbox:not(.toggle):not(.slider) .box {
-  color: #276F86;
+  color: #fff;
 }
 .ui.form .fields.info .field .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .field.info .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .fields.info .field .checkbox:not(.toggle):not(.slider) .box:before,
 .ui.form .field.info .checkbox:not(.toggle):not(.slider) .box:before {
-  background: #F8FFFF;
-  border-color: #A9D5DE;
+  background: #3498db;
+  border-color: #3498db;
 }
 .ui.form .fields.info .field .checkbox label:after,
 .ui.form .field.info .checkbox label:after,
 .ui.form .fields.info .field .checkbox .box:after,
 .ui.form .field.info .checkbox .box:after {
-  color: #276F86;
+  color: #fff;
 }
 
 /* On Form */
@@ -909,12 +909,12 @@
 .ui.ui.form .field.success label,
 .ui.ui.form .fields.success .field .input,
 .ui.ui.form .field.success .input {
-  color: #2C662D;
+  color: #fff;
 }
 .ui.form .fields.success .field .corner.label,
 .ui.form .field.success .corner.label {
-  border-color: #2C662D;
-  color: #FFFFFF;
+  border-color: #fff;
+  color: #fff;
 }
 .ui.form .fields.success .field textarea,
 .ui.form .fields.success .field select,
@@ -944,9 +944,9 @@
 .ui.form .field.success input[type="text"],
 .ui.form .field.success input[type="file"],
 .ui.form .field.success input[type="url"] {
-  color: #2C662D;
-  background: #FCFFF5;
-  border-color: #A3C293;
+  color: #fff;
+  background: #00bc8c;
+  border-color: #00bc8c;
   border-radius: '';
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -965,9 +965,9 @@
 .ui.form .field.success input[type="text"]:focus,
 .ui.form .field.success input[type="file"]:focus,
 .ui.form .field.success input[type="url"]:focus {
-  background: #FCFFF5;
-  border-color: #A3C293;
-  color: #2C662D;
+  background: #00bc8c;
+  border-color: #00bc8c;
+  color: #fff;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -987,35 +987,35 @@
 .ui.form .field.success .transparent.input textarea,
 .ui.form .field.success input.transparent,
 .ui.form .field.success textarea.transparent {
-  background-color: #FCFFF5 !important;
-  color: #2C662D !important;
+  background-color: #00bc8c;
+  color: #fff;
 }
 
 /* Autofilled */
 .ui.form .success.success input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 100px #F0FFF0 inset !important;
           box-shadow: 0 0 0 100px #F0FFF0 inset !important;
-  border-color: #bee0b3 !important;
+  border-color: #bee0b3;
 }
 
 /* Placeholder */
 .ui.form .success ::-webkit-input-placeholder {
-  color: #8fcf90;
+  color: #ffffff;
 }
 .ui.form .success :-ms-input-placeholder {
-  color: #8fcf90 !important;
+  color: #ffffff;
 }
 .ui.form .success ::-moz-placeholder {
-  color: #8fcf90;
+  color: #ffffff;
 }
 .ui.form .success :focus::-webkit-input-placeholder {
-  color: #6cbf6d;
+  color: #ffffff;
 }
 .ui.form .success :focus:-ms-input-placeholder {
-  color: #6cbf6d !important;
+  color: #ffffff;
 }
 .ui.form .success :focus::-moz-placeholder {
-  color: #6cbf6d;
+  color: #ffffff;
 }
 
 /*------------------
@@ -1027,25 +1027,25 @@
 .ui.form .field.success .ui.dropdown,
 .ui.form .field.success .ui.dropdown .text,
 .ui.form .field.success .ui.dropdown .item {
-  background: #FCFFF5;
-  color: #2C662D;
+  background: #00bc8c;
+  color: #fff;
 }
 .ui.form .fields.success .field .ui.dropdown,
 .ui.form .field.success .ui.dropdown {
-  border-color: #A3C293 !important;
+  border-color: #00bc8c !important;
 }
 .ui.form .fields.success .field .ui.dropdown:hover,
 .ui.form .field.success .ui.dropdown:hover {
-  border-color: #A3C293 !important;
+  border-color: #00bc8c !important;
 }
 .ui.form .fields.success .field .ui.dropdown:hover .menu,
 .ui.form .field.success .ui.dropdown:hover .menu {
-  border-color: #A3C293;
+  border-color: #00bc8c;
 }
 .ui.form .fields.success .field .ui.multiple.selection.dropdown > .label,
 .ui.form .field.success .ui.multiple.selection.dropdown > .label {
   background-color: #cceacc;
-  color: #2C662D;
+  color: #fff;
 }
 
 /* Hover */
@@ -1063,7 +1063,7 @@
 /* Active */
 .ui.form .fields.success .field .ui.dropdown .menu .active.item,
 .ui.form .field.success .ui.dropdown .menu .active.item {
-  background-color: #dafdce !important;
+  background-color: #dafdce;
 }
 
 /*--------------------
@@ -1074,20 +1074,20 @@
 .ui.form .field.success .checkbox:not(.toggle):not(.slider) label,
 .ui.form .fields.success .field .checkbox:not(.toggle):not(.slider) .box,
 .ui.form .field.success .checkbox:not(.toggle):not(.slider) .box {
-  color: #2C662D;
+  color: #fff;
 }
 .ui.form .fields.success .field .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .field.success .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .fields.success .field .checkbox:not(.toggle):not(.slider) .box:before,
 .ui.form .field.success .checkbox:not(.toggle):not(.slider) .box:before {
-  background: #FCFFF5;
-  border-color: #A3C293;
+  background: #00bc8c;
+  border-color: #00bc8c;
 }
 .ui.form .fields.success .field .checkbox label:after,
 .ui.form .field.success .checkbox label:after,
 .ui.form .fields.success .field .checkbox .box:after,
 .ui.form .field.success .checkbox .box:after {
-  color: #2C662D;
+  color: #fff;
 }
 
 /* On Form */
@@ -1122,12 +1122,12 @@
 .ui.ui.form .field.warning label,
 .ui.ui.form .fields.warning .field .input,
 .ui.ui.form .field.warning .input {
-  color: #573A08;
+  color: #fff;
 }
 .ui.form .fields.warning .field .corner.label,
 .ui.form .field.warning .corner.label {
-  border-color: #573A08;
-  color: #FFFFFF;
+  border-color: #fff;
+  color: #fff;
 }
 .ui.form .fields.warning .field textarea,
 .ui.form .fields.warning .field select,
@@ -1157,9 +1157,9 @@
 .ui.form .field.warning input[type="text"],
 .ui.form .field.warning input[type="file"],
 .ui.form .field.warning input[type="url"] {
-  color: #573A08;
-  background: #FFFAF3;
-  border-color: #C9BA9B;
+  color: #fff;
+  background: #f39c12;
+  border-color: #f39c12;
   border-radius: '';
   -webkit-box-shadow: none;
           box-shadow: none;
@@ -1178,9 +1178,9 @@
 .ui.form .field.warning input[type="text"]:focus,
 .ui.form .field.warning input[type="file"]:focus,
 .ui.form .field.warning input[type="url"]:focus {
-  background: #FFFAF3;
-  border-color: #C9BA9B;
-  color: #573A08;
+  background: #f39c12;
+  border-color: #f39c12;
+  color: #fff;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -1200,35 +1200,35 @@
 .ui.form .field.warning .transparent.input textarea,
 .ui.form .field.warning input.transparent,
 .ui.form .field.warning textarea.transparent {
-  background-color: #FFFAF3 !important;
-  color: #573A08 !important;
+  background-color: #f39c12;
+  color: #fff;
 }
 
 /* Autofilled */
 .ui.form .warning.warning input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 100px #FFFFe0 inset !important;
           box-shadow: 0 0 0 100px #FFFFe0 inset !important;
-  border-color: #e0e0b3 !important;
+  border-color: #e0e0b3;
 }
 
 /* Placeholder */
 .ui.form .warning ::-webkit-input-placeholder {
-  color: #edad3e;
+  color: #ffffff;
 }
 .ui.form .warning :-ms-input-placeholder {
-  color: #edad3e !important;
+  color: #ffffff;
 }
 .ui.form .warning ::-moz-placeholder {
-  color: #edad3e;
+  color: #ffffff;
 }
 .ui.form .warning :focus::-webkit-input-placeholder {
-  color: #e39715;
+  color: #ffffff;
 }
 .ui.form .warning :focus:-ms-input-placeholder {
-  color: #e39715 !important;
+  color: #ffffff;
 }
 .ui.form .warning :focus::-moz-placeholder {
-  color: #e39715;
+  color: #ffffff;
 }
 
 /*------------------
@@ -1240,25 +1240,25 @@
 .ui.form .field.warning .ui.dropdown,
 .ui.form .field.warning .ui.dropdown .text,
 .ui.form .field.warning .ui.dropdown .item {
-  background: #FFFAF3;
-  color: #573A08;
+  background: #f39c12;
+  color: #fff;
 }
 .ui.form .fields.warning .field .ui.dropdown,
 .ui.form .field.warning .ui.dropdown {
-  border-color: #C9BA9B !important;
+  border-color: #f39c12 !important;
 }
 .ui.form .fields.warning .field .ui.dropdown:hover,
 .ui.form .field.warning .ui.dropdown:hover {
-  border-color: #C9BA9B !important;
+  border-color: #f39c12 !important;
 }
 .ui.form .fields.warning .field .ui.dropdown:hover .menu,
 .ui.form .field.warning .ui.dropdown:hover .menu {
-  border-color: #C9BA9B;
+  border-color: #f39c12;
 }
 .ui.form .fields.warning .field .ui.multiple.selection.dropdown > .label,
 .ui.form .field.warning .ui.multiple.selection.dropdown > .label {
   background-color: #eaeacc;
-  color: #573A08;
+  color: #fff;
 }
 
 /* Hover */
@@ -1276,7 +1276,7 @@
 /* Active */
 .ui.form .fields.warning .field .ui.dropdown .menu .active.item,
 .ui.form .field.warning .ui.dropdown .menu .active.item {
-  background-color: #fdfdce !important;
+  background-color: #fdfdce;
 }
 
 /*--------------------
@@ -1287,20 +1287,20 @@
 .ui.form .field.warning .checkbox:not(.toggle):not(.slider) label,
 .ui.form .fields.warning .field .checkbox:not(.toggle):not(.slider) .box,
 .ui.form .field.warning .checkbox:not(.toggle):not(.slider) .box {
-  color: #573A08;
+  color: #fff;
 }
 .ui.form .fields.warning .field .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .field.warning .checkbox:not(.toggle):not(.slider) label:before,
 .ui.form .fields.warning .field .checkbox:not(.toggle):not(.slider) .box:before,
 .ui.form .field.warning .checkbox:not(.toggle):not(.slider) .box:before {
-  background: #FFFAF3;
-  border-color: #C9BA9B;
+  background: #f39c12;
+  border-color: #f39c12;
 }
 .ui.form .fields.warning .field .checkbox label:after,
 .ui.form .field.warning .checkbox label:after,
 .ui.form .fields.warning .field .checkbox .box:after,
 .ui.form .field.warning .checkbox .box:after {
-  color: #573A08;
+  color: #fff;
 }
 
 /*--------------------
@@ -1379,7 +1379,7 @@
 .ui.form label.required:after {
   margin: -0.2em 0 0 0.2em;
   content: '*';
-  color: #DB2828;
+  color: #e74c3c;
 }
 .ui.form .required.fields:not(.grouped) > .field > label:after,
 .ui.form .required.fields.grouped > label:after,
@@ -1419,7 +1419,7 @@
   color: rgba(255, 255, 255, 0.9);
 }
 .ui.inverted.loading.form {
-  color: #FFFFFF;
+  color: #fff;
 }
 .ui.inverted.loading.form:before {
   background: rgba(0, 0, 0, 0.85);
@@ -1438,9 +1438,9 @@
 .ui.inverted.form input[type="text"],
 .ui.inverted.form input[type="file"],
 .ui.inverted.form input[type="url"] {
-  background: #FFFFFF;
+  background: #fff;
   border-color: rgba(255, 255, 255, 0.1);
-  color: rgba(0, 0, 0, 0.87);
+  color: #303030;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -1460,7 +1460,7 @@
 }
 .ui.form .grouped.fields > label {
   margin: 0 0 0.28571429rem 0;
-  color: rgba(0, 0, 0, 0.87);
+  color: #fff;
   font-size: 0.92857143em;
   font-weight: bold;
   text-transform: none;
@@ -1697,7 +1697,7 @@
   vertical-align: baseline;
   font-size: 0.92857143em;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.87);
+  color: #fff;
   text-transform: none;
 }
 
@@ -1801,6 +1801,24 @@
          Theme Overrides
 *******************************/
 
+.ui.input > input,
+.ui.input.focus > input,
+.ui.input > input:focus,
+.ui.form input:not([type]),
+.ui.form input[type=date],
+.ui.form input[type=datetime-local],
+.ui.form input[type=email],
+.ui.form input[type=file],
+.ui.form input[type=number],
+.ui.form input[type=password],
+.ui.form input[type=search],
+.ui.form input[type=tel],
+.ui.form input[type=text],
+.ui.form input[type=time],
+.ui.form input[type=url] {
+  background-color: #222222;
+  color: #fff;
+}
 
 
 /*******************************
