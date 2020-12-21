@@ -144,15 +144,15 @@ $.fn.toast = function(parameters) {
         create: {
           container: function() {
             module.verbose('Creating container');
-            $context.append($('<div/>',{class: settings.position + ' ' + className.container}));
+            $context.append($('<div/>',{class: settings.position + ' ' + className.container + ' ' +(settings.horizontal ? className.horizontal : '')}));
           },
           toast: function() {
             $toastBox = $('<div/>', {class: className.box});
+            var iconClass = module.get.iconClass();
             if (!isToastComponent) {
               module.verbose('Creating toast');
               $toast = $('<div/>');
               var $content = $('<div/>', {class: className.content});
-              var iconClass = module.get.iconClass();
               if (iconClass !== '') {
                 $toast.append($('<i/>', {class: iconClass + ' ' + className.icon}));
               }
@@ -170,7 +170,7 @@ $.fn.toast = function(parameters) {
                 }));
               }
 
-              $content.append($('<div/>', {html: module.helpers.escape(settings.message, settings.preserveHTML)}));
+              $content.append($('<div/>', {class: className.message, html: module.helpers.escape(settings.message, settings.preserveHTML)}));
 
               $toast
                 .addClass(settings.class + ' ' + className.toast)
@@ -189,6 +189,18 @@ $.fn.toast = function(parameters) {
               $toast = settings.cloneModule ? $module.clone().removeAttr('id') : $module;
               $close = $toast.find('> i'+module.helpers.toClass(className.close));
               settings.closeIcon = ($close.length > 0);
+              if (iconClass !== '') {
+                $toast.find(selector.icon).attr('class',iconClass + ' ' + className.icon);
+              }
+              if (settings.showImage) {
+                $toast.find(selector.image).attr('src',settings.showImage);
+              }
+              if (settings.title !== '') {
+                $toast.find(selector.title).html(module.helpers.escape(settings.title, settings.preserveHTML));
+              }
+              if (settings.message !== '') {
+                $toast.find(selector.message).html(module.helpers.escape(settings.message, settings.preserveHTML));
+              }
             }
             if ($toast.hasClass(className.compact)) {
               settings.compact = true;
@@ -391,7 +403,7 @@ $.fn.toast = function(parameters) {
                       if(settings.transition.closeEasing !== ''){
                           if($toastBox) {
                             $toastBox.css('opacity', 0);
-                            $toastBox.wrap('<div/>').parent().slideUp(500, settings.transition.closeEasing, function () {
+                            $toastBox.wrap('<div/>').parent().hide(settings.transition.closeDuration, settings.transition.closeEasing, function () {
                               if ($toastBox) {
                                 $toastBox.parent().remove();
                                 callback.call($toastBox);
@@ -431,7 +443,7 @@ $.fn.toast = function(parameters) {
         has: {
           container: function() {
             module.verbose('Determining if there is already a container');
-            return ($context.find(module.helpers.toClass(settings.position) + selector.container).length > 0);
+            return ($context.find(module.helpers.toClass(settings.position) + selector.container + (settings.horizontal ? module.helpers.toClass(className.horizontal) : '')).length > 0);
           },
           toast: function(){
             return !!module.get.toast();
@@ -583,6 +595,7 @@ $.fn.toast.settings = $.extend({
   context        : 'body',
 
   position       : 'top right',
+  horizontal     : false,
   class          : 'neutral',
   classProgress  : false,
   classActions   : false,
@@ -613,7 +626,8 @@ $.fn.toast.settings = $.extend({
     showDuration : 500,
     hideMethod   : 'scale',
     hideDuration : 500,
-    closeEasing  : 'easeOutCubic'  //Set to empty string to stack the closed toast area immediately (old behaviour)
+    closeEasing  : 'easeOutCubic',  //Set to empty string to stack the closed toast area immediately (old behaviour)
+    closeDuration: 500
   },
 
   error: {
@@ -631,6 +645,7 @@ $.fn.toast.settings = $.extend({
     visible      : 'visible',
     content      : 'content',
     title        : 'ui header',
+    message      : 'message',
     actions      : 'actions',
     extraContent : 'extra content',
     button       : 'ui button',
@@ -638,6 +653,7 @@ $.fn.toast.settings = $.extend({
     close        : 'close icon',
     image        : 'ui image',
     vertical     : 'vertical',
+    horizontal   : 'horizontal',
     attached     : 'attached',
     inverted     : 'inverted',
     compact      : 'compact',
@@ -661,6 +677,10 @@ $.fn.toast.settings = $.extend({
     container    : '.ui.toast-container',
     box          : '.toast-box',
     toast        : '.ui.toast',
+    title        : '.header',
+    message      : '.message:not(.ui)',
+    image        : '> img.image, > .image > img',
+    icon         : '> i.icon',
     input        : 'input:not([type="hidden"]), textarea, select, button, .ui.button, ui.dropdown',
     approve      : '.actions .positive, .actions .approve, .actions .ok',
     deny         : '.actions .negative, .actions .deny, .actions .cancel'
