@@ -107,8 +107,12 @@
 
 
 /* Icon */
-.ui.message > .icon {
+.ui.icon.message > .icons,
+.ui.icon.message > i.icon {
   margin-right: @iconDistance;
+  &:last-child {
+    margin: 0 0 0 @iconDistance;
+  }
 }
 
 /* Close Icon */
@@ -169,6 +173,21 @@
 /*******************************
             Variations
 *******************************/
+& when (@variationMessageCentered) {
+  .ui.centered.message,
+  .ui.center.aligned.message {
+    text-align: center;
+    justify-content: center;
+    & > .content {
+      flex: 0 0 auto;
+    }
+  }
+}
+& when (@variationMessageRightAligned) {
+  .ui.right.aligned.message {
+    text-align: right;
+  }
+}
 
 & when (@variationMessageCompact) {
   /*--------------
@@ -225,7 +244,8 @@
     width: 100%;
     align-items: center;
   }
-  .ui.icon.message > .icon:not(.close) {
+  .ui.icon.message > .icons,
+  .ui.icon.message > i.icon:not(.close) {
     display: block;
     flex: 0 0 auto;
     width: auto;
@@ -240,11 +260,11 @@
     vertical-align: @iconVerticalAlign;
   }
 
-
-  .ui.icon.message .icon:not(.close) + .content {
+  .ui.icon.message > .icons + .content,
+  .ui.icon.message > i.icon:not(.close) + .content {
     padding-left: @iconContentDistance;
   }
-  .ui.icon.message .circular.icon {
+  .ui.icon.message > i.circular {
     width: 1em;
   }
 }
