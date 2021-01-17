@@ -245,7 +245,7 @@ $.fn.dropdown = function(parameters) {
             ;
             $.each(values, function(index, value) {
               if(module.get.item(value) === false) {
-                html         = settings.templates.addition( module.add.variables(message.addResult, value) );
+                html         = templates.addition( module.add.variables(message.addResult, value) );
                 $userChoice  = $('<div />')
                   .html(html)
                   .attr('data-' + metadata.value, value)
@@ -1057,8 +1057,8 @@ $.fn.dropdown = function(parameters) {
               $input.append('<option disabled selected value></option>');
               $.each(values, function(index, item) {
                 var
-                  value = settings.templates.deQuote(item[fields.value]),
-                  name = settings.templates.escape(
+                  value = templates.deQuote(item[fields.value]),
+                  name = templates.escape(
                     item[fields.name] || '',
                     settings.preserveHTML
                   )
@@ -2859,7 +2859,7 @@ $.fn.dropdown = function(parameters) {
           message: function(message) {
             var
               $message = $menu.children(selector.message),
-              html     = settings.templates.message(module.add.variables(message))
+              html     = templates.message(module.add.variables(message))
             ;
             if($message.length > 0) {
               $message
@@ -2922,7 +2922,7 @@ $.fn.dropdown = function(parameters) {
                 .removeClass(className.filtered)
               ;
               if(!settings.hideAdditions) {
-                html = settings.templates.addition( module.add.variables(message.addResult, value) );
+                html = templates.addition( module.add.variables(message.addResult, value) );
                 $addition
                   .html(html)
                 ;
@@ -4206,7 +4206,7 @@ $.fn.dropdown.settings.templates = {
     var
       placeholder = select.placeholder || false,
       html        = '',
-      escape = $.fn.dropdown.settings.templates.escape
+      escape = this.escape
     ;
     html +=  '<i class="dropdown icon"></i>';
     if(placeholder) {
@@ -4216,7 +4216,7 @@ $.fn.dropdown.settings.templates = {
       html += '<div class="text"></div>';
     }
     html += '<div class="'+className.menu+'">';
-    html += $.fn.dropdown.settings.templates.menu(select, fields, preserveHTML,className);
+    html += this.menu(select, fields, preserveHTML,className);
     html += '</div>';
     return html;
   },
@@ -4226,8 +4226,8 @@ $.fn.dropdown.settings.templates = {
     var
       values = response[fields.values] || [],
       html   = '',
-      escape = $.fn.dropdown.settings.templates.escape,
-      deQuote = $.fn.dropdown.settings.templates.deQuote
+      escape = this.escape,
+      deQuote = this.deQuote
     ;
     $.each(values, function(index, option) {
       var
@@ -4263,7 +4263,7 @@ $.fn.dropdown.settings.templates = {
         if (isMenu) {
           html += '</span>';
           html += '<div class="' + itemType + '">';
-          html += $.fn.dropdown.settings.templates.menu(option, fields, preserveHTML, className);
+          html += this.menu(option, fields, preserveHTML, className);
           html += '</div>';
         }
         html += '</div>';
@@ -4289,9 +4289,7 @@ $.fn.dropdown.settings.templates = {
 
   // generates label for multiselect
   label: function(value, text, preserveHTML, className) {
-    var
-        escape = $.fn.dropdown.settings.templates.escape;
-    return escape(text,preserveHTML) + '<i class="'+className.delete+' icon"></i>';
+    return this.escape(text,preserveHTML) + '<i class="'+className.delete+' icon"></i>';
   },
 
 

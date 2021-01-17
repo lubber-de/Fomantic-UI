@@ -1519,7 +1519,7 @@ $.fn.popup.settings = {
     popup: function(text) {
       var
         html   = '',
-        escape = $.fn.popup.settings.templates.escape
+        escape = this.escape
       ;
       if(typeof text !== undefined) {
         if(typeof text.title !== undefined && text.title) {
