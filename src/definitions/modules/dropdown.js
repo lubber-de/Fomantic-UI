@@ -297,7 +297,9 @@ $.fn.dropdown = function(parameters) {
             : module.get.query()
           ;
           module.verbose('Searching for query', query);
-          if(module.has.minCharacters(query)) {
+          if(settings.fireOnInit === false && module.is.initialLoad()) {
+            module.verbose('Skipping callback on initial load', settings.onSearch);
+          } else if(module.has.minCharacters(query) && settings.onSearch.call(element, query) !== false) {
             module.filter(query);
           }
           else {
@@ -359,7 +361,7 @@ $.fn.dropdown = function(parameters) {
             if( !module.has.menu() ) {
               module.create.menu();
             }
-            if ( module.is.selection() && module.is.clearable() && !module.has.clearItem() ) {
+            if ( module.is.clearable() && !module.has.clearItem() ) {
               module.verbose('Adding clear icon');
               $clear = $('<i />')
                 .addClass('remove icon')
@@ -370,7 +372,7 @@ $.fn.dropdown = function(parameters) {
               module.verbose('Adding search input');
               $search = $('<input />')
                 .addClass(className.search)
-                .prop('autocomplete', 'off')
+                .prop('autocomplete', module.is.chrome() ? 'fomantic-search' : 'off')
                 .insertBefore($text)
               ;
             }
@@ -1867,7 +1869,7 @@ $.fn.dropdown = function(parameters) {
             return count;
           },
           transition: function($subMenu) {
-            return (settings.transition == 'auto')
+            return (settings.transition === 'auto')
               ? module.is.upward($subMenu)
                 ? 'slide up'
                 : 'slide down'
@@ -3377,6 +3379,9 @@ $.fn.dropdown = function(parameters) {
           bubbledIconClick: function(event) {
             return $(event.target).closest($icon).length > 0;
           },
+          chrome: function() {
+            return !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);
+          },
           alreadySetup: function() {
             return ($module.is('select') && $module.parent(selector.dropdown).data(moduleNamespace) !== undefined && $module.prev().length === 0);
           },
@@ -3615,12 +3620,12 @@ $.fn.dropdown = function(parameters) {
             ;
             module.verbose('Doing menu show animation', $currentMenu);
             module.set.direction($subMenu);
-            transition = module.get.transition($subMenu);
+            transition = settings.transition.showMethod || module.get.transition($subMenu);
             if( module.is.selection() ) {
               module.set.scrollPosition(module.get.selectedItem(), true);
             }
             if( module.is.hidden($currentMenu) || module.is.animating($currentMenu) ) {
-              if(transition == 'none') {
+              if(transition === 'none') {
                 start();
                 $currentMenu.transition({
                   displayType: module.get.displayType()
@@ -3633,7 +3638,7 @@ $.fn.dropdown = function(parameters) {
                     animation  : transition + ' in',
                     debug      : settings.debug,
                     verbose    : settings.verbose,
-                    duration   : settings.duration,
+                    duration   : settings.transition.showDuration || settings.duration,
                     queue      : true,
                     onStart    : start,
                     displayType: module.get.displayType(),
@@ -3659,7 +3664,7 @@ $.fn.dropdown = function(parameters) {
                   }
                   module.remove.active();
                 },
-              transition = module.get.transition($subMenu)
+              transition = settings.transition.hideMethod || module.get.transition($subMenu)
             ;
             callback = $.isFunction(callback)
               ? callback
@@ -3668,7 +3673,7 @@ $.fn.dropdown = function(parameters) {
             if( module.is.visible($currentMenu) || module.is.animating($currentMenu) ) {
               module.verbose('Doing menu hide animation', $currentMenu);
 
-              if(transition == 'none') {
+              if(transition === 'none') {
                 start();
                 $currentMenu.transition({
                   displayType: module.get.displayType()
@@ -3679,7 +3684,7 @@ $.fn.dropdown = function(parameters) {
                 $currentMenu
                   .transition({
                     animation  : transition + ' out',
-                    duration   : settings.duration,
+                    duration   : settings.transition.hideDuration || settings.duration,
                     debug      : settings.debug,
                     verbose    : settings.verbose,
                     queue      : false,
@@ -3871,6 +3876,7 @@ $.fn.dropdown.settings = $.extend({
   onChange      : function(value, text, $selected){},
   onAdd         : function(value, text, $selected){},
   onRemove      : function(value, text, $selected){},
+  onSearch      : function(searchTerm){},
 
   onLabelSelect : function($selectedLabels){},
   onLabelCreate : function(value, text) { return $(this); },
@@ -3918,19 +3924,21 @@ $.fn.dropdown.settings = $.extend({
 
   // property names for remote query
   fields: {
-    remoteValues : 'results',  // grouping for api results
-    values       : 'values',   // grouping for all dropdown values
-    disabled     : 'disabled', // whether value should be disabled
-    name         : 'name',     // displayed dropdown text
-    value        : 'value',    // actual dropdown value
-    text         : 'text',     // displayed text when selected
-    type         : 'type',     // type of dropdown element
-    image        : 'image',    // optional image path
-    imageClass   : 'imageClass', // optional individual class for image
-    icon         : 'icon',     // optional icon name
-    iconClass    : 'iconClass', // optional individual class for icon (for example to use flag instead)
-    class        : 'class',    // optional individual class for item/header
-    divider      : 'divider'   // optional divider append for group headers
+    remoteValues         : 'results',  // grouping for api results
+    values               : 'values',   // grouping for all dropdown values
+    disabled             : 'disabled', // whether value should be disabled
+    name                 : 'name',     // displayed dropdown text
+    description          : 'description', // displayed dropdown description
+    descriptionVertical  : 'descriptionVertical', // whether description should be vertical
+    value                : 'value',    // actual dropdown value
+    text                 : 'text',     // displayed text when selected
+    type                 : 'type',     // type of dropdown element
+    image                : 'image',    // optional image path
+    imageClass           : 'imageClass', // optional individual class for image
+    icon                 : 'icon',     // optional icon name
+    iconClass            : 'iconClass', // optional individual class for icon (for example to use flag instead)
+    class                : 'class',    // optional individual class for item/header
+    divider              : 'divider'   // optional divider append for group headers
   },
 
   keys : {
@@ -3969,37 +3977,40 @@ $.fn.dropdown.settings = $.extend({
   },
 
   className : {
-    active      : 'active',
-    addition    : 'addition',
-    animating   : 'animating',
-    disabled    : 'disabled',
-    empty       : 'empty',
-    dropdown    : 'ui dropdown',
-    filtered    : 'filtered',
-    hidden      : 'hidden transition',
-    icon        : 'icon',
-    image       : 'image',
-    item        : 'item',
-    label       : 'ui label',
-    loading     : 'loading',
-    menu        : 'menu',
-    message     : 'message',
-    multiple    : 'multiple',
-    placeholder : 'default',
-    sizer       : 'sizer',
-    search      : 'search',
-    selected    : 'selected',
-    selection   : 'selection',
-    upward      : 'upward',
-    leftward    : 'left',
-    visible     : 'visible',
-    clearable   : 'clearable',
-    noselection : 'noselection',
-    delete      : 'delete',
-    header      : 'header',
-    divider     : 'divider',
-    groupIcon   : '',
-    unfilterable : 'unfilterable'
+    active              : 'active',
+    addition            : 'addition',
+    animating           : 'animating',
+    description         : 'description',
+    descriptionVertical : 'vertical',
+    disabled            : 'disabled',
+    empty               : 'empty',
+    dropdown            : 'ui dropdown',
+    filtered            : 'filtered',
+    hidden              : 'hidden transition',
+    icon                : 'icon',
+    image               : 'image',
+    item                : 'item',
+    label               : 'ui label',
+    loading             : 'loading',
+    menu                : 'menu',
+    message             : 'message',
+    multiple            : 'multiple',
+    placeholder         : 'default',
+    sizer               : 'sizer',
+    search              : 'search',
+    selected            : 'selected',
+    selection           : 'selection',
+    text                : 'text',
+    upward              : 'upward',
+    leftward            : 'left',
+    visible             : 'visible',
+    clearable           : 'clearable',
+    noselection         : 'noselection',
+    delete              : 'delete',
+    header              : 'header',
+    divider             : 'divider',
+    groupIcon           : '',
+    unfilterable        : 'unfilterable'
   }
 
 }, semantic.commonSettings);
@@ -4065,26 +4076,49 @@ $.fn.dropdown.settings.templates = {
       var
         itemType = (option[fields.type])
           ? option[fields.type]
-          : 'item'
+          : 'item',
+        isMenu = itemType.indexOf('menu') !== -1
       ;
 
-      if( itemType === 'item' ) {
+      if( itemType === 'item' || isMenu) {
         var
           maybeText = (option[fields.text])
             ? ' data-text="' + deQuote(option[fields.text],true) + '"'
             : '',
           maybeDisabled = (option[fields.disabled])
             ? className.disabled+' '
-            : ''
+            : '',
+          maybeDescriptionVertical = (option[fields.descriptionVertical])
+            ? className.descriptionVertical+' '
+            : '',
+          hasDescription = (escape(option[fields.description] || '', preserveHTML) != '')
         ;
-        html += '<div class="'+ maybeDisabled + (option[fields.class] ? deQuote(option[fields.class]) : className.item)+'" data-value="' + deQuote(option[fields.value],true) + '"' + maybeText + '>';
+        html += '<div class="'+ maybeDisabled + maybeDescriptionVertical + (option[fields.class] ? deQuote(option[fields.class]) : className.item)+'" data-value="' + deQuote(option[fields.value],true) + '"' + maybeText + '>';
+        if (isMenu) {
+          html += '<i class="'+ (itemType.indexOf('left') !== -1 ? 'left' : '') + ' dropdown icon"></i>';
+        }
         if(option[fields.image]) {
           html += '<img class="'+(option[fields.imageClass] ? deQuote(option[fields.imageClass]) : className.image)+'" src="' + deQuote(option[fields.image]) + '">';
         }
         if(option[fields.icon]) {
           html += '<i class="'+deQuote(option[fields.icon])+' '+(option[fields.iconClass] ? deQuote(option[fields.iconClass]) : className.icon)+'"></i>';
         }
+        if(hasDescription){
+          html += '<span class="'+ className.description +'">'+ escape(option[fields.description] || '', preserveHTML) + '</span>';
+          html += (!isMenu) ? '<span class="'+ className.text + '">' : '';
+        }
+        if (isMenu) {
+          html += '<span class="' + className.text + '">';
+        }
         html +=   escape(option[fields.name] || '', preserveHTML);
+        if (isMenu) {
+          html += '</span>';
+          html += '<div class="' + itemType + '">';
+          html += $.fn.dropdown.settings.templates.menu(option, fields, preserveHTML, className);
+          html += '</div>';
+        } else if(hasDescription){
+          html += '</span>';
+        }
         html += '</div>';
       } else if (itemType === 'header') {
         var groupName = escape(option[fields.name] || '', preserveHTML),
