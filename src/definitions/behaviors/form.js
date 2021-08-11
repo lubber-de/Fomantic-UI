@@ -91,6 +91,7 @@ $.fn.form = function(parameters) {
           else {
             if(instance !== undefined) {
               instance.invoke('destroy');
+              module.refresh();
             }
             module.verbose('Initializing form validation', $module, settings);
             module.bindEvents();
@@ -171,10 +172,8 @@ $.fn.form = function(parameters) {
           }
 
           $field.on('change click keyup keydown blur', function(e) {
-            $(this).triggerHandler(e.type + ".dirty");
+            module.determine.isDirty();
           });
-
-          $field.on('change.dirty click.dirty keyup.dirty keydown.dirty blur.dirty', module.determine.isDirty);
 
           $module.on('dirty' + eventNamespace, function(e) {
             settings.onDirty.call();
@@ -302,23 +301,12 @@ $.fn.form = function(parameters) {
               module.set.clean();
             }
 
-            if (e && e.namespace === 'dirty') {
-              e.stopImmediatePropagation();
-              e.preventDefault();
-            }
           }
         },
 
         is: {
           bracketedRule: function(rule) {
             return (rule.type && rule.type.match(settings.regExp.bracket));
-          },
-          shorthandFields: function(fields) {
-            var
-              fieldKeys = Object.keys(fields),
-              firstRule = fields[fieldKeys[0]]
-            ;
-            return module.is.shorthandRules(firstRule);
           },
           // duck type rule test
           shorthandRules: function(rules) {
@@ -422,7 +410,7 @@ $.fn.form = function(parameters) {
               ;
               if( key == keyCode.escape) {
                 module.verbose('Escape key pressed blurring field');
-                $field
+                $field[0]
                   .blur()
                 ;
               }
@@ -431,6 +419,7 @@ $.fn.form = function(parameters) {
                   $field.one('keyup' + eventNamespace, module.event.field.keyup);
                   module.submit();
                   module.debug('Enter pressed on input submitting form');
+                  event.preventDefault();
                 }
                 keyHeldDown = true;
               }
@@ -444,15 +433,11 @@ $.fn.form = function(parameters) {
                 $fieldGroup     = $field.closest($group),
                 validationRules = module.get.validation($field)
               ;
-              if( $fieldGroup.hasClass(className.error) ) {
+              if(validationRules && (settings.on == 'blur' || ( $fieldGroup.hasClass(className.error) && settings.revalidate) )) {
                 module.debug('Revalidating field', $field, validationRules);
-                if(validationRules) {
-                  module.validate.field( validationRules );
-                }
-              }
-              else if(settings.on == 'blur') {
-                if(validationRules) {
-                  module.validate.field( validationRules );
+                module.validate.field( validationRules );
+                if(!settings.inline) {
+                  module.validate.form(false,true);
                 }
               }
             },
@@ -465,7 +450,7 @@ $.fn.form = function(parameters) {
               if(validationRules && (settings.on == 'change' || ( $fieldGroup.hasClass(className.error) && settings.revalidate) )) {
                 clearTimeout(module.timer);
                 module.timer = setTimeout(function() {
-                  module.debug('Revalidating field', $field,  module.get.validation($field));
+                  module.debug('Revalidating field', $field, validationRules);
                   module.validate.field( validationRules );
                   if(!settings.inline) {
                     module.validate.form(false,true);
@@ -527,15 +512,19 @@ $.fn.form = function(parameters) {
               fullFields = {}
             ;
             $.each(fields, function(name, rules) {
-              if(typeof rules == 'string') {
-                rules = [rules];
+              if (!Array.isArray(rules) && typeof rules === 'object') {
+                fullFields[name] = rules;
+              } else {
+                if (typeof rules == 'string') {
+                  rules = [rules];
+                }
+                fullFields[name] = {
+                  rules: []
+                };
+                $.each(rules, function (index, rule) {
+                  fullFields[name].rules.push({type: rule});
+                });
               }
-              fullFields[name] = {
-                rules: []
-              };
-              $.each(rules, function(index, rule) {
-                fullFields[name].rules.push({ type: rule });
-              });
             });
             return fullFields;
           },
@@ -603,7 +592,7 @@ $.fn.form = function(parameters) {
               }
               else {
                 // 2.x
-                if(parameters.fields && module.is.shorthandFields(parameters.fields)) {
+                if(parameters.fields) {
                   parameters.fields = module.get.fieldsFromShorthand(parameters.fields);
                 }
                 settings   = $.extend(true, {}, $.fn.form.settings, parameters);
@@ -631,7 +620,7 @@ $.fn.form = function(parameters) {
             instance = $module.data(moduleNamespace);
 
             // refresh selector cache
-            module.refresh();
+            (instance || module).refresh();
           },
           field: function(identifier) {
             module.verbose('Finding field with identifier', identifier);
@@ -877,16 +866,7 @@ $.fn.form = function(parameters) {
             module.debug('Adding rules', newValidation.rules, validation);
           },
           fields: function(fields) {
-            var
-              newValidation
-            ;
-            if(fields && module.is.shorthandFields(fields)) {
-              newValidation = module.get.fieldsFromShorthand(fields);
-            }
-            else {
-              newValidation = fields;
-            }
-            validation = $.extend({}, validation, newValidation);
+            validation = $.extend({}, validation, module.get.fieldsFromShorthand(fields));
           },
           prompt: function(identifier, errors, internal) {
             var
@@ -907,13 +887,13 @@ $.fn.form = function(parameters) {
             }
             if(settings.inline) {
               if(!promptExists) {
-                $prompt = settings.templates.prompt(errors, className.label);
+                $prompt = $('<div/>').addClass(className.label);
                 $prompt
                   .appendTo($fieldGroup)
                 ;
               }
               $prompt
-                .html(errors[0])
+                .html(settings.templates.prompt(errors))
               ;
               if(!promptExists) {
                 if(settings.transition && module.can.useElement('transition') && $module.transition('is supported')) {
@@ -1331,7 +1311,7 @@ $.fn.form = function(parameters) {
                 // cast to string avoiding encoding special values
                 value = (value === undefined || value === '' || value === null)
                     ? ''
-                    : (settings.shouldTrim) ? String(value + '').trim() : String(value + '')
+                    : (settings.shouldTrim && rule.shouldTrim !== false) || rule.shouldTrim ? String(value + '').trim() : String(value + '')
                 ;
                 return ruleFunction.call(field, value, ancillary, $module);
               }
@@ -1617,9 +1597,9 @@ $.fn.form.settings = {
   selector : {
     checkbox   : 'input[type="checkbox"], input[type="radio"]',
     clear      : '.clear',
-    field      : 'input:not(.search), textarea, select',
+    field      : 'input:not(.search):not([type="file"]):not([type="reset"]):not([type="button"]):not([type="submit"]), textarea, select',
     group      : '.field',
-    input      : 'input',
+    input      : 'input:not([type="file"])',
     message    : '.error.message',
     prompt     : '.prompt.label',
     radio      : 'input[type="radio"]',
@@ -1658,15 +1638,22 @@ $.fn.form.settings = {
         html += '<li>' + value + '</li>';
       });
       html += '</ul>';
-      return $(html);
+      return html;
     },
 
-    // template that produces label
-    prompt: function(errors, labelClasses) {
-      return $('<div/>')
-        .addClass(labelClasses)
-        .html(errors[0])
+    // template that produces label content
+    prompt: function(errors) {
+      if(errors.length === 1){
+        return errors[0];
+      }
+      var
+          html = '<ul class="ui list">'
       ;
+      $.each(errors, function(index, value) {
+        html += '<li>' + value + '</li>';
+      });
+      html += '</ul>';
+      return html;
     }
   },
 
@@ -2006,8 +1993,8 @@ $.fn.form.settings = {
         return;
       }
 
-      // allow dashes in card
-      cardNumber = cardNumber.replace(/[\-]/g, '');
+      // allow dashes and spaces in card
+      cardNumber = cardNumber.replace(/[\s\-]/g, '');
 
       // verify card types
       if(requiredTypes) {
