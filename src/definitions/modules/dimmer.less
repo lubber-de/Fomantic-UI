@@ -224,6 +224,12 @@ body.dimmable > .dimmer {
         background: @veryLightBackgroundColor;
     }
 }
+& when (@variationDimmerTransparent) {
+  .transparent.transparent.transparent.transparent.transparent.dimmer {
+    background: transparent;
+    will-change: auto;
+  }
+}
 
 & when (@variationDimmerInverted) {
     /* --------------
