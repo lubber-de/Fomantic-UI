@@ -6,7 +6,7 @@
 @toastContainerDistance: @relative12px;
 
 /* Toast */
-@toastWidth: 350px;
+@toastWidth: unit((350px / @emSize) , em);
 @toastBorderRadius: @defaultBorderRadius;
 @toastPadding: @inputPadding;
 @toastMarginBottom: -0.01em;
@@ -20,8 +20,8 @@
 @toastNeutralTextColor: @textColor;
 
 /* Mobile */
-@mobileToastBreakpoint: 420px;
-@mobileWidth: 280px;
+@mobileToastBreakpoint: unit((420px / @emSize), em);
+@mobileWidth: unit((280px / @emSize), em);
 
 /* on Hover */
 @toastOpacityOnHover: 1;
