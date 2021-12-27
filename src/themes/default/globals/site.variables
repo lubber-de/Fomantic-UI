@@ -34,7 +34,7 @@
 @emSize   : 16px;
 
 /* The size of page text  */
-@fontSize : unit((16px / @emSize), em);
+@fontSize : @relative16px;
 
 
 /*-------------------

@@ -449,6 +449,7 @@
 @mini: @11px;
 @tiny: @12px;
 @small: @13px;
+@medium: @14px;
 @large: @15px;
 @big: @16px;
 @huge: @17px;
