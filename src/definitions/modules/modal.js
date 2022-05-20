@@ -65,7 +65,7 @@ $.fn.modal = function(parameters) {
         moduleNamespace = 'module-' + namespace,
 
         $module         = $(this),
-        $context        = $(document).find(settings.context),
+        $context        = [window,document].indexOf(settings.context) < 0 ? $(document).find(settings.context) : $(settings.context),
         $closeIcon      = $module.find(selector.closeIcon),
         $inputs,
 

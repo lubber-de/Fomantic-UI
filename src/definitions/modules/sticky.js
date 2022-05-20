@@ -148,7 +148,7 @@ $.fn.sticky = function(parameters) {
 
         determineContext: function() {
           if(settings.context) {
-            $context = $(settings.context);
+            $context = [window,document].indexOf(settings.context) < 0 ? $(document).find(settings.context) : $(settings.context);
           }
           else {
             $context = $container;
