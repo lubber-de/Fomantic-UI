@@ -2917,7 +2917,7 @@ $.fn.dropdown = function(parameters) {
             $('<option/>')
               .prop('value', escapedValue)
               .addClass(className.addition)
-              .html(value)
+              .text(value)
               .appendTo($input)
             ;
             module.verbose('Adding user addition as an <option>', value);
