@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Form
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -69,11 +69,10 @@
   font-size: @labelFontSize;
   font-weight: @labelFontWeight;
   text-transform: @labelTextTransform;
-  &:not(.button) {
-    color: @labelColor;
-  }
 }
-
+.ui.form:not(.inverted) .field > label:not(.button) {
+  color: @labelColor;
+}
 /*--------------------
     Standard Inputs
 ---------------------*/
@@ -139,6 +138,13 @@
 }
 .ui.form input[type="color"] {
   padding: initial;
+}
+
+.ui.form input::-webkit-calendar-picker-indicator {
+  padding: 0;
+  opacity: @iconOpacity;
+  transition: @iconTransition;
+  cursor: pointer;
 }
 
 /* Text Area */
@@ -338,7 +344,7 @@
   background: @promptBackground !important;
   border: @promptBorder !important;
   color: @promptTextColor !important;
-  & li:before {
+  & li::before {
     color: @promptTextColor;
   }
 }
@@ -348,8 +354,8 @@
     vertical-align: top;
     margin: @inlinePromptMargin;
   }
-  .ui.form .inline.fields .field .prompt:before,
-  .ui.form .inline.field .prompt:before {
+  .ui.form .inline.fields .field .prompt::before,
+  .ui.form .inline.field .prompt::before {
     border-width: 0 0 @inlinePromptBorderWidth @inlinePromptBorderWidth;
     bottom: auto;
     right: auto;
@@ -388,7 +394,7 @@
 .ui.form ::-webkit-input-placeholder {
   color: @inputPlaceholderColor;
 }
-.ui.form :-ms-input-placeholder {
+.ui.form :-ms-input-placeholder when (@supportIE) {
   color: @inputPlaceholderColor !important;
 }
 .ui.form ::-moz-placeholder {
@@ -399,7 +405,7 @@
 .ui.form :focus::-webkit-input-placeholder {
   color: @inputPlaceholderFocusColor;
 }
-.ui.form :focus:-ms-input-placeholder {
+.ui.form :focus:-ms-input-placeholder when (@supportIE) {
   color: @inputPlaceholderFocusColor !important;
 }
 .ui.form :focus::-moz-placeholder {
@@ -484,6 +490,10 @@
   box-shadow: @textAreaFocusBoxShadow;
   -webkit-appearance: none;
 }
+/* Focus */
+.ui.form input:focus::-webkit-calendar-picker-indicator {
+  opacity: @iconFocusOpacity;
+}
 
 & when not (@variationFormStates = false) {
   /*--------------------
@@ -530,7 +540,7 @@
       color: @c;
     }
 
-    .ui.form .fields.@{state} .field .ui.label, 
+    .ui.form .fields.@{state} .field .ui.label,
     .ui.form .field.@{state} .ui.label {
       background-color: @lbg;
     }
@@ -589,7 +599,7 @@
         border-radius: @formStates[@@state][borderRadius];
         box-shadow: @formStates[@@state][boxShadow];
       }
-      .ui.form .field input:not(:-ms-input-placeholder):invalid {
+      .ui.form .field input:not(:-ms-input-placeholder):invalid when (@supportIE) {
         color: @c;
         background: @bg;
         border-color: @formStates[@@state][borderColor];
@@ -651,7 +661,7 @@
     .ui.form .@{state} ::-webkit-input-placeholder {
       color: @formStates[@@state][inputPlaceholderColor];
     }
-    .ui.form .@{state} :-ms-input-placeholder {
+    .ui.form .@{state} :-ms-input-placeholder when (@supportIE) {
       color: @formStates[@@state][inputPlaceholderColor] !important;
     }
     .ui.form .@{state} ::-moz-placeholder {
@@ -661,7 +671,7 @@
     .ui.form .@{state} :focus::-webkit-input-placeholder {
       color: @formStates[@@state][inputPlaceholderFocusColor];
     }
-    .ui.form .@{state} :focus:-ms-input-placeholder {
+    .ui.form .@{state} :focus:-ms-input-placeholder when (@supportIE) {
       color: @formStates[@@state][inputPlaceholderFocusColor] !important;
     }
     .ui.form .@{state} :focus::-moz-placeholder {
@@ -723,13 +733,13 @@
     .ui.form .field.@{state} .checkbox:not(.toggle):not(.slider) label {
       color: @c;
     }
-    .ui.form .fields.@{state} .field .checkbox:not(.toggle):not(.slider) label:before,
-    .ui.form .field.@{state} .checkbox:not(.toggle):not(.slider) label:before {
+    .ui.form .fields.@{state} .field .checkbox:not(.toggle):not(.slider) label::before,
+    .ui.form .field.@{state} .checkbox:not(.toggle):not(.slider) label::before {
       background: @bg;
       border-color: @bdc;
     }
-    .ui.form .fields.@{state} .field .checkbox label:after,
-    .ui.form .field.@{state} .checkbox label:after {
+    .ui.form .fields.@{state} .field .checkbox label::after,
+    .ui.form .field.@{state} .checkbox label::after {
       color: @c;
     }
 
@@ -772,7 +782,7 @@
     cursor: default;
     pointer-events: none;
   }
-  .ui.loading.form:before {
+  .ui.loading.form::before {
     position: absolute;
     content: '';
     top: 0;
@@ -783,11 +793,11 @@
     z-index: @loaderDimmerZIndex;
   }
 
-  .ui.loading.form.segments:before {
+  .ui.loading.form.segments::before {
     border-radius: @defaultBorderRadius;
   }
 
-  .ui.loading.form:after {
+  .ui.loading.form::after {
     position: absolute;
     content: '';
     top: 50%;
@@ -816,27 +826,27 @@
        Required Field
   ---------------------*/
 
-  .ui.form .required.fields:not(.grouped) > .field > label:after,
-  .ui.form .required.fields.grouped > label:after,
-  .ui.form .required.field > label:after,
-  .ui.form .required.fields:not(.grouped) > .field > .checkbox:after,
-  .ui.form .required.field > .checkbox:after,
-  .ui.form label.required:after {
+  .ui.form .required.fields:not(.grouped) > .field > label::after,
+  .ui.form .required.fields.grouped > label::after,
+  .ui.form .required.field > label::after,
+  .ui.form .required.fields:not(.grouped) > .field > .checkbox::after,
+  .ui.form .required.field > .checkbox::after,
+  .ui.form label.required::after {
     margin: @requiredMargin;
     content: @requiredContent;
     color: @requiredColor;
   }
 
-  .ui.form .required.fields:not(.grouped) > .field > label:after,
-  .ui.form .required.fields.grouped > label:after,
-  .ui.form .required.field > label:after,
-  .ui.form label.required:after {
+  .ui.form .required.fields:not(.grouped) > .field > label::after,
+  .ui.form .required.fields.grouped > label::after,
+  .ui.form .required.field > label::after,
+  .ui.form label.required::after {
     display: inline-block;
     vertical-align: top;
   }
 
-  .ui.form .required.fields:not(.grouped) > .field > .checkbox:after,
-  .ui.form .required.field > .checkbox:after {
+  .ui.form .required.fields:not(.grouped) > .field > .checkbox::after,
+  .ui.form .required.field > .checkbox::after {
     position: absolute;
     top: 0;
     left: 100%;
@@ -867,7 +877,7 @@
   .ui.inverted.loading.form {
     color: @invertedLoaderLineColor;
   }
-  .ui.inverted.loading.form:before {
+  .ui.inverted.loading.form::before {
     background: @loaderInvertedDimmerColor;
   }
   /* Inverted Field */

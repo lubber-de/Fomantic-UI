@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Form Validation
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -129,6 +129,11 @@ $.fn.form = function(parameters) {
           $submit     = $module.find(selector.submit);
           $clear      = $module.find(selector.clear);
           $reset      = $module.find(selector.reset);
+        },
+
+        refreshEvents: function() {
+          module.removeEvents();
+          module.bindEvents();
         },
 
         submit: function() {
@@ -391,7 +396,6 @@ $.fn.form = function(parameters) {
           $module.off(eventNamespace);
           $field.off(eventNamespace);
           $submit.off(eventNamespace);
-          $field.off(eventNamespace);
         },
 
         event: {
@@ -461,7 +465,7 @@ $.fn.form = function(parameters) {
           },
           beforeUnload: function(event) {
             if (module.is.dirty() && !submitting) {
-              var event = event || window.event;
+              event = event || window.event;
 
               // For modern browsers
               if (event) {
@@ -586,7 +590,7 @@ $.fn.form = function(parameters) {
               if(isLegacySettings) {
                 // 1.x (ducktyped)
                 settings   = $.extend(true, {}, $.fn.form.settings, legacyParameters);
-                validation = $.extend({}, $.fn.form.settings.defaults, parameters);
+                validation = $.extend(true, {}, $.fn.form.settings.defaults, parameters);
                 module.error(settings.error.oldSyntax, element);
                 module.verbose('Extending settings from legacy parameters', validation, settings);
               }
@@ -596,13 +600,13 @@ $.fn.form = function(parameters) {
                   parameters.fields = module.get.fieldsFromShorthand(parameters.fields);
                 }
                 settings   = $.extend(true, {}, $.fn.form.settings, parameters);
-                validation = $.extend({}, $.fn.form.settings.defaults, settings.fields);
+                validation = $.extend(true, {}, $.fn.form.settings.defaults, settings.fields);
                 module.verbose('Extending settings', validation, settings);
               }
             }
             else {
-              settings   = $.fn.form.settings;
-              validation = $.fn.form.settings.defaults;
+              settings   = $.extend(true, {}, $.fn.form.settings);
+              validation = $.extend(true, {}, $.fn.form.settings.defaults);
               module.verbose('Using default form validation', validation, settings);
             }
 
@@ -638,6 +642,7 @@ $.fn.form = function(parameters) {
             if((t=$field.filter('[data-' + metadata.validate + '="'+ identifier +'"]')).length > 0 ) {
               return t;
             }
+            module.error(error.noField.replace('{identifier}',identifier));
             return $('<input/>');
           },
           fields: function(fields) {
@@ -797,16 +802,11 @@ $.fn.form = function(parameters) {
             if(typeof identifier !== 'string') {
               module.error(error.identifier, identifier);
             }
-            if($field.filter('#' + identifier).length > 0 ) {
-              return true;
-            }
-            else if( $field.filter('[name="' + identifier +'"]').length > 0 ) {
-              return true;
-            }
-            else if( $field.filter('[data-' + metadata.validate + '="'+ identifier +'"]').length > 0 ) {
-              return true;
-            }
-            return false;
+            return (
+              $field.filter('#' + identifier).length > 0 ||
+              $field.filter('[name="' + identifier +'"]').length > 0 ||
+              $field.filter('[data-' + metadata.validate + '="'+ identifier +'"]').length > 0
+            );
           }
 
         },
@@ -864,9 +864,11 @@ $.fn.form = function(parameters) {
               }
             });
             module.debug('Adding rules', newValidation.rules, validation);
+            module.refreshEvents();
           },
           fields: function(fields) {
-            validation = $.extend({}, validation, module.get.fieldsFromShorthand(fields));
+            validation = $.extend(true, {}, validation, module.get.fieldsFromShorthand(fields));
+            module.refreshEvents();
           },
           prompt: function(identifier, errors, internal) {
             var
@@ -963,6 +965,7 @@ $.fn.form = function(parameters) {
             $.each(fields, function(index, field) {
               module.remove.rule(field);
             });
+            module.refreshEvents();
           },
           // alias
           rules: function(field, rules) {
@@ -1210,7 +1213,7 @@ $.fn.form = function(parameters) {
               if(settings.errorFocus && ignoreCallbacks !== true) {
                 var focusElement, hasTabIndex = true;
                 if (typeof settings.errorFocus === 'string') {
-                  focusElement = $(settings.errorFocus);
+                  focusElement = $(document).find(settings.errorFocus);
                   hasTabIndex = focusElement.is('[tabindex]');
                   // to be able to focus/scroll into non input elements we need a tabindex
                   if (!hasTabIndex) {
@@ -1450,7 +1453,7 @@ $.fn.form = function(parameters) {
             response
           ;
           passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
+          context         = context         || element;
           if(typeof query == 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
@@ -1626,6 +1629,7 @@ $.fn.form.settings = {
     method     : 'The method you called is not defined.',
     noRule     : 'There is no rule matching the one you specified',
     oldSyntax  : 'Starting in 2.0 forms now only take a single settings object. Validation settings converted to new syntax automatically.',
+    noField    : 'Field identifier {identifier} not found',
     noElement  : 'This module requires ui {element}'
   },
 

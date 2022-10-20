@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Shape
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -126,7 +126,7 @@ $.fn.shape = function(parameters) {
             module.reset();
             module.set.active();
           };
-          settings.beforeChange.call($nextSide[0]);
+          settings.onBeforeChange.call($nextSide[0]);
           if(module.get.transitionEvent()) {
             module.verbose('Starting CSS animation');
             $module
@@ -707,7 +707,7 @@ $.fn.shape = function(parameters) {
             response
           ;
           passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
+          context         = context         || element;
           if(typeof query == 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
@@ -813,7 +813,7 @@ $.fn.shape.settings = {
   height: 'initial',
 
   // callback occurs on side change
-  beforeChange : function() {},
+  onBeforeChange : function() {},
   onChange     : function() {},
 
   // allow animation to same side

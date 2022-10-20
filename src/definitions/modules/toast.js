@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Toast
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -23,7 +23,7 @@ window = (typeof window != 'undefined' && window.Math == Math)
     : Function('return this')()
 ;
 
-$.fn.toast = function(parameters) {
+$.toast = $.fn.toast = function(parameters) {
   var
     $allModules    = $(this),
     moduleSelector = $allModules.selector || '',
@@ -61,7 +61,7 @@ $.fn.toast = function(parameters) {
         $animationObject,
         $close,
         $context         = (settings.context)
-          ? $(settings.context)
+          ? ([window,document].indexOf(settings.context) < 0 ? $(document).find(settings.context) : $(settings.context))
           : $('body'),
 
         isToastComponent = $module.hasClass('toast') || $module.hasClass('message') || $module.hasClass('card'),
@@ -151,10 +151,10 @@ $.fn.toast = function(parameters) {
         create: {
           container: function() {
             module.verbose('Creating container');
-            $context.append($('<div/>',{class: settings.position + ' ' + className.container + ' ' +(settings.horizontal ? className.horizontal : '')}));
+            $context.append($('<div/>',{class: settings.position + ' ' + className.container + ' ' +(settings.horizontal ? className.horizontal : '') + ' ' + (settings.context && settings.context !== 'body' ? className.absolute : '')}));
           },
           id: function() {
-            id = (Math.random().toString(16) + '000000000').substr(2, 8);
+            id = (Math.random().toString(16) + '000000000').slice(2, 10);
             module.verbose('Creating unique id for element', id);
           },
           toast: function() {
@@ -246,7 +246,7 @@ $.fn.toast = function(parameters) {
                   click = el[fields.click] && $.isFunction(el[fields.click]) ? el[fields.click] : function () {};
                 $actions.append($('<button/>', {
                   html: icon + text,
-                  'aria-label': $('<div>'+(el[fields.text] || el[fields.icon] || '')+'</div>').text(),
+                  'aria-label': (el[fields.text] || el[fields.icon] || '').replace(/<[^>]+(>|$)/g,''),
                   class: className.button + ' ' + cls,
                   click: function () {
                     var button = $(this);
@@ -391,6 +391,7 @@ $.fn.toast = function(parameters) {
                   queue      : false,
                   debug      : settings.debug,
                   verbose    : settings.verbose,
+                  silent     : settings.silent,
                   duration   : settings.transition.showDuration,
                   onComplete : function() {
                     callback.call($toastBox, element);
@@ -410,6 +411,7 @@ $.fn.toast = function(parameters) {
                   duration   : settings.transition.hideDuration,
                   debug      : settings.debug,
                   verbose    : settings.verbose,
+                  silent     : settings.silent,
                   interval   : 50,
 
                   onBeforeHide: function(callback){
@@ -457,7 +459,7 @@ $.fn.toast = function(parameters) {
         has: {
           container: function() {
             module.verbose('Determining if there is already a container');
-            return ($context.find(module.helpers.toClass(settings.position) + selector.container + (settings.horizontal ? module.helpers.toClass(className.horizontal) : ':not('+module.helpers.toClass(className.horizontal)+')')).length > 0);
+            return module.get.containers().length > 0;
           },
           toast: function(){
             return !!module.get.toast();
@@ -474,8 +476,11 @@ $.fn.toast = function(parameters) {
           id: function() {
             return id;
           },
+          containers: function() {
+            return $context.children(module.helpers.toClass(settings.position) + selector.container + (settings.horizontal ? module.helpers.toClass(className.horizontal) : ':not('+module.helpers.toClass(className.horizontal)+')') + (settings.context && settings.context !== 'body' ? module.helpers.toClass(className.absolute) : ':not('+module.helpers.toClass(className.absolute)+')'));
+          },
           container: function() {
-            return ($context.find(module.helpers.toClass(settings.position) + selector.container + (settings.horizontal ? module.helpers.toClass(className.horizontal) : ':not('+module.helpers.toClass(className.horizontal)+')'))[0]);
+            return module.get.containers()[0];
           },
           toastBox: function() {
             return $toastBox || null;
@@ -511,7 +516,7 @@ $.fn.toast = function(parameters) {
             module.close();
           },
           click: function(event) {
-            if($(event.target).closest('a').length === 0) {
+            if($(event.target).closest(selector.clickable).length === 0) {
               if(settings.onClick.call($toastBox, element) === false || !settings.closeOnClick) {
                 module.verbose('Click callback returned false or close denied by setting cancelling close');
                 return;
@@ -538,7 +543,7 @@ $.fn.toast = function(parameters) {
         helpers: {
           toClass: function(selector) {
             var
-              classes = selector.split(' '),
+              classes = selector.trim().split(/\s+/),
               result = ''
             ;
 
@@ -570,7 +575,7 @@ $.fn.toast = function(parameters) {
               }
             ;
             if(shouldEscape.test(string)) {
-              string = string.replace(/&(?![a-z0-9#]{1,6};)/, "&amp;");
+              string = string.replace(/&(?![a-z0-9#]{1,12};)/gi, "&amp;");
               return string.replace(badChars, escapedChar);
             }
             return string;
@@ -702,7 +707,7 @@ $.fn.toast = function(parameters) {
             response
           ;
           passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
+          context         = context         || element;
           if(typeof query == 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
@@ -828,6 +833,7 @@ $.fn.toast.settings = {
 
   className      : {
     container    : 'ui toast-container',
+    absolute     : 'absolute',
     box          : 'floating toast-box',
     progress     : 'ui attached active progress',
     toast        : 'ui toast',
@@ -876,6 +882,7 @@ $.fn.toast.settings = {
     image        : '> img.image, > .image > img',
     icon         : '> i.icon',
     input        : 'input:not([type="hidden"]), textarea, select, button, .ui.button, ui.dropdown',
+    clickable    : 'a, details, .ui.accordion',
     approve      : '.actions .positive, .actions .approve, .actions .ok',
     deny         : '.actions .negative, .actions .deny, .actions .cancel'
   },

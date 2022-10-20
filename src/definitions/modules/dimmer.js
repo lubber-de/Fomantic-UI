@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Dimmer
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -192,11 +192,14 @@ $.fn.dimmer = function(parameters) {
             ? callback
             : function(){}
           ;
-          module.debug('Showing dimmer', $dimmer, settings);
-          module.set.variation();
           if( (!module.is.dimmed() || module.is.animating()) && module.is.enabled() ) {
+            if(settings.onShow.call(element) === false) {
+              module.verbose('Show callback returned false cancelling dimmer show');
+              return;
+            }
+            module.debug('Showing dimmer', $dimmer, settings);
+            module.set.variation();
             module.animate.show(callback);
-            settings.onShow.call(element);
             settings.onChange.call(element);
           }
           else {
@@ -210,9 +213,12 @@ $.fn.dimmer = function(parameters) {
             : function(){}
           ;
           if( module.is.dimmed() || module.is.animating() ) {
+            if(settings.onHide.call(element) === false) {
+              module.verbose('Hide callback returned false cancelling dimmer hide');
+              return;
+            }
             module.debug('Hiding dimmer', $dimmer);
             module.animate.hide(callback);
-            settings.onHide.call(element);
             settings.onChange.call(element);
           }
           else {
@@ -252,6 +258,9 @@ $.fn.dimmer = function(parameters) {
               }
               $dimmer
                 .transition({
+                  debug       : settings.debug,
+                  verbose     : settings.verbose,
+                  silent      : settings.silent,
                   displayType : settings.useFlex
                     ? 'flex'
                     : 'block',
@@ -301,6 +310,9 @@ $.fn.dimmer = function(parameters) {
               module.verbose('Hiding dimmer with css');
               $dimmer
                 .transition({
+                  debug       : settings.debug,
+                  verbose     : settings.verbose,
+                  silent      : settings.silent,
                   displayType : settings.useFlex
                     ? 'flex'
                     : 'block',
@@ -368,10 +380,7 @@ $.fn.dimmer = function(parameters) {
           },
           closable: function() {
             if(settings.closable == 'auto') {
-              if(settings.on == 'hover') {
-                return false;
-              }
-              return true;
+              return settings.on != 'hover';
             }
             return settings.closable;
           },
@@ -590,7 +599,7 @@ $.fn.dimmer = function(parameters) {
             response
           ;
           passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
+          context         = context         || element;
           if(typeof query == 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;

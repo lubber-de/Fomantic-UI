@@ -15,6 +15,7 @@
 /* Button */
 @variationButtonDisabled: true;
 @variationButtonAnimated: true;
+@variationButtonAnimatedFade: true;
 @variationButtonInverted: true;
 @variationButtonSocial: true;
 @variationButtonFloated: true;
@@ -34,6 +35,9 @@
 @variationButtonCircular: true;
 @variationButtonGroups: true;
 @variationButtonStackable: true;
+@variationButtonWrapping: true;
+@variationButtonWrapped: true;
+@variationButtonSpaced: true;
 @variationButtonSizes: @variationAllSizes;
 @variationButtonColors: @variationAllColors;
 
@@ -42,6 +46,7 @@
 @variationContainerRelaxed: true;
 @variationContainerVeryRelaxed: true;
 @variationContainerText: true;
+@variationContainerWide: true;
 @variationContainerFluid: true;
 @variationContainerAligned: true;
 @variationContainerJustified: true;
@@ -398,6 +403,7 @@
 
 /* Card */
 @variationCardInverted: true;
+@variationCardBasic: true;
 @variationCardDisabled: true;
 @variationCardLoading: true;
 @variationCardHorizontal: true;
@@ -478,12 +484,17 @@
 /* Accordion */
 @variationAccordionInverted: true;
 @variationAccordionStyled: true;
+@variationAccordionBasicStyled: true;
 @variationAccordionFluid: true;
 @variationAccordionCompact: true;
+@variationAccordionVeryCompact: true;
+@variationAccordionRightDropdown: true;
+@variationAccordionTree: true;
 
 /* Calendar */
 @variationCalendarInverted: true;
 @variationCalendarDisabled: true;
+@variationCalendarMultiMonth: true;
 
 /* Checkbox */
 @variationCheckboxDisabled: true;
@@ -539,6 +550,23 @@
 /* Embed */
 @variationEmbedRatio: true;
 
+/* Flyout */
+@variationFlyoutInverted: true;
+@variationFlyoutBasic: true;
+@variationFlyoutFullscreen: true;
+@variationFlyoutCentered: true;
+@variationFlyoutActions: true;
+@variationFlyoutLeftActions: true;
+@variationFlyoutBlurring: true;
+@variationFlyoutColumnWidth: true;
+@variationFlyoutThin: true;
+@variationFlyoutWide: true;
+@variationFlyoutTop: true;
+@variationFlyoutBottom: true;
+@variationFlyoutLeft: true;
+@variationFlyoutRight: true;
+@variationFlyoutOverlay: true;
+
 /* Modal */
 @variationModalInverted: true;
 @variationModalBasic: true;
@@ -548,6 +576,9 @@
 @variationModalScrolling: true;
 @variationModalLegacy: true;
 @variationModalCloseInside: true;
+@variationModalCentered: true;
+@variationModalActions: true;
+@variationModalLeftActions: true;
 @variationModalSizes: @variationAllSizes;
 
 /* Nag */
@@ -636,6 +667,7 @@
 @variationSidebarScale: true;
 @variationSidebarPush: true;
 @variationSidebarUncover: true;
+@variationSidebarBlurring: true;
 
 /* Slider */
 @variationSliderInverted: true;

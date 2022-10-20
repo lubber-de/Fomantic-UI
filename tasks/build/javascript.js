@@ -77,6 +77,7 @@ function pack(type, compress) {
     .pipe(dedupe())
     .pipe(replace(assets.uncompressed, assets.packaged))
     .pipe(concat(concatenatedJS))
+    .pipe(gulpif(config.stripHeaders, replace(comments.header.in, comments.header.out)))
     .pipe(gulpif(compress, uglify(settings.concatUglify)))
     .pipe(header(banner, settings.header))
     .pipe(gulpif(config.hasPermissions, chmod(config.parsedPermissions)))
@@ -100,8 +101,8 @@ function buildJS(src, type, config, callback) {
   }
 
   if (globs.individuals !== undefined && typeof src === 'string') {
-    const individuals = config.globs.individuals.replace('{','');
-    const components = config.globs.components.replace('}',',').concat(individuals);
+    const individuals = config.globs.individuals.replace(/\{/g,'');
+    const components = config.globs.components.replace(/\}/g,',').concat(individuals);
 
     src = config.paths.source.definitions + '/**/' + components + (config.globs.ignored || '') + '.js';
   }

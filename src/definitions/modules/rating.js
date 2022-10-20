@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Rating
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -419,7 +419,7 @@ $.fn.rating = function(parameters) {
             response
           ;
           passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
+          context         = context         || element;
           if(typeof query == 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
@@ -536,13 +536,17 @@ $.fn.rating.settings = {
   },
 
   templates: {
+    deQuote: function(string, encode) {
+      return String(string).replace(/"/g,encode ? "&quot;" : "");
+    },
     icon: function(maxRating, iconClass) {
       var
         icon = 1,
-        html = ''
+        html = '',
+        deQuote = $.fn.rating.settings.templates.deQuote
       ;
       while(icon <= maxRating) {
-        html += '<i class="'+iconClass+' icon"></i>';
+        html += '<i class="'+deQuote(iconClass)+' icon"></i>';
         icon++;
       }
       return html;

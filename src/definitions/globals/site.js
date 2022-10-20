@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Site
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -359,7 +359,7 @@ $.site = $.fn.site = function(parameters) {
         response
       ;
       passedArguments = passedArguments || queryArguments;
-      context         = element         || context;
+      context         = context         || element;
       if(typeof query == 'string' && object !== undefined) {
         query    = query.split(/[\. ]/);
         maxDepth = query.length - 1;

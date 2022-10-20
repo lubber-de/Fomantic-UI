@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - API
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -65,7 +65,7 @@ $.api = $.fn.api = function(parameters) {
 
         // context used for state
         $context        = (settings.stateContext)
-          ? $(settings.stateContext)
+          ? ([window,document].indexOf(settings.stateContext) < 0 ? $(document).find(settings.stateContext) : $(settings.stateContext))
           : $module,
 
         // request details
@@ -363,8 +363,8 @@ $.api = $.fn.api = function(parameters) {
                   var
                     // allow legacy {$var} style
                     variable = (templatedString.indexOf('$') !== -1)
-                      ? templatedString.substr(2, templatedString.length - 3)
-                      : templatedString.substr(1, templatedString.length - 2),
+                      ? templatedString.slice(2, -1)
+                      : templatedString.slice(1, -1),
                     value   = ($.isPlainObject(urlData) && urlData[variable] !== undefined)
                       ? urlData[variable]
                       : ($module.data(variable) !== undefined)
@@ -395,8 +395,8 @@ $.api = $.fn.api = function(parameters) {
                   var
                     // allow legacy {/$var} style
                     variable = (templatedString.indexOf('$') !== -1)
-                      ? templatedString.substr(3, templatedString.length - 4)
-                      : templatedString.substr(2, templatedString.length - 3),
+                      ? templatedString.slice(3, -1)
+                      : templatedString.slice(2, -1),
                     value   = ($.isPlainObject(urlData) && urlData[variable] !== undefined)
                       ? urlData[variable]
                       : ($module.data(variable) !== undefined)
@@ -428,28 +428,76 @@ $.api = $.fn.api = function(parameters) {
           formData: function(data) {
             var
               formData = {},
-              hasOtherData
+              hasOtherData,
+              useFormDataApi = settings.serializeForm === 'formdata'
             ;
             data         = data || originalData || settings.data;
             hasOtherData = $.isPlainObject(data);
 
-            $.each($form.serializeArray(), function (i, element) {
-              var node = formData[element.name];
-
-              if ('undefined' !== typeof node && node !== null) {
-                if (Array.isArray(node)) {
-                  node.push(element.value);
+            if (useFormDataApi) {
+              formData = new FormData($form[0]);
+              settings.processData = typeof settings.processData !== 'undefined' ? settings.processData : false;
+              settings.contentType = typeof settings.contentType !== 'undefined' ? settings.contentType : false;
+            } else {
+              var formArray = $form.serializeArray(),
+                  pushes = {},
+                  pushValues= {},
+                  build = function(base, key, value) {
+                    base[key] = value;
+                    return base;
+                  }
+              ;
+              // add files
+              $.each($('input[type="file"]',$form), function(i, tag) {
+                $.each($(tag)[0].files, function(j, file) {
+                  formArray.push({name:tag.name, value: file});
+                });
+              });
+              $.each(formArray, function(i, el) {
+                if (!settings.regExp.validate.test(el.name)) return;
+                var isCheckbox = $('[name="' + el.name + '"]', $form).attr('type') === 'checkbox',
+                    floatValue = parseFloat(el.value),
+                    value = (isCheckbox && el.value === 'on') || el.value === 'true' || (String(floatValue) === el.value ? floatValue : (el.value === 'false' ? false : el.value)),
+                    nameKeys = el.name.match(settings.regExp.key) || [], k, pushKey= el.name.replace(/\[\]$/,'')
+                ;
+                if(!(pushKey in pushes)) {
+                  pushes[pushKey] = 0;
+                  pushValues[pushKey] = value;
+                } else if (Array.isArray(pushValues[pushKey])) {
+                  pushValues[pushKey].push(value);
                 } else {
-                  formData[element.name] = [node, element.value];
+                  pushValues[pushKey] = [pushValues[pushKey] , value];
                 }
-              } else {
-                formData[element.name] = element.value;
-              }
-            });
+                value = pushValues[pushKey];
+
+                while ((k = nameKeys.pop()) !== undefined) {
+                  // foo[]
+                  if (k == '' && !Array.isArray(value)){
+                    value = build([], pushes[pushKey]++, value);
+                  }
+                  // foo[n]
+                  else if (settings.regExp.fixed.test(k)) {
+                    value = build([], k, value);
+                  }
+                  // foo; foo[bar]
+                  else if (settings.regExp.named.test(k)) {
+                    value = build({}, k, value);
+                  }
+                }
+                formData = $.extend(true, formData, value);
+              });
+            }
 
             if(hasOtherData) {
               module.debug('Extending existing data with form data', data, formData);
-              data = $.extend(true, {}, data, formData);
+              if(useFormDataApi) {
+                $.each(Object.keys(data),function(i, el){
+                  formData.append(el, data[el]);
+                });
+                data = formData;
+              } else {
+                data = $.extend(true, {}, data, formData);
+              }
             }
             else {
               module.debug('Adding form data', formData);
@@ -967,7 +1015,7 @@ $.api = $.fn.api = function(parameters) {
             response
           ;
           passedArguments = passedArguments || queryArguments;
-          context         = element         || context;
+          context         = context         || element;
           if(typeof query == 'string' && object !== undefined) {
             query    = query.split(/[\. ]/);
             maxDepth = query.length - 1;
@@ -1088,6 +1136,8 @@ $.api.settings = {
   defaultData          : true,
 
   // whether to serialize closest form
+  // use true to convert complex named keys like a[b][1][c][] into a nested object
+  // use 'formdata' for formdata web api
   serializeForm        : false,
 
   // how long to wait before request should occur
@@ -1110,7 +1160,7 @@ $.api.settings = {
   responseAsync     : false,
 
 // whether onResponse should work with response value without force converting into an object
-  rawResponse       : false,
+  rawResponse       : true,
 
   // callbacks before request
   beforeSend  : function(settings) { return settings; },
@@ -1156,8 +1206,13 @@ $.api.settings = {
   },
 
   regExp  : {
-    required : /\{\$*[A-z0-9]+\}/g,
-    optional : /\{\/\$*[A-z0-9]+\}/g,
+    required : /\{\$*[a-z0-9]+\}/gi,
+    optional : /\{\/\$*[a-z0-9]+\}/gi,
+    validate: /^[a-z_][a-z0-9_-]*(?:\[[a-z0-9_-]*\])*$/i,
+    key:      /[a-z0-9_-]+|(?=\[\])/gi,
+    push:     /^$/,
+    fixed:    /^\d+$/,
+    named:    /^[a-z0-9_-]+$/i
   },
 
   className: {

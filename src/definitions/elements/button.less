@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Button
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -138,7 +138,7 @@
     pointer-events: @loadingPointerEvents;
     transition: @loadingTransition;
   }
-  .ui.loading.button:before {
+  .ui.loading.button::before {
     position: absolute;
     content: '';
     top: 50%;
@@ -151,7 +151,7 @@
     border-radius: @circularRadius;
     border: @loaderLineWidth solid @invertedLoaderFillColor;
   }
-  .ui.loading.button:after {
+  .ui.loading.button::after {
     position: absolute;
     content: '';
     top: 50%;
@@ -169,19 +169,24 @@
 
     box-shadow: 0 0 0 1px transparent;
   }
-}
-& when (@variationButtonLabeledIcon){
-  .ui.labeled.icon.loading.button .icon {
+  .ui.ui.ui.loading.button .label {
     background-color: transparent;
-    box-shadow: none;
+    border-color: transparent;
+    color: transparent;
   }
-}
-& when (@variationButtonBasic){
-  .ui.basic.loading.button:not(.inverted):before {
-    border-color: @loaderFillColor;
+  & when (@variationButtonLabeledIcon){
+    .ui.labeled.icon.loading.button .icon {
+      background-color: transparent;
+      box-shadow: none;
+    }
   }
-  .ui.basic.loading.button:not(.inverted):after {
-    border-color: @loaderLineColor;
+  & when (@variationButtonBasic){
+    .ui.basic.loading.button:not(.inverted)::before {
+      border-color: @loaderFillColor;
+    }
+    .ui.basic.loading.button:not(.inverted)::after {
+      border-color: @loaderLineColor;
+    }
   }
 }
 & when (@variationButtonDisabled){
@@ -262,61 +267,64 @@
     right: 0;
   }
 
-  /* Vertical */
-  .ui.vertical.animated.button .visible.content,
-  .ui.vertical.animated.button .hidden.content {
-    transition: top @animationDuration @animationEasing, transform @animationDuration @animationEasing;
+  & when (@variationButtonVertical) {
+    /* Vertical */
+    .ui.vertical.animated.button .visible.content,
+    .ui.vertical.animated.button .hidden.content {
+      transition: top @animationDuration @animationEasing, transform @animationDuration @animationEasing;
+    }
+    .ui.vertical.animated.button .visible.content {
+      transform: translateY(0%);
+      right: auto;
+    }
+    .ui.vertical.animated.button .hidden.content {
+      top: -50%;
+      left: 0;
+      right: auto;
+    }
+    .ui.vertical.animated.button:focus .visible.content,
+    .ui.vertical.animated.button:hover .visible.content {
+      transform: translateY(200%);
+      right: auto;
+    }
+    .ui.vertical.animated.button:focus .hidden.content,
+    .ui.vertical.animated.button:hover .hidden.content {
+      top: 50%;
+      right: auto;
+    }
   }
-  .ui.vertical.animated.button .visible.content {
-    transform: translateY(0%);
-    right: auto;
-  }
-  .ui.vertical.animated.button .hidden.content {
-    top: -50%;
-    left: 0;
-    right: auto;
-  }
-  .ui.vertical.animated.button:focus .visible.content,
-  .ui.vertical.animated.button:hover .visible.content {
-    transform: translateY(200%);
-    right: auto;
-  }
-  .ui.vertical.animated.button:focus .hidden.content,
-  .ui.vertical.animated.button:hover .hidden.content {
-    top: 50%;
-    right: auto;
-  }
-
-  /* Fade */
-  .ui.fade.animated.button .visible.content,
-  .ui.fade.animated.button .hidden.content {
-    transition: opacity @animationDuration @animationEasing, transform @animationDuration @animationEasing;
-  }
-  .ui.fade.animated.button .visible.content {
-    left: auto;
-    right: auto;
-    opacity: 1;
-    transform: scale(1);
-  }
-  .ui.fade.animated.button .hidden.content {
-    opacity: 0;
-    left: 0;
-    right: auto;
-    transform: scale(@fadeScaleHigh);
-  }
-  .ui.fade.animated.button:focus .visible.content,
-  .ui.fade.animated.button:hover .visible.content {
-    left: auto;
-    right: auto;
-    opacity: 0;
-    transform: scale(@fadeScaleLow);
-  }
-  .ui.fade.animated.button:focus .hidden.content,
-  .ui.fade.animated.button:hover .hidden.content {
-    left: 0;
-    right: auto;
-    opacity: 1;
-    transform: scale(1);
+  & when (@variationButtonAnimatedFade) {
+    /* Fade */
+    .ui.fade.animated.button .visible.content,
+    .ui.fade.animated.button .hidden.content {
+      transition: opacity @animationDuration @animationEasing, transform @animationDuration @animationEasing;
+    }
+    .ui.fade.animated.button .visible.content {
+      left: auto;
+      right: auto;
+      opacity: 1;
+      transform: scale(1);
+    }
+    .ui.fade.animated.button .hidden.content {
+      opacity: 0;
+      left: 0;
+      right: auto;
+      transform: scale(@fadeScaleHigh);
+    }
+    .ui.fade.animated.button:focus .visible.content,
+    .ui.fade.animated.button:hover .visible.content {
+      left: auto;
+      right: auto;
+      opacity: 0;
+      transform: scale(@fadeScaleLow);
+    }
+    .ui.fade.animated.button:focus .hidden.content,
+    .ui.fade.animated.button:hover .hidden.content {
+      left: 0;
+      right: auto;
+      opacity: 1;
+      transform: scale(1);
+    }
   }
 }
 
@@ -332,20 +340,23 @@
     text-shadow: none !important;
   }
 
-  /* Group */
-  .ui.inverted.buttons .button {
-    margin: @invertedGroupButtonOffset;
+  & when (@variationButtonGroups) {
+    /* Group */
+    .ui.inverted.buttons .button {
+      margin: @invertedGroupButtonOffset;
+    }
+    .ui.inverted.buttons .button:first-child {
+      margin-left: 0;
+    }
+    & when (@variationButtonVertical) {
+      .ui.inverted.vertical.buttons .button {
+        margin: @invertedVerticalGroupButtonOffset;
+      }
+      .ui.inverted.vertical.buttons .button:first-child {
+        margin-top: 0;
+      }
+    }
   }
-  .ui.inverted.buttons .button:first-child {
-    margin-left: 0;
-  }
-  .ui.inverted.vertical.buttons .button {
-    margin: @invertedVerticalGroupButtonOffset;
-  }
-  .ui.inverted.vertical.buttons .button:first-child {
-    margin-top: 0;
-  }
-
   /* States */
 
   /* Hover */
@@ -398,7 +409,7 @@
   }
 
   /* Tag */
-  .ui.labeled.button > .tag.label:before {
+  .ui.labeled.button > .tag.label::before {
     width: @labeledTagLabelSize;
     height: @labeledTagLabelSize;
   }
@@ -748,8 +759,10 @@
     vertical-align: top;
   }
 }
-.ui.animated.button > .content > .icon {
-  vertical-align: top;
+& when (@variationButtonAnimated) {
+  .ui.animated.button > .content > .icon {
+    vertical-align: top;
+  }
 }
 
 & when (@variationButtonBasic) {
@@ -767,15 +780,17 @@
     text-shadow: none !important;
     box-shadow: @basicBoxShadow;
   }
+  & when (@variationButtonGroups) {
+    .ui.basic.buttons {
+      box-shadow: @basicGroupBoxShadow;
+      border: @basicGroupBorder;
+      border-radius: @borderRadius;
+      border-right: none;
+    }
 
-  .ui.basic.buttons {
-    box-shadow: @basicGroupBoxShadow;
-    border: @basicGroupBorder;
-    border-radius: @borderRadius;
-  }
-
-  .ui.basic.buttons .button {
-    border-radius: 0;
+    .ui.basic.buttons .button {
+      border-radius: 0;
+    }
   }
 
   .ui.basic.buttons .button:hover,
@@ -810,18 +825,19 @@
   .ui.basic.active.button:hover {
     background-color: @transparentBlack;
   }
+  & when (@variationButtonGroups) {
 
-  /* Vertical */
-  .ui.basic.buttons .button:hover {
-    box-shadow: @basicHoverBoxShadow inset;
-  }
+    .ui.basic.buttons .button:hover {
+      box-shadow: @basicHoverBoxShadow inset;
+    }
 
-  .ui.basic.buttons .button:active {
-    box-shadow: @basicDownBoxShadow inset;
-  }
+    .ui.basic.buttons .button:active {
+      box-shadow: @basicDownBoxShadow inset;
+    }
 
-  .ui.basic.buttons .active.button {
-    box-shadow: @basicActiveBoxShadow;
+    .ui.basic.buttons .active.button {
+      box-shadow: @basicActiveBoxShadow;
+    }
   }
   & when (@variationButtonInverted) {
     /* Standard Basic Inverted */
@@ -867,21 +883,23 @@
     }
   }
 
-  & when (@variationButtonBasic) {
+  & when (@variationButtonGroups) {
     /* Basic Group */
-    .ui.basic.buttons .button {
-      border-left: @basicGroupBorder;
+    .ui.basic.buttons:not(.inverted) .button:not(.basic) {
+      border-right: @basicGroupBorder;
       box-shadow: none;
     }
 
-    .ui.basic.vertical.buttons .button {
-      border-left: none;
-      border-left-width: 0;
-      border-top: @basicGroupBorder;
-    }
+    & when (@variationButtonVertical) {
+      .ui.basic.vertical.buttons .button {
+        border-left: none;
+        border-left-width: 0;
+        border-top: @basicGroupBorder;
+      }
 
-    .ui.basic.vertical.buttons .button:first-child {
-      border-top-width: 0;
+      .ui.basic.vertical.buttons:not(.spaced) .button:first-child {
+        border-top: none;
+      }
     }
   }
 }
@@ -1023,10 +1041,10 @@
   }
 
 
-  .ui.labeled.icon.buttons > .button > .icon:before,
-  .ui.labeled.icon.button > .icon:before,
-  .ui.labeled.icon.buttons > .button > .icon:after,
-  .ui.labeled.icon.button > .icon:after {
+  .ui.labeled.icon.buttons > .button > .icon::before,
+  .ui.labeled.icon.button > .icon::before,
+  .ui.labeled.icon.buttons > .button > .icon::after,
+  .ui.labeled.icon.button > .icon::after {
     display: block;
     position: relative;
     width: 100%;
@@ -1059,7 +1077,7 @@
   }
 
   /* Loading Icon in Labeled Button */
-  .ui.labeled.icon.button > .loading.icon:before {
+  .ui.labeled.icon.button > .loading.icon::before {
     animation: loader 2s linear infinite;
   }
 }
@@ -1113,7 +1131,7 @@
     z-index: @orZIndex;
   }
 
-  .ui.buttons .or:before {
+  .ui.buttons .or::before {
     position: absolute;
     text-align: center;
     border-radius: @circularRadius;
@@ -1139,7 +1157,7 @@
     box-shadow: @orBoxShadow;
   }
 
-  .ui.buttons .or[data-text]:before {
+  .ui.buttons .or[data-text]::before {
     content: attr(data-text);
   }
 
@@ -1148,7 +1166,7 @@
     width: 0 !important;
   }
 
-  .ui.fluid.buttons .or:after {
+  .ui.fluid.buttons .or::after {
     display: none;
   }
 
@@ -1220,7 +1238,7 @@
 
   /* Top / Bottom */
   .ui[class*="top attached"].buttons {
-    margin-bottom: @attachedOffset;
+    margin-bottom: @topAttachedOffset;
     border-radius: @borderRadius @borderRadius 0 0;
   }
 
@@ -1233,7 +1251,7 @@
   }
 
   .ui[class*="bottom attached"].buttons {
-    margin-top: @attachedOffset;
+    margin-top: @bottomAttachedOffset;
     border-radius: 0 0 @borderRadius @borderRadius;
   }
 
@@ -1538,10 +1556,6 @@
       .ui.basic.@{color}.button:active {
         box-shadow: 0 0 0 @basicColoredBorderSize @d inset;
         color: @d;
-      }
-
-      .ui.buttons:not(.vertical) > .basic.@{color}.button:not(:first-child) {
-        margin-left: -@basicColoredBorderSize;
       }
     }
     & when (@variationButtonInverted) {
@@ -1856,7 +1870,7 @@
   }
 
   /* Clearfix */
-  .ui.buttons:after {
+  .ui.buttons::after {
     content: ".";
     display: block;
     height: 0;
@@ -1898,8 +1912,10 @@
       float: none;
       width: 100%;
       margin: @verticalGroupOffset;
-      box-shadow: @verticalBoxShadow;
       border-radius: 0;
+      &:not(.basic) {
+        box-shadow: @verticalBoxShadow;
+      }
     }
 
     .ui.vertical.buttons .button:first-child {
@@ -1915,6 +1931,119 @@
 
     .ui.vertical.buttons .button:only-child {
       border-radius: @borderRadius;
+    }
+    & when (@variationButtonBasic) {
+      .ui.vertical.buttons .basic.button:not(:first-child) {
+        border-top: none;
+      }
+    }
+  }
+
+  & when (@variationButtonWrapping) {
+    .ui.wrapping.buttons {
+      flex-wrap: wrap;
+    }
+    & when (@variationButtonBasic) {
+      .ui.wrapping.basic.buttons {
+        border-bottom: none;
+        & .button {
+          border-bottom: @basicGroupBorder;
+          &:hover {
+            background: transparent !important;
+          }
+        }
+      }
+    }
+    & when (@variationButtonCompact) {
+      .ui.compact.wrapping.buttons .button {
+        flex: none;
+      }
+    }
+  }
+  & when (@variationButtonWrapped) {
+    .ui.wrapped.buttons:not(.spaced) {
+      border-top-right-radius: 0;
+      & .button {
+        &:first-child {
+          border-radius: @basicBorderRadius 0 0 0;
+        }
+        &:last-child {
+          border-radius: 0 0 @basicBorderRadius 0;
+        }
+      }
+    }
+    & when (@variationButtonAttached) {
+      .ui.wrapped[class*="top attached"].buttons {
+        border-radius: @basicBorderRadius 0 0 0;
+        & .button:last-child {
+          border-radius: 0;
+        }
+      }
+      .ui.wrapped[class*="bottom attached"].buttons {
+        border-radius: 0 0 0 @basicBorderRadius;
+        & .button:first-child {
+          border-radius: 0;
+        }
+      }
+    }
+  }
+  & when (@variationButtonSpaced) {
+    .ui.spaced.buttons .ui.button {
+      margin-bottom: @spacedMargin;
+      margin-right: @spacedMargin;
+      border-radius: @basicBorderRadius;
+    }
+    & when (@variationButtonBasic) {
+      .ui.spaced.basic.buttons {
+        border: none;
+        & .button {
+          border: @basicGroupBorder;
+          &.basic {
+            border: none;
+          }
+        }
+      }
+      & when (@variationButtonVertical) {
+        .ui.spaced.basic.vertical.buttons .button:first-child {
+          border-top: @basicGroupBorder;
+        }
+      }
+      & when (@variationButtonWrapping) {
+        .ui.spaced.basic.wrapping.buttons .button:not(.basic) {
+          border-top: @basicGroupBorder;
+          border-right: @basicGroupBorder;
+          &:first-child {
+            border-left: @basicGroupBorder;
+          }
+        }
+      }
+      & when (@variationButtonInverted) {
+        .ui.spaced.basic.inverted.buttons .basic.button {
+          margin-bottom: e(%("calc(%d + %d)", @spacedMargin, @basicColoredBorderSize));
+          margin-top: @basicColoredBorderSize;
+        }
+      }
+    }
+  }
+
+  & when (@variationButtonBasic) {
+    .ui.basic.buttons:not(.vertical).inverted .button,
+    .ui.basic.buttons:not(.vertical) .basic.button {
+      margin-left: -@basicColoredBorderSize;
+      border-right: none;
+    }
+    .ui.basic.buttons:not(.vertical):not(.spaced):not(.inverted) .basic.button {
+      margin-top: -@basicColoredBorderSize;
+      border-bottom: none;
+    }
+    & when (@variationButtonAttached) or (@variationButtonInverted) {
+      .ui.inverted.basic.buttons:not(.spaced) .button,
+      .ui.attached.basic.buttons:not(.wrapping):not(.inverted) .basic.button {
+        margin-bottom: @attachedOffset;
+      }
+    }
+    .ui.basic.buttons:not(.vertical):not(.attached):not(.spaced):not(.wrapping):not(.inverted) .basic.button {
+      margin-bottom: -@basicColoredBorderSize;
     }
   }
 }

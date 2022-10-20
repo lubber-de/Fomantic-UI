@@ -1,10 +1,10 @@
 /*!
  * # Fomantic-UI - Calendar
- * http://github.com/fomantic/Fomantic-UI/
+ * https://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
- * http://opensource.org/licenses/MIT
+ * https://opensource.org/licenses/MIT
  *
  */
 
@@ -169,6 +169,26 @@
   .ui.inverted.calendar .ui.inverted.table tr .adjacent:not(.disabled):not(.active) {
     color: @adjacentInvertedTextColor;
     background: @adjacentInvertedBackground;
+  }
+}
+
+& when (@variationCalendarMultiMonth) {
+  .ui.calendar.popup > .ui.ui.grid {
+    margin: @multiMonthMargin;
+    & > .column:not(:first-child) {
+      padding-left: @multiMonthPadding;
+      & > .ui.table {
+        border-top-left-radius:0;
+        border-bottom-left-radius:0;
+      }
+    }
+    & > .column:not(:last-child) {
+      padding-right:@multiMonthPadding;
+      & > .ui.table {
+        border-top-right-radius:0;
+        border-bottom-right-radius:0;
+      }
+    }
   }
 }
 
