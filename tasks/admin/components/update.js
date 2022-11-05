@@ -16,7 +16,7 @@ var
   gulp           = require('gulp'),
 
   // node dependencies
-  console        = require('better-console'),
+  console        = require('@fomantic/better-console'),
   fs             = require('fs'),
   path           = require('path'),
   git            = require('gulp-git'),

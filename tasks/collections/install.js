@@ -18,6 +18,6 @@ module.exports = function (gulp) {
   gulp.task('install').description = 'Runs set-up';
 
   gulp.task('check-install', checkInstall);
-  gulp.task('check-install').description = 'Displays current version of Semantic';
+  gulp.task('check-install').description = 'Displays current version of Fomantic';
 
 };

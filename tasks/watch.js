@@ -6,7 +6,7 @@ var
   gulp       = require('gulp'),
 
   // node dependencies
-  console    = require('better-console'),
+  console    = require('@fomantic/better-console'),
 
   // user config
   config     = require('./config/user'),
@@ -24,7 +24,7 @@ var
 module.exports = function () {
 
   if (!install.isSetup()) {
-    console.error('Cannot watch files. Run "gulp install" to set-up Semantic');
+    console.error('Cannot watch files. Run "gulp install" to set-up Fomantic');
     return;
   }
 

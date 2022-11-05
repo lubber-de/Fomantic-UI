@@ -6,12 +6,12 @@ const
   gulp       = require('gulp'),
 
   // node dependencies
-  console    = require('better-console'),
+  console    = require('@fomantic/better-console'),
 
   // gulp dependencies
   chmod      = require('gulp-chmod'),
   concat     = require('gulp-concat'),
-  dedupe     = require('gulp-dedupe'),
+  dedupe     = require('@fomantic/gulp-dedupe'),
   flatten    = require('gulp-flatten'),
   gulpif     = require('gulp-if'),
   header     = require('gulp-header'),
@@ -88,7 +88,7 @@ function pack(type, compress) {
 
 function buildJS(src, type, config, callback) {
   if (!install.isSetup()) {
-    console.error('Cannot build Javascript. Run "gulp install" to set-up Semantic');
+    console.error('Cannot build Javascript. Run "gulp install" to set-up Fomantic');
     callback();
     return;
   }
