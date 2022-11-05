@@ -6,13 +6,13 @@ const
   gulp         = require('gulp'),
 
   // node dependencies
-  console      = require('better-console'),
+  console      = require('@fomantic/better-console'),
 
   // gulp dependencies
   autoprefixer = require('gulp-autoprefixer'),
   chmod        = require('gulp-chmod'),
-  concatCSS    = require('gulp-concat-css'),
-  dedupe       = require('gulp-dedupe'),
+  concatCSS    = require('@fomantic/gulp-concat-css'),
+  dedupe       = require('@fomantic/gulp-dedupe'),
   flatten      = require('gulp-flatten'),
   gulpif       = require('gulp-if'),
   header       = require('gulp-header'),
@@ -120,7 +120,7 @@ function pack(type, compress) {
 
 function buildCSS(src, type, config, opts, callback) {
   if (!install.isSetup()) {
-    console.error('Cannot build CSS files. Run "gulp install" to set-up Semantic');
+    console.error('Cannot build CSS files. Run "gulp install" to set-up Fomantic');
     callback();
     return;
   }

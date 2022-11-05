@@ -18,7 +18,7 @@ var
   gulp           = require('gulp'),
 
   // node dependencies
-  console        = require('better-console'),
+  console        = require('@fomantic/better-console'),
   extend         = require('extend'),
   fs             = require('fs'),
   mkdirp         = require('mkdirp'),

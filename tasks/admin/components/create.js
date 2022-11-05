@@ -173,7 +173,7 @@ module.exports = function(callback) {
           .pipe(flatten())
           .pipe(jsonEditor(function(bower) {
             bower.name = packageName;
-            bower.description = capitalizedComponent + ' - Semantic UI';
+            bower.description = capitalizedComponent + ' - Fomantic UI';
             if(isJavascript) {
               if(isCSS) {
                 bower.main = [

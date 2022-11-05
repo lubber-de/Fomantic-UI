@@ -5,7 +5,7 @@ var
   gulp        = require('gulp'),
 
   // node dependencies
-  console     = require('better-console'),
+  console     = require('@fomantic/better-console'),
 
   // gulp dependencies
   print       = require('gulp-print').default,
