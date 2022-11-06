@@ -1,8 +1,27 @@
 var
+  browserslist = require('browserslist'),
   console = require('@fomantic/better-console'),
   config  = require('./user'),
   release = require('./project/release')
 ;
+
+var defaultBrowsers = browserslist(browserslist.defaults)
+var userBrowsers = browserslist()
+var hasBrowserslistConfig = JSON.stringify(defaultBrowsers) !== JSON.stringify(userBrowsers)
+
+var prefix = config.prefix || {}
+if(!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
+  prefix.overrideBrowserslist = [
+    'last 2 Chrome versions',
+    'last 2 Firefox versions',
+    'last 2 Safari versions',
+    'last 4 iOS major versions',
+    'last 4 Android major versions',
+    'last 4 ChromeAndroid versions',
+    'Edge 12',
+    'ie 11'
+  ]
+}
 
 // Node 12 does not support ??, so a little polyfill
 var nullish = (value,fallback) => {
@@ -127,7 +146,7 @@ module.exports = {
     },
 
     /* Browserslist Prefix config */
-    prefix: config.prefix || {},
+    prefix: prefix,
 
     /* File Renames */
     rename: {
