@@ -422,6 +422,18 @@ $.fn.calendar = function(parameters) {
                         }
                       }
                     }
+                  } else if (isEventCalendar){
+                    var eventDates = module.helper.findDayAsObject(cellDate, mode, settings.eventDates, true);
+                    var eL = eventDates.length;
+                    if (eventDates.length > 0) {
+                      cell.addClass(className.event);
+                      cell.html($('<div/>').addClass(className.eventHeader).text(cellText).appendTo(cell));
+                      for (var ei = 0; ei < eL; ei++) {
+                        if (eventDates[ei].message) {
+                          $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message).appendTo(cell);
+                        }
+                      }
+                    }
                   } else {
                     eventDate = module.helper.findDayAsObject(cellDate, mode, settings.eventDates);
                     if (eventDate !== null) {
@@ -1210,6 +1222,15 @@ $.fn.calendar = function(parameters) {
                     }
                   }
                 }
+                else if (d !== null && typeof d === 'object' && d[metadata.date] && module.helper.dateEqual(date,module.helper.sanitiseDate(d[metadata.date]), mode)  ) {
+                  if(!multiple) {
+                    return d;
+                  }
+                  foundDates.push(d);
+                }
+              }
+              if(multiple) {
+                return foundDates;
               }
             }
             return null;
