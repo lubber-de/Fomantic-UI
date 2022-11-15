@@ -198,10 +198,15 @@
 /*--------------------
         Cell Events
 ---------------------*/
+.ui.calendar td.event .labels {
+  display: inline-flex;
+  flex-direction: @eventLabelsFlexDirection;
+  width: 100%;
+}
 .ui.calendar td.event .label {
-  display:block;
-  max-width: max-content;
-  margin:auto;
+  max-width: @eventLabelsMaxWidth;
+  margin: @eventLabelsMargin;
+  border-radius: @eventLabelsBorderRadius;
 }
 
 

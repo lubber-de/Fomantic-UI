@@ -23,3 +23,8 @@
 
 @multiMonthMargin: -1rem;
 @multiMonthPadding: 0;
+
+@eventLabelsFlexDirection: column;
+@eventLabelsMaxWidth: none;
+@eventLabelsBorderRadius: 0;
+@eventLabelsMargin: 0 0 0.1em 0;

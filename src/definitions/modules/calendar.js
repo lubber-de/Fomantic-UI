@@ -413,12 +413,13 @@ $.fn.calendar = function(parameters) {
                   } else if (isEventCalendar){
                     var eventDates = module.helper.findDayAsObject(cellDate, mode, settings.eventDates, true);
                     var eL = eventDates.length;
-                    if (eventDates.length > 0) {
+                    if (eL > 0) {
                       cell.addClass(className.event);
-                      cell.html($('<div/>').addClass(className.eventHeader).text(cellText).appendTo(cell));
+                      cell.html($('<div/>').addClass(className.eventHeader).text(cellText));
+                      var $labels = $('<div/>').addClass(className.eventLabelGroup).appendTo(cell);
                       for (var ei = 0; ei < eL; ei++) {
                         if (eventDates[ei].message) {
-                          $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message).appendTo(cell);
+                          $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message).appendTo($labels);
                         }
                       }
                     }
@@ -1181,10 +1182,16 @@ $.fn.calendar = function(parameters) {
                 else if (d !== null && typeof d === 'object') {
                   if (d[metadata.year]) {
                     if (typeof d[metadata.year] === 'number' && date.getFullYear() == d[metadata.year]) {
-                      return d;
+                      if(!multiple) {
+                        return d;
+                      }
+                      foundDates.push(d);
                     } else if (Array.isArray(d[metadata.year])) {
                       if (d[metadata.year].indexOf(date.getFullYear()) > -1) {
-                        return d;
+                        if(!multiple) {
+                          return d;
+                        }
+                        foundDates.push(d);
                       }
                     }
                   } else if (d[metadata.month]) {
@@ -1192,29 +1199,35 @@ $.fn.calendar = function(parameters) {
                       return d;
                     } else if (Array.isArray(d[metadata.month])) {
                       if (d[metadata.month].indexOf(date.getMonth()) > -1) {
-                        return d;
+                        if(!multiple) {
+                          return d;
+                        }
+                        foundDates.push(d);
                       }
                     } else if (d[metadata.month] instanceof Date) {
                       var sdate = module.helper.sanitiseDate(d[metadata.month]);
                       if ((date.getMonth() == sdate.getMonth()) && (date.getFullYear() == sdate.getFullYear())) {
-                        return d;
+                        if(!multiple) {
+                          return d;
+                        }
+                        foundDates.push(d);
                       }
                     }
                   } else if (d[metadata.date] && mode === 'day') {
                     if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode)) {
-                      return d;
+                      if(!multiple) {
+                        return d;
+                      }
+                      foundDates.push(d);
                     } else if (Array.isArray(d[metadata.date])) {
                       if(d[metadata.date].some(function(idate) { return module.helper.dateEqual(date, idate, mode); })) {
-                        return d;
+                        if(!multiple) {
+                          return d;
+                        }
+                        foundDates.push(d);
                       }
                     }
                   }
-                }
-                else if (d !== null && typeof d === 'object' && d[metadata.date] && module.helper.dateEqual(date,module.helper.sanitiseDate(d[metadata.date]), mode)  ) {
-                  if(!multiple) {
-                    return d;
-                  }
-                  foundDates.push(d);
                 }
               }
               if(multiple) {
@@ -1906,6 +1919,7 @@ $.fn.calendar.settings = {
     event: 'event',
     eventHeader: 'ui small header',
     eventLabel: 'ui tiny label',
+    eventLabelGroup: 'ui labels',
     disabledCell: 'disabled',
     weekCell: 'disabled',
     adjacentCell: 'adjacent',
@@ -1939,7 +1953,7 @@ $.fn.calendar.settings = {
   },
 
   eventClass: 'blue',
-  eventMessage: ''
+  eventMessage: 'aaa'
 };
 
 })(jQuery, window, document);
