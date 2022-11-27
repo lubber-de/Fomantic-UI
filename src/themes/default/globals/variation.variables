@@ -152,6 +152,7 @@
 @variationLabelBasic: true;
 @variationLabelAttached: true;
 @variationLabelFluid: true;
+@variationLabelCentered: true;
 @variationLabelSizes: @variationAllSizes;
 @variationLabelColors: @variationAllColors;
 
@@ -477,6 +478,7 @@
 @variationStatisticFloated: true;
 @variationStatisticHorizontal: true;
 @variationStatisticEqualWidth: true;
+@variationStatisticFluid: true;
 @variationStatisticSizes: @variationAllSizes;
 @variationStatisticColors: @variationAllColors;
 
@@ -609,6 +611,7 @@
 @variationPopupFluid: true;
 @variationPopupFlowing: true;
 @variationPopupFixed: true;
+@variationPopupMultiline: true;
 @variationPopupSizes: @variationAllSizes;
 @variationPopupColors: @variationAllColors;
 

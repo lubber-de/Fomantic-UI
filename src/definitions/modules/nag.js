@@ -12,9 +12,9 @@
 
 'use strict';
 
-$.isFunction = $.isFunction || function(obj) {
+function isFunction(obj) {
   return typeof obj === "function" && typeof obj.nodeType !== "number";
-};
+}
 
 window = (typeof window != 'undefined' && window.Math == Math)
   ? window
@@ -65,6 +65,9 @@ $.fn.nag = function(parameters) {
 
         initialize: function() {
           module.verbose('Initializing element');
+          if(typeof settings.value !== 'string') {
+            settings.value = JSON.stringify(settings.value);
+          }
           storage = module.get.storage();
           $module
             .on('click' + eventNamespace, selector.close, module.dismiss)
@@ -432,7 +435,7 @@ $.fn.nag = function(parameters) {
               }
             });
           }
-          if ( $.isFunction( found ) ) {
+          if ( isFunction( found ) ) {
             response = found.apply(context, passedArguments);
           }
           else if(found !== undefined) {
@@ -550,8 +553,8 @@ $.fn.nag.settings = {
 
 // Adds easing
 $.extend( $.easing, {
-  easeOutQuad: function (x, t, b, c, d) {
-    return -c *(t/=d)*(t-2) + b;
+  easeOutQuad: function (x) {
+    return 1 - (1 - x) * (1 - x);
   }
 });
 
