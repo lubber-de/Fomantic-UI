@@ -12,9 +12,12 @@
 
 'use strict';
 
-$.isWindow = $.isWindow || function(obj) {
-  return obj != null && obj === obj.window;
-};
+  function isWindow(obj) {
+    return obj != null && obj === obj.window;
+  }
+  function isFunction(obj) {
+    return typeof obj === "function" && typeof obj.nodeType !== "number";
+  }
 
   window = (typeof window != 'undefined' && window.Math == Math)
     ? window
@@ -27,7 +30,7 @@ $.api = $.fn.api = function(parameters) {
 
   var
     // use window context if none specified
-    $allModules     = $.isFunction(this)
+    $allModules     = isFunction(this)
         ? $(window)
         : $(this),
     moduleSelector = $allModules.selector || '',
@@ -316,7 +319,7 @@ $.api = $.fn.api = function(parameters) {
             }
           },
           validResponse: function(response) {
-            if( (!module.is.expectingJSON()) || !$.isFunction(settings.successTest) ) {
+            if( (!module.is.expectingJSON()) || !isFunction(settings.successTest) ) {
               module.verbose('Response is not JSON, skipping validation', settings.successTest, response);
               return true;
             }
@@ -468,7 +471,9 @@ $.api = $.fn.api = function(parameters) {
                 } else {
                   pushValues[pushKey] = [pushValues[pushKey] , value];
                 }
-                value = pushValues[pushKey];
+                if(pushKey.indexOf('[]')===-1) {
+                  value = pushValues[pushKey];
+                }
 
                 while ((k = nameKeys.pop()) !== undefined) {
                   // foo[]
@@ -537,7 +542,7 @@ $.api = $.fn.api = function(parameters) {
                 context            = this,
                 elapsedTime        = (new Date().getTime() - requestStartTime),
                 timeLeft           = (settings.loadingDuration - elapsedTime),
-                translatedResponse = ( $.isFunction(settings.onResponse) )
+                translatedResponse = ( isFunction(settings.onResponse) )
                   ? module.is.expectingJSON() && !settings.rawResponse
                     ? settings.onResponse.call(context, $.extend(true, {}, response))
                     : settings.onResponse.call(context, response)
@@ -681,7 +686,7 @@ $.api = $.fn.api = function(parameters) {
             ;
 
             if(responder) {
-              if( $.isFunction(responder) ) {
+              if( isFunction(responder) ) {
                 module.debug('Using specified synchronous callback', responder);
                 response = responder.call(context, requestSettings);
               }
@@ -692,7 +697,7 @@ $.api = $.fn.api = function(parameters) {
               // simulating response
               mockedXHR.resolveWith(context, [ response, textStatus, { responseText: response }]);
             }
-            else if( $.isFunction(asyncResponder) ) {
+            else if( isFunction(asyncResponder) ) {
               asyncCallback = function(response) {
                 module.debug('Async callback returned response', response);
 
@@ -823,7 +828,7 @@ $.api = $.fn.api = function(parameters) {
             var
               data = {}
             ;
-            if( !$.isWindow(element) ) {
+            if( !isWindow(element) ) {
               if( module.is.input() ) {
                 data.value = $module.val();
               }
@@ -837,7 +842,7 @@ $.api = $.fn.api = function(parameters) {
             return data;
           },
           event: function() {
-            if( $.isWindow(element) || settings.on == 'now' ) {
+            if( isWindow(element) || settings.on == 'now' ) {
               module.debug('API called without element, no events attached');
               return false;
             }
@@ -1044,7 +1049,7 @@ $.api = $.fn.api = function(parameters) {
               }
             });
           }
-          if ( $.isFunction( found ) ) {
+          if ( isFunction( found ) ) {
             response = found.apply(context, passedArguments);
           }
           else if(found !== undefined) {
