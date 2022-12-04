@@ -9,8 +9,8 @@ var defaultBrowsers = browserslist(browserslist.defaults);
 var userBrowsers = browserslist();
 var hasBrowserslistConfig = JSON.stringify(defaultBrowsers) !== JSON.stringify(userBrowsers);
 
-var prefix = config.prefix || {}
-if(!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
+var prefix = config.prefix || {};
+if (!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
     prefix.overrideBrowserslist = [
         'last 2 Chrome versions',
         'last 2 Firefox versions',
@@ -20,7 +20,7 @@ if(!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
         'last 4 ChromeAndroid versions',
         'Edge 12',
         'ie 11',
-    ]
+    ];
 }
 
 // Node 12 does not support ??, so a little polyfill
@@ -144,7 +144,7 @@ module.exports = {
             },
         },
 
-    /* Browserslist Prefix config */
+        /* Browserslist Prefix config */
         prefix: prefix,
 
         /* File Renames */
