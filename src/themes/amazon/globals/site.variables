@@ -2,13 +2,14 @@
      User Global Variables
 *******************************/
 
-@pageMinWidth  : 1049px;
+@pageMinWidth : 1049px;
 @pageOverflowX : visible;
 
 @emSize: 13px;
 @fontSize : 13px;
 @fontName : 'Arial';
 @importGoogleFonts : false;
+@importFonts: false;
 
 @h1: 2.25em;
 
@@ -37,7 +38,6 @@
 @blue: #80A6CD;
 @green: #60B044;
 @orange: #D26911;
-
 
 @infoBackgroundColor: #E6F1F6;
 @infoTextColor: #4E575B;
