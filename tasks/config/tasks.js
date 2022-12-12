@@ -1,13 +1,13 @@
-var
+let
     browserslist = require('browserslist'),
     console = require('@fomantic/better-console'),
     config  = require('./user'),
     release = require('./project/release')
 ;
 
-var defaultBrowsers = browserslist(browserslist.defaults);
-var userBrowsers = browserslist();
-var hasBrowserslistConfig = JSON.stringify(defaultBrowsers) !== JSON.stringify(userBrowsers);
+let defaultBrowsers = browserslist(browserslist.defaults);
+let userBrowsers = browserslist();
+let hasBrowserslistConfig = JSON.stringify(defaultBrowsers) !== JSON.stringify(userBrowsers);
 
 var prefix = config.prefix || {};
 if (!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
@@ -24,9 +24,7 @@ if (!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
 }
 
 // Node 12 does not support ??, so a little polyfill
-var nullish = (value, fallback) => {
-    return value !== undefined && value !== null ? value : fallback;
-};
+let nullish = (value, fallback) => (value !== undefined && value !== null ? value : fallback);
 
 module.exports = {
 
@@ -61,32 +59,32 @@ module.exports = {
 
             // remove all comments from config files (.variable)
             variables: {
-                in: /(\/\*[\s\S]+?\*\/+)[\s\S]+?\/\* End Config \*\//,
+                in: /(\/\*[\S\s]+?\*\/+)[\S\s]+?\/\* End Config \*\//,
                 out: '$1',
             },
 
             // add version to first comment
             license: {
-                in: /(^\/\*[\s\S]+)(# Fomantic-UI )([\s\S]+?\*\/)/,
+                in: /(^\/\*[\S\s]+)(# Fomantic-UI )([\S\s]+?\*\/)/,
                 out: '$1$2' + release.version + ' $3',
             },
 
             // adds uniform spacing around comments
             large: {
-                in: /(\/\*\*\*\*[\s\S]+?\*\/)/mg,
+                in: /(\/\*{4}[\S\s]+?\*\/)/gm,
                 out: '\n\n$1\n',
             },
             small: {
-                in: /(\/\*---[\s\S]+?\*\/)/mg,
+                in: /(\/\*---[\S\s]+?\*\/)/gm,
                 out: '\n$1\n',
             },
             tiny: {
-                in: /(\/\* [\s\S]+? \*\/)/mg,
+                in: /(\/\* [\S\s]+? \*\/)/gm,
                 out: '\n$1',
             },
         },
 
-        theme: /.*(\/|\\)themes(\/|\\).*?(?=(\/|\\))/mg,
+        theme: /.*(\/|\\)themes(\/|\\).*?(?=(\/|\\))/gm,
 
     },
 
@@ -113,20 +111,20 @@ module.exports = {
         plumber: {
             less: {
                 errorHandler: function (error) {
-                    var
+                    let
                         regExp = {
                             variable: /@(\S.*?)\s/,
-                            theme: /themes[\/\\]+(.*?)[\/\\].*/,
-                            element: /[\/\\]([^\/\\*]*)\.overrides/,
+                            theme: /themes[/\\]+(.*?)[/\\].*/,
+                            element: /[/\\]([^*/\\]*)\.overrides/,
                         },
                         theme,
                         element
                     ;
-                    if (error && error.filename && error.filename.match(/theme.less/)) {
+                    if (error && error.filename && /theme.less/.test(error.filename)) {
                         if (error.line == 9) {
                             element = regExp.variable.exec(error.message)[1];
                             if (element) {
-                                console.error('Missing theme.config value for ', element);
+                                console.error('Missing theme.config value for', element);
                             }
                             console.error('Most likely new UI was added in an update. You will need to add missing elements from theme.config.example');
                         } else if (error.line == 84) {
