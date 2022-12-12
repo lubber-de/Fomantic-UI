@@ -321,10 +321,10 @@
      Breakpoints
 -------------------- */
 
-@mobileBreakpointRaw            : 320px;
-@tabletBreakpointRaw            : 768px;
-@computerBreakpointRaw          : 992px;
-@largeMonitorBreakpointRaw      : 1200px;
+@mobileBreakpointRaw : 320px;
+@tabletBreakpointRaw : 768px;
+@computerBreakpointRaw : 992px;
+@largeMonitorBreakpointRaw : 1200px;
 @widescreenMonitorBreakpointRaw : 1920px;
 @mobileBreakpoint : unit((@mobileBreakpointRaw / @emSize),em);
 @tabletBreakpoint : unit((@tabletBreakpointRaw / @emSize),em);
