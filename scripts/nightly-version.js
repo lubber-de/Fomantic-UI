@@ -4,8 +4,8 @@ const path = require('path');
 const childProcess = require('child_process');
 
 // npm
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const semver = require('semver')
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args)); // eslint-disable-line import/no-extraneous-dependencies
+const semver = require('semver'); // eslint-disable-line import/no-extraneous-dependencies
 const actions = require('@actions/core');
 
 // pkg
