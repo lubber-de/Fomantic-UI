@@ -8,8 +8,8 @@
 @borderRadius: @defaultBorderRadius;
 @transformOrigin: 50% 25%;
 @boxShadow:
-  1px 3px 3px 0 rgba(0, 0, 0, 0.2),
-  1px 3px 15px 2px rgba(0, 0, 0, 0.2)
+    1px 3px 3px 0 rgba(0, 0, 0, 0.2),
+    1px 3px 15px 2px rgba(0, 0, 0, 0.2)
 ;
 
 /* Close Icon */
@@ -25,10 +25,10 @@
 @closeTop: -(@closeDistance + @closeHitbox);
 @closeRight: -(@closeDistance + @closeHitbox);
 @closeShadow:
-  -1px -1px 2px rgba(0, 0, 0, 0.3),
-  1px -1px 2px rgba(0, 0, 0, 0.3),
-  -1px 2px 2px rgba(0, 0, 0, 0.3),
-  1px 2px 2px rgba(0, 0, 0, 0.3)
+    -1px -1px 2px rgba(0, 0, 0, 0.3),
+    1px -1px 2px rgba(0, 0, 0, 0.3),
+    -1px 2px 2px rgba(0, 0, 0, 0.3),
+    1px 2px 2px rgba(0, 0, 0, 0.3)
 ;
 
 /* Header */
@@ -48,15 +48,15 @@
 @contentFontSize: 1em;
 @contentPadding: 1.5rem;
 @contentLineHeight: 1.4;
-@contentBackground: #FFFFFF;
+@contentBackground: @white;
 
 /* Image / Description */
-@imageWidth: '';
+@imageWidth: "";
 @imageIconSize: 8rem;
 @imageVerticalAlign: start;
 
 @descriptionDistance: 2em;
-@descriptionMinWidth: '';
+@descriptionMinWidth: "";
 @descriptionWidth: auto;
 @descriptionVerticalAlign: start;
 
@@ -68,6 +68,7 @@
 
 @buttonDistance: 0.75em;
 @buttonCenteredDistance: 0.5em;
+@buttonLeftDistance: @buttonCenteredDistance;
 
 /* Inner Close Position (Tablet/Mobile) */
 @innerCloseTop: (@headerVerticalPadding - @closeHitBoxOffset + (@lineHeight - 1em));
@@ -78,7 +79,7 @@
 @mobileHeaderPadding: 0.75rem 1rem;
 @mobileContentPadding: 1rem;
 @mobileImagePadding: 0 0 1rem;
-@mobileDescriptionPadding: 1rem 0 ;
+@mobileDescriptionPadding: 1rem 0;
 @mobileButtonDistance: 1rem;
 @mobileActionPadding: 1rem 1rem (1rem - @mobileButtonDistance);
 @mobileImageIconSize: 5rem;
@@ -105,15 +106,15 @@
 /* Coupling */
 @invertedBoxShadow: 1px 3px 10px 2px rgba(0, 0, 0, 0.2);
 
-/*-------------------
+/* -------------------
        States
---------------------*/
+-------------------- */
 
 @loadingZIndex: -1;
 
-/*-------------------
+/* -------------------
         Types
---------------------*/
+-------------------- */
 
 /* Basic */
 @basicModalHeaderColor: @white;
@@ -140,9 +141,9 @@
 @overlayFullscreenScrollingContentMaxHeight: calc(100vh - 9.1rem);
 @overlayFullscreenScrollingContentMaxHeightMobile: calc(100vh - 8.1rem);
 
-/*-------------------
+/* -------------------
       Variations
---------------------*/
+-------------------- */
 
 /* Size Widths */
 @miniRatio: 0.4;
@@ -245,20 +246,20 @@
 @massiveLargeMonitorMargin: 0 0 0 0;
 @massiveWidescreenMonitorMargin: 0 0 0 0;
 
-/*-------------------
+/* -------------------
       Inverted
---------------------*/
-@invertedBackground: rgba(0,0,0,.9);
+-------------------- */
+@invertedBackground: @fullBlack;
 @invertedCloseColor: @white;
 @invertedHeaderColor: @white;
 @invertedHeaderBackgroundColor: @darkTextColor;
-@invertedActionBackground: #191A1B;
+@invertedActionBackground: #191a1b;
 @invertedActionBorder: 1px solid rgba(34, 36, 38, 0.85);
 @invertedActionColor: @white;
-@invertedDimmerCloseColor: rgba(0,0,0,.85);
+@invertedDimmerCloseColor: rgba(0, 0, 0, 0.85);
 @invertedCloseShadow:
-  -1px -1px 2px rgba(255, 255, 255, 0.3),
-  1px -1px 2px rgba(255, 255, 255, 0.3),
-  -1px 2px 2px rgba(255, 255, 255, 0.3),
-  1px 2px 2px rgba(255, 255, 255, 0.3)
+    -1px -1px 2px rgba(255, 255, 255, 0.3),
+    1px -1px 2px rgba(255, 255, 255, 0.3),
+    -1px 2px 2px rgba(255, 255, 255, 0.3),
+    1px 2px 2px rgba(255, 255, 255, 0.3)
 ;

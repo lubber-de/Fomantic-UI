@@ -2,9 +2,9 @@
              Card
 *******************************/
 
-/*-------------------
+/* -------------------
          View
---------------------*/
+-------------------- */
 
 /* Shadow */
 @shadowDistance: 1px;
@@ -22,14 +22,14 @@
 @borderWidth: 1px;
 @borderShadow: 0 0 0 @borderWidth @solidBorderColor;
 @boxShadow:
-  @shadowBoxShadow,
-  @borderShadow
+    @shadowBoxShadow,
+    @borderShadow
 ;
 @border: none;
-@zIndex: '';
+@zIndex: "";
 @transition:
-  box-shadow @defaultDuration @defaultEasing,
-  transform @defaultDuration @defaultEasing
+    box-shadow @defaultDuration @defaultEasing,
+    transform @defaultDuration @defaultEasing
 ;
 
 /* Card Group */
@@ -46,10 +46,9 @@
 /* Consecutive Cards */
 @consecutiveGroupDistance: (@rowSpacing / 2);
 
-/*-------------------
+/* -------------------
        Content
---------------------*/
-
+-------------------- */
 
 /* Image */
 @imageBackground: @transparentBlack;
@@ -68,9 +67,8 @@
 @contentBoxShadow: none;
 @contentBorder: none;
 
-
 /* Header */
-@headerMargin: '';
+@headerMargin: "";
 @headerFontWeight: @bold;
 @headerFontSize: @relativeBig;
 @headerLineHeightOffset: (-(@lineHeight - 1em) / 2);
@@ -86,15 +84,15 @@
 @actionHoverOpacity: 1;
 @actionTransition: color @defaultDuration @defaultEasing;
 
-@starColor: #FFB70A;
-@starActiveColor: #FFE623;
+@starColor: #ffb70a;
+@starActiveColor: #ffe623;
 
-@likeColor: #FF2733;
-@likeActiveColor: #FF2733;
+@likeColor: #ff2733;
+@likeActiveColor: #ff2733;
 
 /* Links */
-@contentLinkColor: '';
-@contentLinkHoverColor: '';
+@contentLinkColor: "";
+@contentLinkHoverColor: "";
 @contentLinkTransition: color @defaultDuration @defaultEasing;
 
 @headerLinkColor: @headerColor;
@@ -108,7 +106,7 @@
 @descriptionColor: rgba(0, 0, 0, 0.68);
 
 /* Content Image */
-@contentImageWidth: '';
+@contentImageWidth: "";
 @contentImageVerticalAlign: middle;
 
 /* Avatar Image */
@@ -120,7 +118,7 @@
 
 /* Dimmer */
 @dimmerZIndex: 10;
-@dimmerColor: '';
+@dimmerColor: "";
 
 /* Additional Content */
 @extraDivider: 1px solid rgba(0, 0, 0, 0.05);
@@ -149,16 +147,16 @@
 
 /* Loading Dimmer */
 @loaderDimmerColor: rgba(255, 255, 255, 0.8);
-@loaderInvertedDimmerColor: rgba(0, 0, 0 , 0.85);
+@loaderInvertedDimmerColor: rgba(0, 0, 0, 0.85);
 @loaderDimmerZIndex: 100;
 
 /* Loading Spinner */
 @loaderSize: 3em;
 @loaderLineZIndex: 101;
 
-/*-------------------
+/* -------------------
       Variations
---------------------*/
+-------------------- */
 
 /* Link */
 @linkHoverBackground: @white;
@@ -169,8 +167,8 @@
 
 @shadowHoverBoxShadow: 0 @shadowDistance @linkHoverRaiseDistance 0 @solidSelectedBorderColor;
 @linkHoverBoxShadow:
-  @shadowHoverBoxShadow,
-  @borderShadow
+    @shadowHoverBoxShadow,
+    @borderShadow
 ;
 
 /* Horizontal */
@@ -180,12 +178,20 @@
 
 /* Raised */
 @raisedShadow:
-  @borderShadow,
-  @floatingShadow
+    @borderShadow,
+    @floatingShadow
 ;
 @raisedShadowHover:
-  @borderShadow,
-  @floatingShadowHover
+    @borderShadow,
+    @floatingShadowHover
+;
+
+/* Basic Raised */
+@basicRaisedShadow:
+    @floatingShadow
+;
+@basicRaisedShadowHover:
+    @floatingShadowHover
 ;
 
 /* Card Count */
@@ -251,6 +257,6 @@
 @invertedExtraDivider: 1px solid rgba(255, 255, 255, 0.15);
 @invertedLinkHoverBackground: @black;
 @invertedBoxShadow:
-  0 @shadowDistance 3px 0 @solidWhiteBorderColor,
-  0 0 0 @borderWidth @solidWhiteBorderColor
+    0 @shadowDistance 3px 0 @solidWhiteBorderColor,
+    0 0 0 @borderWidth @solidWhiteBorderColor
 ;
