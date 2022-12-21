@@ -313,16 +313,16 @@
      Breakpoints
 -------------------- */
 
-@mobileBreakpointRaw : 320px;
-@tabletBreakpointRaw : 768px;
-@computerBreakpointRaw : 992px;
-@largeMonitorBreakpointRaw : 1200px;
-@widescreenMonitorBreakpointRaw : 1920px;
-@mobileBreakpoint: unit((@mobileBreakpointRaw / @emSize),em);
-@tabletBreakpoint: unit((@tabletBreakpointRaw / @emSize),em);
-@computerBreakpoint: unit((@computerBreakpointRaw  / @emSize),em);
-@largeMonitorBreakpoint: unit((@largeMonitorBreakpointRaw / @emSize),em);
-@widescreenMonitorBreakpoint: unit((@widescreenMonitorBreakpointRaw / @emSize),em);
+@mobileBreakpointRaw: 320px;
+@tabletBreakpointRaw: 768px;
+@computerBreakpointRaw: 992px;
+@largeMonitorBreakpointRaw: 1200px;
+@widescreenMonitorBreakpointRaw: 1920px;
+@mobileBreakpoint: unit((@mobileBreakpointRaw / @emSize), em);
+@tabletBreakpoint: unit((@tabletBreakpointRaw / @emSize), em);
+@computerBreakpoint: unit((@computerBreakpointRaw  / @emSize), em);
+@largeMonitorBreakpoint: unit((@largeMonitorBreakpointRaw / @emSize), em);
+@widescreenMonitorBreakpoint: unit((@widescreenMonitorBreakpointRaw / @emSize), em);
 
 /* -------------------
       Site Colors
@@ -838,7 +838,7 @@
 @headerMargin: @headerTopMargin 0 @headerBottomMargin;
 
 /* Minimum Mobile Width */
-@pageMinWidth: unit((320px / @emSize) ,em);
+@pageMinWidth: unit((320px / @emSize), em);
 
 /* Positive / Negative Dupes */
 @successBackgroundColor: @positiveBackgroundColor;
