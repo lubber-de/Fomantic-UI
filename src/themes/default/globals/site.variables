@@ -320,7 +320,7 @@
 @widescreenMonitorBreakpointRaw: 1920px;
 @mobileBreakpoint: unit((@mobileBreakpointRaw / @emSize), em);
 @tabletBreakpoint: unit((@tabletBreakpointRaw / @emSize), em);
-@computerBreakpoint: unit((@computerBreakpointRaw  / @emSize), em);
+@computerBreakpoint: unit((@computerBreakpointRaw / @emSize), em);
 @largeMonitorBreakpoint: unit((@largeMonitorBreakpointRaw / @emSize), em);
 @widescreenMonitorBreakpoint: unit((@widescreenMonitorBreakpointRaw / @emSize), em);
 
