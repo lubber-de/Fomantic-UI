@@ -205,7 +205,7 @@ module.exports = function (callback) {
                         if (version) {
                             npm.version = version;
                         }
-                        npm.title = 'Semantic UI - ' + capitalizedComponent;
+                        npm.title = 'Fomantic UI - ' + capitalizedComponent;
                         npm.description = 'Single component release of ' + component;
                         npm.repository = {
                             type: 'git',
