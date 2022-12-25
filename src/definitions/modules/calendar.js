@@ -460,7 +460,7 @@
                                             var $labels = $('<div/>').addClass(className.eventLabelGroup).appendTo(cell);
                                             for (var ei = 0; ei < eL; ei++) {
                                                 if (eventDates[ei].message) {
-                                                    $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message)
+                                                    $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class || settings.eventClass).text(eventDates[ei].message)
                                                         .appendTo($labels);
                                                 }
                                             }
@@ -1215,32 +1215,37 @@
 
                                 if (d[metadata.hours]) {
                                     if (typeof d[metadata.hours] === 'number') {
-                                        return blocked && date.getHours() == d[metadata.hours];
-                                    } if (Array.isArray(d[metadata.hours])) {
-                                        return blocked && d[metadata.hours].indexOf(date.getHours()) > -1;
+                                        blocked = blocked && date.getHours() === d[metadata.hours];
+                                    } else if (Array.isArray(d[metadata.hours])) {
+                                        blocked = blocked && d[metadata.hours].indexOf(date.getHours()) > -1;
                                     }
                                 }
                             }
+
+                            return blocked;
                         })));
                     },
                     isEnabled: function (date, mode) {
                         if (mode === 'day') {
                             return settings.enabledDates.length === 0 || settings.enabledDates.some(function (d) {
+                                var enabled = false;
+
                                 if (typeof d === 'string') {
                                     d = module.helper.sanitiseDate(d);
                                 }
                                 if (d instanceof Date) {
-                                    return module.helper.dateEqual(date, d, mode);
+                                    enabled = module.helper.dateEqual(date, d, mode);
+                                } else if (d !== null && typeof d === 'object' && d[metadata.date]) {
+                                    enabled = module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode);
                                 }
-                                if (d !== null && typeof d === 'object' && d[metadata.date]) {
-                                    return module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode);
-                                }
+
+                                return enabled;
                             });
                         }
 
                         return true;
                     },
-                    findDayAsObject: function (date, mode, dates) {
+                    findDayAsObject: function (date, mode, dates, multiple) {
                         if (mode === 'day' || mode === 'month' || mode === 'year') {
                             var d;
                             var foundDates = [],
@@ -1317,9 +1322,10 @@
 
                         return null;
                     },
-                    findHourAsObject: function (date, mode, hours) {
+                    findHourAsObject: function (date, mode, hours, multiple) {
                         if (mode === 'hour') {
-                            var d;
+                            var d,
+                                foundDates = [];
                             var hourCheck = function (date, d) {
                                 if (d[metadata.hours]) {
                                     if (typeof d[metadata.hours] === 'number' && date.getHours() == d[metadata.hours]) {
@@ -1375,7 +1381,9 @@
                         return date;
                     },
                     dateDiff: function (date1, date2, mode) {
-                        mode = mode || 'day';
+                        if (!mode) {
+                            mode = 'day';
+                        }
                         var isTimeOnly = settings.type === 'time';
                         var isYear = mode === 'year';
                         var isYearOrMonth = isYear || mode === 'month';
@@ -1425,8 +1433,8 @@
 
                         return !date ? date
                             : (minDate && module.helper.dateDiff(date, minDate, 'minute') > 0
-                                ? (isTimeOnly ? module.helper.mergeDateTime(date, minDate) : minDate)
-                                : maxDate && module.helper.dateDiff(maxDate, date, 'minute') > 0
+                                ? (isTimeOnly ? module.helper.mergeDateTime(date, minDate) : minDate) // eslint-disable-line unicorn/no-nested-ternary
+                                : maxDate && module.helper.dateDiff(maxDate, date, 'minute') > 0 // eslint-disable-line unicorn/no-nested-ternary
                                     ? (isTimeOnly ? module.helper.mergeDateTime(date, maxDate) : maxDate)
                                     : date);
                     },
