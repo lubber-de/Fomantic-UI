@@ -451,7 +451,7 @@
                                                 }
                                             }
                                         }
-                                    } else if (isEventCalendar){
+                                    } else if (isEventCalendar) {
                                         var eventDates = module.helper.findDayAsObject(cellDate, mode, settings.eventDates, true);
                                         var eL = eventDates.length;
                                         if (eL > 0) {
@@ -460,7 +460,8 @@
                                             var $labels = $('<div/>').addClass(className.eventLabelGroup).appendTo(cell);
                                             for (var ei = 0; ei < eL; ei++) {
                                                 if (eventDates[ei].message) {
-                                                    $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message).appendTo($labels);
+                                                    $('<div/>').addClass(className.eventLabel).addClass(eventDates[ei].class ? eventDates[ei].class : settings.eventClass).text(eventDates[ei].message)
+                                                        .appendTo($labels);
                                                 }
                                             }
                                         }
@@ -614,8 +615,8 @@
                         }
                     },
                     mousedown: function (event) {
-                        if ($input.length) {
-                            //prevent the mousedown on the calendar causing the input to lose focus
+                        if ($input.length > 0) {
+                            // prevent the mousedown on the calendar causing the input to lose focus
                             event.preventDefault();
                         }
                         isTouchDown = event.type.indexOf('touch') >= 0;
@@ -625,41 +626,41 @@
                             module.set.focusDate(date, false, true, true);
                         }
                     },
-                  mouseup: function (event) {
-                      //ensure input has focus so that it receives keydown events for calendar navigation
-                      module.focus();
-                      event.preventDefault();
-                      event.stopPropagation();
-                      isTouchDown = false;
-                      var target = $(event.target);
-                      if (target.hasClass("disabled")) {
-                          return;
-                      }
-                      var parent = target.parent();
-                      if(isEventCalendar && target.hasClass('label') && parent.hasClass(className.event)) {
-                          settings.onEventClick.call(element, parent.data(metadata.date), target);
-                      } else {
-                          if (parent.data(metadata.date) || parent.data(metadata.focusDate) || parent.data(metadata.mode)) {
-                              //clicked on a child element, switch to parent (used when clicking directly on prev/next <i> icon element)
-                              target = parent;
-                          }
-                          var date = target.data(metadata.date);
-                          var focusDate = target.data(metadata.focusDate);
-                          var mode = target.data(metadata.mode);
-                          if (date && settings.onSelect.call(element, date, module.get.mode()) !== false) {
-                              var forceSet = target.hasClass(className.today);
-                              module.selectDate(date, forceSet);
-                          } else if (focusDate) {
-                              module.set.focusDate(focusDate);
-                          } else if (mode) {
-                              module.set.mode(mode);
-                          }
-                      }
+                    mouseup: function (event) {
+                        // ensure input has focus so that it receives keydown events for calendar navigation
+                        module.focus();
+                        event.preventDefault();
+                        event.stopPropagation();
+                        isTouchDown = false;
+                        var target = $(event.target);
+                        if (target.hasClass('disabled')) {
+                            return;
+                        }
+                        var parent = target.parent();
+                        if (isEventCalendar && target.hasClass('label') && parent.hasClass(className.event)) {
+                            settings.onEventClick.call(element, parent.data(metadata.date), target);
+                        } else {
+                            if (parent.data(metadata.date) || parent.data(metadata.focusDate) || parent.data(metadata.mode)) {
+                                // clicked on a child element, switch to parent (used when clicking directly on prev/next <i> icon element)
+                                target = parent;
+                            }
+                            var date = target.data(metadata.date);
+                            var focusDate = target.data(metadata.focusDate);
+                            var mode = target.data(metadata.mode);
+                            if (date && settings.onSelect.call(element, date, module.get.mode()) !== false) {
+                                var forceSet = target.hasClass(className.today);
+                                module.selectDate(date, forceSet);
+                            } else if (focusDate) {
+                                module.set.focusDate(focusDate);
+                            } else if (mode) {
+                                module.set.mode(mode);
+                            }
+                        }
                     },
                     keydown: function (event) {
                         var keyCode = event.which;
                         if (keyCode === 9) {
-                            //tab
+                            // tab
                             module.popup('hide');
                         }
 
@@ -1215,219 +1216,227 @@
                                 if (d[metadata.hours]) {
                                     if (typeof d[metadata.hours] === 'number') {
                                         return blocked && date.getHours() == d[metadata.hours];
-                                    } else if (Array.isArray(d[metadata.hours])) {
+                                    } if (Array.isArray(d[metadata.hours])) {
                                         return blocked && d[metadata.hours].indexOf(date.getHours()) > -1;
                                     }
                                 }
                             }
                         })));
-                      },
-                      isEnabled: function(date, mode) {
-                          if (mode === 'day') {
-                              return settings.enabledDates.length === 0 || settings.enabledDates.some(function(d){
-                                  if(typeof d === 'string') {
-                                      d = module.helper.sanitiseDate(d);
-                                  }
-                                  if (d instanceof Date) {
-                                      return module.helper.dateEqual(date, d, mode);
-                                  }
-                                  if (d !== null && typeof d === 'object' && d[metadata.date]) {
-                                      return module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode);
-                                  }
-                              });
-                          } else {
-                              return true;
-                          }
-                      },
-                  findDayAsObject: function(date, mode, dates) {
-                    if (mode === 'day' || mode === 'month' || mode === 'year') {
-                      var d;
-                      var foundDates=[], dateObject;
-                      for (var i = 0; i < dates.length; i++) {
-                        d = dates[i];
-                        if(typeof d === 'string') {
-                          d = module.helper.sanitiseDate(d);
-                        }
-                        if (d instanceof Date && module.helper.dateEqual(date, d, mode)) {
-                          dateObject = {};
-                          dateObject[metadata.date] = d;
-                          if(settings.eventMessage !== '') {
-                            dateObject[metadata.message] = settings.eventMessage;
-                          }
-                          if(!multiple) {
-                            return dateObject;
-                          }
-                          foundDates.push(dateObject);
-                        }
-                        else if (d !== null && typeof d === 'object') {
-                          if (d[metadata.year]) {
-                            if (typeof d[metadata.year] === 'number' && date.getFullYear() == d[metadata.year]) {
-                              if(!multiple) {
-                                return d;
-                              }
-                              foundDates.push(d);
-                            } else if (Array.isArray(d[metadata.year])) {
-                              if (d[metadata.year].indexOf(date.getFullYear()) > -1) {
-                                if(!multiple) {
-                                  return d;
+                    },
+                    isEnabled: function (date, mode) {
+                        if (mode === 'day') {
+                            return settings.enabledDates.length === 0 || settings.enabledDates.some(function (d) {
+                                if (typeof d === 'string') {
+                                    d = module.helper.sanitiseDate(d);
                                 }
-                                foundDates.push(d);
-                              }
-                            }
-                          } else if (d[metadata.month]) {
-                            if (typeof d[metadata.month] === 'number' && date.getMonth() == d[metadata.month]) {
-                              return d;
-                            } else if (Array.isArray(d[metadata.month])) {
-                              if (d[metadata.month].indexOf(date.getMonth()) > -1) {
-                                if(!multiple) {
-                                  return d;
+                                if (d instanceof Date) {
+                                    return module.helper.dateEqual(date, d, mode);
                                 }
-                                foundDates.push(d);
-                              }
-                            } else if (d[metadata.month] instanceof Date) {
-                              var sdate = module.helper.sanitiseDate(d[metadata.month]);
-                              if ((date.getMonth() == sdate.getMonth()) && (date.getFullYear() == sdate.getFullYear())) {
-                                if(!multiple) {
-                                  return d;
+                                if (d !== null && typeof d === 'object' && d[metadata.date]) {
+                                    return module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode);
                                 }
-                                foundDates.push(d);
-                              }
-                            }
-                          } else if (d[metadata.date] && mode === 'day') {
-                            if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode)) {
-                              if(!multiple) {
-                                return d;
-                              }
-                            } else if (Array.isArray(d[metadata.date])) {
-                              if(d[metadata.date].some(function(idate) { return module.helper.dateEqual(date, idate, mode); })) {
-                                if(!multiple) {
-                                  return d;
+                            });
+                        }
+
+                        return true;
+                    },
+                    findDayAsObject: function (date, mode, dates) {
+                        if (mode === 'day' || mode === 'month' || mode === 'year') {
+                            var d;
+                            var foundDates = [],
+                                dateObject;
+                            for (var i = 0; i < dates.length; i++) {
+                                d = dates[i];
+                                if (typeof d === 'string') {
+                                    d = module.helper.sanitiseDate(d);
                                 }
-                                foundDates.push(d);
-                              }
+                                if (d instanceof Date && module.helper.dateEqual(date, d, mode)) {
+                                    dateObject = {};
+                                    dateObject[metadata.date] = d;
+                                    if (settings.eventMessage !== '') {
+                                        dateObject[metadata.message] = settings.eventMessage;
+                                    }
+                                    if (!multiple) {
+                                        return dateObject;
+                                    }
+                                    foundDates.push(dateObject);
+                                } else if (d !== null && typeof d === 'object') {
+                                    if (d[metadata.year]) {
+                                        if (typeof d[metadata.year] === 'number' && date.getFullYear() == d[metadata.year]) {
+                                            if (!multiple) {
+                                                return d;
+                                            }
+                                            foundDates.push(d);
+                                        } else if (Array.isArray(d[metadata.year])) {
+                                            if (d[metadata.year].indexOf(date.getFullYear()) > -1) {
+                                                if (!multiple) {
+                                                    return d;
+                                                }
+                                                foundDates.push(d);
+                                            }
+                                        }
+                                    } else if (d[metadata.month]) {
+                                        if (typeof d[metadata.month] === 'number' && date.getMonth() == d[metadata.month]) {
+                                            return d;
+                                        } if (Array.isArray(d[metadata.month])) {
+                                            if (d[metadata.month].indexOf(date.getMonth()) > -1) {
+                                                if (!multiple) {
+                                                    return d;
+                                                }
+                                                foundDates.push(d);
+                                            }
+                                        } else if (d[metadata.month] instanceof Date) {
+                                            var sdate = module.helper.sanitiseDate(d[metadata.month]);
+                                            if ((date.getMonth() == sdate.getMonth()) && (date.getFullYear() == sdate.getFullYear())) {
+                                                if (!multiple) {
+                                                    return d;
+                                                }
+                                                foundDates.push(d);
+                                            }
+                                        }
+                                    } else if (d[metadata.date] && mode === 'day') {
+                                        if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]), mode)) {
+                                            if (!multiple) {
+                                                return d;
+                                            }
+                                        } else if (Array.isArray(d[metadata.date])) {
+                                            if (d[metadata.date].some(function (idate) { return module.helper.dateEqual(date, idate, mode); })) {
+                                                if (!multiple) {
+                                                    return d;
+                                                }
+                                                foundDates.push(d);
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                          }
+                            if (multiple) {
+                                return foundDates;
+                            }
                         }
-                      }
-                      if(multiple) {
-                        return foundDates;
-                      }
-                    }
-                    return null;
-                  },
-                  findHourAsObject: function(date, mode, hours) {
-                    if (mode === 'hour') {
-                      var d;
-                      var hourCheck = function(date, d) {
-                         if (d[metadata.hours]) {
-                            if (typeof d[metadata.hours] === 'number' && date.getHours() == d[metadata.hours]) {
-                              return d;
-                          } else if (Array.isArray(d[metadata.hours])) {
-                            if (d[metadata.hours].indexOf(date.getHours()) > -1) {
-                              return d;
+
+                        return null;
+                    },
+                    findHourAsObject: function (date, mode, hours) {
+                        if (mode === 'hour') {
+                            var d;
+                            var hourCheck = function (date, d) {
+                                if (d[metadata.hours]) {
+                                    if (typeof d[metadata.hours] === 'number' && date.getHours() == d[metadata.hours]) {
+                                        return d;
+                                    } if (Array.isArray(d[metadata.hours])) {
+                                        if (d[metadata.hours].indexOf(date.getHours()) > -1) {
+                                            return d;
+                                        }
+                                    }
+                                }
+                            };
+                            for (var i = 0; i < hours.length; i++) {
+                                d = hours[i];
+                                if (typeof d === 'number' && date.getHours() == d) {
+                                    return null;
+                                } if (d !== null && typeof d === 'object') {
+                                    if (d[metadata.days] && hourCheck(date, d)) {
+                                        if (typeof d[metadata.days] === 'number' && date.getDay() == d[metadata.days]) {
+                                            return d;
+                                        } if (Array.isArray(d[metadata.days])) {
+                                            if (d[metadata.days].indexOf(date.getDay()) > -1) {
+                                                return d;
+                                            }
+                                        }
+                                    } else if (d[metadata.date] && hourCheck(date, d)) {
+                                        if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]))) {
+                                            return d;
+                                        } if (Array.isArray(d[metadata.date])) {
+                                            if (d[metadata.date].some(function (idate) { return module.helper.dateEqual(date, idate, mode); })) {
+                                                return d;
+                                            }
+                                        }
+                                    } else if (hourCheck(date, d)) {
+                                        return d;
+                                    }
+                                }
                             }
-                          }
+                            if (multiple) {
+                                return foundDates;
+                            }
                         }
-                      }
-                      for (var i = 0; i < hours.length; i++) {
-                        d = hours[i];
-                        if (typeof d === 'number' && date.getHours() == d) {
-                          return null;
-                        } else if (d !== null && typeof d === 'object') {
-                          if (d[metadata.days] && hourCheck(date,d)) {
-                            if (typeof d[metadata.days] === 'number' && date.getDay() == d[metadata.days]) {
-                              return d;
-                            } else if (Array.isArray(d[metadata.days])) {
-                              if (d[metadata.days].indexOf(date.getDay()) > -1) {
-                                return d;
-                              }
-                            }
-                          } else if (d[metadata.date] && hourCheck(date,d)) {
-                            if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]))) {
-                              return d;
-                            } else if (Array.isArray(d[metadata.date])) {
-                              if (d[metadata.date].some(function(idate) { return module.helper.dateEqual(date, idate, mode); })) {
-                                return d;
-                              }
-                            }
-                          } else if (hourCheck(date,d)) {
-                            return d;
-                          }
+
+                        return null;
+                    },
+                    sanitiseDate: function (date) {
+                        if (!(date instanceof Date)) {
+                            date = parser.date('' + date, settings);
                         }
-                      }
-                      if(multiple) {
-                        return foundDates;
-                      }
-                    }
-                    return null;
-                  },
-                  sanitiseDate: function (date) {
-                    if (!(date instanceof Date)) {
-                      date = parser.date('' + date, settings);
-                    }
-                    if (!date || isNaN(date.getTime())) {
-                      return null;
-                    }
-                    return date;
-                  },
-                  dateDiff: function (date1, date2, mode) {
-                    mode = mode || 'day';
-                    var isTimeOnly = settings.type === 'time';
-                    var isYear = mode === 'year';
-                    var isYearOrMonth = isYear || mode === 'month';
-                    var isMinute = mode === 'minute';
-                    var isHourOrMinute = isMinute || mode === 'hour';
-                    //only care about a minute accuracy of settings.minTimeGap
-                    date1 = new Date(
-                      isTimeOnly ? 2000 : date1.getFullYear(),
-                      isTimeOnly ? 0 : isYear ? 0 : date1.getMonth(),
-                      isTimeOnly ? 1 : isYearOrMonth ? 1 : date1.getDate(),
-                      !isHourOrMinute ? 0 : date1.getHours(),
-                      !isMinute ? 0 : settings.minTimeGap * Math.floor(date1.getMinutes() / settings.minTimeGap));
-                    date2 = new Date(
-                      isTimeOnly ? 2000 : date2.getFullYear(),
-                      isTimeOnly ? 0 : isYear ? 0 : date2.getMonth(),
-                      isTimeOnly ? 1 : isYearOrMonth ? 1 : date2.getDate(),
-                      !isHourOrMinute ? 0 : date2.getHours(),
-                      !isMinute ? 0 : settings.minTimeGap * Math.floor(date2.getMinutes() / settings.minTimeGap));
-                    return date2.getTime() - date1.getTime();
-                  },
-                  dateEqual: function (date1, date2, mode) {
-                    return !!date1 && !!date2 && module.helper.dateDiff(date1, date2, mode) === 0;
-                  },
-                  isDateInRange: function (date, mode, minDate, maxDate) {
-                    if (!minDate && !maxDate) {
-                      var startDate = module.get.startDate();
-                      minDate = startDate && settings.minDate ? new Date(Math.max(startDate, settings.minDate)) : startDate || settings.minDate;
-                      maxDate = settings.maxDate;
-                    }
-                    minDate = minDate && new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), minDate.getHours(), settings.minTimeGap * Math.ceil(minDate.getMinutes() / settings.minTimeGap));
-                    return !(!date ||
-                    (minDate && module.helper.dateDiff(date, minDate, mode) > 0) ||
-                    (maxDate && module.helper.dateDiff(maxDate, date, mode) > 0));
-                  },
-                  dateInRange: function (date, minDate, maxDate) {
-                    if (!minDate && !maxDate) {
-                      var startDate = module.get.startDate();
-                      minDate = startDate && settings.minDate ? new Date(Math.max(startDate, settings.minDate)) : startDate || settings.minDate;
-                      maxDate = settings.maxDate;
-                    }
-                    minDate = minDate && new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), minDate.getHours(), settings.minTimeGap * Math.ceil(minDate.getMinutes() / settings.minTimeGap));
-                    var isTimeOnly = settings.type === 'time';
-                    return !date ? date :
-                      (minDate && module.helper.dateDiff(date, minDate, 'minute') > 0) ?
-                        (isTimeOnly ? module.helper.mergeDateTime(date, minDate) : minDate) :
-                        (maxDate && module.helper.dateDiff(maxDate, date, 'minute') > 0) ?
-                          (isTimeOnly ? module.helper.mergeDateTime(date, maxDate) : maxDate) :
-                          date;
-                  },
-                  mergeDateTime: function (date, time) {
-                    return (!date || !time) ? time :
-                      new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
-                  },
-                  isTodayButton: function(element) {
-                    return element.text() === settings.text.today;
-                  }
+                        if (!date || isNaN(date.getTime())) {
+                            return null;
+                        }
+
+                        return date;
+                    },
+                    dateDiff: function (date1, date2, mode) {
+                        mode = mode || 'day';
+                        var isTimeOnly = settings.type === 'time';
+                        var isYear = mode === 'year';
+                        var isYearOrMonth = isYear || mode === 'month';
+                        var isMinute = mode === 'minute';
+                        var isHourOrMinute = isMinute || mode === 'hour';
+                        // only care about a minute accuracy of settings.minTimeGap
+                        date1 = new Date(
+                            isTimeOnly ? 2000 : date1.getFullYear(),
+                            isTimeOnly ? 0 : (isYear ? 0 : date1.getMonth()),
+                            isTimeOnly ? 1 : (isYearOrMonth ? 1 : date1.getDate()),
+                            !isHourOrMinute ? 0 : date1.getHours(),
+                            !isMinute ? 0 : settings.minTimeGap * Math.floor(date1.getMinutes() / settings.minTimeGap)
+                        );
+                        date2 = new Date(
+                            isTimeOnly ? 2000 : date2.getFullYear(),
+                            isTimeOnly ? 0 : (isYear ? 0 : date2.getMonth()),
+                            isTimeOnly ? 1 : (isYearOrMonth ? 1 : date2.getDate()),
+                            !isHourOrMinute ? 0 : date2.getHours(),
+                            !isMinute ? 0 : settings.minTimeGap * Math.floor(date2.getMinutes() / settings.minTimeGap)
+                        );
+
+                        return date2.getTime() - date1.getTime();
+                    },
+                    dateEqual: function (date1, date2, mode) {
+                        return !!date1 && !!date2 && module.helper.dateDiff(date1, date2, mode) === 0;
+                    },
+                    isDateInRange: function (date, mode, minDate, maxDate) {
+                        if (!minDate && !maxDate) {
+                            var startDate = module.get.startDate();
+                            minDate = startDate && settings.minDate ? new Date(Math.max(startDate, settings.minDate)) : startDate || settings.minDate;
+                            maxDate = settings.maxDate;
+                        }
+                        minDate = minDate && new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), minDate.getHours(), settings.minTimeGap * Math.ceil(minDate.getMinutes() / settings.minTimeGap));
+
+                        return !(!date
+                    || (minDate && module.helper.dateDiff(date, minDate, mode) > 0)
+                    || (maxDate && module.helper.dateDiff(maxDate, date, mode) > 0));
+                    },
+                    dateInRange: function (date, minDate, maxDate) {
+                        if (!minDate && !maxDate) {
+                            var startDate = module.get.startDate();
+                            minDate = startDate && settings.minDate ? new Date(Math.max(startDate, settings.minDate)) : startDate || settings.minDate;
+                            maxDate = settings.maxDate;
+                        }
+                        minDate = minDate && new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), minDate.getHours(), settings.minTimeGap * Math.ceil(minDate.getMinutes() / settings.minTimeGap));
+                        var isTimeOnly = settings.type === 'time';
+
+                        return !date ? date
+                            : (minDate && module.helper.dateDiff(date, minDate, 'minute') > 0
+                                ? (isTimeOnly ? module.helper.mergeDateTime(date, minDate) : minDate)
+                                : maxDate && module.helper.dateDiff(maxDate, date, 'minute') > 0
+                                    ? (isTimeOnly ? module.helper.mergeDateTime(date, maxDate) : maxDate)
+                                    : date);
+                    },
+                    mergeDateTime: function (date, time) {
+                        return !date || !time ? time
+                            : new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
+                    },
+                    isTodayButton: function (element) {
+                        return element.text() === settings.text.today;
+                    },
                 },
 
                 setting: function (name, value) {
@@ -1960,12 +1969,10 @@
         onSelect: function (date, mode) {},
 
         // callback when a event label is clicked
-        onEventClick: function (date, label) {
-        },
+        onEventClick: function (date, label) {},
 
         // callback when a prev or next button is clicked before the new month gets rendered
-        onBeforeMonthChange: function (date) {
-        },
+        onBeforeMonthChange: function (date) {},
 
         // is the given date disabled?
         isDisabled: function (date, mode) {
@@ -2042,5 +2049,5 @@
 
         eventClass: 'blue',
         eventMessage: 'aaa',
-};
+    };
 })(jQuery, window, document);
