@@ -214,16 +214,14 @@
         --------------- */
 
         /* Arrow */
+        [data-tooltip][data-variation~="inverted"]::before,
         [data-tooltip][data-inverted]::before {
             box-shadow: none !important;
-        }
-
-        /* Arrow Position */
-        [data-tooltip][data-inverted]::before {
             background: @invertedArrowBottomBackground;
         }
 
         /* Popup */
+        [data-tooltip][data-variation~="inverted"]::after,
         [data-tooltip][data-inverted]::after {
             background: @tooltipInvertedBackground;
             color: @tooltipInvertedColor;
@@ -395,6 +393,7 @@
         & when (@variationPopupInverted) {
             /* Inverted Arrow Color */
             & when (@variationPopupBottom) {
+                [data-variation~="inverted"][data-position~="bottom"][data-tooltip]::before,
                 [data-inverted][data-position~="bottom"][data-tooltip]::before {
                     background: @invertedArrowTopBackground;
                     box-shadow: @bottomArrowBoxShadow;
@@ -402,12 +401,14 @@
             }
             & when (@variationPopupCenter) {
                 & when (@variationPopupLeft) {
+                    [data-variation~="inverted"][data-position="left center"][data-tooltip]::before,
                     [data-inverted][data-position="left center"][data-tooltip]::before {
                         background: @invertedArrowCenterBackground;
                         box-shadow: @leftArrowBoxShadow;
                     }
                 }
                 & when (@variationPopupRight) {
+                    [data-variation~="inverted"][data-position="right center"][data-tooltip]::before,
                     [data-inverted][data-position="right center"][data-tooltip]::before {
                         background: @invertedArrowCenterBackground;
                         box-shadow: @rightArrowBoxShadow;
@@ -415,6 +416,7 @@
                 }
             }
             & when (@variationPopupTop) {
+                [data-variation~="inverted"][data-position~="top"][data-tooltip]::before,
                 [data-inverted][data-position~="top"][data-tooltip]::before {
                     background: @invertedArrowBottomBackground;
                 }
@@ -842,6 +844,8 @@
             & when (@variationPopupInverted) {
                 .ui.ui.ui.inverted.@{color}.popup::before,
                 .ui.inverted.@{color}.popup,
+                [data-tooltip][data-variation~="inverted"][data-variation~="@{color}"]::after,
+                [data-tooltip][data-variation~="inverted"][data-variation~="@{color}"]::before,
                 [data-tooltip][data-inverted][data-variation~="@{color}"]::after,
                 [data-tooltip][data-inverted][data-variation~="@{color}"]::before {
                     background: @l;
