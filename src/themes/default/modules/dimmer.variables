@@ -36,7 +36,7 @@
 -------------------- */
 
 /* Page Dimmer */
-@transformStyle: "";
+@transformStyle: initial;
 @pageDimmerPosition: fixed;
 
 /* -------------------

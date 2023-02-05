@@ -1429,16 +1429,16 @@
 @transparentFormWarningBackground: @formWarningBackground;
 
 /* Input state */
-@inputErrorBorderRadius: "";
+@inputErrorBorderRadius: @absoluteBorderRadius;
 @inputErrorBoxShadow: none;
 
-@inputInfoBorderRadius: "";
+@inputInfoBorderRadius: @absoluteBorderRadius;
 @inputInfoBoxShadow: none;
 
-@inputSuccessBorderRadius: "";
+@inputSuccessBorderRadius: @absoluteBorderRadius;
 @inputSuccessBoxShadow: none;
 
-@inputWarningBorderRadius: "";
+@inputWarningBorderRadius: @absoluteBorderRadius;
 @inputWarningBoxShadow: none;
 
 /* AutoFill */

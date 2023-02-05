@@ -89,8 +89,8 @@
 @likeActiveColor: #ff2733;
 
 /* Links */
-@contentLinkColor: "";
-@contentLinkHoverColor: "";
+@contentLinkColor: @linkColor;
+@contentLinkHoverColor: @linkHoverColor;
 @contentLinkTransition: color @defaultDuration @defaultEasing;
 
 @headerLinkColor: @headerColor;

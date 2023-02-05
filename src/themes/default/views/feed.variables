@@ -119,7 +119,7 @@
 @metadataElementSpacing: 0.75em;
 
 /* Like */
-@likeColor: "";
+@likeColor: inherit;
 @likeHoverColor: #ff2733;
 @likeActiveColor: #ef404a;
 @likeTransition: 0.2s color ease;

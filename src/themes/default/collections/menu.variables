@@ -62,9 +62,9 @@
 @dropdownIconDistance: 1em;
 
 /* Header */
-@headerBackground: "";
+@headerBackground: transparent;
 @headerWeight: @bold;
-@headerTextTransform: @normal;
+@headerTextTransform: none;
 
 /* Vertical Icon */
 @verticalIconFloat: right;

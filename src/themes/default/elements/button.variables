@@ -46,7 +46,7 @@
 @iconHeight: auto;
 @iconOpacity: 0.8;
 @iconDistance: @relative6px;
-@iconColor: "";
+@iconColor: inherit;
 @iconTransition: opacity @defaultDuration @defaultEasing;
 @iconVerticalAlign: baseline;
 
@@ -92,7 +92,7 @@
 /* Focused */
 @focusBackgroundColor: @hoverBackgroundColor;
 @focusBackgroundImage: none;
-@focusBoxShadow: "";
+@focusBoxShadow: none;
 @focusColor: @hoveredTextColor;
 @iconFocusOpacity: 0.85;
 
@@ -102,7 +102,7 @@
 
 /* Pressed Down */
 @downBackgroundColor: #babbbc;
-@downBackgroundImage: "";
+@downBackgroundImage: none;
 @downPressedShadow: none;
 @downBoxShadow: @downPressedShadow;
 @downColor: @pressedTextColor;
@@ -172,7 +172,7 @@
 @labeledIconBackgroundColor: rgba(0, 0, 0, 0.05);
 @labeledIconPadding: (@horizontalPadding + @labeledIconWidth);
 @labeledIconBorder: transparent;
-@labeledIconColor: "";
+@labeledIconColor: inherit;
 
 @labeledIconLeftShadow: -1px 0 0 0 @labeledIconBorder inset;
 @labeledIconRightShadow: 1px 0 0 0 @labeledIconBorder inset;
@@ -218,7 +218,7 @@
 
 /* Basic Active */
 @basicActiveBackground: @transparentBlack;
-@basicActiveBoxShadow: "";
+@basicActiveBoxShadow: none;
 @basicActiveTextColor: @selectedTextColor;
 
 /* Basic Inverted */

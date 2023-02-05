@@ -216,7 +216,7 @@
 @selectionActiveHoverMenuBoxShadow: @selectionVisibleMenuBoxShadow;
 
 @selectionVisibleConnectingBorder: 0;
-@selectionVisibleIconOpacity: "";
+@selectionVisibleIconOpacity: 1;
 
 /* --------------
      Search
@@ -261,8 +261,8 @@
 @multipleSelectionSearchStartWidth: (@glyphWidth * 2);
 
 /* Dropdown Icon */
-@multipleSelectionDropdownIconMargin: "";
-@multipleSelectionDropdownIconPadding: "";
+@multipleSelectionDropdownIconMargin: @selectionIconMargin;
+@multipleSelectionDropdownIconPadding: @selectionIconPadding;
 
 @multipleSelectionSearchAfterLabelDistance: @relative2px;
 

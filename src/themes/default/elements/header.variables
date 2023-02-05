@@ -26,7 +26,7 @@
 @subHeadingFontSize: @relativeTiny;
 @subHeadingFontWeight: @bold;
 @subHeadingTextTransform: uppercase;
-@subHeadingColor: "";
+@subHeadingColor: inherit;
 
 @miniSubHeadingSize: @relativeMini;
 @tinySubHeadingSize: @relativeMini;
@@ -56,7 +56,7 @@
 @imageAlignment: middle;
 
 /* Label */
-@labelSize: "";
+@labelSize: @12px;
 @labelDistance: 0.5rem;
 @labelVerticalAlign: middle;
 

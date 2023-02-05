@@ -96,10 +96,10 @@
 @definitionColumnFontWeight: @bold;
 @definitionColumnColor: @selectedTextColor;
 @definitionColumnFontSize: @relativeMedium;
-@definitionColumnTextTransform: "";
-@definitionColumnBoxShadow: "";
-@definitionColumnTextAlign: "";
-@definitionColumnHorizontalPadding: "";
+@definitionColumnTextTransform: none;
+@definitionColumnBoxShadow: none;
+@definitionColumnTextAlign: initial;
+@definitionColumnHorizontalPadding: @cellHorizontalPadding;
 
 /* --------------
     Couplings
@@ -241,7 +241,7 @@
 @basicTableCellBackground: transparent;
 @basicTableHeaderDivider: none;
 @basicTableCellBorder: 1px solid rgba(0, 0, 0, 0.1);
-@basicTableCellPadding: "";
+@basicTableCellPadding: @cellVerticalPadding @cellHorizontalPadding;
 @basicTableStripedBackground: @transparentBlack;
 
 /* Padded */
