@@ -113,12 +113,11 @@
                 },
 
                 initialize: function () {
-                    module.set.duration();
                     module.debug(element);
 
                     module.read.metadata();
                     module.read.settings();
-
+                    module.set.duration();
                     module.instantiate();
                 },
 
@@ -158,6 +157,7 @@
                                 percent: module.helper.forceArray($module.data(metadata.percent)),
                                 total: $module.data(metadata.total),
                                 value: module.helper.forceArray($module.data(metadata.value)),
+                                duration: $module.data(metadata.duration),
                             }
                         ;
                         if (data.total !== undefined) {
@@ -172,6 +172,9 @@
                         if (data.percent.length > 0) {
                             module.debug('Current percent value set from metadata', data.percent);
                             module.set.percent(data.percent);
+                        }
+                        if (data.duration) {
+                            settings.duration = data.duration;
                         }
                     },
                     settings: function () {
@@ -593,6 +596,9 @@
                             } else if (settings.label === 'percent') {
                                 module.verbose('Adding percentage to bar label');
                                 $progress.text(module.get.text(settings.text.percent, index));
+                            } else if (settings.label === 'counter') {
+                                module.verbose('Adding counter to bar label');
+                                $progress.text(module.get.text(settings.text.countdown, index));
                             }
                         });
                     },
@@ -925,6 +931,9 @@
         total: false,
         value: false,
 
+        // 'up' will count up, true will count down
+        counter: false,
+
         // delay in ms for fail safe animation callback
         failSafeDelay: 100,
 
@@ -953,6 +962,7 @@
             percent: 'percent',
             total: 'total',
             value: 'value',
+            duration: 'duration',
         },
 
         selector: {
@@ -969,6 +979,7 @@
             percent: '{percent}%',
             ratio: '{value} of {total}',
             bars: [''],
+            counter: '{fullSeconds}s'
         },
 
         className: {
@@ -976,6 +987,7 @@
             error: 'error',
             success: 'success',
             warning: 'warning',
+            counter: 'counter',
         },
 
     };
