@@ -979,7 +979,7 @@
             percent: '{percent}%',
             ratio: '{value} of {total}',
             bars: [''],
-            counter: '{fullSeconds}s'
+            counter: '{fullSeconds}s',
         },
 
         className: {
