@@ -18,7 +18,11 @@
     window = window !== undefined && window.Math === Math
         ? window
         : globalThis;
-
+    /**
+     * Slider Component
+     * @param {settings|string} parameters - Settings object or behavior string
+     * @returns {*|jQuery}
+     */
     $.fn.slider = function (parameters) {
         var
             $allModules    = $(this),
@@ -1133,6 +1137,10 @@
                         $trackFill.css(trackPosValue);
                         module.debug('Setting slider position to ' + newPos);
                     },
+                    /**
+                     * @param {number|string} ratio
+                     * @param {*} $label
+                     */
                     labelPosition: function (ratio, $label) {
                         var
                             startMargin = module.get.trackStartMargin(),
@@ -1365,9 +1373,16 @@
             ? returnedValue
             : this;
     };
-
+    /**
+     * slider settings
+     * @namespace settings
+     */
     $.fn.slider.settings = {
-
+        /**
+         * Disables all Debug output
+         * @type {boolean}
+         * @default false
+         */
         silent: false,
         debug: false,
         verbose: false,
@@ -1394,8 +1409,25 @@
         end: 20,
         minRange: false,
         maxRange: false,
+        /**
+         * The allowed type of the label
+         * @type {(string|labelTypes)}
+         */
         labelType: 'number',
+        /**
+         * How and if label ticks should be displayed
+         * - always will do it any time
+         * - true will do right
+         * - false wont
+         * @type {(boolean|"always")}
+         * @default false
+         */
         showLabelTicks: false,
+        /**
+         * Allows thumb to be moved smoothly
+         * @type {boolean}
+         * @default false
+         */
         smooth: false,
         autoAdjustLabels: true,
         labelDistance: 100,
@@ -1437,6 +1469,9 @@
             variation: 'tiny black',
         },
 
+        /**
+         * @namespace
+         */
         labelTypes: {
             number: 'number',
             letter: 'letter',

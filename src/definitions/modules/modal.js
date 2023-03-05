@@ -1384,7 +1384,10 @@
             : this;
     };
     $.modal = $.fn.modal;
-
+    /**
+     *
+     * @type {{centered: boolean, classActions: string, closable: boolean, preserveHTML: boolean, keys: {tab: number, enter: number, escape: number, space: number}, useFlex: string, onHidden: boolean, className: {blurring: string, template: string, cancel: string, legacy: string, active: string, loading: string, title: string, innerDimmer: string, content: string, button: string, undetached: string, scrolling: string, animating: string, front: string, inverted: string, ok: string, close: string, actions: string, prompt: string, modal: string}, restoreFocus: boolean, autoShow: boolean, title: string, error: {method: string, notFound: string, dimmer: string}, content: string, onApprove: (function(): boolean), duration: number, classTitle: string, onDeny: (function(): boolean), context: string, selector: {deny: string, approve: string, bodyFixed: string, closeIcon: string, title: string, actions: string, close: string, dimmer: string, prompt: string, content: string, modal: string}, onHide: (function(): boolean), text: {cancel: string, ok: string, close: string}, inverted: boolean, class: string, blurring: boolean, scrollbarWidth: number, dimmerSettings: {closable: boolean, useCSS: boolean}, keyboardShortcuts: boolean, padding: number, silent: boolean, debug: boolean, onShow: $.fn.modal.settings.onShow, offset: number, onVisible: $.fn.modal.settings.onVisible, detachable: boolean, closeIcon: boolean, autofocus: boolean, transition: string, verbose: boolean, performance: boolean, observeChanges: boolean, allowMultiple: boolean, classContent: string, name: string, namespace: string, fields: {icon: string, text: string, class: string, click: string}, actions: boolean, queue: boolean}}
+     */
     $.fn.modal.settings = {
 
         name: 'Modal',
