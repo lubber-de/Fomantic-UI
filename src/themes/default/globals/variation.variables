@@ -162,6 +162,7 @@
 @variationListDisabled: true;
 @variationListBulleted: true;
 @variationListOrdered: true;
+@variationListConnected: true;
 @variationListIcon: true;
 @variationListImage: true;
 @variationListFloated: true;
