@@ -368,13 +368,13 @@
            Raised
     -------------------- */
 
-    .ui.raised.raised.segments,
-    .ui.raised.raised.segment {
+    .ui.ui.raised.segments,
+    .ui.ui.raised.segment {
         box-shadow: @raisedBoxShadow;
     }
     & when (@variationSegmentInverted) {
-        .ui.inverted.raised.raised.segments,
-        .ui.inverted.raised.raised.segment {
+        .ui.ui.inverted.raised.segments,
+        .ui.ui.inverted.raised.segment {
             box-shadow: @invertedRaisedBoxShadow;
         }
     }
@@ -545,6 +545,7 @@
         pointer-events: none;
         user-select: none;
         transition: all 0s linear;
+        min-height: @loadingMinHeight;
     }
     .ui.loading.segments::before,
     .ui.loading.segment::before {
@@ -615,13 +616,19 @@
         @color: @value;
         @c: @colors[@@color][color];
         & when not (@color=primary) and not (@color=secondary) {
-            .ui.@{color}.segment.segment.segment.segment.segment:not(.inverted) {
+            .ui.ui.ui.ui.ui.@{color}.segment:not(.inverted) {
                 border-top: @coloredBorderSize solid @c;
             }
             & when (@variationSegmentInverted) {
-                .ui.inverted.@{color}.segment.segment.segment.segment.segment {
+                .ui.ui.ui.ui.ui.inverted.@{color}.segment {
                     background-color: @c;
                     color: @white;
+                    & when not (@variationSegmentPiled) and ((@variationSegmentAttached) or (@variationSegmentStacked)) {
+                        border-color: c;
+                    }
+                }
+                .ui.ui.inverted.@{color}.segment:not(.piled) when (@variationSegmentPiled) and ((@variationSegmentAttached) or (@variationSegmentStacked)) {
+                    border-color: @c;
                 }
             }
         }
