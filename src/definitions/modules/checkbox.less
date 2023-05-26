@@ -50,6 +50,12 @@
     z-index: 3;
     width: @checkboxSize;
     height: @checkboxSize;
+    & when (@variationCheckboxRightAligned) {
+        .right.aligned& {
+            left: auto;
+            right: 0;
+        }
+    }
 }
 
 .ui.checkbox label {
@@ -723,28 +729,58 @@
             font-size: @@size;
         }
 
-        & when (@@raw > 1) {
-            .ui.@{value}.form .checkbox,
-            .ui.@{value}.checkbox {
-                &:not(.slider):not(.toggle):not(.radio) {
-                    &
-                    label::after,
-                    label::before {
-                        transform: scale(@@raw);
-                        transform-origin: left;
+        .ui.@{value}.form .checkbox,
+        .ui.@{value}.checkbox {
+            &:not(.radio) {
+                &
+                label::after,
+                label::before {
+                    transform: scale(@@raw);
+                    transform-origin: left;
+                }
+            }
+            &.radio when (@variationCheckboxRadio) {
+                &
+                label::before {
+                    transform: scale(@@raw);
+                    transform-origin: left;
+                }
+                &
+                label::after {
+                    transform: scale(@@circleScale);
+                    transform-origin: left;
+                    left: @@circleLeft;
+                }
+            }
+            & when (@variationCheckboxToggle) {
+                &.toggle:not(.aligned) label {
+                    padding-left: @toggleLabelDistance * @@raw;
+                }
+                &.toggle:not(.aligned) input:checked ~ label::after {
+                    left: @toggleOnOffset * @@raw;
+                }
+                & when (@variationCheckboxRightAligned) {
+                    &.toggle.right.aligned label {
+                        padding-right: @toggleLabelDistance * @@raw;
+                    }
+                    &.toggle.right.aligned input:checked ~ label::after {
+                        right: @toggleOnOffset * @@raw;
                     }
                 }
-                &.radio when (@variationCheckboxRadio) {
-                    &
-                    label::before {
-                        transform: scale(@@raw);
-                        transform-origin: left;
+            }
+            & when (@variationCheckboxSlider) {
+                &.slider:not(.aligned) label {
+                    padding-left: @sliderLabelDistance * @@raw;
+                }
+                &.slider:not(.aligned) input:checked ~ label::after {
+                    left: @sliderTravelDistance * @@raw;
+                }
+                & when (@variationCheckboxRightAligned) {
+                    &.slider.right.aligned label {
+                        padding-right: @sliderLabelDistance * @@raw;
                     }
-                    &
-                    label::after {
-                        transform: scale(@@circleScale);
-                        transform-origin: left;
-                        left: @@circleLeft;
+                    &.slider.right.aligned input:checked ~ label::after {
+                        right: @sliderTravelDistance * @@raw;
                     }
                 }
             }
