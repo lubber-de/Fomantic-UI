@@ -4321,6 +4321,7 @@
                 values = response[fields.values] || [],
                 html = '',
                 className = settings.className,
+                fields = settings.fields,
                 escape = settings.templates.escape,
                 deQuote = settings.templates.deQuote
             ;
