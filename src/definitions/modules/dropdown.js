@@ -964,9 +964,6 @@
                                 var $result = $(result),
                                     markedHTML = module.get.choiceText($result, true)
                                 ;
-                                if (!settings.preserveHTML) {
-                                    markedHTML = module.escape.htmlEntities(markedHTML);
-                                }
                                 if (settings.ignoreDiacritics) {
                                     markedHTML = markedHTML.normalize('NFD');
                                 }
