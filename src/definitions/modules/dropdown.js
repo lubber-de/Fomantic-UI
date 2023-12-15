@@ -415,7 +415,7 @@
                                 .attr('class', $input.attr('class'))
                                 .addClass(className.selection)
                                 .addClass(className.dropdown)
-                                .html(templates.dropdown(selectValues, fields, settings.preserveHTML, settings.className))
+                                .html(templates.dropdown(selectValues, settings))
                                 .insertBefore($input)
                             ;
                             if ($input.hasClass(className.multiple) && $input.prop('multiple') === false) {
@@ -445,7 +445,7 @@
                         module.refresh();
                     },
                     menu: function (values) {
-                        $menu.html(templates.menu(values, fields, settings.preserveHTML, settings.className));
+                        $menu.html(templates.menu(values, settings));
                         $item = $menu.find(selector.item);
                         $divider = settings.hideDividers ? $item.parent().children(selector.divider) : $();
                     },
@@ -2900,7 +2900,7 @@
                         $label = $('<a />')
                             .addClass(className.label)
                             .attr('data-' + metadata.value, escapedValue)
-                            .html(templates.label(escapedValue, text, settings.preserveHTML, settings.className))
+                            .html(templates.label(escapedValue, text, settings))
                         ;
                         $label = settings.onLabelCreate.call($label, escapedValue, text);
 
@@ -4269,8 +4269,8 @@
         deQuote: function (string, encode) {
             return String(string).replace(/"/g, encode ? '&quot;' : '');
         },
-        escape: function (string, preserveHTML) {
-            if (preserveHTML) {
+        escape: function (string, settings) {
+            if (settings.preserveHTML) {
                 return string;
             }
             var
@@ -4295,31 +4295,34 @@
             return string;
         },
         // generates dropdown from select values
-        dropdown: function (select, fields, preserveHTML, className) {
+        dropdown: function (select, settings) {
             var
                 placeholder = select.placeholder || false,
-                html        = '',
-                escape = $.fn.dropdown.settings.templates.escape,
-                deQuote = $.fn.dropdown.settings.templates.deQuote
+                html = '',
+                className = settings.className,
+                escape = settings.templates.escape,
+                deQuote = settings.templates.deQuote
             ;
             html += '<i class="dropdown icon"></i>';
             html += placeholder
-                ? '<div class="default text">' + escape(placeholder, preserveHTML) + '</div>'
+                ? '<div class="default text">' + escape(placeholder, settings) + '</div>'
                 : '<div class="text"></div>';
             html += '<div class="' + deQuote(className.menu) + '">';
-            html += $.fn.dropdown.settings.templates.menu(select, fields, preserveHTML, className);
+            html += settings.templates.menu(select, settings);
             html += '</div>';
 
             return html;
         },
 
         // generates just menu from select
-        menu: function (response, fields, preserveHTML, className) {
+        menu: function (response, settings) {
             var
                 values = response[fields.values] || [],
-                html   = '',
-                escape = $.fn.dropdown.settings.templates.escape,
-                deQuote = $.fn.dropdown.settings.templates.deQuote
+                html = '',
+                className = settings.className,
+                fields = settings.fields,
+                escape = settings.templates.escape,
+                deQuote = settings.templates.deQuote
             ;
             $.each(values, function (index, option) {
                 var
@@ -4353,7 +4356,7 @@
                         maybeDescriptionVertical = option[fields.descriptionVertical]
                             ? className.descriptionVertical + ' '
                             : '',
-                        hasDescription = escape(option[fields.description] || '', preserveHTML) !== ''
+                        hasDescription = escape(option[fields.description] || '', settings) !== ''
                     ;
                     html += '<div class="' + deQuote(maybeActionable + maybeDisabled + maybeDescriptionVertical + (option[fields.class] || className.item)) + '" data-value="' + deQuote(option[fields.value], true) + '"' + maybeText + maybeData + '>';
                     if (isMenu) {
@@ -4366,17 +4369,17 @@
                         html += '<i class="' + deQuote(option[fields.icon] + ' ' + (option[fields.iconClass] || className.icon)) + '"></i>';
                     }
                     if (hasDescription) {
-                        html += '<span class="' + deQuote(className.description) + '">' + escape(option[fields.description] || '', preserveHTML) + '</span>';
+                        html += '<span class="' + deQuote(className.description) + '">' + escape(option[fields.description] || '', settings) + '</span>';
                         html += !isMenu ? '<span class="' + deQuote(className.text) + '">' : '';
                     }
                     if (isMenu) {
                         html += '<span class="' + deQuote(className.text) + '">';
                     }
-                    html += escape(option[fields.name] || '', preserveHTML);
+                    html += escape(option[fields.name] || '', settings);
                     if (isMenu) {
                         html += '</span>';
                         html += '<div class="' + deQuote(itemType) + '">';
-                        html += $.fn.dropdown.settings.templates.menu(option, fields, preserveHTML, className);
+                        html += settings.templates.menu(option, settings);
                         html += '</div>';
                     } else if (hasDescription) {
                         html += '</span>';
@@ -4384,7 +4387,7 @@
                     html += '</div>';
                 } else if (itemType === 'header') {
                     var
-                        groupName = escape(option[fields.name] || '', preserveHTML),
+                        groupName = escape(option[fields.name] || '', settings),
                         groupIcon = deQuote(option[fields.icon] || className.groupIcon)
                     ;
                     if (groupName !== '' || groupIcon !== '') {
@@ -4405,13 +4408,14 @@
         },
 
         // generates label for multiselect
-        label: function (value, text, preserveHTML, className) {
+        label: function (value, text, settings) {
             var
-                escape = $.fn.dropdown.settings.templates.escape,
-                deQuote = $.fn.dropdown.settings.templates.deQuote
+                className = settings.className,
+                escape = settings.templates.escape,
+                deQuote = settings.templates.deQuote
             ;
 
-            return escape(text, preserveHTML) + '<i class="' + deQuote(className.delete) + ' icon"></i>';
+            return escape(text, settings) + '<i class="' + deQuote(className.delete) + ' icon"></i>';
         },
 
         // generates messages like "No results"

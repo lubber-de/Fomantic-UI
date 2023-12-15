@@ -1130,7 +1130,7 @@
                             });
                         }
                         if (isFunction(template)) {
-                            html = template(response, fields, settings.preserveHTML);
+                            html = template(response, settings);
                         } else {
                             module.error(error.noTemplate, false);
                         }
@@ -1465,8 +1465,8 @@
         },
 
         templates: {
-            escape: function (string, preserveHTML) {
-                if (preserveHTML) {
+            escape: function (string, settings) {
+                if (settings.preserveHTML) {
                     return string;
                 }
                 var
@@ -1508,10 +1508,11 @@
 
                 return html;
             },
-            category: function (response, fields, preserveHTML) {
+            category: function (response, settings) {
                 var
                     html = '',
-                    escape = $.fn.search.settings.templates.escape
+                    fields = settings.fields,
+                    escape = settings.templates.escape
                 ;
                 if (response[fields.categoryResults] !== undefined) {
                     // each category
@@ -1520,7 +1521,7 @@
                             html += '<div class="category">';
 
                             if (category[fields.categoryName] !== undefined) {
-                                html += '<div class="name">' + escape(category[fields.categoryName], preserveHTML) + '</div>';
+                                html += '<div class="name">' + escape(category[fields.categoryName], settings) + '</div>';
                             }
 
                             // each item inside category
@@ -1537,13 +1538,13 @@
                                 }
                                 html += '<div class="content">';
                                 if (result[fields.price] !== undefined) {
-                                    html += '<div class="price">' + escape(result[fields.price], preserveHTML) + '</div>';
+                                    html += '<div class="price">' + escape(result[fields.price], settings) + '</div>';
                                 }
                                 if (result[fields.title] !== undefined) {
-                                    html += '<div class="title">' + escape(result[fields.title], preserveHTML) + '</div>';
+                                    html += '<div class="title">' + escape(result[fields.title], settings) + '</div>';
                                 }
                                 if (result[fields.description] !== undefined) {
-                                    html += '<div class="description">' + escape(result[fields.description], preserveHTML) + '</div>';
+                                    html += '<div class="description">' + escape(result[fields.description], settings) + '</div>';
                                 }
                                 html += ''
                                     + '</div>';
@@ -1558,11 +1559,11 @@
                         html += fields.actionURL === false
                             ? ''
                                 + '<div class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</div>'
                             : ''
                                 + '<a href="' + response[fields.action][fields.actionURL].replace(/"/g, '') + '" class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</a>';
                     }
 
@@ -1571,10 +1572,11 @@
 
                 return false;
             },
-            standard: function (response, fields, preserveHTML) {
+            standard: function (response, settings) {
                 var
                     html = '',
-                    escape = $.fn.search.settings.templates.escape
+                    fields = settings.fields,
+                    escape = settings.templates.escape
                 ;
                 if (response[fields.results] !== undefined) {
                     // each result
@@ -1590,13 +1592,13 @@
                         }
                         html += '<div class="content">';
                         if (result[fields.price] !== undefined) {
-                            html += '<div class="price">' + escape(result[fields.price], preserveHTML) + '</div>';
+                            html += '<div class="price">' + escape(result[fields.price], settings) + '</div>';
                         }
                         if (result[fields.title] !== undefined) {
-                            html += '<div class="title">' + escape(result[fields.title], preserveHTML) + '</div>';
+                            html += '<div class="title">' + escape(result[fields.title], settings) + '</div>';
                         }
                         if (result[fields.description] !== undefined) {
-                            html += '<div class="description">' + escape(result[fields.description], preserveHTML) + '</div>';
+                            html += '<div class="description">' + escape(result[fields.description], settings) + '</div>';
                         }
                         html += ''
                             + '</div>';
@@ -1606,11 +1608,11 @@
                         html += fields.actionURL === false
                             ? ''
                                 + '<div class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</div>'
                             : ''
                                 + '<a href="' + response[fields.action][fields.actionURL].replace(/"/g, '') + '" class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</a>';
                     }
 
