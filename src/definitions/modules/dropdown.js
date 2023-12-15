@@ -1112,7 +1112,7 @@
                                     value = settings.templates.deQuote(item[fields.value]),
                                     name = settings.templates.escape(
                                         item[fields.name] || '',
-                                        settings.preserveHTML
+                                        settings
                                     )
                                 ;
                                 $input.append('<option value="' + value + '"' + (item.selected === true ? ' selected' : '') + '>' + name + '</option>');
