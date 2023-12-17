@@ -4317,10 +4317,10 @@
         // generates just menu from select
         menu: function (response, settings) {
             var
+                fields = settings.fields,
                 values = response[fields.values] || [],
                 html = '',
                 className = settings.className,
-                fields = settings.fields,
                 escape = settings.templates.escape,
                 deQuote = settings.templates.deQuote
             ;
