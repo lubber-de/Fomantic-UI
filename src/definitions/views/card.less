@@ -442,7 +442,7 @@
         max-width: 100%;
         min-height: 0 !important;
         flex-grow: 0;
-        border-top: @extraDivider !important;
+        border-top: @extraDivider;
         position: @extraPosition;
         background: @extraBackground;
         width: @extraWidth;
@@ -1067,6 +1067,34 @@
     }
 }
 
+& when (@variationCardOverlay) {
+    .ui.cards:not(.horizontal) > .card > .overlay.content,
+    .ui.card:not(.horizontal) > .overlay.content {
+        position: absolute;
+        width: 100%;
+        border-top: none;
+    }
+    .ui.cards:not(.horizontal) > .card > .bottom.overlay.content,
+    .ui.card:not(.horizontal) > .bottom.overlay.content {
+        bottom: 0;
+        top: auto;
+    }
+}
+& when (@variationCardDimmed) {
+    .ui.cards > .card > .dimmed.content,
+    .ui.card > .dimmed.content {
+        background: @mediumBackgroundColor;
+    }
+    .ui.cards > .card > .light.dimmed.content,
+    .ui.card > .light.dimmed.content {
+        background: @lightBackgroundColor;
+    }
+    .ui.cards > .card > .very.light.dimmed.content,
+    .ui.card > .very.light.dimmed.content {
+        background: @veryLightBackgroundColor;
+    }
+}
+
 /* --------------
       Size
 --------------- */
@@ -1144,7 +1172,7 @@
         /* Extra */
         .ui.inverted.cards > .card > .extra,
         .ui.inverted.card > .extra {
-            border-top: @invertedExtraDivider !important;
+            border-top: @invertedExtraDivider;
             color: @invertedExtraColor;
         }
         .ui.inverted.cards > .card > .extra a:not(.ui),
@@ -1176,6 +1204,22 @@
             background: @loaderInvertedDimmerColor;
         }
     }
+
+    & when (@variationCardDimmed) {
+        .ui.inverted.cards > .card > .dimmed.content,
+        .ui.inverted.card > .dimmed.content {
+            background: @mediumInvertedBackgroundColor;
+        }
+        .ui.inverted.cards > .card > .light.dimmed.content,
+        .ui.inverted.card > .light.dimmed.content {
+            background: @lightInvertedBackgroundColor;
+        }
+        .ui.inverted.cards > .card > .very.light.dimmed.content,
+        .ui.inverted.card > .very.light.dimmed.content {
+            background: @veryLightInvertedBackgroundColor;
+        }
+    }
+
 }
 
 // stylelint-disable no-invalid-position-at-import-rule

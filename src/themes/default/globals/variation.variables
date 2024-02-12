@@ -435,6 +435,8 @@
 @variationCardStar: true;
 @variationCardLike: true;
 @variationCardEqualWidth: true;
+@variationCardOverlay: true;
+@variationCardDimmed: true;
 @variationCardSizes: @variationAllSizes;
 @variationCardColors: @variationAllColors;
 

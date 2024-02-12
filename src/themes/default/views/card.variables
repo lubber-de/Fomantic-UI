@@ -242,3 +242,11 @@
 @invertedBoxShadow:
     0 @shadowDistance 3px 0 @solidWhiteBorderColor,
     0 0 0 @borderWidth @solidWhiteBorderColor;
+
+/* Dimmed */
+@veryLightBackgroundColor: rgba(255, 255, 255, 0.25);
+@lightBackgroundColor: rgba(255, 255, 255, 0.45);
+@mediumBackgroundColor: rgba(255, 255, 255, 0.65);
+@veryLightInvertedBackgroundColor: rgba(0, 0, 0, 0.25);
+@lightInvertedBackgroundColor: rgba(0, 0, 0, 0.45);
+@mediumInvertedBackgroundColor: rgba(0, 0, 0, 0.65);
