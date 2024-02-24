@@ -2057,9 +2057,12 @@
                         if (!$choice) {
                             return false;
                         }
+                        var choiceValue = $choice.data(metadata.value);
 
-                        return $choice.data(metadata.value) !== undefined
-                            ? String($choice.data(metadata.value))
+                        return choiceValue !== undefined
+                            ? (typeof choiceValue === 'string'
+                                ? choiceValue
+                                : JSON.stringify(choiceValue))
                             : (typeof choiceText === 'string'
                                 ? String(
                                     settings.ignoreSearchCase
