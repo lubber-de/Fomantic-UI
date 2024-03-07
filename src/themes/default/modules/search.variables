@@ -174,3 +174,9 @@
 @bigSearchSize: @relativeBig;
 @hugeSearchSize: @relativeHuge;
 @massiveSearchSize: @relativeMassive;
+
+/* Resizable */
+@resizableDirection: vertical;
+
+@highlightMatchesBackground: @defaultHighlightMatchesBackground;
+@highlightMatchesColor: @defaultHighlightMatchesColor;
