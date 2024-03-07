@@ -1354,7 +1354,9 @@
                                         if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]))) {
                                             return d;
                                         } if (Array.isArray(d[metadata.date])) {
-                                            if (d[metadata.date].some(function (idate) { return module.helper.dateEqual(date, idate, mode); })) {
+                                            if (d[metadata.date].some(function (idate) {
+                                                return module.helper.dateEqual(date, idate, mode);
+                                            })) {
                                                 return d;
                                             }
                                         }
