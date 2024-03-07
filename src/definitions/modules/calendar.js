@@ -1303,7 +1303,9 @@
                                                 return d;
                                             }
                                         } else if (Array.isArray(d[metadata.date])) {
-                                            if (d[metadata.date].some(function (idate) { return module.helper.dateEqual(date, idate, mode); })) {
+                                            if (d[metadata.date].some(function (idate) {
+                                                return module.helper.dateEqual(date, idate, mode);
+                                            })) {
                                                 if (!multiple) {
                                                     return d;
                                                 }
