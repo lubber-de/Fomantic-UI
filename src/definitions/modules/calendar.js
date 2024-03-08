@@ -1265,7 +1265,7 @@
                                     foundDates.push(dateObject);
                                 } else if (d !== null && typeof d === 'object') {
                                     if (d[metadata.year]) {
-                                        if (typeof d[metadata.year] === 'number' && date.getFullYear() == d[metadata.year]) {
+                                        if (typeof d[metadata.year] === 'number' && date.getFullYear() === d[metadata.year]) {
                                             if (!multiple) {
                                                 return d;
                                             }
@@ -1279,7 +1279,7 @@
                                             }
                                         }
                                     } else if (d[metadata.month]) {
-                                        if (typeof d[metadata.month] === 'number' && date.getMonth() == d[metadata.month]) {
+                                        if (typeof d[metadata.month] === 'number' && date.getMonth() === d[metadata.month]) {
                                             return d;
                                         } if (Array.isArray(d[metadata.month])) {
                                             if (d[metadata.month].indexOf(date.getMonth()) > -1) {
@@ -1290,7 +1290,7 @@
                                             }
                                         } else if (d[metadata.month] instanceof Date) {
                                             var sdate = module.helper.sanitiseDate(d[metadata.month]);
-                                            if ((date.getMonth() == sdate.getMonth()) && (date.getFullYear() == sdate.getFullYear())) {
+                                            if ((date.getMonth() == sdate.getMonth()) && (date.getFullYear() === sdate.getFullYear())) {
                                                 if (!multiple) {
                                                     return d;
                                                 }
@@ -1328,7 +1328,7 @@
                                 foundDates = [];
                             var hourCheck = function (date, d) {
                                 if (d[metadata.hours]) {
-                                    if (typeof d[metadata.hours] === 'number' && date.getHours() == d[metadata.hours]) {
+                                    if (typeof d[metadata.hours] === 'number' && date.getHours() === d[metadata.hours]) {
                                         return d;
                                     } if (Array.isArray(d[metadata.hours])) {
                                         if (d[metadata.hours].indexOf(date.getHours()) > -1) {
@@ -1339,11 +1339,11 @@
                             };
                             for (var i = 0; i < hours.length; i++) {
                                 d = hours[i];
-                                if (typeof d === 'number' && date.getHours() == d) {
+                                if (typeof d === 'number' && date.getHours() === d) {
                                     return null;
                                 } if (d !== null && typeof d === 'object') {
                                     if (d[metadata.days] && hourCheck(date, d)) {
-                                        if (typeof d[metadata.days] === 'number' && date.getDay() == d[metadata.days]) {
+                                        if (typeof d[metadata.days] === 'number' && date.getDay() === d[metadata.days]) {
                                             return d;
                                         } if (Array.isArray(d[metadata.days])) {
                                             if (d[metadata.days].indexOf(date.getDay()) > -1) {
@@ -1421,8 +1421,8 @@
                         minDate = minDate && new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), minDate.getHours(), settings.minTimeGap * Math.ceil(minDate.getMinutes() / settings.minTimeGap));
 
                         return !(!date
-                    || (minDate && module.helper.dateDiff(date, minDate, mode) > 0)
-                    || (maxDate && module.helper.dateDiff(maxDate, date, mode) > 0));
+                            || (minDate && module.helper.dateDiff(date, minDate, mode) > 0)
+                            || (maxDate && module.helper.dateDiff(maxDate, date, mode) > 0));
                     },
                     dateInRange: function (date, minDate, maxDate) {
                         if (!minDate && !maxDate) {
@@ -1433,15 +1433,17 @@
                         minDate = minDate && new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate(), minDate.getHours(), settings.minTimeGap * Math.ceil(minDate.getMinutes() / settings.minTimeGap));
                         var isTimeOnly = settings.type === 'time';
 
-                        return !date ? date
+                        return !date
+                            ? date
                             : (minDate && module.helper.dateDiff(date, minDate, 'minute') > 0
                                 ? (isTimeOnly ? module.helper.mergeDateTime(date, minDate) : minDate) // eslint-disable-line unicorn/no-nested-ternary
-                                : maxDate && module.helper.dateDiff(maxDate, date, 'minute') > 0 // eslint-disable-line unicorn/no-nested-ternary
+                                : (maxDate && module.helper.dateDiff(maxDate, date, 'minute') > 0 // eslint-disable-line unicorn/no-nested-ternary
                                     ? (isTimeOnly ? module.helper.mergeDateTime(date, maxDate) : maxDate)
-                                    : date);
+                                    : date));
                     },
                     mergeDateTime: function (date, time) {
-                        return !date || !time ? time
+                        return !date || !time
+                            ? time
                             : new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes());
                     },
                     isTodayButton: function (element) {
