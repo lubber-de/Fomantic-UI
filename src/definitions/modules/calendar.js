@@ -75,7 +75,7 @@
                 selectionComplete = false,
                 classObserver,
                 module
-              ;
+            ;
 
             module = {
 
@@ -1245,8 +1245,8 @@
                     },
                     findDayAsObject: function (date, mode, dates, multiple) {
                         if (mode === 'day' || mode === 'month' || mode === 'year') {
-                            var d;
-                            var foundDates = [],
+                            var d,
+                                foundDates = [],
                                 dateObject;
                             for (var i = 0; i < dates.length; i++) {
                                 d = dates[i];
@@ -1291,7 +1291,7 @@
                                             }
                                         } else if (d[metadata.month] instanceof Date) {
                                             var sdate = module.helper.sanitiseDate(d[metadata.month]);
-                                            if ((date.getMonth() == sdate.getMonth()) && (date.getFullYear() === sdate.getFullYear())) {
+                                            if ((date.getMonth() === sdate.getMonth()) && (date.getFullYear() === sdate.getFullYear())) {
                                                 if (!multiple) {
                                                     return d;
                                                 }
