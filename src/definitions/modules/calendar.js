@@ -1281,7 +1281,8 @@
                                     } else if (d[metadata.month]) {
                                         if (typeof d[metadata.month] === 'number' && date.getMonth() === d[metadata.month]) {
                                             return d;
-                                        } if (Array.isArray(d[metadata.month])) {
+                                        }
+                                        if (Array.isArray(d[metadata.month])) {
                                             if (d[metadata.month].indexOf(date.getMonth()) > -1) {
                                                 if (!multiple) {
                                                     return d;
@@ -1341,11 +1342,13 @@
                                 d = hours[i];
                                 if (typeof d === 'number' && date.getHours() === d) {
                                     return null;
-                                } if (d !== null && typeof d === 'object') {
+                                }
+                                if (d !== null && typeof d === 'object') {
                                     if (d[metadata.days] && hourCheck(date, d)) {
                                         if (typeof d[metadata.days] === 'number' && date.getDay() === d[metadata.days]) {
                                             return d;
-                                        } if (Array.isArray(d[metadata.days])) {
+                                        }
+                                        if (Array.isArray(d[metadata.days])) {
                                             if (d[metadata.days].indexOf(date.getDay()) > -1) {
                                                 return d;
                                             }
@@ -1353,7 +1356,8 @@
                                     } else if (d[metadata.date] && hourCheck(date, d)) {
                                         if (d[metadata.date] instanceof Date && module.helper.dateEqual(date, module.helper.sanitiseDate(d[metadata.date]))) {
                                             return d;
-                                        } if (Array.isArray(d[metadata.date])) {
+                                        }
+                                        if (Array.isArray(d[metadata.date])) {
                                             if (d[metadata.date].some(function (idate) {
                                                 return module.helper.dateEqual(date, idate, mode);
                                             })) {
@@ -1386,6 +1390,7 @@
                         if (!mode) {
                             mode = 'day';
                         }
+
                         var isTimeOnly = settings.type === 'time';
                         var isYear = mode === 'year';
                         var isYearOrMonth = isYear || mode === 'month';
