@@ -243,7 +243,7 @@
     top: @subMenuTop;
     left: @subMenuLeft;
     right: @subMenuRight;
-    margin: @subMenuMargin !important;
+    margin: @subMenuMargin;
     border-radius: @subMenuBorderRadius !important;
     z-index: @subMenuZIndex !important;
 }
@@ -1701,24 +1701,24 @@ select.ui.dropdown {
     }
 
     /* Left Pointing */
-    .ui.left.pointing.dropdown > .menu {
+    .ui.ui.left.pointing.dropdown .menu {
         top: 0;
         left: 100%;
         right: auto;
         margin: 0 0 0 @pointingArrowDistanceFromEdge;
     }
-    .ui.left.pointing.dropdown > .menu::after {
+    .ui.left.pointing.dropdown .menu::after {
         top: 1em;
         left: @pointingArrowOffset;
         margin: 0;
         transform: rotate(-45deg);
     }
-    .ui.left:not(.top):not(.bottom).pointing.dropdown > .left.menu {
+    .ui.left:not(.top):not(.bottom).pointing.dropdown .left.menu {
         left: auto !important;
         right: 100% !important;
         margin: 0 @pointingArrowDistanceFromEdge 0 0;
     }
-    .ui.left:not(.top):not(.bottom).pointing.dropdown > .left.menu::after {
+    .ui.left:not(.top):not(.bottom).pointing.dropdown .left.menu::after {
         top: 1em;
         left: auto;
         right: @pointingArrowOffset;
@@ -1727,13 +1727,13 @@ select.ui.dropdown {
     }
 
     /* Right Pointing */
-    .ui.right.pointing.dropdown > .menu {
+    .ui.right.pointing.dropdown .menu {
         top: 0;
         left: auto;
         right: 100%;
         margin: 0 @pointingArrowDistanceFromEdge 0 0;
     }
-    .ui.right.pointing.dropdown > .menu::after {
+    .ui.right.pointing.dropdown .menu::after {
         top: 1em;
         left: auto;
         right: @pointingArrowOffset;
@@ -1784,15 +1784,15 @@ select.ui.dropdown {
     }
 
     /* Upward pointing */
-    .ui.pointing.upward.dropdown .menu,
-    .ui.top.pointing.upward.dropdown .menu {
+    .ui.pointing.upward.dropdown > .menu,
+    .ui.top.pointing.upward.dropdown > .menu {
         top: auto !important;
         bottom: 100% !important;
         margin: 0 0 @pointingMenuDistance;
         border-radius: @pointingUpwardMenuBorderRadius;
     }
-    .ui.pointing.upward.dropdown .menu::after,
-    .ui.top.pointing.upward.dropdown .menu::after {
+    .ui.pointing.upward.dropdown > .menu::after,
+    .ui.top.pointing.upward.dropdown > .menu::after {
         top: 100% !important;
         bottom: auto !important;
         box-shadow: @pointingUpwardArrowBoxShadow;
@@ -1800,7 +1800,7 @@ select.ui.dropdown {
     }
 
     & when (@variationDropdownSelection) {
-        .ui.selection.pointing.upward.dropdown .menu::after {
+        .ui.selection.pointing.upward.dropdown > .menu::after {
             box-shadow: @pointingUpwardArrowBoxShadowSelection;
         }
     }
