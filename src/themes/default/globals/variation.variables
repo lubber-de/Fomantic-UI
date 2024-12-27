@@ -138,6 +138,7 @@
 @variationInputAction: true;
 @variationInputFluid: true;
 @variationInputFile: true;
+@variationInputNative: true;
 @variationInputColors: @variationAllColors;
 @variationInputSizes: @variationAllSizes;
 

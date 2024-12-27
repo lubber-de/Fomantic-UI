@@ -807,5 +807,14 @@
     });
 }
 
+& when (@variationInputNative) {
+    input.ui.input:extend(.ui.input > input) {}
+    input.ui.input:not([type="color"]):extend(.ui.input > input:not([type="color"])) {}
+    input.ui.input:active:extend(.ui.input > input:active) {}
+    input.ui.input:focus:extend(.ui.input > input:focus) {}
+    input.ui.input::placeholder:extend(.ui.input > input::placeholder) {}
+    input.ui.input:focus::placeholder:extend(.ui.input > input:focus::placeholder) {}
+}
+
 // stylelint-disable no-invalid-position-at-import-rule
 @import (multiple, optional) "../../overrides.less";
