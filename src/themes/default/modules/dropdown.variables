@@ -159,7 +159,6 @@
 @selectHeight: 2.5em;
 @selectMultipleHeight: 12em;
 
-
 /*
  * Caret down icon taken from Font Awesome Free 5.15.4 by @fontawesome [https://fontawesome.com]
  * License - https://fontawesome.com/license/free
@@ -169,7 +168,6 @@
 @selectIconBackgroundPosition: right top 50%;
 @selectIconBackgroundPositionSelection: right 0.7em top 50%;
 @selectIconBackgroundSize: 0.5em auto;
-
 
 @selectionTextColor: @textColor;
 
