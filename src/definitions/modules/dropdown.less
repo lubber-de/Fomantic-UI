@@ -188,6 +188,7 @@
 .ui.dropdown .menu > .header:not(.ui) {
     color: @menuHeaderColor;
     font-size: @menuHeaderFontSize;
+    font-style: @menuHeaderFontStyle;
 }
 .ui.dropdown .menu > .divider {
     border-top: @menuDividerBorder;
@@ -386,11 +387,93 @@
 /*******************************
               Types
 *******************************/
-select.ui.dropdown {
-    height: @selectHeight;
-    padding: @selectPadding;
-    border: @selectBorder;
-    visibility: @selectVisibility;
+& when (@variationDropdownNative) {
+    select.ui.dropdown {
+        height: @selectHeight;
+        padding: @selectPadding;
+        border: @selectBorder;
+        visibility: @selectVisibility;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+
+        &:not([multiple]) {
+            border: none;
+            background: @selectIconBackground @selectIconBackgroundPosition;
+            background-color: @selectIconBackground;
+            background-size: @selectIconBackgroundSize;
+            padding-right: @selectPaddingRight;
+            &.selection {
+                background-position: @selectIconBackgroundPositionSelection;
+            }
+        }
+        &.selection {
+            border: @selectionBorder;
+            border-radius:@selectionBorderRadius;
+            &:hover {
+                border-color: @selectionHoverBorderColor;
+            }
+        }
+    }
+    & when (@supportIE) {
+        /* Hide arrow icon in IE browsers */
+        select.ui.dropdown::-ms-expand {
+            display: none;
+        }
+    }
+    select.ui.dropdown[multiple] {
+        height: 12em;
+        & > option {
+            padding: @itemPadding;
+            margin-left: -@selectMargin;
+            margin-right: -@selectMargin;
+
+            &:first-child {
+                margin-top: -@selectMargin;
+            }
+
+            &:last-child {
+                margin-bottom: -@selectMargin;
+            }
+        }
+    }
+    select.ui.dropdown > optgroup:not([disabled]) > option:not([disabled]):hover,
+    select.ui.dropdown > option:not([disabled]):hover {
+        background: @hoveredItemBackground;
+        color: @hoveredItemColor;
+    }
+    select.ui.dropdown option:checked {
+        background: @selectedBackground;
+        color: @selectedColor;
+        font-weight: @activeFontWeight;
+    }
+    select.ui.dropdown > optgroup:extend(.ui.dropdown .menu > .header) {
+    }
+    select.ui.dropdown > optgroup:extend(.ui.dropdown .menu > .header:not(.ui)) {
+    }
+    select.ui.dropdown hr:extend(.ui.dropdown .menu > .divider) {
+    }
+    select.ui.dropdown > optgroup {
+        &.divider > option:first-child {
+            border-top: @menuDividerBorder;
+        }
+        & > option {
+            text-transform: none;
+            font-size: @selectFontSizeOptgroupOption;
+            padding: @selectPaddingOptgroupOption;
+            margin-left: -@selectMarginOptgroupOption;
+            margin-right: -@selectMarginOptgroupOption;
+            &:first-child {
+                margin-top: @selectMarginOptgroupOption;
+            }
+        }
+    }
+
+    @supports selector(:has(.f)) {
+        select.ui.dropdown[multiple]:has(optgroup) {
+            padding: 0;
+        }
+    }
 }
 
 & when (@variationDropdownSelection) {
