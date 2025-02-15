@@ -69,6 +69,7 @@
                 $module              = $(this),
                 $context             = contextCheck(settings.context, window),
                 $closeIcon           = $module.find(selector.close),
+                $maximizeIcon        = $module.find(selector.maximize),
                 $inputs,
                 $focusedElement,
 
@@ -200,6 +201,15 @@
                                 'aria-label': settings.text.close,
                             });
                             $module.append($closeIcon);
+                        }
+                        if (settings.maximizeIcon) {
+                            $maximizeIcon = $('<i/>', {
+                                class: className.maximize,
+                                role: 'button',
+                                tabindex: 0,
+                                'aria-label': settings.text.maximize,
+                            });
+                            $module.append($maximizeIcon);
                         }
                         if (settings.title !== '') {
                             var titleId = '_' + module.get.id() + 'title';
@@ -366,6 +376,7 @@
                         module.verbose('Attaching events');
                         $module
                             .on('click' + eventNamespace, selector.close, module.event.close)
+                            .on('click' + eventNamespace, selector.maximize, module.event.maximize)
                             .on('click' + eventNamespace, selector.approve, module.event.approve)
                             .on('click' + eventNamespace, selector.deny, module.event.deny)
                         ;
@@ -1397,6 +1408,7 @@
         className: {
             flyout: 'ui flyout',
             close: 'close icon',
+            maximize: 'window maximize outline icon',
             header: 'ui header',
             content: 'content',
             actions: 'actions',
@@ -1432,6 +1444,7 @@
             content: '.content',
             actions: '.actions',
             close: '.close',
+            maximize: '.maximize',
             approve: '.actions .positive, .actions .approve, .actions .ok',
             deny: '.actions .negative, .actions .deny, .actions .cancel',
         },

@@ -66,6 +66,7 @@
                 $module         = $(this),
                 $context        = contextCheck(settings.context, window),
                 isBody          = $context[0] === $body[0],
+                $sizerIcon      = $module.find(selector.sizerIcon),
                 $closeIcon      = $module.find(selector.closeIcon),
                 $inputs,
 
@@ -187,6 +188,18 @@
                                 role: 'button',
                                 tabindex: 0,
                                 'aria-label': settings.text.close,
+                            });
+                            $module.append($closeIcon);
+                        }
+                        if (settings.sizerIcon) {
+                            // TODO fullscreen and overlay fullscreen does not work when detachable =  false -> DOCS missing or fixable in code?
+                            //TODO check ff overlay fullscreen is default
+                            // TODO check if transition is possible
+                            $sizerIcon = $('<i/>', {
+                                class: className.sizer + ' ' + className.maximize,
+                                role: 'button',
+                                tabindex: 0,
+                                'aria-label': settings.text.sizer,
                             });
                             $module.append($closeIcon);
                         }
@@ -381,6 +394,7 @@
                         module.verbose('Attaching events');
                         $module
                             .on('click' + eventNamespace, selector.close, module.event.close)
+                            .on('click' + eventNamespace, selector.sizer, module.event.sizer)
                             .on('click' + eventNamespace, selector.approve, module.event.approve)
                             .on('click' + eventNamespace, selector.deny, module.event.deny)
                         ;
@@ -449,6 +463,16 @@
                     },
                     close: function () {
                         module.hide();
+                    },
+                    sizer: function () {
+                        if($sizerIcon.hasClass(className.maximize)) {
+                            $sizerIcon.removeClass(className.maximize).addClass(className.restore);
+                            $module.addClass('overlay fullscreen');
+                        } else {
+                            $sizerIcon.removeClass(className.restore).addClass(className.maximize);
+                            // todo check if fullscreen was default
+                            $module.removeClass('overlay fullscreen');
+                        }
                     },
                     closeKeyUp: function (event) {
                         var
@@ -1489,6 +1513,7 @@
             actions: '> .actions',
             close: '> .close',
             closeIcon: '> .close',
+            sizerIcon: '> .sizer',
             approve: '.actions .positive, .actions .approve, .actions .ok',
             deny: '.actions .negative, .actions .deny, .actions .cancel',
             modal: '.ui.modal',
@@ -1512,6 +1537,9 @@
             undetached: 'undetached',
             front: 'front',
             close: 'close icon',
+            maximize: 'window maximize outline',
+            restore: 'window restore outline',
+            sizer: 'sizer icon',
             button: 'ui button',
             modal: 'ui modal',
             title: 'header',
@@ -1527,6 +1555,7 @@
             ok: 'Ok',
             cancel: 'Cancel',
             close: 'Close',
+            sizer: 'Maximize/Restore',
         },
     };
 
