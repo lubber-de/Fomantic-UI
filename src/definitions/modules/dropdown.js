@@ -1436,7 +1436,6 @@
                                 hasSubMenu     = $subMenu.length > 0,
                                 isBubbledEvent = $subMenu.find($target).length > 0
                             ;
-                            // prevents IE11 bug where menu receives focus even though `tabindex=-1`
                             if (document.activeElement.tagName.toLowerCase() !== 'input') {
                                 $(document.activeElement).trigger('blur');
                             }
@@ -1922,7 +1921,7 @@
                         $sizer.text(value);
 
                         // prevent rounding issues
-                        return Math.ceil($sizer.width() + (module.is.edge() ? 3 : 1));
+                        return Math.ceil($sizer.width() + 1);
                     },
                     selectionCount: function () {
                         var
@@ -3449,9 +3448,6 @@
                     },
                     bubbledIconClick: function (event) {
                         return $(event.target).closest($icon).length > 0;
-                    },
-                    edge: function () {
-                        return !!window.chrome && !!window.StyleMedia;
                     },
                     empty: function () {
                         return $module.hasClass(className.empty);
