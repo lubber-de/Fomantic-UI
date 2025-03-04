@@ -840,7 +840,7 @@
         closeOnClick: true,
         cloneModule: true,
         actions: false,
-        preserveHTML: true,
+        preserveHTML: false,
         showImage: false,
         alt: false,
 
