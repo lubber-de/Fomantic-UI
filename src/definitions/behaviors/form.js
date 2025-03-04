@@ -1843,11 +1843,6 @@
                 return !(value === undefined || value === '' || (Array.isArray(value) && value.length === 0));
             },
 
-            /* Deprecated */
-            empty: function (value) {
-                return $.fn.form.settings.rules.notEmpty(value);
-            },
-
             // checkbox checked
             checked: function () {
                 return $(this).filter(':checked').length > 0;
