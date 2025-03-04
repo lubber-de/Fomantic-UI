@@ -293,7 +293,6 @@
 
 /* Grid */
 @variationGridInverted: true;
-@variationGridPage: true;
 @variationGridCelled: true;
 @variationGridCentered: true;
 @variationGridRelaxed: true;
