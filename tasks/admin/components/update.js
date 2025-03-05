@@ -8,7 +8,7 @@
 
   * Commits changes from create repo
   * Pushes changes to GitHub
-  * Tag new releases if version changed in main repo
+  * Tag new releases if the version changed in main repo
 
 */
 
@@ -155,7 +155,7 @@ module.exports = function (callback) {
             });
         }
 
-        // Steps to next repository
+        // Steps to the next repository
         function nextRepo() {
             console.log('Sleeping for 1 second...');
             // avoid rate throttling

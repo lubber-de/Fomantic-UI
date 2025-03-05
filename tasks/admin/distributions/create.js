@@ -29,8 +29,7 @@ const
     project         = require('../../config/project/release'),
 
     // shorthand
-    version         = project.version,
-    output          = config.paths.output
+    version         = project.version
 ;
 
 module.exports = function (callback) {

@@ -6,33 +6,28 @@
 
  This task pulls the latest version of each component from GitHub
 
-  * Creates new repo if doesn't exist (locally & GitHub)
-  * Adds remote it doesn't exists
+  * Creates new repo if it doesn't exist (locally & GitHub)
+  * Adds remote if it doesn't exist
   * Pulls latest changes from repo
 
 */
 
 const
     // node dependencies
-    fs        = require('fs'),
+    fs        = require('fs-extra'),
     path      = require('path'),
-    del       = require('del'),
     console   = require('@fomantic/better-console'),
     gulp      = require('gulp'),
     git       = require('@fomantic/gulp-git'),
-    mkdirp    = require('mkdirp'),
 
     // admin files
     release   = require('../../config/admin/release'),
     project   = require('../../config/project/release'),
 
     // oAuth configuration for GitHub
-    oAuth     = fs.existsSync(path.join(__dirname, '/../../config/admin/oauth.js'))
+    oAuth     = fs.pathExistsSync(path.join(__dirname, '/../../config/admin/oauth.js'))
         ? require('../../config/admin/oauth.js') // eslint-disable-line import/extensions
-        : false,
-
-    // shorthand
-    version         = project.version
+        : false
 ;
 
 module.exports = function (callback) {
@@ -42,7 +37,6 @@ module.exports = function (callback) {
         index = -1,
         total = release.components.length,
         timer,
-        stream,
         stepRepo
     ;
 
@@ -74,20 +68,18 @@ module.exports = function (callback) {
 
             gitURL               = 'git@github.com:' + release.org + '/' + repoName + '.git',
             repoURL              = 'https://github.com/' + release.org + '/' + repoName + '/',
-            localRepoSetup       = fs.existsSync(path.join(outputDirectory, '.git'))
+            localRepoSetup       = fs.pathExistsSync(path.join(outputDirectory, '.git'))
         ;
 
         console.log('Processing repository: ' + outputDirectory);
 
-        // create folder if doesn't exist
-        if (!fs.existsSync(outputDirectory)) {
-            mkdirp.sync(outputDirectory);
-        }
+        // create folder if it doesn't exist
+        fs.ensureDirSync(outputDirectory);
 
         // clean folder
         if (release.outputRoot.startsWith('../repos')) {
             console.info('Cleaning dir', outputDirectory);
-            del.sync([outputDirectory + '**/*'], { silent: true, force: true });
+            fs.removeSync(outputDirectory);
         }
 
         // set-up local repo

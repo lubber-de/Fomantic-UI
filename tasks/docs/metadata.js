@@ -4,7 +4,6 @@
 
 const
     // node dependencies
-    fs           = require('fs'),
     console      = require('@fomantic/better-console'),
     YAML         = require('yamljs')
 ;
@@ -33,7 +32,7 @@ function inArray(needle, haystack) {
 }
 
 /**
- * Parses a file for metadata and stores result in data object.
+ * Parses a file for metadata and stores result in a data object.
  * @param {File} file - object provided by map-stream.
  * @param {function(?,File)} - callback provided by map-stream to
  * reply when done.
@@ -109,7 +108,7 @@ function parser(file, callback) {
             meta.category = meta.type;
             meta.filename = filename;
             meta.url = '/' + filename;
-            // Primary key will by filepath
+            // Primary key will be filepath
             data[meta.element] = meta;
         } else {
             // skip
