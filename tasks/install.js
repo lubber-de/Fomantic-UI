@@ -21,8 +21,6 @@ const
     gulp           = require('gulp'),
 
     // gulp dependencies
-    chmod          = require('gulp-chmod'),
-    del            = require('del'),
     jsonEditor     = require('gulp-json-editor'),
     plumber        = require('@fomantic/gulp-plumber'),
     inquirer       = require('inquirer'),
@@ -33,9 +31,6 @@ const
 
     // install config
     install        = require('./config/project/install'),
-
-    // user config
-    config         = require('./config/user'),
 
     // release config (name/title/etc)
     release        = require('./config/project/release'),
