@@ -719,7 +719,7 @@
                     if (module.is.animating()) {
                         module.reset();
                     }
-                    element.blur(); // IE will trigger focus change if element is not blurred before hiding
+                    element.blur();
                     module.remove.display();
                     module.remove.visible();
                     settings.onBeforeHide.call(element, module.hideNow);

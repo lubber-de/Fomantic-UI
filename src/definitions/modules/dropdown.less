@@ -1395,15 +1395,6 @@ select.ui.dropdown {
     .ui.dropdown > .visible.menu .scrolling.menu {
         display: block;
     }
-    & when (@supportIE) {
-        /* Scrollbar in IE */
-        @media all and (-ms-high-contrast: none) {
-            .ui.scrolling.dropdown .menu,
-            .ui.dropdown .scrolling.menu {
-                min-width: e(%("calc(100%% - %d)", @scrollbarWidth));
-            }
-        }
-    }
     @media only screen and (max-width: @largestMobileScreen) {
         .ui.scrolling.dropdown .menu,
         .ui.dropdown .scrolling.menu {
@@ -1519,12 +1510,6 @@ select.ui.dropdown {
     }
     .ui.simple.dropdown .menu {
         position: absolute;
-        & when (@supportIE) {
-            /* IE hack to make dropdown icons appear inline */
-            // stylelint-disable-next-line value-no-vendor-prefix
-            display: -ms-inline-flexbox !important;
-        }
-
         display: block;
         overflow: hidden;
         top: -9999px;
@@ -2075,16 +2060,7 @@ select.ui.dropdown {
         .ui.inverted.dropdown .menu::-webkit-scrollbar-thumb:hover {
             background: @thumbInvertedHoverBackground;
         }
-        & when (@supportIE) {
-            .ui.dropdown .inverted.menu,
-            .ui.inverted.dropdown .menu {
-                /* IE11 */
-                scrollbar-face-color: @thumbInvertedBackgroundHex;
-                scrollbar-shadow-color: @thumbInvertedBackgroundHex;
-                scrollbar-track-color: @trackInvertedBackgroundHex;
-                scrollbar-arrow-color: @trackInvertedBackgroundHex;
-            }
-        }
+
         @supports (-moz-appearance: none) {
             .ui.dropdown .inverted.menu,
             .ui.inverted.dropdown .menu {

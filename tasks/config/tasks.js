@@ -18,8 +18,6 @@ if (!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
         'last 4 iOS major versions',
         'last 4 Android major versions',
         'last 4 ChromeAndroid versions',
-        'Edge 12',
-        'ie 11',
     ];
 }
 
