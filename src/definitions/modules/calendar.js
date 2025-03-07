@@ -1628,7 +1628,7 @@
         constantHeight: true, // add rows to shorter months to keep day calendar height consistent (6 rows)
         today: false, // show a 'today/now' button at the bottom of the calendar
         closable: true, // close the popup after selecting a date/time
-        monthFirst: true, // month before day when parsing date from a text
+        monthFirst: false, // month before day when parsing date from a text
         touchReadonly: true, // set input to readonly on touch devices
         inline: false, // create the calendar inline instead of inside a popup
         on: null, // when to show the popup (defaults to 'focus' for input, 'click' for others)

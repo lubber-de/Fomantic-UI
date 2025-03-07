@@ -1395,7 +1395,7 @@
         showNoResults: true,
 
         // preserve possible html of resultset values
-        preserveHTML: true,
+        preserveHTML: false,
 
         // transition settings
         transition: 'scale',

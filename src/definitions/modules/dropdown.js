@@ -4070,7 +4070,7 @@
         hideDividers: false, // Whether to hide any divider elements (specified in selector.divider) that are sibling to any items when searched (set to true will hide all dividers, set to 'empty' will hide them when they are not followed by a visible item)
 
         placeholder: 'auto', // whether to convert blank <select> values to the placeholder text
-        preserveHTML: true, // preserve HTML when selecting value
+        preserveHTML: false, // preserve HTML when selecting value
         sortSelect: false, // sort selection on init
 
         forceSelection: false, // force a choice on blur with search selection
