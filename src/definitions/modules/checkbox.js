@@ -333,8 +333,6 @@
                     module.set.enabled();
                     if (!module.should.ignoreCallbacks()) {
                         settings.onEnable.call(input);
-                        // preserve legacy callbacks
-                        settings.onEnabled.call(input);
                     }
                 },
 
@@ -348,8 +346,6 @@
                     module.set.disabled();
                     if (!module.should.ignoreCallbacks()) {
                         settings.onDisable.call(input);
-                        // preserve legacy callbacks
-                        settings.onDisabled.call(input);
                     }
                 },
 
@@ -858,10 +854,6 @@
 
         onEnable: function () {},
         onDisable: function () {},
-
-        // preserve misspelled callbacks (will be removed in 3.0)
-        onEnabled: function () {},
-        onDisabled: function () {},
 
         className: {
             checked: 'checked',
