@@ -439,18 +439,6 @@ select.ui.dropdown {
         opacity: @selectionIconOpacity;
         transition: @selectionIconTransition;
     }
-    & when (@variationDropdownCompact) {
-        /* Compact */
-        .ui.compact.selection.dropdown {
-            min-width: 0;
-            & > .menu {
-                width: auto;
-                &:not(.multiline) {
-                    width: max-content;
-                }
-            }
-        }
-    }
 
     /* Selection Menu */
     .ui.selection.dropdown@{notUnlimited} .menu {
@@ -712,7 +700,21 @@ select.ui.dropdown {
         }
     }
 }
-
+& when (@variationDropdownCompact) {
+    /* Compact */
+    .ui.compact.dropdown {
+        min-width: 0;
+        & > .menu {
+            width: auto;
+            &:not(.multiline) {
+                width: max-content;
+            }
+        }
+        & .menu > .item {
+            white-space: normal;
+        }
+    }
+}
 & when (@variationDropdownSearch) {
     /* --------------
        Searchable
