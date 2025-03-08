@@ -18,17 +18,12 @@ if (!prefix.overrideBrowserslist && !hasBrowserslistConfig) {
         'last 4 iOS major versions',
         'last 4 Android major versions',
         'last 4 ChromeAndroid versions',
-        'Edge 12',
-        'ie 11',
     ];
 }
 
-// Node 12 does not support ??, so a little polyfill
-let nullish = (value, fallback) => (value !== undefined && value !== null ? value : fallback);
-
 module.exports = {
 
-    banner: nullish(config.banner, release.banner),
+    banner: config.banner ?? release.banner,
 
     log: {
         created: function (file) {
@@ -40,18 +35,18 @@ module.exports = {
     },
 
     filenames: {
-        concatenatedCSS: 'semantic.css',
-        concatenatedJS: 'semantic.js',
-        concatenatedMinifiedCSS: 'semantic.min.css',
-        concatenatedMinifiedJS: 'semantic.min.js',
-        concatenatedRTLCSS: 'semantic.rtl.css',
-        concatenatedMinifiedRTLCSS: 'semantic.rtl.min.css',
+        concatenatedCSS: config.fileName + release.versionInFileName + '.css',
+        concatenatedJS: config.fileName + release.versionInFileName + '.js',
+        concatenatedMinifiedCSS: config.fileName + release.versionInFileName + '.min.css',
+        concatenatedMinifiedJS: config.fileName + release.versionInFileName + '.min.js',
+        concatenatedRTLCSS: config.fileName + release.versionInFileName + '.rtl.css',
+        concatenatedMinifiedRTLCSS: config.fileName + release.versionInFileName + '.rtl.min.css',
     },
 
     regExp: {
 
         comments: {
-            // remove all component headers in concatenated file
+            // remove all component headers in the concatenated file
             header: {
                 in: /\/\*!(?:(?!\/\*).)*# Fomantic-UI \d+\.\d+\.(?:(?!\/\*).)*MIT license(?:(?!\/\*).)*\*\/\n?/gs,
                 out: '',
@@ -63,7 +58,7 @@ module.exports = {
                 out: '$1',
             },
 
-            // add version to first comment
+            // add the version to the first comment
             license: {
                 in: /(^\/\*[\S\s]+)(# Fomantic-UI )([\S\s]+?\*\/)/,
                 out: '$1$2' + release.version + ' $3',
@@ -90,22 +85,17 @@ module.exports = {
 
     settings: {
 
-        /* Remove Files in Clean */
-        del: {
-            silent: true,
-        },
-
         concatCSS: {
             rebaseUrls: false,
         },
 
         /* Comment Banners */
         header: {
-            year: nullish(config.header.year, new Date().getFullYear()),
-            title: nullish(config.header.title, release.title),
-            version: nullish(config.header.version, release.version),
-            repository: nullish(config.header.repository, release.repository),
-            url: nullish(config.header.url, release.url),
+            year: config.header.year ?? new Date().getFullYear(),
+            title: config.header.title ?? release.title,
+            version: config.header.version ?? release.version,
+            repository: config.header.repository ?? release.repository,
+            url: config.header.url ?? release.url,
         },
 
         plumber: {
