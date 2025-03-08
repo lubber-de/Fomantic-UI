@@ -192,7 +192,7 @@
                                 $content.append($('<div/>', {
                                     class: className.title,
                                     id: titleId,
-                                    html: module.helpers.escape(settings.title, settings.preserveHTML),
+                                    html: module.helpers.escape(settings.title),
                                 }));
                             }
                             var descId = '_' + module.get.id() + 'desc';
@@ -200,7 +200,7 @@
                             $content.append($('<div/>', {
                                 class: className.message,
                                 id: descId,
-                                html: module.helpers.escape(settings.message, settings.preserveHTML),
+                                html: module.helpers.escape(settings.message),
                             }));
 
                             $toast
@@ -232,10 +232,10 @@
                                 $toast.find(selector.image).attr('src', settings.showImage).attr('alt', settings.alt || '');
                             }
                             if (settings.title !== '') {
-                                $toast.find(selector.title).html(module.helpers.escape(settings.title, settings.preserveHTML));
+                                $toast.find(selector.title).html(module.helpers.escape(settings.title));
                             }
                             if (settings.message !== '') {
-                                $toast.find(selector.message).html(module.helpers.escape(settings.message, settings.preserveHTML));
+                                $toast.find(selector.message).html(module.helpers.escape(settings.message));
                             }
                         }
                         if ($toast.hasClass(className.compact)) {
@@ -262,7 +262,7 @@
                                         ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '')
                                             + ' class="' + module.helpers.deQuote(el[fields.icon]) + ' icon"></i>'
                                         : '',
-                                    text = module.helpers.escape(el[fields.text] || '', settings.preserveHTML),
+                                    text = module.helpers.escape(el[fields.text] || ''),
                                     cls = module.helpers.deQuote(el[fields.class] || ''),
                                     click = el[fields.click] && isFunction(el[fields.click])
                                         ? el[fields.click]
@@ -595,8 +595,8 @@
                     deQuote: function (string) {
                         return String(string).replace(/"/g, '');
                     },
-                    escape: function (string, preserveHTML) {
-                        if (preserveHTML) {
+                    escape: function (string) {
+                        if (settings.preserveHTML) {
                             return string;
                         }
                         var

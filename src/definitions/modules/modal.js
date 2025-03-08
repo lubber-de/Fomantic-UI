@@ -111,10 +111,10 @@
                     }
                     $module.addClass(settings.class);
                     if (settings.title !== '') {
-                        $module.find(selector.title).html(module.helpers.escape(settings.title, settings.preserveHTML)).addClass(settings.classTitle);
+                        $module.find(selector.title).html(module.helpers.escape(settings.title)).addClass(settings.classTitle);
                     }
                     if (settings.content !== '') {
-                        $module.find(selector.content).html(module.helpers.escape(settings.content, settings.preserveHTML)).addClass(settings.classContent);
+                        $module.find(selector.content).html(module.helpers.escape(settings.content)).addClass(settings.classContent);
                     }
                     if (module.has.configActions()) {
                         var $actions = $module.find(selector.actions).addClass(settings.classActions);
@@ -128,7 +128,7 @@
                                 icon = el[fields.icon]
                                     ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '') + ' class="' + module.helpers.deQuote(el[fields.icon]) + ' icon"></i>'
                                     : '',
-                                text = module.helpers.escape(el[fields.text] || '', settings.preserveHTML),
+                                text = module.helpers.escape(el[fields.text] || ''),
                                 cls = module.helpers.deQuote(el[fields.class] || ''),
                                 click = el[fields.click] && isFunction(el[fields.click])
                                     ? el[fields.click]
@@ -930,8 +930,8 @@
                     deQuote: function (string) {
                         return String(string).replace(/"/g, '');
                     },
-                    escape: function (string, preserveHTML) {
-                        if (preserveHTML) {
+                    escape: function (string) {
+                        if (settings.preserveHTML) {
                             return string;
                         }
                         var
