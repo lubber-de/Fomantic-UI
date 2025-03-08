@@ -869,7 +869,7 @@
             icon: 'centered icon',
             visible: 'visible',
             content: 'content',
-            title: 'ui header',
+            title: 'ui heading',
             message: 'message',
             actions: 'actions',
             extraContent: 'extra content',

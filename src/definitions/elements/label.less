@@ -140,7 +140,7 @@ a.ui.label {
        Coupling
 -------------------- */
 
-.ui.header > .ui.label {
+.ui.heading > .ui.label {
     margin-top: @lineHeightOffset;
 }
 
@@ -1040,6 +1040,10 @@ a.ui.active.label:hover::before {
             font-size: @s;
         }
     });
+}
+
+& when (@variationHeadingLegacyHeader) {
+    .header:extend(.heading all){};
 }
 
 // stylelint-disable no-invalid-position-at-import-rule

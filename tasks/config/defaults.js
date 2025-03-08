@@ -53,7 +53,7 @@ module.exports = {
         'divider',
         'emoji',
         'flag',
-        'header',
+        'heading',
         'icon',
         'image',
         'input',

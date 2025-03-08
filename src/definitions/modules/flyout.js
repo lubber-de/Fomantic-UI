@@ -1357,7 +1357,7 @@
         className: {
             flyout: 'ui flyout',
             close: 'close icon',
-            header: 'ui header',
+            header: 'ui heading',
             content: 'content',
             actions: 'actions',
             active: 'active',
@@ -1388,7 +1388,7 @@
             omitted: 'script, link, style, .ui.modal, .ui.dimmer, .ui.nag, .ui.fixed',
             pusher: '.pusher',
             flyout: '.ui.flyout',
-            header: '.ui.header',
+            header: '.ui.heading',
             content: '.content',
             actions: '.actions',
             close: '.close',
