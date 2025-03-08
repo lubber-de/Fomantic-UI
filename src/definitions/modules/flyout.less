@@ -82,12 +82,12 @@
 --------------- */
 .ui.flyout > .header {
     display: block;
-    background: @headerBackground;
-    margin: @headerMargin;
-    padding: @headerPadding;
-    box-shadow: @headerBoxShadow;
-    color: @headerColor;
-    border-bottom: @headerBorder;
+    background: @headingBackground;
+    margin: @headingMargin;
+    padding: @headingPadding;
+    box-shadow: @headingBoxShadow;
+    color: @headingColor;
+    border-bottom: @headingBorder;
 }
 
 /* --------------
@@ -653,7 +653,7 @@ body.pushable > .pusher {
 
 & when (@variationHeadingLegacyHeader) {
     .header:extend(.heading all) {
-    };
+    }
 }
 
 // stylelint-disable no-invalid-position-at-import-rule

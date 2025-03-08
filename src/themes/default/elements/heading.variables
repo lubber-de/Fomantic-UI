@@ -7,13 +7,13 @@
 -------------------- */
 
 @textTransform: none;
-@fontFamily: @HeadingFont;
-@fontWeight: @HeadingFontWeight;
-@lineHeight: @HeadingLineHeight;
-@lineHeightOffset: @HeadingLineHeightOffset;
+@fontFamily: @headingFont;
+@fontWeight: @headingFontWeight;
+@lineHeight: @headingLineHeight;
+@lineHeightOffset: @headingLineHeightOffset;
 
-@topMargin: @HeadingTopMargin;
-@bottomMargin: @HeadingBottomMargin;
+@topMargin: @headingTopMargin;
+@bottomMargin: @headingBottomMargin;
 @margin: @topMargin 0 @bottomMargin;
 
 @firstMargin: -@lineHeightOffset;
