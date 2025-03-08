@@ -52,10 +52,10 @@
         display: block;
         font-weight: @normal;
         padding: 0;
-        margin: @subHeaderMargin;
-        font-size: @subHeaderFontSize;
-        line-height: @subHeaderLineHeight;
-        color: @subHeaderColor;
+        margin: @subHeadingMargin;
+        font-size: @subHeadingFontSize;
+        line-height: @subHeadingLineHeight;
+        color: @subHeadingColor;
     }
 }
 
@@ -145,7 +145,7 @@
 --------------- */
 & when not (@variationHeadingTags = false) {
     each(@variationHeadingTags, {
-        @sf: @{value}SubHeaderFontSize;
+        @sf: @{value}SubHeadingFontSize;
         @s: @@value;
         @{value}.ui.heading {
             font-size: @s;
@@ -164,7 +164,7 @@
 
 & when not (@variationHeadingSizes = false) {
     each(@variationHeadingSizes, {
-        @sf: @{value}SubHeaderFontSize;
+        @sf: @{value}SubHeadingFontSize;
         @shf: @{value}SubHeadingSize;
         @s: @{value}FontSize;;
         .ui.@{value}.heading {
@@ -207,7 +207,7 @@
     .ui.icon.heading {
         display: inline-block;
         text-align: center;
-        margin: @iconHeaderTopMargin 0 @iconHeaderBottomMargin;
+        margin: @iconHeadingTopMargin 0 @iconHeadingBottomMargin;
     }
     .ui.icon.heading::after {
         content: "";
@@ -218,7 +218,7 @@
     }
 
     .ui.icon.heading:first-child {
-        margin-top: @iconHeaderFirstMargin;
+        margin-top: @iconHeadingFirstMargin;
     }
     .ui.icon.heading > .image.icon,
     .ui.icon.heading > .icons,
@@ -229,22 +229,22 @@
         height: auto;
         line-height: 1;
         padding: 0;
-        font-size: @iconHeaderSize;
-        margin: 0 auto @iconHeaderMargin;
-        opacity: @iconHeaderOpacity;
+        font-size: @iconHeadingSize;
+        margin: 0 auto @iconHeadingMargin;
+        opacity: @iconHeadingOpacity;
     }
     .ui.icon.heading .corner.icon {
-        font-size: @cornerIconHeaderSize;
+        font-size: @cornerIconHeadingSize;
     }
     .ui.icon.heading .content {
         display: block;
         padding: 0;
     }
     .ui.icon.heading > i.circular {
-        font-size: @circularHeaderIconSize;
+        font-size: @circularHeadingIconSize;
     }
     .ui.icon.heading > i.square {
-        font-size: @squareHeaderIconSize;
+        font-size: @squareHeadingIconSize;
     }
     & when (@variationHeadingBlock) {
         .ui.block.icon.heading > .image.icon,
@@ -284,7 +284,7 @@
         color: @invertedColor;
     }
     .ui.inverted.heading .sub.heading {
-        color: @invertedSubHeaderColor;
+        color: @invertedSubHeadingColor;
     }
     & when (@variationHeadingAttached) {
         .ui.inverted.attached.heading {
@@ -405,7 +405,7 @@
     }
     & when (@variationHeadingSub) {
         .ui.dividing.heading .sub.heading {
-            padding-bottom: @dividedSubHeaderPadding;
+            padding-bottom: @dividedSubHeadingPadding;
         }
     }
     .ui.dividing.heading i.icon {
@@ -498,9 +498,9 @@
     font-size: @mediumFontSize;
 }
 
-& when (@variationHeadingLegacyHeader) {
-    .header:extend(.heading all ){
-    };
+& when (@variationHeadingLegacyHeading) {
+    .Heading:extend(.heading all) {
+    }
 }
 
 // stylelint-disable no-invalid-position-at-import-rule
