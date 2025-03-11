@@ -183,6 +183,7 @@
                                 $toast.append($('<img>', {
                                     class: className.image + ' ' + settings.classImage,
                                     src: settings.showImage,
+                                    alt: settings.alt || '',
                                 }));
                             }
                             if (settings.title !== '') {
@@ -191,7 +192,7 @@
                                 $content.append($('<div/>', {
                                     class: className.title,
                                     id: titleId,
-                                    html: module.helpers.escape(settings.title, settings.preserveHTML),
+                                    html: module.helpers.escape(settings.title),
                                 }));
                             }
                             var descId = '_' + module.get.id() + 'desc';
@@ -199,7 +200,7 @@
                             $content.append($('<div/>', {
                                 class: className.message,
                                 id: descId,
-                                html: module.helpers.escape(settings.message, settings.preserveHTML),
+                                html: module.helpers.escape(settings.message),
                             }));
 
                             $toast
@@ -228,13 +229,13 @@
                                 $toast.find(selector.icon).attr('class', iconClass + ' ' + className.icon);
                             }
                             if (settings.showImage) {
-                                $toast.find(selector.image).attr('src', settings.showImage);
+                                $toast.find(selector.image).attr('src', settings.showImage).attr('alt', settings.alt || '');
                             }
                             if (settings.title !== '') {
-                                $toast.find(selector.title).html(module.helpers.escape(settings.title, settings.preserveHTML));
+                                $toast.find(selector.title).html(module.helpers.escape(settings.title));
                             }
                             if (settings.message !== '') {
-                                $toast.find(selector.message).html(module.helpers.escape(settings.message, settings.preserveHTML));
+                                $toast.find(selector.message).html(module.helpers.escape(settings.message));
                             }
                         }
                         if ($toast.hasClass(className.compact)) {
@@ -261,7 +262,7 @@
                                         ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '')
                                             + ' class="' + module.helpers.deQuote(el[fields.icon]) + ' icon"></i>'
                                         : '',
-                                    text = module.helpers.escape(el[fields.text] || '', settings.preserveHTML),
+                                    text = module.helpers.escape(el[fields.text] || ''),
                                     cls = module.helpers.deQuote(el[fields.class] || ''),
                                     click = el[fields.click] && isFunction(el[fields.click])
                                         ? el[fields.click]
@@ -594,8 +595,8 @@
                     deQuote: function (string) {
                         return String(string).replace(/"/g, '');
                     },
-                    escape: function (string, preserveHTML) {
-                        if (preserveHTML) {
+                    escape: function (string) {
+                        if (settings.preserveHTML) {
                             return string;
                         }
                         var
@@ -702,7 +703,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -823,8 +826,8 @@
 
         title: '',
         message: '',
-        displayTime: 3000, // set to zero to require manually dismissal, otherwise hides on its own
-        minDisplayTime: 1000, // minimum displaytime in case displayTime is set to 'auto'
+        displayTime: 3000, // set to zero to require manual dismissal, otherwise hides on its own
+        minDisplayTime: 1000, // minimum display time in case displayTime is set to 'auto'
         wordsPerMinute: 120,
         showIcon: false,
         newestOnTop: false,
@@ -837,8 +840,9 @@
         closeOnClick: true,
         cloneModule: true,
         actions: false,
-        preserveHTML: true,
+        preserveHTML: false,
         showImage: false,
+        alt: false,
 
         // transition settings
         transition: {
@@ -846,7 +850,7 @@
             showDuration: 500,
             hideMethod: 'scale',
             hideDuration: 500,
-            closeEasing: 'easeOutCubic', // Set to empty string to stack the closed toast area immediately (old behaviour)
+            closeEasing: 'easeOutCubic', // Set to empty string to stack the closed toast area immediately (old behavior)
             closeDuration: 500,
         },
 

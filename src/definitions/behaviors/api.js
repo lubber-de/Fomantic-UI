@@ -211,7 +211,7 @@
                     // call beforesend and get any settings changes
                     requestSettings = module.get.settings();
 
-                    // check if before send cancelled request
+                    // check if before send canceled request
                     if (requestSettings === false) {
                         module.cancelled = true;
                         module.error(error.beforeSend);
@@ -647,7 +647,9 @@
                                 module.debug('Adding error state');
                                 module.set.error();
                                 if (module.should.removeError()) {
-                                    setTimeout(function () { module.remove.error(); }, settings.errorDuration);
+                                    setTimeout(function () {
+                                        module.remove.error();
+                                    }, settings.errorDuration);
                                 }
                             }
                             module.debug('API Request failed', errorMessage, xhr);
@@ -765,8 +767,8 @@
                     },
                     errorFromRequest: function (response, status, httpMessage) {
                         return $.isPlainObject(response) && response.error !== undefined
-                            ? response.error // use json error message
-                            : (settings.error[status] !== undefined // use server error message
+                            ? response.error // use JSON error message
+                            : (settings.error[status] !== undefined // use the server error message
                                 ? settings.error[status]
                                 : httpMessage);
                     },
@@ -971,7 +973,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -1121,7 +1125,7 @@
         // whether to add default data to url data
         defaultData: true,
 
-        // whether to serialize closest form
+        // whether to serialize the closest form
         // use true to convert complex named keys like a[b][1][c][] into a nested object
         // use 'formdata' for formdata web api
         serializeForm: false,
@@ -1158,7 +1162,7 @@
         // after request
         onResponse: false, // function(response) { },
 
-        // response was successful, if JSON passed validation
+        // response was successful if JSON passed validation
         onSuccess: function (response, $module) {},
 
         // request finished without aborting

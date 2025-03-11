@@ -8,7 +8,7 @@
 
   * Commits changes from create repo
   * Pushes changes to GitHub
-  * Tag new releases if version changed in main repo
+  * Tag new releases if the version changed in main repo
 
 */
 
@@ -16,9 +16,9 @@ const
     // node dependencies
     fs             = require('fs'),
     path           = require('path'),
-    console        = require('better-console'),
+    console        = require('@fomantic/better-console'),
     gulp           = require('gulp'),
-    git            = require('gulp-git'),
+    git            = require('@fomantic/gulp-git'),
 
     // admin files
     release        = require('../../config/admin/release'),
@@ -40,7 +40,6 @@ module.exports = function (callback) {
         index = -1,
         total = release.distributions.length,
         timer,
-        stream,
         stepRepo
     ;
 
@@ -50,7 +49,7 @@ module.exports = function (callback) {
         return;
     }
 
-    // Do Git commands synchronously per distribution, to avoid issues
+    // Do the Git commands synchronously per distribution, to avoid issues
     stepRepo = function () {
         index += 1;
         if (index >= total) {
@@ -78,7 +77,7 @@ module.exports = function (callback) {
                 ? 'Updated distribution to version ' + version
                 : 'Updated files from main repo',
 
-            gitOptions      = { cwd: outputDirectory },
+            gitOptions      = { cwd: outputDirectory, encoding: false },
             commitOptions   = { args: commitArgs, cwd: outputDirectory },
             releaseOptions  = { tag_name: version, owner: release.org, repo: repoName },
 
@@ -109,11 +108,11 @@ module.exports = function (callback) {
             console.info('Committing ' + distribution + ' files', commitArgs);
             gulp.src('./', gitOptions)
                 .pipe(git.add(gitOptions))
-                .pipe(git.commit(commitMessage, commitOptions))
-                .on('error', function (error) {
+                .pipe(git.commit(commitMessage, commitOptions), function () {})
+                .on('error', function () {
                     // canProceed = false; bug in git commit <https://github.com/stevelacy/gulp-git/issues/49>
                 })
-                .on('finish', function (callback) {
+                .on('finish', function () {
                     if (canProceed) {
                         pushFiles();
                     } else {
@@ -127,7 +126,7 @@ module.exports = function (callback) {
         // push changes to remote
         function pushFiles() {
             console.info('Pushing files for ' + distribution);
-            git.push('origin', 'master', { args: '', cwd: outputDirectory }, function (error) {
+            git.push('origin', 'master', { args: '', cwd: outputDirectory }, function () {
                 console.info('Push completed successfully');
                 getSHA();
             });
@@ -148,10 +147,10 @@ module.exports = function (callback) {
             }
             github.repos.createRelease(releaseOptions, function () {
                 nextRepo();
-            });
+            }).then();
         }
 
-        // Steps to next repository
+        // Steps to the next repository
         function nextRepo() {
             console.log('Sleeping for 1 second...');
             // avoid rate throttling

@@ -117,10 +117,10 @@
                     }
                     $module.addClass(settings.class);
                     if (settings.title !== '') {
-                        $module.find(selector.header).html(module.helpers.escape(settings.title, settings.preserveHTML)).addClass(settings.classTitle);
+                        $module.find(selector.header).html(module.helpers.escape(settings.title)).addClass(settings.classTitle);
                     }
                     if (settings.content !== '') {
-                        $module.find(selector.content).html(module.helpers.escape(settings.content, settings.preserveHTML)).addClass(settings.classContent);
+                        $module.find(selector.content).html(module.helpers.escape(settings.content)).addClass(settings.classContent);
                     }
                     if (module.has.configActions()) {
                         var $actions = $module.find(selector.actions).addClass(settings.classActions);
@@ -134,7 +134,7 @@
                                 icon = el[fields.icon]
                                     ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '') + ' class="' + module.helpers.deQuote(el[fields.icon]) + ' icon"></i>'
                                     : '',
-                                text = module.helpers.escape(el[fields.text] || '', settings.preserveHTML),
+                                text = module.helpers.escape(el[fields.text] || ''),
                                 cls = module.helpers.deQuote(el[fields.class] || ''),
                                 click = el[fields.click] && isFunction(el[fields.click])
                                     ? el[fields.click]
@@ -190,7 +190,7 @@
 
                 create: {
                     flyout: function () {
-                        module.verbose('Programmaticaly create flyout', $context);
+                        module.verbose('Programmatically create flyout', $context);
                         $module = $('<div/>', { class: className.flyout, role: 'dialog', 'aria-modal': settings.dimPage });
                         if (settings.closeIcon) {
                             $closeIcon = $('<i/>', {
@@ -460,28 +460,6 @@
                                 + ' }';
                         }
 
-                        /* IE is only browser not to create context with transforms */
-                        /* https://www.w3.org/Bugs/Public/show_bug.cgi?id=16328 */
-                        if (module.is.ie()) {
-                            if (direction === 'left' || direction === 'right') {
-                                module.debug('Adding CSS rules for animation distance', width);
-                                style += ''
-                                    + ' body.pushable > .ui.visible.' + direction + '.flyout ~ .pusher::after {'
-                                    + '           transform: translate3d(' + distance[direction] + 'px, 0, 0);'
-                                    + ' }';
-                            } else if (direction === 'top' || direction === 'bottom') {
-                                style += ''
-                                    + ' body.pushable > .ui.visible.' + direction + '.flyout ~ .pusher::after {'
-                                    + '           transform: translate3d(0, ' + distance[direction] + 'px, 0);'
-                                    + ' }';
-                            }
-                            /* opposite sides visible forces content overlay */
-                            style += ''
-                                + ' body.pushable > .ui.visible.left.flyout ~ .ui.visible.right.flyout ~ .pusher::after,'
-                                + ' body.pushable > .ui.visible.right.flyout ~ .ui.visible.left.flyout ~ .pusher::after {'
-                                + '           transform: translate3d(0, 0, 0);'
-                                + ' }';
-                        }
                         style += '</style>';
                         $style = $(style)
                             .appendTo($head)
@@ -516,7 +494,7 @@
                                         shouldRefreshInputs = true;
                                     }
                                 } else {
-                                    // mutationobserver only provides the parent nodes
+                                    // mutationobserver only provides the parent nodes,
                                     // so let's collect all childs as well to find nested inputs
                                     var $addedInputs = $(collectNodes(mutation.addedNodes)).filter('a[href], [tabindex], :input:enabled').filter(':visible'),
                                         $removedInputs = $(collectNodes(mutation.removedNodes)).filter('a[href], [tabindex], :input');
@@ -994,7 +972,7 @@
                 can: {
                     leftBodyScrollbar: function () {
                         if (module.cache.leftBodyScrollbar === undefined) {
-                            module.cache.leftBodyScrollbar = module.is.rtl() && ((module.is.iframe && !module.is.firefox()) || module.is.safari() || module.is.edge() || module.is.ie());
+                            module.cache.leftBodyScrollbar = module.is.rtl() && ((module.is.iframe && !module.is.firefox()) || module.is.safari());
                         }
 
                         return module.cache.leftBodyScrollbar;
@@ -1029,13 +1007,6 @@
 
                         return module.cache.isSafari;
                     },
-                    edge: function () {
-                        if (module.cache.isEdge === undefined) {
-                            module.cache.isEdge = !!window.setImmediate && !module.is.ie();
-                        }
-
-                        return module.cache.isEdge;
-                    },
                     firefox: function () {
                         if (module.cache.isFirefox === undefined) {
                             module.cache.isFirefox = !!window.InstallTrigger;
@@ -1045,17 +1016,6 @@
                     },
                     iframe: function () {
                         return !(self === top);
-                    },
-                    ie: function () {
-                        if (module.cache.isIE === undefined) {
-                            var
-                                isIE11 = !window.ActiveXObject && 'ActiveXObject' in window,
-                                isIE = 'ActiveXObject' in window
-                            ;
-                            module.cache.isIE = isIE11 || isIE;
-                        }
-
-                        return module.cache.isIE;
                     },
                     mobile: function () {
                         var
@@ -1122,8 +1082,8 @@
                     deQuote: function (string) {
                         return String(string).replace(/"/g, '');
                     },
-                    escape: function (string, preserveHTML) {
-                        if (preserveHTML) {
+                    escape: function (string) {
+                        if (settings.preserveHTML) {
                             return string;
                         }
                         var
@@ -1219,7 +1179,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -1364,7 +1326,7 @@
         classActions: '',
         closeIcon: false,
         actions: false,
-        preserveHTML: true,
+        preserveHTML: false,
 
         fields: {
             class: 'class',

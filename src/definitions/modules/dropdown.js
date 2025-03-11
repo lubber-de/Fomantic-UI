@@ -127,6 +127,9 @@
                             module.change.values(settings.values);
                             module.remove.initialLoad();
                         }
+                        if (module.get.placeholderText() !== '') {
+                            module.set.placeholderText();
+                        }
 
                         module.refreshData();
 
@@ -413,7 +416,7 @@
                                 .attr('class', $input.attr('class'))
                                 .addClass(className.selection)
                                 .addClass(className.dropdown)
-                                .html(templates.dropdown(selectValues, fields, settings.preserveHTML, settings.className))
+                                .html(templates.dropdown(selectValues, settings))
                                 .insertBefore($input)
                             ;
                             if ($input.hasClass(className.multiple) && $input.prop('multiple') === false) {
@@ -443,7 +446,7 @@
                         module.refresh();
                     },
                     menu: function (values) {
-                        $menu.html(templates.menu(values, fields, settings.preserveHTML, settings.className));
+                        $menu.html(templates.menu(values, settings));
                         $item = $menu.find(selector.item);
                         $divider = settings.hideDividers ? $item.parent().children(selector.divider) : $();
                     },
@@ -461,7 +464,7 @@
                             $firstModules = $allModules.slice(0, elementIndex),
                             $lastModules  = $allModules.slice(elementIndex + 1)
                         ;
-                        // adjust all modules to use correct reference
+                        // adjust all modules to use the correct reference
                         $allModules = $firstModules.add($module).add($lastModules);
                     },
                 },
@@ -793,7 +796,7 @@
                                 }
                                 if (module.is.multiple()) {
                                     $.each(preSelected, function (index, value) {
-                                        $item.filter('[data-value="' + value + '"]')
+                                        $item.filter('[data-' + metadata.value + '="' + value + '"]')
                                             .addClass(className.filtered)
                                         ;
                                     });
@@ -890,11 +893,13 @@
                                 ? query
                                 : module.get.query()
                         ),
-                        results          =  null,
-                        escapedTerm      = module.escape.string(searchTerm),
-                        regExpFlags      = (settings.ignoreSearchCase ? 'i' : '') + 'gm',
+                        results = null,
+                        escapedTerm = module.escape.string(searchTerm),
+                        regExpIgnore = settings.ignoreSearchCase ? 'i' : '',
+                        regExpFlags = regExpIgnore + 'gm',
                         beginsWithRegExp = new RegExp('^' + escapedTerm, regExpFlags)
                     ;
+                    module.remove.filteredItem();
                     // avoid loop if we're matching nothing
                     if (module.has.query()) {
                         results = [];
@@ -938,12 +943,34 @@
                         ;
                     }
                     module.debug('Showing only matched items', searchTerm);
-                    module.remove.filteredItem();
                     if (results) {
                         $item
                             .not(results)
                             .addClass(className.filtered)
                         ;
+                        if (settings.highlightMatches && (settings.match === 'both' || settings.match === 'text')) {
+                            var querySplit = query.split(''),
+                                diacriticReg = settings.ignoreDiacritics ? '[\u0300-\u036F]?' : '',
+                                htmlReg = '(?![^<]*>)',
+                                markedRegExp = new RegExp(htmlReg + '(' + querySplit.join(diacriticReg + ')(.*?)' + htmlReg + '(') + diacriticReg + ')', regExpIgnore),
+                                markedReplacer = function () {
+                                    var args = [].slice.call(arguments, 1, querySplit.length * 2).map(function (x, i) {
+                                        return i & 1 ? x : '<mark>' + x + '</mark>'; // eslint-disable-line no-bitwise
+                                    });
+
+                                    return args.join('');
+                                }
+                            ;
+                            $.each(results, function (index, result) {
+                                var $result = $(result),
+                                    markedHTML = module.get.choiceText($result, true)
+                                ;
+                                if (settings.ignoreDiacritics) {
+                                    markedHTML = markedHTML.normalize('NFD');
+                                }
+                                $result.html(markedHTML.replace(markedRegExp, markedReplacer));
+                            });
+                        }
                     }
 
                     if (!module.has.query()) {
@@ -979,8 +1006,10 @@
                         termLength  = term.length,
                         queryLength = query.length
                     ;
-                    query = settings.ignoreSearchCase ? query.toLowerCase() : query;
-                    term = settings.ignoreSearchCase ? term.toLowerCase() : term;
+                    if (settings.ignoreSearchCase) {
+                        query = query.toLowerCase();
+                        term = term.toLowerCase();
+                    }
                     if (queryLength > termLength) {
                         return false;
                     }
@@ -1084,7 +1113,7 @@
                                     value = settings.templates.deQuote(item[fields.value]),
                                     name = settings.templates.escape(
                                         item[fields.name] || '',
-                                        settings.preserveHTML
+                                        settings
                                     )
                                 ;
                                 $input.append('<option value="' + value + '"' + (item.selected === true ? ' selected' : '') + '>' + name + '</option>');
@@ -1142,7 +1171,7 @@
                     },
                     mousedown: function () {
                         if (module.is.searchSelection(true)) {
-                            // prevent menu hiding on immediate re-focus
+                            // prevent the menu hiding on immediate re-focus
                             willRefocus = true;
                         } else {
                             // prevents focus callback from occurring on mousedown
@@ -1151,7 +1180,7 @@
                     },
                     mouseup: function () {
                         if (module.is.searchSelection(true)) {
-                            // prevent menu hiding on immediate re-focus
+                            // prevent the menu hiding on immediate re-focus
                             willRefocus = false;
                         } else {
                             activated = false;
@@ -1187,7 +1216,7 @@
                                 if (!itemActivated && !pageLostFocus) {
                                     if (settings.forceSelection) {
                                         module.forceSelection();
-                                    } else if (!settings.allowAdditions) {
+                                    } else if (!settings.allowAdditions && !settings.keepSearchTerm && !module.has.menuSearch()) {
                                         module.remove.searchTerm();
                                     }
                                     module.hide();
@@ -1202,7 +1231,9 @@
                             if (module.is.searchSelection()) {
                                 module.remove.searchTerm();
                             }
-                            module.hide();
+                            if (settings.collapseOnClearable) {
+                                module.hide();
+                            }
                             event.stopPropagation();
                         },
                     },
@@ -1236,7 +1267,9 @@
                             module.set.filtered();
                         }
                         clearTimeout(module.timer);
-                        module.timer = setTimeout(function () { module.search(); }, settings.delay.search);
+                        module.timer = setTimeout(function () {
+                            module.search();
+                        }, settings.delay.search);
                     },
                     label: {
                         click: function (event) {
@@ -1403,7 +1436,6 @@
                                 hasSubMenu     = $subMenu.length > 0,
                                 isBubbledEvent = $subMenu.find($target).length > 0
                             ;
-                            // prevents IE11 bug where menu receives focus even though `tabindex=-1`
                             if (document.activeElement.tagName.toLowerCase() !== 'input') {
                                 $(document.activeElement).trigger('blur');
                             }
@@ -1413,7 +1445,9 @@
                                         module.remove.userAddition();
                                     }
                                     if (!settings.keepSearchTerm) {
-                                        module.remove.filteredItem();
+                                        if (module.is.multiple()) {
+                                            module.remove.filteredItem();
+                                        }
                                         module.remove.searchTerm();
                                     }
                                     if (!module.is.visible() && $target.length > 0) {
@@ -1433,7 +1467,7 @@
                     },
 
                     document: {
-                        // label selection should occur even when element has no focus
+                        // label selection should occur even when the element has no focus
                         keydown: function (event) {
                             var
                                 pressedKey    = event.which,
@@ -1579,13 +1613,13 @@
                                 $nextItem,
                                 isSubMenuItem
                             ;
-                            // allow selection with menu closed
+                            // allow selection with the menu closed
                             if (isAdditionWithoutMenu) {
                                 if (selectedIsSelectable && settings.hideAdditions) {
                                     module.verbose('Selecting item from keyboard shortcut', $selectedItem);
                                     module.event.item.click.call($selectedItem, event);
                                 }
-                                if (module.is.searchSelection()) {
+                                if (module.is.searchSelection() && !settings.keepSearchTerm) {
                                     module.remove.searchTerm();
                                 }
                                 if (module.is.multiple()) {
@@ -1595,7 +1629,7 @@
 
                             // visible menu keyboard shortcuts
                             if (module.is.visible()) {
-                                // enter (select or open sub-menu)
+                                // enter (select or open submenu)
                                 if (pressedKey === keys.enter || delimiterPressed) {
                                     if (pressedKey === keys.enter && hasSelectedItem && hasSubMenu && !settings.allowCategorySelection) {
                                         module.verbose('Pressed enter on unselectable category, opening sub menu');
@@ -1634,7 +1668,7 @@
                                         }
                                     }
 
-                                    // right arrow (show sub-menu)
+                                    // right arrow (show submenu)
                                     if (pressedKey === keys.rightArrow) {
                                         if (hasSubMenu) {
                                             module.verbose('Right key pressed, opening sub-menu');
@@ -1887,7 +1921,7 @@
                         $sizer.text(value);
 
                         // prevent rounding issues
-                        return Math.ceil($sizer.width() + (module.is.edge() ? 3 : 1));
+                        return Math.ceil($sizer.width() + 1);
                     },
                     selectionCount: function () {
                         var
@@ -1957,7 +1991,7 @@
                             isEmptyMultiselect = Array.isArray(value) && value.length === 1 && value[0] === ''
                         ;
 
-                        // prevents placeholder element from being selected when multiple
+                        // prevents the placeholder element from being selected when multiple
                         return value === undefined || isEmptyMultiselect
                             ? ''
                             : value;
@@ -2301,7 +2335,7 @@
                         }
                     },
                     values: function () {
-                        // prevents callbacks from occurring on initial load
+                        // prevents callbacks from occurring on the initial load
                         module.set.initialLoad();
                         if (settings.apiSettings && settings.saveRemoteData && module.get.remoteValues()) {
                             module.restore.remoteValues();
@@ -2587,7 +2621,7 @@
                             } else {
                                 $combo.text(text);
                             }
-                        } else if (settings.action === 'activate') {
+                        } else if (settings.action === 'activate' || isFunction(settings.action)) {
                             if (text !== module.get.placeholderText() || isNotPlaceholder) {
                                 $text.removeClass(className.placeholder);
                             }
@@ -2622,7 +2656,7 @@
                             $nextValue            = false,
                             $nextItem
                         ;
-                        // check next of same letter
+                        // check next of the same letter
                         if (alreadySelectedLetter) {
                             $nextItem = $selectedItem.nextAll($item).eq(0);
                             if (module.has.firstLetter($nextItem, letter)) {
@@ -2641,13 +2675,13 @@
                                 })
                             ;
                         }
-                        // set next value
+                        // set the next value
                         if ($nextValue) {
                             module.verbose('Scrolling to next value with letter', letter);
                             module.set.scrollPosition($nextValue);
                             $selectedItem.removeClass(className.selected);
                             $nextValue.addClass(className.selected);
-                            if (settings.selectOnKeydown && module.is.single() && !$nextItem.hasClass(className.actionable)) {
+                            if (settings.selectOnKeydown && module.is.single() && (!$nextItem || !$nextItem.hasClass(className.actionable))) {
                                 module.set.selectedItem($nextValue);
                             }
                         }
@@ -2658,7 +2692,7 @@
                             if (!$menu) {
                                 module.remove.upward();
                             } else if (module.is.upward($menu)) {
-                                // we need make sure when make assertion openDownward for $menu, $menu does not have upward class
+                                // we need to make sure when make assertion openDownward for $menu, $menu does not have upward class
                                 module.remove.upward($menu);
                             }
 
@@ -2768,19 +2802,27 @@
                         $selectedItem = settings.allowAdditions
                             ? $selectedItem || module.get.itemWithAdditions(value)
                             : $selectedItem || module.get.item(value);
+                        if (!$selectedItem && value !== undefined) {
+                            return false;
+                        }
+                        if (isMultiple) {
+                            if (!keepSearchTerm) {
+                                module.remove.searchWidth();
+                            }
+                            if (settings.useLabels) {
+                                module.remove.selectedItem();
+                                if (value === undefined) {
+                                    module.remove.labels($module.find(selector.label), true);
+                                }
+                            }
+                        } else {
+                            module.remove.activeItem();
+                            module.remove.selectedItem();
+                        }
                         if (!$selectedItem) {
                             return false;
                         }
                         module.debug('Setting selected menu item to', $selectedItem);
-                        if (module.is.multiple() && !keepSearchTerm) {
-                            module.remove.searchWidth();
-                        }
-                        if (module.is.single()) {
-                            module.remove.activeItem();
-                            module.remove.selectedItem();
-                        } else if (settings.useLabels) {
-                            module.remove.selectedItem();
-                        }
                         // select each item
                         $selectedItem
                             .each(function () {
@@ -2806,8 +2848,8 @@
                                             module.save.remoteData(selectedText, selectedValue);
                                         }
                                         if (settings.useLabels) {
-                                            module.add.value(selectedValue, selectedText, $selected, preventChangeTrigger);
                                             module.add.label(selectedValue, selectedText, shouldAnimate);
+                                            module.add.value(selectedValue, selectedText, $selected, preventChangeTrigger);
                                             module.set.activeItem($selected);
                                             module.filterActive();
                                             module.select.nextAvailable($selectedItem);
@@ -2860,7 +2902,7 @@
                         $label = $('<a />')
                             .addClass(className.label)
                             .attr('data-' + metadata.value, escapedValue)
-                            .html(templates.label(escapedValue, text, settings.preserveHTML, settings.className))
+                            .html(templates.label(escapedValue, text, settings))
                         ;
                         $label = settings.onLabelCreate.call($label, escapedValue, text);
 
@@ -3080,6 +3122,12 @@
                         $item.removeClass(className.active);
                     },
                     filteredItem: function () {
+                        if (settings.highlightMatches) {
+                            $.each($item, function (index, item) {
+                                var $markItem = $(item);
+                                $markItem.html($markItem.html().replace(/<\/?mark>/g, ''));
+                            });
+                        }
                         if (settings.useLabels && module.has.maxSelections()) {
                             return;
                         }
@@ -3401,9 +3449,6 @@
                     bubbledIconClick: function (event) {
                         return $(event.target).closest($icon).length > 0;
                     },
-                    edge: function () {
-                        return !!window.chrome && !!window.StyleMedia;
-                    },
                     empty: function () {
                         return $module.hasClass(className.empty);
                     },
@@ -3424,7 +3469,12 @@
                         return $selectedMenu.hasClass(className.leftward);
                     },
                     clearable: function () {
-                        return $module.hasClass(className.clearable) || settings.clearable;
+                        var hasClearableClass = $module.hasClass(className.clearable);
+                        if (!hasClearableClass && settings.clearable) {
+                            $module.addClass(className.clearable);
+                        }
+
+                        return hasClearableClass || settings.clearable;
                     },
                     disabled: function () {
                         return $module.hasClass(className.disabled);
@@ -3747,12 +3797,16 @@
                     show: function () {
                         module.verbose('Delaying show event to ensure user intent');
                         clearTimeout(module.timer);
-                        module.timer = setTimeout(function () { module.show(); }, settings.delay.show);
+                        module.timer = setTimeout(function () {
+                            module.show();
+                        }, settings.delay.show);
                     },
                     hide: function () {
                         module.verbose('Delaying hide event to ensure user intent');
                         clearTimeout(module.timer);
-                        module.timer = setTimeout(function () { module.hide(); }, settings.delay.hide);
+                        module.timer = setTimeout(function () {
+                            module.hide();
+                        }, settings.delay.hide);
                     },
                 },
 
@@ -3785,6 +3839,7 @@
                         return text.replace(regExp.escape, '\\$&');
                     },
                     htmlEntities: function (string, forceAmpersand) {
+                        forceAmpersand = typeof forceAmpersand === 'number' ? false : forceAmpersand;
                         var
                             badChars     = /["'<>`]/g,
                             shouldEscape = /["&'<>`]/,
@@ -3801,8 +3856,7 @@
                         ;
                         if (shouldEscape.test(string)) {
                             string = string.replace(forceAmpersand ? /&/g : /&(?![\d#a-z]{1,12};)/gi, '&amp;');
-
-                            return string.replace(badChars, escapedChar);
+                            string = string.replace(badChars, escapedChar);
                         }
 
                         return string;
@@ -3878,7 +3932,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -4005,39 +4061,41 @@
 
         match: 'both', // what to match against with search selection (both, text, or label)
         fullTextSearch: 'exact', // search anywhere in value (set to 'exact' to require exact matches)
-        ignoreDiacritics: false, // match results also if they contain diacritics of the same base character (for example searching for "a" will also match "á" or "â" or "à", etc...)
+        highlightMatches: false, // Whether search result should highlight matching strings
+        ignoreDiacritics: false, // match results also if they contain diacritics of the same base character (for example, searching for "a" will also match "á" or "â" or "à", etc...)
         hideDividers: false, // Whether to hide any divider elements (specified in selector.divider) that are sibling to any items when searched (set to true will hide all dividers, set to 'empty' will hide them when they are not followed by a visible item)
 
-        placeholder: 'auto', // whether to convert blank <select> values to placeholder text
-        preserveHTML: true, // preserve html when selecting value
+        placeholder: 'auto', // whether to convert blank <select> values to the placeholder text
+        preserveHTML: false, // preserve HTML when selecting value
         sortSelect: false, // sort selection on init
 
         forceSelection: false, // force a choice on blur with search selection
 
         allowAdditions: false, // whether multiple select should allow user added values
-        keepSearchTerm: false, // whether the search value should be kept and menu stays filtered on item selection
+        keepSearchTerm: false, // whether the search value should be kept, and the menu stays filtered on item selection
         ignoreCase: false, // whether to consider case sensitivity when creating labels
         ignoreSearchCase: true, // whether to consider case sensitivity when filtering items
-        hideAdditions: true, // whether or not to hide special message prompting a user they can enter a value
+        hideAdditions: true, // whether to hide a special message prompting a user, they can enter a value
 
-        maxSelections: false, // When set to a number limits the number of selections to this count
+        maxSelections: false, // When set to a number, limits the number of selections to this count
         useLabels: true, // whether multiple select should filter currently active selections from choices
-        delimiter: ',', // when multiselect uses normal <input> the values will be delimited with this character
+        delimiter: ',', // when multiselect uses normal <input >, the values will be delimited with this character
 
-        showOnFocus: false, // show menu on focus
+        showOnFocus: false, // show the menu on focus
         allowReselection: false, // whether current value should trigger callbacks when reselected
-        allowTab: true, // add tabindex to element
-        allowCategorySelection: false, // allow elements with sub-menus to be selected
+        allowTab: true, // add tabindex to the element
+        allowCategorySelection: false, // allow elements with submenus to be selected
 
         fireOnInit: false, // Whether callbacks should fire when initializing dropdown values
 
-        transition: 'auto', // auto transition will slide down or up based on direction
+        transition: 'auto', // auto transition will slide down or up based on the direction
         duration: 200, // duration of transition
         displayType: false, // displayType of transition
 
         headerDivider: true, // whether option headers should have an additional divider line underneath when converted from <select> <optgroup>
 
         collapseOnActionable: true, // whether the dropdown should collapse upon selection of an actionable item
+        collapseOnClearable: false, // whether the dropdown should collapse upon clicking the clearable icon
 
         // label settings on multi-select
         label: {
@@ -4110,21 +4168,23 @@
             value: 'value',
         },
 
-        // property names for remote query
+        // property names for the remote query
         fields: {
             remoteValues: 'results', // grouping for api results
             values: 'values', // grouping for all dropdown values
             disabled: 'disabled', // whether value should be disabled
-            name: 'name', // displayed dropdown text
+            name: 'name', // the displayed dropdown text
             description: 'description', // displayed dropdown description
             descriptionVertical: 'descriptionVertical', // whether description should be vertical
             value: 'value', // actual dropdown value
-            text: 'text', // displayed text when selected
+            text: 'text', // the displayed text when selected
+            data: 'data', // custom data attributes
             type: 'type', // type of dropdown element
             image: 'image', // optional image path
             imageClass: 'imageClass', // optional individual class for image
+            alt: 'alt', // optional alt text for image
             icon: 'icon', // optional icon name
-            iconClass: 'iconClass', // optional individual class for icon (for example to use flag instead)
+            iconClass: 'iconClass', // optional individual class for icon (for example, to use a flag instead)
             class: 'class', // optional individual class for item/header
             divider: 'divider', // optional divider append for group headers
             actionable: 'actionable', // optional actionable item
@@ -4209,8 +4269,8 @@
         deQuote: function (string, encode) {
             return String(string).replace(/"/g, encode ? '&quot;' : '');
         },
-        escape: function (string, preserveHTML) {
-            if (preserveHTML) {
+        escape: function (string, settings) {
+            if (settings.preserveHTML) {
                 return string;
             }
             var
@@ -4229,45 +4289,59 @@
             ;
             if (shouldEscape.test(string)) {
                 string = string.replace(/&(?![\d#a-z]{1,12};)/gi, '&amp;');
-
-                return string.replace(badChars, escapedChar);
+                string = string.replace(badChars, escapedChar);
             }
 
             return string;
         },
         // generates dropdown from select values
-        dropdown: function (select, fields, preserveHTML, className) {
+        dropdown: function (select, settings) {
             var
                 placeholder = select.placeholder || false,
-                html        = '',
-                escape = $.fn.dropdown.settings.templates.escape,
-                deQuote = $.fn.dropdown.settings.templates.deQuote
+                html = '',
+                className = settings.className,
+                escape = settings.templates.escape,
+                deQuote = settings.templates.deQuote
             ;
             html += '<i class="dropdown icon"></i>';
             html += placeholder
-                ? '<div class="default text">' + escape(placeholder, preserveHTML) + '</div>'
+                ? '<div class="default text">' + escape(placeholder, settings) + '</div>'
                 : '<div class="text"></div>';
             html += '<div class="' + deQuote(className.menu) + '">';
-            html += $.fn.dropdown.settings.templates.menu(select, fields, preserveHTML, className);
+            html += settings.templates.menu(select, settings);
             html += '</div>';
 
             return html;
         },
 
         // generates just menu from select
-        menu: function (response, fields, preserveHTML, className) {
+        menu: function (response, settings) {
             var
+                fields = settings.fields,
                 values = response[fields.values] || [],
-                html   = '',
-                escape = $.fn.dropdown.settings.templates.escape,
-                deQuote = $.fn.dropdown.settings.templates.deQuote
+                html = '',
+                className = settings.className,
+                escape = settings.templates.escape,
+                deQuote = settings.templates.deQuote
             ;
             $.each(values, function (index, option) {
                 var
                     itemType = option[fields.type] || 'item',
-                    isMenu = itemType.indexOf('menu') !== -1
+                    isMenu = itemType.indexOf('menu') !== -1,
+                    maybeData = '',
+                    dataObject = option[fields.data]
                 ;
-
+                if (dataObject) {
+                    var dataKey,
+                        dataKeyEscaped
+                    ;
+                    for (dataKey in dataObject) {
+                        dataKeyEscaped = String(dataKey).replace(/\W/g, '');
+                        if (Object.prototype.hasOwnProperty.call(dataObject, dataKey) && ['text', 'value'].indexOf(dataKeyEscaped.toLowerCase()) === -1) {
+                            maybeData += ' data-' + dataKeyEscaped + '="' + deQuote(String(dataObject[dataKey])) + '"';
+                        }
+                    }
+                }
                 if (itemType === 'item' || isMenu) {
                     var
                         maybeText = option[fields.text]
@@ -4282,30 +4356,30 @@
                         maybeDescriptionVertical = option[fields.descriptionVertical]
                             ? className.descriptionVertical + ' '
                             : '',
-                        hasDescription = escape(option[fields.description] || '', preserveHTML) !== ''
+                        hasDescription = escape(option[fields.description] || '', settings) !== ''
                     ;
-                    html += '<div class="' + deQuote(maybeActionable + maybeDisabled + maybeDescriptionVertical + (option[fields.class] || className.item)) + '" data-value="' + deQuote(option[fields.value], true) + '"' + maybeText + '>';
+                    html += '<div class="' + deQuote(maybeActionable + maybeDisabled + maybeDescriptionVertical + (option[fields.class] || className.item)) + '" data-value="' + deQuote(option[fields.value], true) + '"' + maybeText + maybeData + '>';
                     if (isMenu) {
                         html += '<i class="' + (itemType.indexOf('left') !== -1 ? 'left' : '') + ' dropdown icon"></i>';
                     }
                     if (option[fields.image]) {
-                        html += '<img class="' + deQuote(option[fields.imageClass] || className.image) + '" src="' + deQuote(option[fields.image]) + '">';
+                        html += '<img class="' + deQuote(option[fields.imageClass] || className.image) + '" src="' + deQuote(option[fields.image]) + (option[fields.alt] ? '" alt="' + deQuote(option[fields.alt]) : '') + '">';
                     }
                     if (option[fields.icon]) {
                         html += '<i class="' + deQuote(option[fields.icon] + ' ' + (option[fields.iconClass] || className.icon)) + '"></i>';
                     }
                     if (hasDescription) {
-                        html += '<span class="' + deQuote(className.description) + '">' + escape(option[fields.description] || '', preserveHTML) + '</span>';
+                        html += '<span class="' + deQuote(className.description) + '">' + escape(option[fields.description] || '', settings) + '</span>';
                         html += !isMenu ? '<span class="' + deQuote(className.text) + '">' : '';
                     }
                     if (isMenu) {
                         html += '<span class="' + deQuote(className.text) + '">';
                     }
-                    html += escape(option[fields.name] || '', preserveHTML);
+                    html += escape(option[fields.name] || '', settings);
                     if (isMenu) {
                         html += '</span>';
                         html += '<div class="' + deQuote(itemType) + '">';
-                        html += $.fn.dropdown.settings.templates.menu(option, fields, preserveHTML, className);
+                        html += settings.templates.menu(option, settings);
                         html += '</div>';
                     } else if (hasDescription) {
                         html += '</span>';
@@ -4313,7 +4387,7 @@
                     html += '</div>';
                 } else if (itemType === 'header') {
                     var
-                        groupName = escape(option[fields.name] || '', preserveHTML),
+                        groupName = escape(option[fields.name] || '', settings),
                         groupIcon = deQuote(option[fields.icon] || className.groupIcon)
                     ;
                     if (groupName !== '' || groupIcon !== '') {
@@ -4334,13 +4408,14 @@
         },
 
         // generates label for multiselect
-        label: function (value, text, preserveHTML, className) {
+        label: function (value, text, settings) {
             var
-                escape = $.fn.dropdown.settings.templates.escape,
-                deQuote = $.fn.dropdown.settings.templates.deQuote
+                className = settings.className,
+                escape = settings.templates.escape,
+                deQuote = settings.templates.deQuote
             ;
 
-            return escape(text, preserveHTML) + '<i class="' + deQuote(className.delete) + ' icon"></i>';
+            return escape(text, settings) + '<i class="' + deQuote(className.delete) + ' icon"></i>';
         },
 
         // generates messages like "No results"
@@ -4348,7 +4423,7 @@
             return message;
         },
 
-        // generates user addition to selection menu
+        // generates user addition to the selection menu
         addition: function (choice) {
             return choice;
         },

@@ -7,7 +7,7 @@
 
   * copy component files from release
   * create commonjs files as index.js for NPM release
-  * create release notes that filter only items related to component
+  * create release notes that filter only items related to the component
   * custom package.json file from template
   * create bower.json from template
   * create README from template
@@ -21,10 +21,10 @@ const
     gulp            = require('gulp'),
 
     // admin dependencies
-    concatFileNames = require('gulp-concat-filenames'),
+    concatFileNames = require('@fomantic/gulp-concat-filenames'),
     flatten         = require('gulp-flatten'),
     jsonEditor      = require('gulp-json-editor'),
-    plumber         = require('gulp-plumber'),
+    plumber         = require('@fomantic/gulp-plumber'),
     rename          = require('gulp-rename'),
     replace         = require('gulp-replace'),
     tap             = require('gulp-tap'),
@@ -41,7 +41,6 @@ const
 
 module.exports = function (callback) {
     let
-        stream,
         index,
         tasks = []
     ;
@@ -61,7 +60,6 @@ module.exports = function (callback) {
                 packageName          = release.packageRoot + component,
                 repoName             = release.componentRepoRoot + capitalizedComponent,
                 gitURL               = 'https://github.com/' + release.org + '/' + repoName + '.git',
-                repoURL              = 'https://github.com/' + release.org + '/' + repoName + '/',
                 concatSettings = {
                     newline: '',
                     root: outputDirectory,
@@ -107,17 +105,6 @@ module.exports = function (callback) {
                         jQuery: 'require("jquery")',
                     },
                 },
-                task = {
-                    all: component + ' creating',
-                    repo: component + ' create repo',
-                    bower: component + ' create bower.json',
-                    readme: component + ' create README',
-                    npm: component + ' create NPM Module',
-                    notes: component + ' create release notes',
-                    composer: component + ' create composer.json',
-                    package: component + ' create package.json',
-                    meteor: component + ' create meteor package.js',
-                },
                 // paths to includable assets
                 manifest = {
                     assets: outputDirectory + '/assets/**/' + component + '?(s).*',
@@ -127,7 +114,7 @@ module.exports = function (callback) {
 
             // copy dist files into output folder adjusting asset paths
             function copyDist() {
-                return gulp.src(release.source + component + '.*')
+                return gulp.src(release.source + component + '.*', { encoding: false })
                     .pipe(plumber())
                     .pipe(flatten())
                     .pipe(replace(release.paths.source, release.paths.output))
@@ -268,7 +255,7 @@ module.exports = function (callback) {
                         filenames += file.contents;
                     }))
                     .on('end', function () {
-                        gulp.src(manifest.assets)
+                        gulp.src(manifest.assets, { encoding: false })
                             .pipe(concatFileNames('empty.txt', concatSettings))
                             .pipe(tap(function (file) {
                                 filenames += file.contents;

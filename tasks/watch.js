@@ -4,8 +4,7 @@
 
 const
     // node dependencies
-    console    = require('better-console'),
-    gulp       = require('gulp'),
+    console    = require('@fomantic/better-console'),
 
     // user config
     config     = require('./config/user'),
@@ -19,9 +18,10 @@ const
 ;
 
 // export task
-module.exports = function () {
+module.exports = function (callback) {
     if (!install.isSetup()) {
         console.error('Cannot watch files. Run "gulp install" to set-up Fomantic');
+        callback();
 
         return;
     }
@@ -45,4 +45,6 @@ module.exports = function () {
     --------------- */
 
     assets.watch('default', config);
+
+    callback();
 };

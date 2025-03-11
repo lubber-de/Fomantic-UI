@@ -6,20 +6,21 @@ const
     gulp         = require('gulp'),
 
     // node dependencies
-    console      = require('better-console'),
+    console      = require('@fomantic/better-console'),
 
     // gulp dependencies
     autoprefixer = require('gulp-autoprefixer'),
     chmod        = require('gulp-chmod'),
-    concatCSS    = require('gulp-concat-css'),
-    dedupe       = require('gulp-dedupe'),
+    concatCSS    = require('@fomantic/gulp-concat-css'),
+    dedupe       = require('@fomantic/gulp-dedupe'),
     flatten      = require('gulp-flatten'),
     gulpif       = require('gulp-if'),
-    header       = require('gulp-header'),
+    header       = require('@fomantic/gulp-header'),
     less         = require('gulp-less'),
     minifyCSS    = require('gulp-clean-css'),
     normalize    = require('normalize-path'),
-    plumber      = require('gulp-plumber'),
+    ordered      = require('ordered-read-streams'),
+    plumber      = require('@fomantic/gulp-plumber'),
     print        = require('gulp-print').default,
     rename       = require('gulp-rename'),
     replace      = require('gulp-replace'),
@@ -44,7 +45,7 @@ const
 ;
 
 /**
- * Builds the css
+ * Builds the CSS
  * @param src
  * @param type
  * @param compress
@@ -87,7 +88,7 @@ function build(src, type, compress, config, opts) {
 
 /**
  * Packages the css files in dist
- * @param {string} type - type of the css processing (none, rtl, docs)
+ * @param {string} type - type of the CSS processing (none, rtl, docs)
  * @param {boolean} compress - should the output be compressed
  */
 function pack(type, compress) {
@@ -101,12 +102,20 @@ function pack(type, compress) {
         concatenatedCSS = compress ? filenames.concatenatedMinifiedCSS : filenames.concatenatedCSS;
     }
 
-    let src = output.uncompressed + '/**/' + globs.components + ignoredGlobs;
-    if (globs.components.indexOf('table') < 0 && globs.components.indexOf('tab') > 0) {
-        src = [src, '!' + output.uncompressed + '/**/table.css'];
-    }
+    let src = globs.components
+        .replace(/[{}]/g, '')
+        .split(',')
+        .map((c) => {
+            let srcSingle = output.uncompressed + '/**/' + c + ignoredGlobs;
+            if (c === 'tab' && globs.components.indexOf('table') < 0) {
+                srcSingle = [srcSingle, '!' + output.uncompressed + '/**/table.css'];
+            }
 
-    return gulp.src(src)
+            return gulp.src(srcSingle);
+        })
+    ;
+
+    return ordered(src)
         .pipe(plumber())
         .pipe(dedupe())
         .pipe(replace(assets.uncompressed, assets.packaged))
@@ -264,7 +273,7 @@ module.exports.watch = function (type, config) {
                 lessPath = path;
             }
 
-            // Add file to internal changed files array
+            // Add the file to the internal changed files array
             if (!files.includes(lessPath)) {
                 files.push(lessPath);
             }
@@ -275,12 +284,12 @@ module.exports.watch = function (type, config) {
                 const buildFiles = [...files];
                 // Call method
                 gulp.series((callback) => method(buildFiles, callback))();
-                // Reset internal changed files array
+                // Reset the internal changed files array
                 files = [];
             }, 1000);
         })
     ;
 };
 
-// Expose build css method
+// Expose build CSS method
 module.exports.buildCSS = buildCSS;

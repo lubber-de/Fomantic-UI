@@ -4,8 +4,7 @@
 
 const
     // node dependencies
-    gulp    = require('gulp'),
-    console = require('better-console'),
+    console = require('@fomantic/better-console'),
     isSetup = require('./config/project/install').isSetup,
 
     install = require('./install'),

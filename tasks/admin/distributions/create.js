@@ -19,23 +19,20 @@ const
     // admin dependencies
     flatten         = require('gulp-flatten'),
     jsonEditor      = require('gulp-json-editor'),
-    plumber         = require('gulp-plumber'),
+    plumber         = require('@fomantic/gulp-plumber'),
     rename          = require('gulp-rename'),
     replace         = require('gulp-replace'),
 
     // config
-    config          = require('../../config/user'),
     release         = require('../../config/admin/release'),
     project         = require('../../config/project/release'),
 
     // shorthand
-    version         = project.version,
-    output          = config.paths.output
+    version         = project.version
 ;
 
 module.exports = function (callback) {
     let
-        stream,
         index,
         tasks = []
     ;
@@ -51,18 +48,11 @@ module.exports = function (callback) {
                 distLowerCase   = distribution.toLowerCase(),
                 outputDirectory = path.join(release.outputRoot, distLowerCase),
                 packageFile     = path.join(outputDirectory, release.files.npm),
-                repoName        = release.distRepoRoot + distribution,
                 regExp          = {
                     match: {
                         files: '{files}',
                         version: '{version}',
                     },
-                },
-                task = {
-                    all: distribution + ' copying files',
-                    repo: distribution + ' create repo',
-                    meteor: distribution + ' create meteor package.js',
-                    package: distribution + ' create package.json',
                 },
                 gatherFiles,
                 createList
@@ -136,7 +126,7 @@ module.exports = function (callback) {
                         components,
                         releases
                     ;
-                    themes = gulp.src('dist/themes/default/**/*', { base: 'dist/' })
+                    themes = gulp.src('dist/themes/default/**/*', { base: 'dist/', encoding: false })
                         .pipe(gulp.dest(outputDirectory))
                     ;
                     components = gulp.src('dist/components/*', { base: 'dist/' })
@@ -177,7 +167,7 @@ module.exports = function (callback) {
                     siteTheme = gulp.src('src/_site/**/*', { base: 'src/' })
                         .pipe(gulp.dest(outputDirectory))
                     ;
-                    themes = gulp.src('src/themes/**/*', { base: 'src/' })
+                    themes = gulp.src('src/themes/**/*', { base: 'src/', encoding: false })
                         .pipe(gulp.dest(outputDirectory))
                     ;
 

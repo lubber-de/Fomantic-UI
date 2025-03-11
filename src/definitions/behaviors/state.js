@@ -73,7 +73,7 @@
                 initialize: function () {
                     module.verbose('Initializing module');
 
-                    // allow module to guess desired state based on element
+                    // allow module to guess the desired state based on the element
                     if (settings.automatic) {
                         module.add.defaults();
                     }
@@ -482,7 +482,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -613,7 +615,7 @@
         // whether to automatically map default states
         automatic: true,
 
-        // activate / deactivate changes all elements instantiated at same time
+        // activate / deactivate changes all elements instantiated at the same time
         sync: false,
 
         // default flash text duration, used for temporarily changing text of an element

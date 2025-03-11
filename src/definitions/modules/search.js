@@ -126,6 +126,7 @@
                             .on('mousedown' + eventNamespace, selector.results, module.event.result.mousedown)
                             .on('mouseup' + eventNamespace, selector.results, module.event.result.mouseup)
                             .on('click' + eventNamespace, selector.result, module.event.result.click)
+                            .on('click' + eventNamespace, selector.remove, module.event.remove.click)
                         ;
                     },
                 },
@@ -133,9 +134,12 @@
                 determine: {
                     searchFields: function () {
                         // this makes sure $.extend does not add specified search fields to default fields
-                        // this is the only setting which should not extend defaults
+                        // this is the only setting that should not extend defaults
                         if (parameters && parameters.searchFields !== undefined) {
-                            settings.searchFields = parameters.searchFields;
+                            settings.searchFields = Array.isArray(parameters.searchFields)
+                                ? parameters.searchFields
+                                : [parameters.searchFields]
+                            ;
                         }
                     },
                 },
@@ -169,7 +173,9 @@
                             callback      = function () {
                                 module.cancel.query();
                                 module.remove.focus();
-                                module.timer = setTimeout(function () { module.hideResults(); }, settings.hideDelay);
+                                module.timer = setTimeout(function () {
+                                    module.hideResults();
+                                }, settings.hideDelay);
                             }
                         ;
                         if (pageLostFocus) {
@@ -195,6 +201,12 @@
                             module.debug('Input blurred without user action, closing results');
                             callback();
                         }
+                    },
+                    remove: {
+                        click: function () {
+                            module.clear.value();
+                            $prompt.trigger('focus');
+                        },
                     },
                     result: {
                         mousedown: function () {
@@ -629,7 +641,7 @@
                             exactResults = [],
                             fuzzyResults = [],
                             searchExp    = searchTerm.replace(regExp.escape, '\\$&'),
-                            matchRegExp  = new RegExp(regExp.beginsWith + searchExp, 'i'),
+                            matchRegExp = new RegExp(regExp.beginsWith + searchExp, settings.ignoreSearchCase ? 'i' : ''),
 
                             // avoid duplicates when pushing results
                             addResult = function (array, result) {
@@ -648,7 +660,7 @@
                             ? searchFields
                             : settings.searchFields;
 
-                        // search fields should be array to loop correctly
+                        // search fields should be an array to loop correctly
                         if (!Array.isArray(searchFields)) {
                             searchFields = [searchFields];
                         }
@@ -665,13 +677,14 @@
                             var concatenatedContent = [];
                             $.each(searchFields, function (index, field) {
                                 var
-                                    fieldExists = (typeof content[field] === 'string') || (typeof content[field] === 'number')
+                                    fieldExists = typeof content[field] === 'string' || typeof content[field] === 'number'
                                 ;
                                 if (fieldExists) {
                                     var text;
                                     text = typeof content[field] === 'string'
                                         ? module.remove.diacritics(content[field])
                                         : content[field].toString();
+                                    text = $('<div/>', { html: text }).text().trim();
                                     if (settings.fullTextSearch === 'all') {
                                         concatenatedContent.push(text);
                                         if (index < lastSearchFieldIndex) {
@@ -702,8 +715,10 @@
                     },
                 },
                 exactSearch: function (query, term) {
-                    query = query.toLowerCase();
-                    term = term.toLowerCase();
+                    if (settings.ignoreSearchCase) {
+                        query = query.toLowerCase();
+                        term = term.toLowerCase();
+                    }
 
                     return term.indexOf(query) > -1;
                 },
@@ -730,8 +745,10 @@
                     if (typeof query !== 'string') {
                         return false;
                     }
-                    query = query.toLowerCase();
-                    term = term.toLowerCase();
+                    if (settings.ignoreSearchCase) {
+                        query = query.toLowerCase();
+                        term = term.toLowerCase();
+                    }
                     if (queryLength > termLength) {
                         return false;
                     }
@@ -827,6 +844,9 @@
                             $module.data(metadata.cache, cache);
                         }
                     },
+                    value: function () {
+                        module.set.value('');
+                    },
                 },
 
                 read: {
@@ -918,7 +938,7 @@
                     id: function (results) {
                         module.debug('Injecting unique ids into results');
                         var
-                            // since results may be object, we must use counters
+                            // since results may be an object, we must use counters
                             categoryIndex = 0,
                             resultIndex   = 0
                         ;
@@ -1086,8 +1106,41 @@
                                 response[fields.results] = response[fields.results].slice(0, settings.maxResults);
                             }
                         }
+                        if (settings.highlightMatches) {
+                            var results = response[fields.results],
+                                regExpIgnore = settings.ignoreSearchCase ? 'i' : '',
+                                querySplit = module.get.value().split(''),
+                                diacriticReg = settings.ignoreDiacritics ? '[\u0300-\u036F]?' : '',
+                                htmlReg = '(?![^<]*>)',
+                                markedRegExp = new RegExp(htmlReg + '(' + querySplit.join(diacriticReg + ')(.*?)' + htmlReg + '(') + diacriticReg + ')', regExpIgnore),
+                                markedReplacer = function () {
+                                    var args = [].slice.call(arguments, 1, querySplit.length * 2).map(function (x, i) {
+                                        return i & 1 ? x : '<mark>' + x + '</mark>'; // eslint-disable-line no-bitwise
+                                    });
+
+                                    return args.join('');
+                                }
+                            ;
+                            $.each(results, function (label, content) {
+                                $.each(settings.searchFields, function (index, field) {
+                                    var
+                                        fieldExists = typeof content[field] === 'string' || typeof content[field] === 'number'
+                                    ;
+                                    if (fieldExists) {
+                                        var markedHTML = typeof content[field] === 'string'
+                                            ? content[field]
+                                            : content[field].toString();
+                                        if (settings.ignoreDiacritics) {
+                                            markedHTML = markedHTML.normalize('NFD');
+                                        }
+                                        markedHTML = markedHTML.replace(/<\/?mark>/g, '');
+                                        response[fields.results][label][field] = markedHTML.replace(markedRegExp, markedReplacer);
+                                    }
+                                });
+                            });
+                        }
                         if (isFunction(template)) {
-                            html = template(response, fields, settings.preserveHTML);
+                            html = template(response, settings);
                         } else {
                             module.error(error.noTemplate, false);
                         }
@@ -1171,7 +1224,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -1287,7 +1342,7 @@
         // minimum characters required to search
         minCharacters: 1,
 
-        // whether to select first result after searching automatically
+        // whether to select the first result after searching automatically
         selectFirstResult: false,
 
         // API config
@@ -1312,13 +1367,19 @@
         // search anywhere in value (set to 'exact' to require exact matches
         fullTextSearch: 'exact',
 
-        // match results also if they contain diacritics of the same base character (for example searching for "a" will also match "á" or "â" or "à", etc...)
+        // Whether search result should highlight matching strings
+        highlightMatches: false,
+
+        // match results also if they contain diacritics of the same base character (for example, searching for "a" will also match "á" or "â" or "à", etc...)
         ignoreDiacritics: false,
+
+        // whether to consider case sensitivity on local searching
+        ignoreSearchCase: true,
 
         // whether to add events to prompt automatically
         automatic: true,
 
-        // delay before hiding menu after blur
+        // delay before hiding the menu after blur
         hideDelay: 0,
 
         // delay before searching
@@ -1334,7 +1395,7 @@
         showNoResults: true,
 
         // preserve possible html of resultset values
-        preserveHTML: true,
+        preserveHTML: false,
 
         // transition settings
         transition: 'scale',
@@ -1393,6 +1454,7 @@
             categoryResults: 'results', // array of results (category view)
             description: 'description', // result description
             image: 'image', // result image
+            alt: 'alt', // result alt text for image
             price: 'price', // result price
             results: 'results', // array of results (standard)
             title: 'title', // result title
@@ -1404,6 +1466,7 @@
 
         selector: {
             prompt: '.prompt',
+            remove: '> .icon.input > .remove.icon',
             searchButton: '.search.button',
             results: '.results',
             message: '.results > .message',
@@ -1413,8 +1476,8 @@
         },
 
         templates: {
-            escape: function (string, preserveHTML) {
-                if (preserveHTML) {
+            escape: function (string, settings) {
+                if (settings.preserveHTML) {
                     return string;
                 }
                 var
@@ -1432,8 +1495,9 @@
                     };
                 if (shouldEscape.test(string)) {
                     string = string.replace(/&(?![\d#a-z]{1,12};)/gi, '&amp;');
-
-                    return string.replace(badChars, escapedChar);
+                    string = string.replace(badChars, escapedChar);
+                    // FUI controlled HTML is still allowed
+                    string = string.replace(/&lt;(\/)*mark&gt;/g, '<$1mark>');
                 }
 
                 return string;
@@ -1455,10 +1519,11 @@
 
                 return html;
             },
-            category: function (response, fields, preserveHTML) {
+            category: function (response, settings) {
                 var
                     html = '',
-                    escape = $.fn.search.settings.templates.escape
+                    fields = settings.fields,
+                    escape = settings.templates.escape
                 ;
                 if (response[fields.categoryResults] !== undefined) {
                     // each category
@@ -1467,7 +1532,7 @@
                             html += '<div class="category">';
 
                             if (category[fields.categoryName] !== undefined) {
-                                html += '<div class="name">' + escape(category[fields.categoryName], preserveHTML) + '</div>';
+                                html += '<div class="name">' + escape(category[fields.categoryName], settings) + '</div>';
                             }
 
                             // each item inside category
@@ -1479,18 +1544,18 @@
                                 if (result[fields.image] !== undefined) {
                                     html += ''
                                         + '<div class="image">'
-                                        + ' <img src="' + result[fields.image].replace(/"/g, '') + '">'
+                                        + ' <img src="' + result[fields.image].replace(/"/g, '') + (result[fields.alt] ? '" alt="' + result[fields.alt].replace(/"/g, '') : '') + '">'
                                         + '</div>';
                                 }
                                 html += '<div class="content">';
                                 if (result[fields.price] !== undefined) {
-                                    html += '<div class="price">' + escape(result[fields.price], preserveHTML) + '</div>';
+                                    html += '<div class="price">' + escape(result[fields.price], settings) + '</div>';
                                 }
                                 if (result[fields.title] !== undefined) {
-                                    html += '<div class="title">' + escape(result[fields.title], preserveHTML) + '</div>';
+                                    html += '<div class="title">' + escape(result[fields.title], settings) + '</div>';
                                 }
                                 if (result[fields.description] !== undefined) {
-                                    html += '<div class="description">' + escape(result[fields.description], preserveHTML) + '</div>';
+                                    html += '<div class="description">' + escape(result[fields.description], settings) + '</div>';
                                 }
                                 html += ''
                                     + '</div>';
@@ -1505,11 +1570,11 @@
                         html += fields.actionURL === false
                             ? ''
                                 + '<div class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</div>'
                             : ''
                                 + '<a href="' + response[fields.action][fields.actionURL].replace(/"/g, '') + '" class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</a>';
                     }
 
@@ -1518,10 +1583,11 @@
 
                 return false;
             },
-            standard: function (response, fields, preserveHTML) {
+            standard: function (response, settings) {
                 var
                     html = '',
-                    escape = $.fn.search.settings.templates.escape
+                    fields = settings.fields,
+                    escape = settings.templates.escape
                 ;
                 if (response[fields.results] !== undefined) {
                     // each result
@@ -1532,18 +1598,18 @@
                         if (result[fields.image] !== undefined) {
                             html += ''
                                 + '<div class="image">'
-                                + ' <img src="' + result[fields.image].replace(/"/g, '') + '">'
+                                + ' <img src="' + result[fields.image].replace(/"/g, '') + (result[fields.alt] ? '" alt="' + result[fields.alt].replace(/"/g, '') : '') + '">'
                                 + '</div>';
                         }
                         html += '<div class="content">';
                         if (result[fields.price] !== undefined) {
-                            html += '<div class="price">' + escape(result[fields.price], preserveHTML) + '</div>';
+                            html += '<div class="price">' + escape(result[fields.price], settings) + '</div>';
                         }
                         if (result[fields.title] !== undefined) {
-                            html += '<div class="title">' + escape(result[fields.title], preserveHTML) + '</div>';
+                            html += '<div class="title">' + escape(result[fields.title], settings) + '</div>';
                         }
                         if (result[fields.description] !== undefined) {
-                            html += '<div class="description">' + escape(result[fields.description], preserveHTML) + '</div>';
+                            html += '<div class="description">' + escape(result[fields.description], settings) + '</div>';
                         }
                         html += ''
                             + '</div>';
@@ -1553,11 +1619,11 @@
                         html += fields.actionURL === false
                             ? ''
                                 + '<div class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</div>'
                             : ''
                                 + '<a href="' + response[fields.action][fields.actionURL].replace(/"/g, '') + '" class="action">'
-                                + escape(response[fields.action][fields.actionText], preserveHTML)
+                                + escape(response[fields.action][fields.actionText], settings)
                                 + '</a>';
                     }
 

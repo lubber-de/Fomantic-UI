@@ -1088,7 +1088,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -1209,7 +1211,7 @@
         // whether to refresh calculations after page resize event
         refreshOnResize: true,
 
-        // should call callbacks on refresh event (resize, etc)
+        // should call callbacks on refresh event (resize, etc.)
         checkOnRefresh: true,
 
         // callback should only occur one time

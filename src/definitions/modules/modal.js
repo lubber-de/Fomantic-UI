@@ -111,10 +111,10 @@
                     }
                     $module.addClass(settings.class);
                     if (settings.title !== '') {
-                        $module.find(selector.title).html(module.helpers.escape(settings.title, settings.preserveHTML)).addClass(settings.classTitle);
+                        $module.find(selector.title).html(module.helpers.escape(settings.title)).addClass(settings.classTitle);
                     }
                     if (settings.content !== '') {
-                        $module.find(selector.content).html(module.helpers.escape(settings.content, settings.preserveHTML)).addClass(settings.classContent);
+                        $module.find(selector.content).html(module.helpers.escape(settings.content)).addClass(settings.classContent);
                     }
                     if (module.has.configActions()) {
                         var $actions = $module.find(selector.actions).addClass(settings.classActions);
@@ -128,7 +128,7 @@
                                 icon = el[fields.icon]
                                     ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '') + ' class="' + module.helpers.deQuote(el[fields.icon]) + ' icon"></i>'
                                     : '',
-                                text = module.helpers.escape(el[fields.text] || '', settings.preserveHTML),
+                                text = module.helpers.escape(el[fields.text] || ''),
                                 cls = module.helpers.deQuote(el[fields.class] || ''),
                                 click = el[fields.click] && isFunction(el[fields.click])
                                     ? el[fields.click]
@@ -284,7 +284,7 @@
                                     }
                                 } else {
                                     shouldRefresh = true;
-                                    // mutationobserver only provides the parent nodes
+                                    // mutationobserver only provides the parent nodes,
                                     // so let's collect all childs as well to find nested inputs
                                     var $addedInputs = $(collectNodes(mutation.addedNodes)).filter('a[href], [tabindex], :input:enabled').filter(':visible'),
                                         $removedInputs = $(collectNodes(mutation.removedNodes)).filter('a[href], [tabindex], :input');
@@ -527,7 +527,9 @@
                     },
                     debounce: function (method, delay) {
                         clearTimeout(module.timer);
-                        module.timer = setTimeout(function () { method(); }, delay);
+                        module.timer = setTimeout(function () {
+                            method();
+                        }, delay);
                     },
                     keyboard: function (event) {
                         var
@@ -928,8 +930,8 @@
                     deQuote: function (string) {
                         return String(string).replace(/"/g, '');
                     },
-                    escape: function (string, preserveHTML) {
-                        if (preserveHTML) {
+                    escape: function (string) {
+                        if (settings.preserveHTML) {
                             return string;
                         }
                         var
@@ -958,18 +960,16 @@
                 can: {
                     leftBodyScrollbar: function () {
                         if (module.cache.leftBodyScrollbar === undefined) {
-                            module.cache.leftBodyScrollbar = module.is.rtl() && ((module.is.iframe && !module.is.firefox()) || module.is.safari() || module.is.edge() || module.is.ie());
+                            module.cache.leftBodyScrollbar = module.is.rtl() && ((module.is.iframe && !module.is.firefox()) || module.is.safari());
                         }
 
                         return module.cache.leftBodyScrollbar;
                     },
                     useFlex: function () {
                         if (settings.useFlex === 'auto') {
-                            return settings.detachable && !module.is.ie();
+                            return settings.detachable;
                         }
-                        if (settings.useFlex && module.is.ie()) {
-                            module.debug('useFlex true is not supported in IE');
-                        } else if (settings.useFlex && !settings.detachable) {
+                        if (settings.useFlex && !settings.detachable) {
                             module.debug('useFlex true in combination with detachable false is not supported');
                         }
 
@@ -1003,26 +1003,11 @@
                     active: function () {
                         return $module.hasClass(className.active);
                     },
-                    ie: function () {
-                        if (module.cache.isIE === undefined) {
-                            var
-                                isIE11 = !window.ActiveXObject && 'ActiveXObject' in window,
-                                isIE = 'ActiveXObject' in window
-                            ;
-                            module.cache.isIE = isIE11 || isIE;
-                        }
-
-                        return module.cache.isIE;
-                    },
                     animating: function () {
                         return $module.transition('is animating');
                     },
                     scrolling: function () {
                         return $dimmable.hasClass(className.scrolling);
-                    },
-                    modernBrowser: function () {
-                        // appName for IE11 reports 'Netscape' can no longer use
-                        return !(window.ActiveXObject || 'ActiveXObject' in window);
                     },
                     rtl: function () {
                         if (module.cache.isRTL === undefined) {
@@ -1037,13 +1022,6 @@
                         }
 
                         return module.cache.isSafari;
-                    },
-                    edge: function () {
-                        if (module.cache.isEdge === undefined) {
-                            module.cache.isEdge = !!window.setImmediate && !module.is.ie();
-                        }
-
-                        return module.cache.isEdge;
                     },
                     firefox: function () {
                         if (module.cache.isFirefox === undefined) {
@@ -1273,7 +1251,9 @@
                             });
                         }
                         clearTimeout(module.performance.timer);
-                        module.performance.timer = setTimeout(function () { module.performance.display(); }, 500);
+                        module.performance.timer = setTimeout(function () {
+                            module.performance.display();
+                        }, 500);
                     },
                     display: function () {
                         var
@@ -1439,7 +1419,7 @@
         classActions: '',
         closeIcon: false,
         actions: false,
-        preserveHTML: true,
+        preserveHTML: false,
 
         fields: {
             class: 'class',
