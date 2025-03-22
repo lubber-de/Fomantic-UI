@@ -1443,6 +1443,7 @@
             return {
                 title: args.title,
                 content: args.content,
+                preserveHTML: args.preserveHTML !== undefined ? args.preserveHTML : settings.preserveHTML,
                 onApprove: approveFn,
                 actions: [{
                     text: settings.text.ok,
@@ -1464,6 +1465,7 @@
             return {
                 title: args.title,
                 content: args.content,
+                preserveHTML: args.preserveHTML !== undefined ? args.preserveHTML : settings.preserveHTML,
                 onApprove: approveFn,
                 onDeny: denyFn,
                 actions: [{
@@ -1497,6 +1499,7 @@
             return {
                 title: args.title,
                 content: args.content,
+                preserveHTML: args.preserveHTML !== undefined ? args.preserveHTML : settings.preserveHTML,
                 onApprove: approveFn,
                 onDeny: denyFn,
                 actions: [{

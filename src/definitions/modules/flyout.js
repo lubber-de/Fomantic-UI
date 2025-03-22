@@ -1360,6 +1360,7 @@
             return {
                 title: args.title,
                 content: args.content,
+                preserveHTML: args.preserveHTML !== undefined ? args.preserveHTML : settings.preserveHTML,
                 actions: [{
                     text: settings.text.ok,
                     class: settings.className.ok,
@@ -1374,6 +1375,7 @@
             return {
                 title: args.title,
                 content: args.content,
+                preserveHTML: args.preserveHTML !== undefined ? args.preserveHTML : settings.preserveHTML,
                 actions: [{
                     text: settings.text.ok,
                     class: settings.className.ok,
@@ -1401,6 +1403,7 @@
             return {
                 title: args.title,
                 content: args.content,
+                preserveHTML: args.preserveHTML !== undefined ? args.preserveHTML : settings.preserveHTML,
                 actions: [{
                     text: settings.text.ok,
                     class: settings.className.ok,
