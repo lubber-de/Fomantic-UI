@@ -28,7 +28,7 @@
     position: @dimmablePosition;
 }
 
-.ui.dimmer {
+@{ui}.dimmer {
     display: none;
     position: @dimmerPosition;
     top: 0;
@@ -53,32 +53,32 @@
 }
 
 /* Dimmer Content */
-.ui.dimmer > .content {
+@{ui}.dimmer > .content {
     user-select: text;
     color: @textColor;
 }
 
 /* Loose Coupling */
-.ui.segment > .ui.dimmer@{notPage} {
+@{ui}.segment > @{ui}.dimmer@{notPage} {
     border-radius: inherit;
 }
 
 /* Scrollbars */
 & when (@useCustomScrollbars) {
-    .ui.dimmer@{notInverted}::-webkit-scrollbar-track {
+    @{ui}.dimmer@{notInverted}::-webkit-scrollbar-track {
         background: @trackInvertedBackground;
     }
-    .ui.dimmer@{notInverted}::-webkit-scrollbar-thumb {
+    @{ui}.dimmer@{notInverted}::-webkit-scrollbar-thumb {
         background: @thumbInvertedBackground;
     }
-    .ui.dimmer@{notInverted}::-webkit-scrollbar-thumb:window-inactive {
+    @{ui}.dimmer@{notInverted}::-webkit-scrollbar-thumb:window-inactive {
         background: @thumbInvertedInactiveBackground;
     }
-    .ui.dimmer@{notInverted}::-webkit-scrollbar-thumb:hover {
+    @{ui}.dimmer@{notInverted}::-webkit-scrollbar-thumb:hover {
         background: @thumbInvertedHoverBackground;
     }
     @supports (-moz-appearance: none) {
-        .ui.dimmer@{notInverted} {
+        @{ui}.dimmer@{notInverted} {
             /* firefox: first color thumb, second track */
             scrollbar-color: @thumbInvertedBackground @trackInvertedBackground;
         }
@@ -96,16 +96,16 @@
 }
 
 /* Animating / Active / Visible */
-.dimmed.dimmable > .ui.animating.dimmer,
-.dimmed.dimmable > .ui.visible.dimmer,
-.ui.active.dimmer {
+.dimmed.dimmable > @{ui}.animating.dimmer,
+.dimmed.dimmable > @{ui}.visible.dimmer,
+@{ui}.active.dimmer {
     display: flex;
     opacity: @visibleOpacity;
 }
 
 & when (@variationDimmerDisabled) {
     /* Disabled */
-    .ui.disabled.dimmer {
+    @{ui}.disabled.dimmer {
         width: 0 !important;
         height: 0 !important;
     }
@@ -121,9 +121,9 @@
     --------------- */
 
     /* Animating / Active / Visible */
-    .dimmed.dimmable > .ui.animating.legacy.dimmer,
-    .dimmed.dimmable > .ui.visible.legacy.dimmer,
-    .ui.active.legacy.dimmer {
+    .dimmed.dimmable > @{ui}.animating.legacy.dimmer,
+    .dimmed.dimmable > @{ui}.visible.legacy.dimmer,
+    @{ui}.active.legacy.dimmer {
         display: block;
     }
 }
@@ -133,10 +133,10 @@
         Alignment
     --------------- */
 
-    .ui[class*="top aligned"].dimmer {
+    @{ui}[class*="top aligned"].dimmer {
         justify-content: flex-start;
     }
-    .ui[class*="bottom aligned"].dimmer {
+    @{ui}[class*="bottom aligned"].dimmer {
         justify-content: flex-end;
     }
 }
@@ -146,7 +146,7 @@
           Page
     --------------- */
 
-    .ui.page.dimmer {
+    @{ui}.page.dimmer {
         position: @pageDimmerPosition;
         transform-style: @transformStyle;
         perspective: @perspective;
@@ -198,10 +198,10 @@ body.dimmable > .dimmer {
         Aligned
     --------------- */
 
-    .ui.dimmer > .top.aligned.content > * {
+    @{ui}.dimmer > .top.aligned.content > * {
         vertical-align: top;
     }
-    .ui.dimmer > .bottom.aligned.content > * {
+    @{ui}.dimmer > .bottom.aligned.content > * {
         vertical-align: bottom;
     }
 }
@@ -227,11 +227,11 @@ body.dimmable > .dimmer {
         Inverted
     --------------- */
 
-    .ui.inverted.dimmer {
+    @{ui}.inverted.dimmer {
         background: @invertedBackgroundColor;
     }
-    .ui.inverted.dimmer > .content,
-    .ui.inverted.dimmer > .content > * {
+    @{ui}.inverted.dimmer > .content,
+    @{ui}.inverted.dimmer > .content > * {
         color: @invertedTextColor;
     }
 
@@ -258,7 +258,7 @@ body.dimmable > .dimmer {
     --------------- */
 
     /* Displays without javascript */
-    .ui.simple.dimmer {
+    @{ui}.simple.dimmer {
         display: block;
         overflow: hidden;
         opacity: 0;
@@ -267,7 +267,7 @@ body.dimmable > .dimmer {
         z-index: -100;
         background: @simpleStartBackgroundColor;
     }
-    .dimmed.dimmable > .ui.simple.dimmer {
+    .dimmed.dimmable > @{ui}.simple.dimmer {
         overflow: visible;
         opacity: 1;
         width: 100%;
@@ -276,10 +276,10 @@ body.dimmable > .dimmer {
         z-index: @simpleZIndex;
     }
 
-    .ui.simple.inverted.dimmer {
+    @{ui}.simple.inverted.dimmer {
         background: @simpleInvertedStartBackgroundColor;
     }
-    .dimmed.dimmable > .ui.simple.inverted.dimmer {
+    .dimmed.dimmable > @{ui}.simple.inverted.dimmer {
         background: @simpleInvertedEndBackgroundColor;
     }
 }
@@ -289,45 +289,45 @@ body.dimmable > .dimmer {
          Partially
     ---------------- */
 
-    .ui[class*="top dimmer"],
-    .ui[class*="center dimmer"],
-    .ui[class*="bottom dimmer"] {
+    @{ui}[class*="top dimmer"],
+    @{ui}[class*="center dimmer"],
+    @{ui}[class*="bottom dimmer"] {
         height: auto;
     }
-    .ui[class*="bottom dimmer"] {
+    @{ui}[class*="bottom dimmer"] {
         top: auto;
         bottom: 0;
     }
-    .ui[class*="center dimmer"] {
+    @{ui}[class*="center dimmer"] {
         top: 50%;
         transform: translateY(-50%);
     }
 
-    .ui.segment > .ui.ui[class*="top dimmer"] {
+    @{ui}.segment > @{ui}@{ui}[class*="top dimmer"] {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .ui.segment > .ui.ui[class*="center dimmer"] {
+    @{ui}.segment > @{ui}@{ui}[class*="center dimmer"] {
         border-radius: 0;
     }
-    .ui.segment > .ui.ui[class*="bottom dimmer"] {
+    @{ui}.segment > @{ui}@{ui}[class*="bottom dimmer"] {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
 
-    .ui[class*="center dimmer"].transition[class*="fade up"].in {
+    @{ui}[class*="center dimmer"].transition[class*="fade up"].in {
         animation-name: fadeInUpCenter;
     }
-    .ui[class*="center dimmer"].transition[class*="fade down"].in {
+    @{ui}[class*="center dimmer"].transition[class*="fade down"].in {
         animation-name: fadeInDownCenter;
     }
-    .ui[class*="center dimmer"].transition[class*="fade up"].out {
+    @{ui}[class*="center dimmer"].transition[class*="fade up"].out {
         animation-name: fadeOutUpCenter;
     }
-    .ui[class*="center dimmer"].transition[class*="fade down"].out {
+    @{ui}[class*="center dimmer"].transition[class*="fade down"].out {
         animation-name: fadeOutDownCenter;
     }
-    .ui[class*="center dimmer"].bounce.transition {
+    @{ui}[class*="center dimmer"].bounce.transition {
         animation-name: bounceCenter;
     }
     @keyframes fadeInUpCenter {

@@ -32,27 +32,27 @@
         Toast container
 *******************************/
 
-.ui.toast-container {
+@{ui}.toast-container {
     position: fixed;
     z-index: 9999;
     &.absolute {
         position: absolute;
     }
-    &.ui.attached when (@variationToastAttached) {
+    &@{ui}.attached when (@variationToastAttached) {
         width: 100%;
         left: 0;
         & .vertical.attached when (@variationToastVertical) {
             border-radius: 0;
         }
-        &.ui.ui .attached.actions .button when (@variationToastActions) {
+        &@{ui}@{ui} .attached.actions .button when (@variationToastActions) {
             border-radius: 0;
         }
         & .toast-box {
             margin: 0;
             width: 100%;
             border-radius: 0;
-            & > .ui.toast,
-            > .ui.message {
+            & > @{ui}.toast,
+            > @{ui}.message {
                 margin-left: 0;
             }
             & when (@variationToastFloating) {
@@ -164,8 +164,8 @@
                 width: @toastWidth;
             }
         }
-        & > .ui.toast,
-        > .ui.message {
+        & > @{ui}.toast,
+        > @{ui}.message {
             margin: @toastMargin;
             position: relative;
         }
@@ -196,7 +196,7 @@
                 background: @toastNeutralProgressColor;
             }
         }
-        & > .ui.message when (@variationToastMessage) {
+        & > @{ui}.message when (@variationToastMessage) {
             & > .close.icon when (@variationToastClose) {
                 top: @toastCloseTopDistance;
                 right: @toastCloseRightDistance;
@@ -227,7 +227,7 @@
                 }
             }
         }
-        & .ui.toast {
+        & @{ui}.toast {
             & > .close.icon when (@variationToastClose) {
                 cursor: pointer;
                 margin: 0;
@@ -252,7 +252,7 @@
                 }
             }
         }
-        & .ui.card when (@variationToastCard) {
+        & @{ui}.card when (@variationToastCard) {
             margin: 0;
             &.attached@{notVertical} when (@variationToastAttached) {
                 &.bottom {
@@ -307,7 +307,7 @@
         &:hover .pausable.progressing {
             animation-play-state: paused;
         }
-        & .ui.toast@{notVertical} {
+        & @{ui}.toast@{notVertical} {
             display: block;
         }
         & :not(.comment) {
@@ -367,7 +367,7 @@
     }
 }
 
-.ui.vertical.attached when (@variationToastVertical) and (@variationToastAttached) {
+@{ui}.vertical.attached when (@variationToastVertical) and (@variationToastAttached) {
     &:not(.left) {
         &.card when (@variationToastCard) {
             & > .image > img {
@@ -428,7 +428,7 @@
     }
 }
 
-.ui.attached@{notVertical} when (@variationToastAttached) {
+@{ui}.attached@{notVertical} when (@variationToastAttached) {
     &:not(.top) {
         &.actions when (@variationToastActions) {
             border-bottom-left-radius: @toastBorderRadius;
@@ -459,7 +459,7 @@
             Toast
 *******************************/
 
-.ui.toast {
+@{ui}.toast {
     display: none;
     border-radius: @defaultBorderRadius;
     padding: @toastPadding;
@@ -499,7 +499,7 @@
             & > i.icon@{notClose} when (@variationToastIcon) {
                 position: absolute;
             }
-            & > .ui.image when (@variationToastImage) {
+            & > @{ui}.image when (@variationToastImage) {
                 position: absolute;
             }
         }
@@ -511,7 +511,7 @@
         & > .close.icon + .content when (@variationToastClose) {
             padding-left: @toastCloseDistance;
         }
-        & > .ui.image when (@variationToastImage) {
+        & > @{ui}.image when (@variationToastImage) {
             &.avatar + .content {
                 padding-left: @toastAvatarImageContentPadding;
                 min-height: @toastAvatarImageHeight;
@@ -554,12 +554,12 @@
             padding-left: @toastCloseDistanceVertical;
         }
         & when (@variationToastImage) or (@variationToastIcon) {
-            & > .ui.image + .content,
+            & > @{ui}.image + .content,
             > i.icon@{notClose} + .content {
                 padding-left: @toastImageContentPadding;
             }
         }
-        & > .ui.image when (@variationToastImage) {
+        & > @{ui}.image when (@variationToastImage) {
             align-self: flex-start;
             flex-shrink: 0;
         }
@@ -582,7 +582,7 @@
         }
     }
 
-    &.ui.ui.ui.image when (@variationToastImage) {
+    &@{ui}@{ui}@{ui}.image when (@variationToastImage) {
         padding: 0;
         & > .content {
             padding-top: @inputVerticalPadding;
@@ -592,7 +592,7 @@
         & > .actions when (@variationToastActions) {
             margin: 0;
         }
-        & > .ui.image {
+        & > @{ui}.image {
             border-top-left-radius: @defaultBorderRadius;
             border-bottom-left-radius: @defaultBorderRadius;
             &.mini {
@@ -606,42 +606,42 @@
     }
 }
 
-.ui.hoverfloating.message:hover when (@variationToastMessage) and (@variationToastFloating) {
+@{ui}.hoverfloating.message:hover when (@variationToastMessage) and (@variationToastFloating) {
     box-shadow:
         0 0 0 1px inset,
         @floatingShadow;
 }
 
-.ui.center.toast-container .toast-box,
-.ui.right.toast-container .toast-box {
+@{ui}.center.toast-container .toast-box,
+@{ui}.right.toast-container .toast-box {
     margin-left: auto;
 }
 
-.ui.center.toast-container .toast-box {
+@{ui}.center.toast-container .toast-box {
     margin-right: auto;
 }
 
 & when (@variationToastCentered) {
-    .ui.ui.toast-container .toast-box .centered.toast,
-    .ui.ui.toast-container .toast-box .center.aligned.toast {
+    @{ui}@{ui}.toast-container .toast-box .centered.toast,
+    @{ui}@{ui}.toast-container .toast-box .center.aligned.toast {
         text-align: center;
         display: flex;
         justify-content: center;
 
         & > .content,
-        & > .ui.image,
+        & > @{ui}.image,
         & > i.icon@{notClose} {
             align-self: center;
         }
     }
 
-    .ui.toast-container .toast-box .toast .centered.content,
-    .ui.toast-container .toast-box .toast .center.aligned.content {
+    @{ui}.toast-container .toast-box .toast .centered.content,
+    @{ui}.toast-container .toast-box .toast .center.aligned.content {
         text-align: center;
     }
 
-    .ui.toast-container .toast-box .centered.actions,
-    .ui.toast-container .toast-box .center.aligned.actions {
+    @{ui}.toast-container .toast-box .centered.actions,
+    @{ui}.toast-container .toast-box .center.aligned.actions {
         text-align: center;
 
         &@{notAttached} > .button@{notFluid} {
@@ -660,13 +660,13 @@
         @c: @colors[@@color][color];
         @l: @colors[@@color][light];
 
-        .ui.@{color}.toast {
+        @{ui}.@{color}.toast {
             background-color: @c;
             color: @toastTextColor;
         }
         & when (@variationToastInverted) {
-            .ui.inverted.@{color}.toast,
-            .ui.toast-container .toast-box > .inverted.@{color}.attached.progress .bar {
+            @{ui}.inverted.@{color}.toast,
+            @{ui}.toast-container .toast-box > .inverted.@{color}.attached.progress .bar {
                 background-color: @l;
                 color: @toastInvertedTextColor;
             }
@@ -675,14 +675,14 @@
 }
 
 & when (@variationToastInverted) {
-    .ui.inverted.toast {
+    @{ui}.inverted.toast {
         color: @toastTextColor;
         background-color: @toastInvertedColor;
     }
 }
 
 @media only screen and (max-width: @mobileToastBreakpoint) {
-    .ui.toast-container .toast-box {
+    @{ui}.toast-container .toast-box {
         &.toast-box,
         & > .compact,
         & > .vertical > *,
@@ -694,8 +694,8 @@
             min-width: @mobileWidth;
         }
         & when (@variationToastCard) {
-            & > .ui.card.horizontal,
-            > .vertical > .ui.horizontal.card {
+            & > @{ui}.card.horizontal,
+            > .vertical > @{ui}.horizontal.card {
                 min-width: initial;
             }
         }

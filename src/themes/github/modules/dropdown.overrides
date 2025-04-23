@@ -3,7 +3,7 @@
 *******************************/
 
 /* Smaller Icon */
-.ui.dropdown > .dropdown.icon {
+@{ui}.dropdown > .dropdown.icon {
     font-size: 12px;
 }
 
@@ -15,7 +15,7 @@
     font-style: normal;
 }
 
-.ui.dropdown > .dropdown.icon {
+@{ui}.dropdown > .dropdown.icon {
     font-family: Dropdown;
     line-height: 1;
     height: 1em;
@@ -26,24 +26,24 @@
     text-align: center;
 }
 
-.ui.dropdown > .dropdown.icon {
+@{ui}.dropdown > .dropdown.icon {
     width: auto;
 }
-.ui.dropdown > .dropdown.icon::before {
+@{ui}.dropdown > .dropdown.icon::before {
     content: "\f0d7";
 }
 
 /* Sub Menu */
-.ui.dropdown .menu .item .dropdown.icon::before {
+@{ui}.dropdown .menu .item .dropdown.icon::before {
     content: "\f0da" /* rtl: "\f0d9" */;
 }
 
-.ui.dropdown .item .left.dropdown.icon::before,
-.ui.dropdown .left.menu .item .dropdown.icon::before {
+@{ui}.dropdown .item .left.dropdown.icon::before,
+@{ui}.dropdown .left.menu .item .dropdown.icon::before {
     content: "\f0d9" /* rtl: "\f0da" */;
 }
 
 /* Vertical Menu Dropdown */
-.ui.vertical.menu .dropdown.item > .dropdown.icon::before {
+@{ui}.vertical.menu .dropdown.item > .dropdown.icon::before {
     content: "\f0da" /* rtl: "\f0d9" */;
 }

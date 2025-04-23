@@ -23,7 +23,7 @@
             Popup
 *******************************/
 
-.ui.calendar.popup {
+@{ui}.calendar.popup {
     max-width: none;
     padding: 0;
     border: none;
@@ -37,8 +37,8 @@
             Calendar
 *******************************/
 
-.ui.calendar .calendar:focus,
-.ui.calendar.popup:focus {
+@{ui}.calendar .calendar:focus,
+@{ui}.calendar.popup:focus {
     outline: 0;
 }
 
@@ -46,12 +46,12 @@
             Grid
 *******************************/
 
-.ui.calendar.popup .ui.grid {
+@{ui}.calendar.popup @{ui}.grid {
     display: block;
     white-space: nowrap;
 }
 
-.ui.calendar.popup .ui.grid > .column {
+@{ui}.calendar.popup @{ui}.grid > .column {
     width: auto;
 }
 
@@ -59,81 +59,81 @@
             Table
 *******************************/
 
-.ui.calendar .ui.table.year,
-.ui.calendar .ui.table.month,
-.ui.calendar .ui.table.minute {
+@{ui}.calendar @{ui}.table.year,
+@{ui}.calendar @{ui}.table.month,
+@{ui}.calendar @{ui}.table.minute {
     min-width: @widthYearMonthMinute;
 }
 
-.ui.calendar .ui.table.day {
+@{ui}.calendar @{ui}.table.day {
     min-width: @widthDay;
 }
 
-.ui.calendar .ui.table.day.andweek {
+@{ui}.calendar @{ui}.table.day.andweek {
     min-width: @widthDayAndWeek;
 }
 
-.ui.calendar .ui.table.hour {
+@{ui}.calendar @{ui}.table.hour {
     min-width: @widthHour;
 }
 
-.ui.calendar .ui.table tr th,
-.ui.calendar .ui.table tr td {
+@{ui}.calendar @{ui}.table tr th,
+@{ui}.calendar @{ui}.table tr td {
     padding: @cellPadding;
     white-space: nowrap;
 }
 
-.ui.calendar .ui.table tr th {
+@{ui}.calendar @{ui}.table tr th {
     border-left: none;
 }
 
-.ui.calendar .ui.table tr th i.icon {
+@{ui}.calendar @{ui}.table tr th i.icon {
     margin: 0;
 }
 
-.ui.calendar .ui.table tr:first-child th {
+@{ui}.calendar @{ui}.table tr:first-child th {
     position: relative;
     padding-left: 0;
     padding-right: 0;
 }
 
-.ui.calendar .ui.table.day tr:first-child th {
+@{ui}.calendar @{ui}.table.day tr:first-child th {
     border: none;
 }
 
-.ui.calendar .ui.table.day tr:nth-child(2) th {
+@{ui}.calendar @{ui}.table.day tr:nth-child(2) th {
     padding-top: @cellHeaderTopPadding;
     padding-bottom: @cellHeaderBottomPadding;
 }
 
-.ui.calendar .ui.table tr td {
+@{ui}.calendar @{ui}.table tr td {
     padding-left: @cellLeftRightPadding;
     padding-right: @cellLeftRightPadding;
 }
 
-.ui.calendar .ui.table tr .link {
+@{ui}.calendar @{ui}.table tr .link {
     cursor: pointer;
 }
 
-.ui.calendar .ui.table tr .prev.link {
+@{ui}.calendar @{ui}.table tr .prev.link {
     width: @widthPrevNext;
     position: absolute;
     left: 0;
 }
 
-.ui.calendar .ui.table tr .next.link {
+@{ui}.calendar @{ui}.table tr .next.link {
     width: @widthPrevNext;
     position: absolute;
     right: 0;
 }
 
-.ui.ui.calendar .ui.table tr .disabled {
+@{ui}@{ui}.calendar @{ui}.table tr .disabled {
     pointer-events: auto;
     cursor: default;
     color: @disabledTextColor;
 }
 
-.ui.calendar .ui.table tr .adjacent:not(.disabled):not(.active) {
+@{ui}.calendar @{ui}.table tr .adjacent:not(.disabled):not(.active) {
     color: @adjacentTextColor;
     background: @adjacentBackground;
 }
@@ -142,55 +142,55 @@
      States
 --------------- */
 
-.ui.calendar .ui.table tr td.today {
+@{ui}.calendar @{ui}.table tr td.today {
     font-weight: @todayFontWeight;
 }
 
-.ui.calendar .ui.table tr td.range {
+@{ui}.calendar @{ui}.table tr td.range {
     background: @rangeBackground;
     color: @rangeTextColor;
     box-shadow: @rangeBoxShadow;
 }
 
-.ui.calendar@{notDisabled}:focus .ui.table tbody tr td.focus,
-.ui.calendar@{notDisabled}.popup.active .ui.table tbody tr td.focus {
+@{ui}.calendar@{notDisabled}:focus @{ui}.table tbody tr td.focus,
+@{ui}.calendar@{notDisabled}.popup.active @{ui}.table tbody tr td.focus {
     box-shadow: @focusBoxShadow;
 }
 
 & when (@variationCalendarInverted) {
-    .ui.inverted.calendar .ui.table.inverted tr td.range {
+    @{ui}.inverted.calendar @{ui}.table.inverted tr td.range {
         background: @rangeInvertedBackground;
         color: @rangeInvertedTextColor;
         box-shadow: @rangeInvertedBoxShadow;
     }
 
-    .ui.inverted.calendar@{notDisabled} .calendar:focus .ui.table.inverted tbody tr td.focus,
-    .ui.inverted.calendar@{notDisabled}.popup.active .ui.table.inverted tbody tr td.focus {
+    @{ui}.inverted.calendar@{notDisabled} .calendar:focus @{ui}.table.inverted tbody tr td.focus,
+    @{ui}.inverted.calendar@{notDisabled}.popup.active @{ui}.table.inverted tbody tr td.focus {
         box-shadow: @focusInvertedBoxShadow;
     }
-    .ui.inverted.calendar .ui.ui.ui.inverted.table tr .disabled {
+    @{ui}.inverted.calendar @{ui}@{ui}@{ui}.inverted.table tr .disabled {
         color: @invertedDisabledTextColor;
     }
 
-    .ui.inverted.calendar .ui.inverted.table tr .adjacent:not(.disabled):not(.active) {
+    @{ui}.inverted.calendar @{ui}.inverted.table tr .adjacent:not(.disabled):not(.active) {
         color: @adjacentInvertedTextColor;
         background: @adjacentInvertedBackground;
     }
 }
 
 & when (@variationCalendarMultiMonth) {
-    .ui.ui.ui.calendar.popup > .ui.ui.grid {
+    @{ui}@{ui}@{ui}.calendar.popup > @{ui}@{ui}.grid {
         margin: @multiMonthMargin;
         & > .column:not(:first-child) {
             padding-left: @multiMonthPadding;
-            & > .ui.table {
+            & > @{ui}.table {
                 border-top-left-radius: 0;
                 border-bottom-left-radius: 0;
             }
         }
         & > .column:not(:last-child) {
             padding-right: @multiMonthPadding;
-            & > .ui.table {
+            & > @{ui}.table {
                 border-top-right-radius: 0;
                 border-bottom-right-radius: 0;
             }
@@ -205,23 +205,23 @@
 & when not (@variationCalendarSizes = false) {
     each(@variationCalendarSizes, {
         @s: @@value;
-        .ui.@{value}.calendar,
-        .ui.@{value}.calendar .ui.table tr th,
-        .ui.@{value}.calendar .ui.table tr td {
+        @{ui}.@{value}.calendar,
+        @{ui}.@{value}.calendar @{ui}.table tr th,
+        @{ui}.@{value}.calendar @{ui}.table tr td {
             font-size: @s;
         }
-        .ui.@{value}.calendar .ui.table.year,
-        .ui.@{value}.calendar .ui.table.month,
-        .ui.@{value}.calendar .ui.table.minute {
+        @{ui}.@{value}.calendar @{ui}.table.year,
+        @{ui}.@{value}.calendar @{ui}.table.month,
+        @{ui}.@{value}.calendar @{ui}.table.minute {
             min-width: unit(@widthYearMonthMinute * @s, em);
         }
-        .ui.@{value}.calendar .ui.table.day {
+        @{ui}.@{value}.calendar @{ui}.table.day {
             min-width: unit(@widthDay * @s, em);
         }
-        .ui.@{value}.calendar .ui.table.day.andweek {
+        @{ui}.@{value}.calendar @{ui}.table.day.andweek {
             min-width: unit(@widthDayAndWeek * @s, em);
         }
-        .ui.@{value}.calendar .ui.table.hour {
+        @{ui}.@{value}.calendar @{ui}.table.hour {
             min-width: unit(@widthHour * @s, em);
         }
     });
@@ -236,12 +236,12 @@
             Disabled
     --------------------- */
 
-    .ui.disabled.calendar {
+    @{ui}.disabled.calendar {
         opacity: @disabledOpacity;
     }
 
-    .ui.disabled.calendar > .input,
-    .ui.disabled.calendar .ui.table tr .link {
+    @{ui}.disabled.calendar > .input,
+    @{ui}.disabled.calendar @{ui}.table tr .link {
         pointer-events: none;
     }
 }

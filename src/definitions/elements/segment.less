@@ -26,7 +26,7 @@
             Segment
 *******************************/
 
-.ui.segment {
+@{ui}.segment {
     position: relative;
     background: @background;
     box-shadow: @boxShadow;
@@ -36,16 +36,16 @@
     border: @border;
 }
 
-.ui.segment:first-child {
+@{ui}.segment:first-child {
     margin-top: 0;
 }
-.ui.segment:last-child {
+@{ui}.segment:last-child {
     margin-bottom: 0;
 }
 
 & when (@variationSegmentVertical) {
     /* Vertical */
-    .ui.vertical.segment {
+    @{ui}.vertical.segment {
         margin: 0;
         padding-left: 0;
         padding-right: 0;
@@ -55,7 +55,7 @@
         border: none;
         border-top: @borderWidth solid @borderColor;
     }
-    .ui.vertical.segment:first-child {
+    @{ui}.vertical.segment:first-child {
         border-top: none;
     }
 }
@@ -65,57 +65,57 @@
 -------------------- */
 & when (@variationSegmentInverted) {
     /* Header */
-    .ui.inverted.segments .segment > .ui.header .sub.header,
-    .ui.inverted.segments .segment > .ui.header,
-    .ui.inverted.segment > .ui.header .sub.header,
-    .ui.inverted.segment > .ui.header {
+    @{ui}.inverted.segments .segment > @{ui}.header .sub.header,
+    @{ui}.inverted.segments .segment > @{ui}.header,
+    @{ui}.inverted.segment > @{ui}.header .sub.header,
+    @{ui}.inverted.segment > @{ui}.header {
         color: @white;
     }
 }
 
 & when (@variationSegmentAttached) {
     /* Label */
-    .ui[class*="bottom attached"].segment > [class*="top attached"].label {
+    @{ui}[class*="bottom attached"].segment > [class*="top attached"].label {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
-    .ui[class*="top attached"].segment > [class*="bottom attached"].label {
+    @{ui}[class*="top attached"].segment > [class*="bottom attached"].label {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .ui.attached.segment:not(.top):not(.bottom) > [class*="top attached"].label {
+    @{ui}.attached.segment:not(.top):not(.bottom) > [class*="top attached"].label {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
-    .ui.attached.segment:not(.top):not(.bottom) > [class*="bottom attached"].label {
+    @{ui}.attached.segment:not(.top):not(.bottom) > [class*="bottom attached"].label {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 }
 
 /* Grid */
-.ui.grid > .row > .ui.segment.column,
-.ui.grid > .ui.segment.column {
+@{ui}.grid > .row > @{ui}.segment.column,
+@{ui}.grid > @{ui}.segment.column {
     padding-top: @pageGridMargin;
     padding-bottom: @pageGridMargin;
 }
-.ui.grid.segment {
+@{ui}.grid.segment {
     margin: @margin;
     border-radius: @borderRadius;
 }
 
 /* Table */
-.ui.basic.table.segment {
+@{ui}.basic.table.segment {
     background: @background;
     border: @border;
     box-shadow: @boxShadow;
 }
-.ui[class*="very basic"].table.segment {
+@{ui}[class*="very basic"].table.segment {
     padding: @padding;
 }
 
 /* Tab */
-.ui.segment.tab:last-child {
+@{ui}.segment.tab:last-child {
     margin-bottom: @verticalMargin;
 }
 
@@ -128,7 +128,7 @@
          Placeholder
     -------------------- */
 
-    .ui.placeholder.segment {
+    @{ui}.placeholder.segment {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -149,36 +149,36 @@
         }
     }
 
-    .ui.placeholder.segment .button,
-    .ui.placeholder.segment textarea {
+    @{ui}.placeholder.segment .button,
+    @{ui}.placeholder.segment textarea {
         display: block;
     }
-    .ui.placeholder.segment .field,
-    .ui.placeholder.segment textarea,
-    .ui.placeholder.segment > .ui.input,
-    .ui.placeholder.segment .button {
+    @{ui}.placeholder.segment .field,
+    @{ui}.placeholder.segment textarea,
+    @{ui}.placeholder.segment > @{ui}.input,
+    @{ui}.placeholder.segment .button {
         max-width: @placeholderContentMaxWidth;
         margin-left: auto;
         margin-right: auto;
     }
-    .ui.placeholder.segment .column .button,
-    .ui.placeholder.segment .column .field,
-    .ui.placeholder.segment .column textarea,
-    .ui.placeholder.segment .column > .ui.input {
+    @{ui}.placeholder.segment .column .button,
+    @{ui}.placeholder.segment .column .field,
+    @{ui}.placeholder.segment .column textarea,
+    @{ui}.placeholder.segment .column > @{ui}.input {
         max-width: @placeholderContentMaxWidth;
         margin-left: auto;
         margin-right: auto;
     }
 
-    .ui.placeholder.segment > .inline {
+    @{ui}.placeholder.segment > .inline {
         align-self: center;
     }
-    .ui.placeholder.segment > .inline > .button {
+    @{ui}.placeholder.segment > .inline > .button {
         display: inline-block;
         width: auto;
         margin: @placeholderContentInlineButtonMargin;
     }
-    .ui.placeholder.segment > .inline > .button:last-child {
+    @{ui}.placeholder.segment > .inline > .button:last-child {
         margin-right: 0;
     }
 }
@@ -188,8 +188,8 @@
             Piled
     -------------------- */
 
-    .ui.piled.segments,
-    .ui.piled.segment {
+    @{ui}.piled.segments,
+    @{ui}.piled.segment {
         margin: @piledMargin 0;
         box-shadow: @piledBoxShadow;
         z-index: @piledZIndex;
@@ -197,16 +197,16 @@
         border: @piledBorder;
         color: @textColor;
     }
-    .ui.piled.segment:first-child {
+    @{ui}.piled.segment:first-child {
         margin-top: 0;
     }
-    .ui.piled.segment:last-child {
+    @{ui}.piled.segment:last-child {
         margin-bottom: 0;
     }
-    .ui.piled.segments::after,
-    .ui.piled.segments::before,
-    .ui.piled.segment::after,
-    .ui.piled.segment::before {
+    @{ui}.piled.segments::after,
+    @{ui}.piled.segments::before,
+    @{ui}.piled.segment::after,
+    @{ui}.piled.segment::before {
         background-color: inherit;
         visibility: visible;
         content: "";
@@ -219,43 +219,43 @@
         box-shadow: @piledBoxShadow;
     }
     & when (@variationSegmentInverted) {
-        .ui.inverted.piled.segment {
+        @{ui}.inverted.piled.segment {
             background-color: @invertedBackground;
             border: @invertedPiledBorder;
             color: @invertedTextColor;
         }
     }
-    .ui.piled.segments::before,
-    .ui.piled.segment::before {
+    @{ui}.piled.segments::before,
+    @{ui}.piled.segment::before {
         transform: rotate(-@piledDegrees);
         top: 0;
         z-index: -2;
     }
-    .ui.piled.segments::after,
-    .ui.piled.segment::after {
+    @{ui}.piled.segments::after,
+    @{ui}.piled.segment::after {
         transform: rotate(@piledDegrees);
         top: 0;
         z-index: -1;
     }
     & when (@variationSegmentAttached) {
         /* Piled Attached */
-        .ui[class*="top attached"].piled.segment {
+        @{ui}[class*="top attached"].piled.segment {
             margin-top: @piledMargin;
             margin-bottom: 0;
         }
-        .ui.piled.segment[class*="top attached"]:first-child {
+        @{ui}.piled.segment[class*="top attached"]:first-child {
             margin-top: 0;
         }
-        .ui.piled.segment[class*="bottom attached"] {
+        @{ui}.piled.segment[class*="bottom attached"] {
             margin-top: 0;
             margin-bottom: @piledMargin;
         }
-        .ui.piled.segment[class*="bottom attached"]:last-child {
+        @{ui}.piled.segment[class*="bottom attached"]:last-child {
             margin-bottom: 0;
         }
     }
     @supports selector(:has(.f)) {
-        *:has(> .ui.piled.segment) {
+        *:has(> @{ui}.piled.segment) {
             z-index: 0;
             position: relative;
         }
@@ -267,13 +267,13 @@
            Stacked
     -------------------- */
 
-    .ui.stacked.segment {
+    @{ui}.stacked.segment {
         padding-bottom: @stackedPadding;
     }
-    .ui.stacked.segments::before,
-    .ui.stacked.segments::after,
-    .ui.stacked.segment::before,
-    .ui.stacked.segment::after {
+    @{ui}.stacked.segments::before,
+    @{ui}.stacked.segments::after,
+    @{ui}.stacked.segment::before,
+    @{ui}.stacked.segment::after {
         content: "";
         position: absolute;
         bottom: -(@stackedHeight / 2);
@@ -284,21 +284,21 @@
         height: @stackedHeight;
         visibility: visible;
     }
-    .ui.stacked.segments::before,
-    .ui.stacked.segment::before {
+    @{ui}.stacked.segments::before,
+    @{ui}.stacked.segment::before {
         display: none;
     }
 
     /* Add additional page */
-    .ui.tall.stacked.segments::before,
-    .ui.tall.stacked.segment::before {
+    @{ui}.tall.stacked.segments::before,
+    @{ui}.tall.stacked.segment::before {
         display: block;
         bottom: 0;
     }
     & when (@variationSegmentInverted) {
         /* Inverted */
-        .ui.stacked.inverted.segments,
-        .ui.stacked.inverted.segment {
+        @{ui}.stacked.inverted.segments,
+        @{ui}.stacked.inverted.segment {
             border: @borderWidth solid @invertedStackedBorderColor;
             &::before,
             &::after {
@@ -314,19 +314,19 @@
            Padded
     -------------------- */
 
-    .ui.padded.segment {
+    @{ui}.padded.segment {
         padding: @paddedSegmentPadding;
     }
     & when (@variationSegmentVeryPadded) {
-        .ui[class*="very padded"].segment {
+        @{ui}[class*="very padded"].segment {
             padding: @veryPaddedSegmentPadding;
         }
     }
 
     & when (@variationSegmentVertical) {
         /* Padded vertical */
-        .ui.padded.segment.vertical.segment,
-        .ui[class*="very padded"].vertical.segment {
+        @{ui}.padded.segment.vertical.segment,
+        @{ui}[class*="very padded"].vertical.segment {
             padding-left: 0;
             padding-right: 0;
         }
@@ -338,16 +338,16 @@
            Compact
     -------------------- */
 
-    .ui.compact.segment {
+    @{ui}.compact.segment {
         display: table;
     }
 
     /* Compact Group */
-    .ui.compact.segments {
+    @{ui}.compact.segments {
         display: inline-flex;
     }
-    .ui.compact.segments .segment,
-    .ui.segments .compact.segment {
+    @{ui}.compact.segments .segment,
+    @{ui}.segments .compact.segment {
         display: block;
         flex: 0 1 auto;
     }
@@ -358,7 +358,7 @@
            Circular
     -------------------- */
 
-    .ui.circular.segment {
+    @{ui}.circular.segment {
         display: table-cell;
         padding: @circularPadding;
         text-align: center;
@@ -372,13 +372,13 @@
            Raised
     -------------------- */
 
-    .ui.ui.raised.segments,
-    .ui.ui.raised.segment {
+    @{ui}@{ui}.raised.segments,
+    @{ui}@{ui}.raised.segment {
         box-shadow: @raisedBoxShadow;
     }
     & when (@variationSegmentInverted) {
-        .ui.ui.inverted.raised.segments,
-        .ui.ui.inverted.raised.segment {
+        @{ui}@{ui}.inverted.raised.segments,
+        @{ui}@{ui}.inverted.raised.segment {
             box-shadow: @invertedRaisedBoxShadow;
         }
     }
@@ -390,7 +390,7 @@
     *******************************/
 
     /* Group */
-    .ui.segments {
+    @{ui}.segments {
         flex-direction: column;
         position: relative;
         margin: @groupedMargin;
@@ -398,15 +398,15 @@
         box-shadow: @groupedBoxShadow;
         border-radius: @groupedBorderRadius;
     }
-    .ui.segments:first-child {
+    @{ui}.segments:first-child {
         margin-top: 0;
     }
-    .ui.segments:last-child {
+    @{ui}.segments:last-child {
         margin-bottom: 0;
     }
 
     /* Nested Segment */
-    .ui.segments > .segment {
+    @{ui}.segments > .segment {
         top: 0;
         bottom: 0;
         border-radius: 0;
@@ -417,7 +417,7 @@
         border-top: @groupedSegmentDivider;
     }
 
-    .ui.segments@{notHorizontal} > .segment:first-child {
+    @{ui}.segments@{notHorizontal} > .segment:first-child {
         top: @attachedTopOffset;
         bottom: 0;
         border-top: none;
@@ -427,7 +427,7 @@
     }
 
     /* Bottom */
-    .ui.segments@{notHorizontal} > .segment:last-child {
+    @{ui}.segments@{notHorizontal} > .segment:last-child {
         top: @attachedBottomOffset;
         bottom: 0;
         margin-top: 0;
@@ -437,25 +437,25 @@
     }
 
     /* Only */
-    .ui.segments@{notHorizontal} > .segment:only-child {
+    @{ui}.segments@{notHorizontal} > .segment:only-child {
         border-radius: @borderRadius;
     }
 
     /* Nested Group */
-    .ui.segments > .ui.segments {
+    @{ui}.segments > @{ui}.segments {
         border-top: @groupedSegmentDivider;
         margin: @nestedGroupMargin;
     }
-    .ui.segments > .segments:first-child {
+    @{ui}.segments > .segments:first-child {
         border-top: none;
     }
-    .ui.segments > .segment + .segments@{notHorizontal} {
+    @{ui}.segments > .segment + .segments@{notHorizontal} {
         margin-top: 0;
     }
 
     & when (@variationSegmentHorizontal) {
         /* Horizontal Group */
-        .ui.horizontal.segments {
+        @{ui}.horizontal.segments {
             display: flex;
             flex-direction: row;
             background-color: transparent;
@@ -465,13 +465,13 @@
             border-radius: @groupedBorderRadius;
             border: @groupedBorder;
         }
-        .ui.wrapping.horizontal.segments,
-        .ui.stackable.horizontal.segments {
+        @{ui}.wrapping.horizontal.segments,
+        @{ui}.stackable.horizontal.segments {
             flex-wrap: wrap;
         }
 
         /* Nested Horizontal Group */
-        .ui.segments > .horizontal.segments {
+        @{ui}.segments > .horizontal.segments {
             margin: 0;
             background-color: transparent;
             border-radius: 0;
@@ -481,10 +481,10 @@
         }
 
         /* Horizontal Segment */
-        .ui.horizontal.segments@{notCompact} > .segment@{notCompact} {
+        @{ui}.horizontal.segments@{notCompact} > .segment@{notCompact} {
             flex: 1 1 auto;
         }
-        .ui.horizontal.segments > .segment {
+        @{ui}.horizontal.segments > .segment {
             margin: 0;
             min-width: 0;
             border-radius: 0;
@@ -494,21 +494,21 @@
         }
 
         /* Border Fixes */
-        .ui.segments > .horizontal.segments:first-child {
+        @{ui}.segments > .horizontal.segments:first-child {
             border-top: none;
         }
-        .ui.horizontal.segments:not(.stackable):not(.wrapping) > .segment:first-child {
+        @{ui}.horizontal.segments:not(.stackable):not(.wrapping) > .segment:first-child {
             border-left: none;
         }
-        .ui.horizontal.segments > .segment:first-child {
+        @{ui}.horizontal.segments > .segment:first-child {
             border-radius: @borderRadius 0 0 @borderRadius;
         }
-        .ui.horizontal.segments > .segment:last-child {
+        @{ui}.horizontal.segments > .segment:last-child {
             border-radius: 0 @borderRadius @borderRadius 0;
         }
 
         /* Equal Width */
-        .ui[class*="equal width"].horizontal.segments > .segment {
+        @{ui}[class*="equal width"].horizontal.segments > .segment {
             width: 100%;
         }
     }
@@ -523,8 +523,8 @@
         Disabled
     --------------- */
 
-    .ui.disabled.segments,
-    .ui.disabled.segment {
+    @{ui}.disabled.segments,
+    @{ui}.disabled.segment {
         opacity: @disabledOpacity;
         color: @disabledTextColor;
         pointer-events: none;
@@ -537,8 +537,8 @@
         Loading
     --------------- */
 
-    .ui.loading.segments,
-    .ui.loading.segment {
+    @{ui}.loading.segments,
+    @{ui}.loading.segment {
         position: relative;
         cursor: default;
         pointer-events: none;
@@ -546,8 +546,8 @@
         transition: all 0s linear;
         min-height: @loadingMinHeight;
     }
-    .ui.loading.segments::before,
-    .ui.loading.segment::before {
+    @{ui}.loading.segments::before,
+    @{ui}.loading.segment::before {
         position: absolute;
         content: "";
         top: 0;
@@ -558,8 +558,8 @@
         border-radius: @borderRadius;
         z-index: @loaderDimmerZIndex;
     }
-    .ui.loading.segments::after,
-    .ui.loading.segment::after {
+    @{ui}.loading.segments::after,
+    @{ui}.loading.segment::after {
         position: absolute;
         content: "";
         top: 50%;
@@ -585,9 +585,9 @@
            Basic
     -------------------- */
 
-    .ui.basic.segment,
-    .ui.segments .ui.basic.segment,
-    .ui.basic.segments {
+    @{ui}.basic.segment,
+    @{ui}.segments @{ui}.basic.segment,
+    @{ui}.basic.segments {
         background: @basicBackground;
         box-shadow: @basicBoxShadow;
         border: @basicBorder;
@@ -600,7 +600,7 @@
            Clearing
     -------------------- */
 
-    .ui.clearing.segment::after {
+    @{ui}.clearing.segment::after {
         content: "";
         display: block;
         clear: both;
@@ -615,18 +615,18 @@
         @color: @value;
         @c: @colors[@@color][color];
         & when not (@color=primary) and not (@color=secondary) {
-            .ui.ui.ui.ui.ui.@{color}.segment@{notInverted} {
+            @{ui}@{ui}@{ui}@{ui}@{ui}.@{color}.segment@{notInverted} {
                 border-top: @coloredBorderSize solid @c;
             }
             & when (@variationSegmentInverted) {
-                .ui.ui.ui.ui.ui.inverted.@{color}.segment {
+                @{ui}@{ui}@{ui}@{ui}@{ui}.inverted.@{color}.segment {
                     background-color: @c;
                     color: @white;
                     & when not (@variationSegmentPiled) and ((@variationSegmentAttached) or (@variationSegmentStacked)) {
                         border-color: c;
                     }
                 }
-                .ui.ui.inverted.@{color}.segment:not(.piled) when (@variationSegmentPiled) and ((@variationSegmentAttached) or (@variationSegmentStacked)) {
+                @{ui}@{ui}.inverted.@{color}.segment:not(.piled) when (@variationSegmentPiled) and ((@variationSegmentAttached) or (@variationSegmentStacked)) {
                     border-color: @c;
                 }
             }
@@ -639,13 +639,13 @@
            Aligned
     -------------------- */
 
-    .ui[class*="left aligned"].segment {
+    @{ui}[class*="left aligned"].segment {
         text-align: left;
     }
-    .ui[class*="right aligned"].segment {
+    @{ui}[class*="right aligned"].segment {
         text-align: right;
     }
-    .ui[class*="center aligned"].segment {
+    @{ui}[class*="center aligned"].segment {
         text-align: center;
     }
 }
@@ -655,12 +655,12 @@
            Floated
     -------------------- */
 
-    .ui.floated.segment,
-    .ui[class*="left floated"].segment {
+    @{ui}.floated.segment,
+    @{ui}[class*="left floated"].segment {
         float: left;
         margin-right: @floatedDistance;
     }
-    .ui[class*="right floated"].segment {
+    @{ui}[class*="right floated"].segment {
         float: right;
         margin-left: @floatedDistance;
     }
@@ -670,40 +670,40 @@
     /* -------------------
           Inverted
     -------------------- */
-    .ui.inverted.segments,
-    .ui.inverted.segments .segment,
-    .ui.inverted.segment {
+    @{ui}.inverted.segments,
+    @{ui}.inverted.segments .segment,
+    @{ui}.inverted.segment {
         border: none;
         box-shadow: none;
     }
-    .ui.inverted.segments .segment,
-    .ui.inverted.segment,
-    .ui.primary.inverted.segment {
+    @{ui}.inverted.segments .segment,
+    @{ui}.inverted.segment,
+    @{ui}.primary.inverted.segment {
         background: @invertedBackground;
         color: @invertedTextColor;
     }
 
     /* Nested */
-    .ui.inverted.segment .segment {
+    @{ui}.inverted.segment .segment {
         color: @textColor;
     }
-    .ui.inverted.segment .inverted.segment {
+    @{ui}.inverted.segment .inverted.segment {
         color: @invertedTextColor;
     }
     & when (@variationSegmentAttached) {
         /* Attached */
-        .ui.ui.inverted.attached.segment {
+        @{ui}@{ui}.inverted.attached.segment {
             border-color: @solidWhiteBorderColor;
         }
     }
     & when (@variationSegmentLoading) {
         /* Loading */
-        .ui.inverted.loading.segments,
-        .ui.inverted.loading.segment {
+        @{ui}.inverted.loading.segments,
+        @{ui}.inverted.loading.segment {
             color: @invertedLoaderLineColor;
         }
-        .ui.inverted.loading.segments::before,
-        .ui.inverted.loading.segment::before {
+        @{ui}.inverted.loading.segments::before,
+        @{ui}.inverted.loading.segment::before {
             background: @loaderInvertedDimmerColor;
         }
     }
@@ -714,12 +714,12 @@
 -------------------- */
 & when (@variationSegmentSecondary) {
     /* Secondary */
-    .ui.secondary.segment {
+    @{ui}.secondary.segment {
         background: @secondaryBackground;
         color: @secondaryColor;
     }
     & when (@variationSegmentInverted) {
-        .ui.secondary.inverted.segment {
+        @{ui}.secondary.inverted.segment {
             background: @secondaryInvertedBackground;
             color: @secondaryInvertedColor;
         }
@@ -728,12 +728,12 @@
 
 & when (@variationSegmentTertiary) {
     /* Tertiary */
-    .ui.tertiary.segment {
+    @{ui}.tertiary.segment {
         background: @tertiaryBackground;
         color: @tertiaryColor;
     }
     & when (@variationSegmentInverted) {
-        .ui.tertiary.inverted.segment {
+        @{ui}.tertiary.inverted.segment {
             background: @tertiaryInvertedBackground;
             color: @tertiaryInvertedColor;
         }
@@ -746,7 +746,7 @@
     -------------------- */
 
     /* Middle */
-    .ui.attached.segment {
+    @{ui}.attached.segment {
         top: 0;
         bottom: 0;
         border-radius: 0;
@@ -758,27 +758,27 @@
             border: @attachedBorder;
         }
     }
-    .ui.attached:not(.message):not(.text) + .ui.attached.segment:not(.top):not([class*="left attached"]):not([class*="right attached"]) {
+    @{ui}.attached:not(.message):not(.text) + @{ui}.attached.segment:not(.top):not([class*="left attached"]):not([class*="right attached"]) {
         border-top: none;
     }
 
     /* Top */
-    .ui.segment[class*="top attached"] {
+    @{ui}.segment[class*="top attached"] {
         bottom: 0;
         margin-bottom: 0;
         top: @attachedTopOffset;
         margin-top: @verticalMargin;
         border-radius: @borderRadius @borderRadius 0 0;
     }
-    .ui.segment[class*="top attached"]:first-child {
+    @{ui}.segment[class*="top attached"]:first-child {
         margin-top: 0;
     }
-    .ui.tab.segment[class*="top attached"]:first-child {
+    @{ui}.tab.segment[class*="top attached"]:first-child {
         margin-top: @verticalMargin;
     }
 
     /* Bottom */
-    .ui.segment[class*="bottom attached"] {
+    @{ui}.segment[class*="bottom attached"] {
         bottom: 0;
         margin-top: 0;
         top: @attachedBottomOffset;
@@ -786,20 +786,20 @@
         box-shadow: @attachedBottomBoxShadow;
         border-radius: 0 0 @borderRadius @borderRadius;
     }
-    .ui.segment[class*="bottom attached"]:last-child {
+    @{ui}.segment[class*="bottom attached"]:last-child {
         margin-bottom: 0;
     }
-    .ui.tab.segment[class*="bottom attached"]:last-child {
+    @{ui}.tab.segment[class*="bottom attached"]:last-child {
         margin-bottom: @verticalMargin;
     }
-    .ui[class*="left attached"].segment {
+    @{ui}[class*="left attached"].segment {
         margin-right: 0;
     }
-    .ui[class*="right attached"].segment {
+    @{ui}[class*="right attached"].segment {
         margin-left: 0;
     }
     & when (@variationSegmentSeamless) {
-        .ui.seamless.attached.segment {
+        @{ui}.seamless.attached.segment {
             &:not(.top):not(.bottom):not([class*="right attached"]):not([class*="left attached"]) {
                 border-top: none;
                 border-bottom: none;
@@ -825,11 +825,11 @@
          Fitted
     --------------- */
 
-    .ui.fitted.segment:not(.horizontally) {
+    @{ui}.fitted.segment:not(.horizontally) {
         padding-top: 0;
         padding-bottom: 0;
     }
-    .ui.fitted.segment:not(.vertically) {
+    @{ui}.fitted.segment:not(.vertically) {
         padding-left: 0;
         padding-right: 0;
     }
@@ -839,13 +839,13 @@
     /* --------------
       Scrolling
     --------------- */
-    .ui.scrolling.segment {
+    @{ui}.scrolling.segment {
         overflow: auto;
         overscroll-behavior: @overscrollBehavior;
     }
     @media only screen and (max-width: @largestMobileScreen) {
         & when (@variationSegmentScrollingShort) {
-            .ui.scrolling.segment.short {
+            @{ui}.scrolling.segment.short {
                 max-height: @scrollingMobileMaxHeight * 0.75;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingMobileMaxHeight * 0.75;
@@ -853,21 +853,21 @@
             }
         }
         & when (@variationSegmentScrollingVeryShort) {
-            .ui.scrolling.segment[class*="very short"] {
+            @{ui}.scrolling.segment[class*="very short"] {
                 max-height: @scrollingMobileMaxHeight * 0.5;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingMobileMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.segment {
+        @{ui}.scrolling.segment {
             max-height: @scrollingMobileMaxHeight;
             &.resizable when (@variationSegmentResizable) {
                 height: @scrollingMobileMaxHeight;
             }
         }
         & when (@variationSegmentScrollingLong) {
-            .ui.scrolling.segment.long {
+            @{ui}.scrolling.segment.long {
                 max-height: @scrollingMobileMaxHeight * 2;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingMobileMaxHeight * 2;
@@ -875,7 +875,7 @@
             }
         }
         & when (@variationSegmentScrollingVeryLong) {
-            .ui.scrolling.segment[class*="very long"] {
+            @{ui}.scrolling.segment[class*="very long"] {
                 max-height: @scrollingMobileMaxHeight * 3;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingMobileMaxHeight * 3;
@@ -886,7 +886,7 @@
 
     @media only screen and (min-width: @tabletBreakpoint) {
         & when (@variationSegmentScrollingShort) {
-            .ui.scrolling.segment.short {
+            @{ui}.scrolling.segment.short {
                 max-height: @scrollingTabletMaxHeight * 0.75;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingTabletMaxHeight * 0.75;
@@ -894,21 +894,21 @@
             }
         }
         & when (@variationSegmentScrollingVeryShort) {
-            .ui.scrolling.segment[class*="very short"] {
+            @{ui}.scrolling.segment[class*="very short"] {
                 max-height: @scrollingTabletMaxHeight * 0.5;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingTabletMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.segment {
+        @{ui}.scrolling.segment {
             max-height: @scrollingTabletMaxHeight;
             &.resizable when (@variationSegmentResizable) {
                 height: @scrollingTabletMaxHeight;
             }
         }
         & when (@variationSegmentScrollingLong) {
-            .ui.scrolling.segment.long {
+            @{ui}.scrolling.segment.long {
                 max-height: @scrollingTabletMaxHeight * 2;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingTabletMaxHeight * 2;
@@ -916,7 +916,7 @@
             }
         }
         & when (@variationSegmentScrollingVeryLong) {
-            .ui.scrolling.segment[class*="very long"] {
+            @{ui}.scrolling.segment[class*="very long"] {
                 max-height: @scrollingTabletMaxHeight * 3;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingTabletMaxHeight * 3;
@@ -926,7 +926,7 @@
     }
     @media only screen and (min-width: @computerBreakpoint) {
         & when (@variationSegmentScrollingShort) {
-            .ui.scrolling.segment.short {
+            @{ui}.scrolling.segment.short {
                 max-height: @scrollingComputerMaxHeight * 0.75;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingComputerMaxHeight * 0.75;
@@ -934,21 +934,21 @@
             }
         }
         & when (@variationSegmentScrollingVeryShort) {
-            .ui.scrolling.segment[class*="very short"] {
+            @{ui}.scrolling.segment[class*="very short"] {
                 max-height: @scrollingComputerMaxHeight * 0.5;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingComputerMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.segment {
+        @{ui}.scrolling.segment {
             max-height: @scrollingComputerMaxHeight;
             &.resizable when (@variationSegmentResizable) {
                 height: @scrollingComputerMaxHeight;
             }
         }
         & when (@variationSegmentScrollingLong) {
-            .ui.scrolling.segment.long {
+            @{ui}.scrolling.segment.long {
                 max-height: @scrollingComputerMaxHeight * 2;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingComputerMaxHeight * 2;
@@ -956,7 +956,7 @@
             }
         }
         & when (@variationSegmentScrollingVeryLong) {
-            .ui.scrolling.segment[class*="very long"] {
+            @{ui}.scrolling.segment[class*="very long"] {
                 max-height: @scrollingComputerMaxHeight * 3;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingComputerMaxHeight * 3;
@@ -966,7 +966,7 @@
     }
     @media only screen and (min-width: @widescreenMonitorBreakpoint) {
         & when (@variationSegmentScrollingShort) {
-            .ui.scrolling.segment.short {
+            @{ui}.scrolling.segment.short {
                 max-height: @scrollingWidescreenMaxHeight * 0.75;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingWidescreenMaxHeight * 0.75;
@@ -974,21 +974,21 @@
             }
         }
         & when (@variationSegmentScrollingVeryShort) {
-            .ui.scrolling.segment[class*="very short"] {
+            @{ui}.scrolling.segment[class*="very short"] {
                 max-height: @scrollingWidescreenMaxHeight * 0.5;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingWidescreenMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.segment {
+        @{ui}.scrolling.segment {
             max-height: @scrollingWidescreenMaxHeight;
             &.resizable when (@variationSegmentResizable) {
                 height: @scrollingWidescreenMaxHeight;
             }
         }
         & when (@variationSegmentScrollingLong) {
-            .ui.scrolling.segment.long {
+            @{ui}.scrolling.segment.long {
                 max-height: @scrollingWidescreenMaxHeight * 2;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingWidescreenMaxHeight * 2;
@@ -996,7 +996,7 @@
             }
         }
         & when (@variationSegmentScrollingVeryLong) {
-            .ui.scrolling.segment[class*="very long"] {
+            @{ui}.scrolling.segment[class*="very long"] {
                 max-height: @scrollingWidescreenMaxHeight * 3;
                 &.resizable when (@variationSegmentResizable) {
                     height: @scrollingWidescreenMaxHeight * 3;
@@ -1005,7 +1005,7 @@
         }
     }
     & when (@variationSegmentResizable) {
-        .ui.resizable.scrolling.segment {
+        @{ui}.resizable.scrolling.segment {
             resize: @resizableDirection;
             max-height: none;
         }
@@ -1016,15 +1016,15 @@
         Size
 -------------------- */
 
-.ui.segments .segment,
-.ui.segment {
+@{ui}.segments .segment,
+@{ui}.segment {
     font-size: @medium;
 }
 & when not (@variationSegmentSizes = false) {
     each(@variationSegmentSizes, {
         @s: @@value;
-        .ui.@{value}.segments .segment,
-        .ui.@{value}.segment {
+        @{ui}.@{value}.segments .segment,
+        @{ui}.@{value}.segment {
             font-size: @s;
         }
     });

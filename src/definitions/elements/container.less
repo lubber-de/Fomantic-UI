@@ -24,28 +24,28 @@
 *******************************/
 
 /* All Sizes */
-.ui.container {
+@{ui}.container {
     display: block;
     max-width: @maxWidth;
 }
 
 /* Mobile */
 @media only screen and (max-width: @largestMobileScreen) {
-    .ui.ui.ui.container@{notFluid} {
+    @{ui}@{ui}@{ui}.container@{notFluid} {
         width: @mobileWidth;
         margin-left: @mobileGutter;
         margin-right: @mobileGutter;
     }
     & when (@variationContainerGrid) or (@variationContainerRelaxed) {
-        .ui.ui.ui.grid.container {
+        @{ui}@{ui}@{ui}.grid.container {
             width: @mobileGridWidth;
         }
         & when (@variationContainerRelaxed) {
-            .ui.ui.ui.relaxed.grid.container {
+            @{ui}@{ui}@{ui}.relaxed.grid.container {
                 width: @mobileRelaxedGridWidth;
             }
             & when (@variationContainerVeryRelaxed) {
-                .ui.ui.ui.very.relaxed.grid.container {
+                @{ui}@{ui}@{ui}.very.relaxed.grid.container {
                     width: @mobileVeryRelaxedGridWidth;
                 }
             }
@@ -55,21 +55,21 @@
 
 /* Tablet */
 @media only screen and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
-    .ui.ui.ui.container@{notFluid} {
+    @{ui}@{ui}@{ui}.container@{notFluid} {
         width: @tabletWidth;
         margin-left: @tabletGutter;
         margin-right: @tabletGutter;
     }
     & when (@variationContainerGrid) or (@variationContainerRelaxed) {
-        .ui.ui.ui.grid.container {
+        @{ui}@{ui}@{ui}.grid.container {
             width: @tabletGridWidth;
         }
         & when (@variationContainerRelaxed) {
-            .ui.ui.ui.relaxed.grid.container {
+            @{ui}@{ui}@{ui}.relaxed.grid.container {
                 width: @tabletRelaxedGridWidth;
             }
             & when (@variationContainerVeryRelaxed) {
-                .ui.ui.ui.very.relaxed.grid.container {
+                @{ui}@{ui}@{ui}.very.relaxed.grid.container {
                     width: @tabletVeryRelaxedGridWidth;
                 }
             }
@@ -79,21 +79,21 @@
 
 /* Small Monitor */
 @media only screen and (min-width: @computerBreakpoint) and (max-width: @largestSmallMonitor) {
-    .ui.ui.ui.container@{notFluid} {
+    @{ui}@{ui}@{ui}.container@{notFluid} {
         width: @computerWidth;
         margin-left: @computerGutter;
         margin-right: @computerGutter;
     }
     & when (@variationContainerGrid) or (@variationContainerRelaxed) {
-        .ui.ui.ui.grid.container {
+        @{ui}@{ui}@{ui}.grid.container {
             width: @computerGridWidth;
         }
         & when (@variationContainerRelaxed) {
-            .ui.ui.ui.relaxed.grid.container {
+            @{ui}@{ui}@{ui}.relaxed.grid.container {
                 width: @computerRelaxedGridWidth;
             }
             & when (@variationContainerVeryRelaxed) {
-                .ui.ui.ui.very.relaxed.grid.container {
+                @{ui}@{ui}@{ui}.very.relaxed.grid.container {
                     width: @computerVeryRelaxedGridWidth;
                 }
             }
@@ -103,21 +103,21 @@
 
 /* Large Monitor */
 @media only screen and (min-width: @largeMonitorBreakpoint) {
-    .ui.ui.ui.container@{notFluid} {
+    @{ui}@{ui}@{ui}.container@{notFluid} {
         width: @largeMonitorWidth;
         margin-left: @largeMonitorGutter;
         margin-right: @largeMonitorGutter;
     }
     & when (@variationContainerGrid) or (@variationContainerRelaxed) {
-        .ui.ui.ui.grid.container {
+        @{ui}@{ui}@{ui}.grid.container {
             width: @largeMonitorGridWidth;
         }
         & when (@variationContainerRelaxed) {
-            .ui.ui.ui.relaxed.grid.container {
+            @{ui}@{ui}@{ui}.relaxed.grid.container {
                 width: @largeMonitorRelaxedGridWidth;
             }
             & when (@variationContainerVeryRelaxed) {
-                .ui.ui.ui.very.relaxed.grid.container {
+                @{ui}@{ui}@{ui}.very.relaxed.grid.container {
                     width: @largeMonitorVeryRelaxedGridWidth;
                 }
             }
@@ -131,7 +131,7 @@
 
 & when (@variationContainerText) {
     /* Text Container */
-    .ui.text.container {
+    @{ui}.text.container {
         font-family: @textFontFamily;
         max-width: @textWidth;
         line-height: @textLineHeight;
@@ -142,17 +142,17 @@
 & when (@variationContainerWide) {
     /* Wide Container */
     @media only screen and (min-width: @tabletBreakpoint) and (max-width: @largestTabletScreen) {
-        .ui.ui.ui.wide.container {
+        @{ui}@{ui}@{ui}.wide.container {
             width: @tabletWideWidth;
         }
     }
     @media only screen and (min-width: @computerBreakpoint) and (max-width: @largestSmallMonitor) {
-        .ui.ui.ui.wide.container {
+        @{ui}@{ui}@{ui}.wide.container {
             width: @computerWideWidth;
         }
     }
     @media only screen and (min-width: @largeMonitorBreakpoint) {
-        .ui.ui.ui.wide.container {
+        @{ui}@{ui}@{ui}.wide.container {
             width: @largeMonitorWideWidth;
         }
     }
@@ -160,7 +160,7 @@
 
 & when (@variationContainerFluid) {
     /* Fluid */
-    .ui.fluid.container {
+    @{ui}.fluid.container {
         width: 100%;
     }
 }
@@ -169,18 +169,18 @@
            Variations
 *******************************/
 & when (@variationContainerAligned) {
-    .ui[class*="left aligned"].container {
+    @{ui}[class*="left aligned"].container {
         text-align: left;
     }
-    .ui[class*="center aligned"].container {
+    @{ui}[class*="center aligned"].container {
         text-align: center;
     }
-    .ui[class*="right aligned"].container {
+    @{ui}[class*="right aligned"].container {
         text-align: right;
     }
 }
 & when (@variationContainerJustified) {
-    .ui.justified.container {
+    @{ui}.justified.container {
         text-align: justify;
         hyphens: auto;
     }
@@ -189,13 +189,13 @@
     /* --------------
       Scrolling
     --------------- */
-    .ui.scrolling.container {
+    @{ui}.scrolling.container {
         overflow: auto;
         overscroll-behavior: @overscrollBehavior;
     }
     @media only screen and (max-width: @largestMobileScreen) {
         & when (@variationContainerScrollingShort) {
-            .ui.scrolling.container.short {
+            @{ui}.scrolling.container.short {
                 max-height: @scrollingMobileMaxHeight * 0.75;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingMobileMaxHeight * 0.75;
@@ -203,18 +203,18 @@
             }
         }
         & when (@variationContainerScrollingVeryShort) {
-            .ui.scrolling.container[class*="very short"] {
+            @{ui}.scrolling.container[class*="very short"] {
                 max-height: @scrollingMobileMaxHeight * 0.5;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingMobileMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.container {
+        @{ui}.scrolling.container {
             max-height: @scrollingMobileMaxHeight;
         }
         & when (@variationContainerScrollingLong) {
-            .ui.scrolling.container.long {
+            @{ui}.scrolling.container.long {
                 max-height: @scrollingMobileMaxHeight * 2;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingMobileMaxHeight * 2;
@@ -222,7 +222,7 @@
             }
         }
         & when (@variationContainerScrollingVeryLong) {
-            .ui.scrolling.container[class*="very long"] {
+            @{ui}.scrolling.container[class*="very long"] {
                 max-height: @scrollingMobileMaxHeight * 3;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingMobileMaxHeight * 3;
@@ -233,7 +233,7 @@
 
     @media only screen and (min-width: @tabletBreakpoint) {
         & when (@variationContainerScrollingShort) {
-            .ui.scrolling.container.short {
+            @{ui}.scrolling.container.short {
                 max-height: @scrollingTabletMaxHeight * 0.75;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingTabletMaxHeight * 0.75;
@@ -241,21 +241,21 @@
             }
         }
         & when (@variationContainerScrollingVeryShort) {
-            .ui.scrolling.container[class*="very short"] {
+            @{ui}.scrolling.container[class*="very short"] {
                 max-height: @scrollingTabletMaxHeight * 0.5;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingTabletMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.container {
+        @{ui}.scrolling.container {
             max-height: @scrollingTabletMaxHeight;
             &.resizable when (@variationContainerResizable) {
                 height: @scrollingTabletMaxHeight;
             }
         }
         & when (@variationContainerScrollingLong) {
-            .ui.scrolling.container.long {
+            @{ui}.scrolling.container.long {
                 max-height: @scrollingTabletMaxHeight * 2;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingTabletMaxHeight * 2;
@@ -263,7 +263,7 @@
             }
         }
         & when (@variationContainerScrollingVeryLong) {
-            .ui.scrolling.container[class*="very long"] {
+            @{ui}.scrolling.container[class*="very long"] {
                 max-height: @scrollingTabletMaxHeight * 3;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingTabletMaxHeight * 3;
@@ -273,7 +273,7 @@
     }
     @media only screen and (min-width: @computerBreakpoint) {
         & when (@variationContainerScrollingShort) {
-            .ui.scrolling.container.short {
+            @{ui}.scrolling.container.short {
                 max-height: @scrollingComputerMaxHeight * 0.75;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingComputerMaxHeight * 0.75;
@@ -281,21 +281,21 @@
             }
         }
         & when (@variationContainerScrollingVeryShort) {
-            .ui.scrolling.container[class*="very short"] {
+            @{ui}.scrolling.container[class*="very short"] {
                 max-height: @scrollingComputerMaxHeight * 0.5;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingComputerMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.container {
+        @{ui}.scrolling.container {
             max-height: @scrollingComputerMaxHeight;
             &.resizable when (@variationContainerResizable) {
                 height: @scrollingComputerMaxHeight;
             }
         }
         & when (@variationContainerScrollingLong) {
-            .ui.scrolling.container.long {
+            @{ui}.scrolling.container.long {
                 max-height: @scrollingComputerMaxHeight * 2;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingComputerMaxHeight * 2;
@@ -303,7 +303,7 @@
             }
         }
         & when (@variationContainerScrollingVeryLong) {
-            .ui.scrolling.container[class*="very long"] {
+            @{ui}.scrolling.container[class*="very long"] {
                 max-height: @scrollingComputerMaxHeight * 3;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingComputerMaxHeight * 3;
@@ -313,7 +313,7 @@
     }
     @media only screen and (min-width: @widescreenMonitorBreakpoint) {
         & when (@variationContainerScrollingShort) {
-            .ui.scrolling.container.short {
+            @{ui}.scrolling.container.short {
                 max-height: @scrollingWidescreenMaxHeight * 0.75;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingWidescreenMaxHeight * 0.75;
@@ -321,21 +321,21 @@
             }
         }
         & when (@variationContainerScrollingVeryShort) {
-            .ui.scrolling.container[class*="very short"] {
+            @{ui}.scrolling.container[class*="very short"] {
                 max-height: @scrollingWidescreenMaxHeight * 0.5;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingWidescreenMaxHeight * 0.5;
                 }
             }
         }
-        .ui.scrolling.container {
+        @{ui}.scrolling.container {
             max-height: @scrollingWidescreenMaxHeight;
             &.resizable when (@variationContainerResizable) {
                 height: @scrollingWidescreenMaxHeight;
             }
         }
         & when (@variationContainerScrollingLong) {
-            .ui.scrolling.container.long {
+            @{ui}.scrolling.container.long {
                 max-height: @scrollingWidescreenMaxHeight * 2;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingWidescreenMaxHeight * 2;
@@ -343,7 +343,7 @@
             }
         }
         & when (@variationContainerScrollingVeryLong) {
-            .ui.scrolling.container[class*="very long"] {
+            @{ui}.scrolling.container[class*="very long"] {
                 max-height: @scrollingWidescreenMaxHeight * 3;
                 &.resizable when (@variationContainerResizable) {
                     height: @scrollingWidescreenMaxHeight * 3;
@@ -352,7 +352,7 @@
         }
     }
     & when (@variationContainerResizable) {
-        .ui.resizable.scrolling.container {
+        @{ui}.resizable.scrolling.container {
             resize: @resizableDirection;
             max-height: none;
         }

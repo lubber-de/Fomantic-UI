@@ -2,19 +2,19 @@
     User Variable Overrides
 *******************************/
 
-.ui.feed > .event .label {
+@{ui}.feed > .event .label {
     border-left: 3px solid #ddd;
 }
-.ui.feed > .event:last-child .label {
+@{ui}.feed > .event:last-child .label {
     border-left-color: transparent;
 }
 
-.ui.feed > .event > .label {
+@{ui}.feed > .event > .label {
     margin-left: 1.6em;
 }
 
-.ui.feed > .event > .label > img,
-.ui.feed > .event > .label > .icon {
+@{ui}.feed > .event > .label > img,
+@{ui}.feed > .event > .label > .icon {
     background-color: #009fda;
     border-radius: 500rem;
     color: #fff;

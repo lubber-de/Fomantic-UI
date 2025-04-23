@@ -22,21 +22,21 @@
 *******************************/
 
 /* Standalone */
-.ui.statistic {
+@{ui}.statistic {
     display: inline-flex;
     flex-direction: column;
     margin: @margin;
     max-width: @maxWidth;
 }
 
-.ui.statistic + .ui.statistic {
+@{ui}.statistic + @{ui}.statistic {
     margin: 0 0 0 @horizontalSpacing;
 }
 
-.ui.statistic:first-child {
+@{ui}.statistic:first-child {
     margin-top: 0;
 }
-.ui.statistic:last-child {
+@{ui}.statistic:last-child {
     margin-bottom: 0;
 }
 
@@ -45,25 +45,25 @@
 *******************************/
 
 /* Grouped */
-.ui.statistics {
+@{ui}.statistics {
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
 }
-.ui.statistics > .statistic {
+@{ui}.statistics > .statistic {
     display: inline-flex;
     flex: 0 1 auto;
     flex-direction: column;
     margin: @elementMargin;
     max-width: @elementMaxWidth;
 }
-.ui.statistics {
+@{ui}.statistics {
     display: flex;
     margin: @groupMargin;
 }
 
 /* Clearing */
-.ui.statistics::after {
+@{ui}.statistics::after {
     display: block;
     content: " ";
     height: 0;
@@ -72,7 +72,7 @@
     visibility: hidden;
 }
 
-.ui.statistics:first-child {
+@{ui}.statistics:first-child {
     margin-top: 0;
 }
 
@@ -84,8 +84,8 @@
       Value
 --------------- */
 
-.ui.statistics .statistic > .value,
-.ui.statistic > .value {
+@{ui}.statistics .statistic > .value,
+@{ui}.statistic > .value {
     font-family: @valueFont;
     font-size: @valueSize;
     font-weight: @valueFontWeight;
@@ -99,8 +99,8 @@
      Label
 --------------- */
 
-.ui.statistics .statistic > .label,
-.ui.statistic > .label {
+@{ui}.statistics .statistic > .label,
+@{ui}.statistic > .label {
     font-family: @labelFont;
     font-size: @labelSize;
     font-weight: @labelFontWeight;
@@ -110,14 +110,14 @@
 }
 
 /* Top Label */
-.ui.statistics .statistic > .label ~ .value,
-.ui.statistic > .label ~ .value {
+@{ui}.statistics .statistic > .label ~ .value,
+@{ui}.statistic > .label ~ .value {
     margin-top: @topLabelDistance;
 }
 
 /* Bottom Label */
-.ui.statistics .statistic > .value ~ .label,
-.ui.statistic > .value ~ .label {
+@{ui}.statistics .statistic > .value ~ .label,
+@{ui}.statistic > .value ~ .label {
     margin-top: @bottomLabelDistance;
 }
 
@@ -129,8 +129,8 @@
    Icon Value
 --------------- */
 
-.ui.statistics .statistic > .value > i.icon,
-.ui.statistic > .value > i.icon {
+@{ui}.statistics .statistic > .value > i.icon,
+@{ui}.statistic > .value > i.icon {
     opacity: 1;
     width: auto;
     margin: 0;
@@ -140,15 +140,15 @@
    Text Value
 --------------- */
 
-.ui.statistics .statistic > .text.value,
-.ui.statistic > .text.value {
+@{ui}.statistics .statistic > .text.value,
+@{ui}.statistic > .text.value {
     line-height: @textValueLineHeight;
     min-height: @textValueMinHeight;
     font-weight: @textValueFontWeight;
     text-align: center;
 }
-.ui.statistics .statistic > .text.value + .label,
-.ui.statistic > .text.value + .label {
+@{ui}.statistics .statistic > .text.value + .label,
+@{ui}.statistic > .text.value + .label {
     text-align: center;
 }
 
@@ -156,8 +156,8 @@
    Image Value
 --------------- */
 
-.ui.statistics .statistic > .value img,
-.ui.statistic > .value img {
+@{ui}.statistics .statistic > .value img,
+@{ui}.statistic > .value img {
     max-height: @imageHeight;
     vertical-align: @imageVerticalAlign;
 }
@@ -171,89 +171,89 @@
 --------------- */
 
 & when (@variationStatisticEqualWidth) {
-    .ui.ten.statistics {
+    @{ui}.ten.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.ten.statistics .statistic {
+    @{ui}.ten.statistics .statistic {
         min-width: @tenColumn;
         margin: @itemMargin;
     }
 
-    .ui.nine.statistics {
+    @{ui}.nine.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.nine.statistics .statistic {
+    @{ui}.nine.statistics .statistic {
         min-width: @nineColumn;
         margin: @itemMargin;
     }
 
-    .ui.eight.statistics {
+    @{ui}.eight.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.eight.statistics .statistic {
+    @{ui}.eight.statistics .statistic {
         min-width: @eightColumn;
         margin: @itemMargin;
     }
 
-    .ui.seven.statistics {
+    @{ui}.seven.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.seven.statistics .statistic {
+    @{ui}.seven.statistics .statistic {
         min-width: @sevenColumn;
         margin: @itemMargin;
     }
 
-    .ui.six.statistics {
+    @{ui}.six.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.six.statistics .statistic {
+    @{ui}.six.statistics .statistic {
         min-width: @sixColumn;
         margin: @itemMargin;
     }
 
-    .ui.five.statistics {
+    @{ui}.five.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.five.statistics .statistic {
+    @{ui}.five.statistics .statistic {
         min-width: @fiveColumn;
         margin: @itemMargin;
     }
 
-    .ui.four.statistics {
+    @{ui}.four.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.four.statistics .statistic {
+    @{ui}.four.statistics .statistic {
         min-width: @fourColumn;
         margin: @itemMargin;
     }
 
-    .ui.three.statistics {
+    @{ui}.three.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.three.statistics .statistic {
+    @{ui}.three.statistics .statistic {
         min-width: @threeColumn;
         margin: @itemMargin;
     }
 
-    .ui.two.statistics {
+    @{ui}.two.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.two.statistics .statistic {
+    @{ui}.two.statistics .statistic {
         min-width: @twoColumn;
         margin: @itemMargin;
     }
 
-    .ui.one.statistics {
+    @{ui}.one.statistics {
         margin: @itemGroupMargin;
     }
-    .ui.one.statistics .statistic {
+    @{ui}.one.statistics .statistic {
         min-width: @oneColumn;
         margin: @itemMargin;
     }
 }
 
 & when (@variationStatisticFluid) {
-    .ui.fluid.statistic {
+    @{ui}.fluid.statistic {
         width: 100%;
     }
 }
@@ -263,38 +263,38 @@
        Horizontal
     --------------- */
 
-    .ui.horizontal.statistic {
+    @{ui}.horizontal.statistic {
         flex-direction: row;
         align-items: center;
     }
-    .ui.horizontal.statistics {
+    @{ui}.horizontal.statistics {
         flex-direction: column;
         margin: 0;
         max-width: none;
     }
-    .ui.horizontal.statistics .statistic {
+    @{ui}.horizontal.statistics .statistic {
         flex-direction: row;
         align-items: center;
         max-width: none;
         margin: @horizontalGroupElementMargin;
     }
 
-    .ui.horizontal.statistic > .text.value,
-    .ui.horizontal.statistics > .statistic > .text.value {
+    @{ui}.horizontal.statistic > .text.value,
+    @{ui}.horizontal.statistics > .statistic > .text.value {
         min-height: 0 !important;
     }
-    .ui.horizontal.statistics .statistic > .value > i.icon,
-    .ui.horizontal.statistic > .value > i.icon {
+    @{ui}.horizontal.statistics .statistic > .value > i.icon,
+    @{ui}.horizontal.statistic > .value > i.icon {
         width: @iconWidth;
     }
 
-    .ui.horizontal.statistics .statistic > .value,
-    .ui.horizontal.statistic > .value {
+    @{ui}.horizontal.statistics .statistic > .value,
+    @{ui}.horizontal.statistic > .value {
         display: inline-block;
         vertical-align: middle;
     }
-    .ui.horizontal.statistics .statistic > .label,
-    .ui.horizontal.statistic > .label {
+    @{ui}.horizontal.statistics .statistic > .label,
+    @{ui}.horizontal.statistic > .label {
         display: inline-block;
         vertical-align: middle;
         margin: 0 0 0 @horizontalLabelDistance;
@@ -306,12 +306,12 @@
         Inverted
     --------------- */
 
-    .ui.inverted.statistics .statistic > .value,
-    .ui.inverted.statistic .value {
+    @{ui}.inverted.statistics .statistic > .value,
+    @{ui}.inverted.statistic .value {
         color: @invertedValueColor;
     }
-    .ui.inverted.statistics .statistic > .label,
-    .ui.inverted.statistic .label {
+    @{ui}.inverted.statistics .statistic > .label,
+    @{ui}.inverted.statistic .label {
         color: @invertedLabelColor;
     }
 }
@@ -325,15 +325,15 @@
         @c: @colors[@@color][color];
         @l: @colors[@@color][light];
 
-        .ui.@{color}.statistics .statistic > .value,
-        .ui.statistics .@{color}.statistic > .value,
-        .ui.@{color}.statistic > .value {
+        @{ui}.@{color}.statistics .statistic > .value,
+        @{ui}.statistics .@{color}.statistic > .value,
+        @{ui}.@{color}.statistic > .value {
             color: @c;
         }
         & when (@variationStatisticInverted) {
-            .ui.inverted.@{color}.statistics .statistic > .value,
-            .ui.statistics .inverted.@{color}.statistic > .value,
-            .ui.inverted.@{color}.statistic > .value {
+            @{ui}.inverted.@{color}.statistics .statistic > .value,
+            @{ui}.statistics .inverted.@{color}.statistic > .value,
+            @{ui}.inverted.@{color}.statistic > .value {
                 color: @l;
             }
         }
@@ -345,15 +345,15 @@
         Floated
     --------------- */
 
-    .ui[class*="left floated"].statistic {
+    @{ui}[class*="left floated"].statistic {
         float: left;
         margin: @leftFloatedMargin;
     }
-    .ui[class*="right floated"].statistic {
+    @{ui}[class*="right floated"].statistic {
         float: right;
         margin: @rightFloatedMargin;
     }
-    .ui.floated.statistic:last-child {
+    @{ui}.floated.statistic:last-child {
         margin-bottom: 0;
     }
 }
@@ -364,12 +364,12 @@
     --------------- */
 
     @media only screen and (max-width: @largestMobileScreen) {
-        .ui.stackable.statistics {
+        @{ui}.stackable.statistics {
             width: auto;
             margin-left: 0 !important;
             margin-right: 0 !important;
         }
-        .ui.stackable.statistics > .statistic {
+        @{ui}.stackable.statistics > .statistic {
             width: 100% !important;
             margin: 0 !important;
             padding: (@stackableRowSpacing / 2) (@stackableGutter / 2) !important;
@@ -382,16 +382,16 @@
 --------------- */
 
 /* Medium */
-.ui.statistics .statistic > .value,
-.ui.statistic > .value {
+@{ui}.statistics .statistic > .value,
+@{ui}.statistic > .value {
     font-size: @valueSize;
 }
-.ui.horizontal.statistics .statistic > .value,
-.ui.horizontal.statistic > .value {
+@{ui}.horizontal.statistics .statistic > .value,
+@{ui}.horizontal.statistic > .value {
     font-size: @horizontalValueSize;
 }
-.ui.statistics .statistic > .text.value,
-.ui.statistic > .text.value {
+@{ui}.statistics .statistic > .text.value,
+@{ui}.statistic > .text.value {
     font-size: @textValueSize;
 }
 & when not (@variationStatisticSizes = false) {
@@ -399,16 +399,16 @@
         @s: @{value}ValueSize;
         @hs: @{value}HorizontalValueSize;
         @ts: @{value}TextValueSize;
-        .ui.@{value}.statistics .statistic > .value,
-        .ui.@{value}.statistic > .value {
+        @{ui}.@{value}.statistics .statistic > .value,
+        @{ui}.@{value}.statistic > .value {
             font-size: @@s;
         }
-        .ui.@{value}.horizontal.statistics .statistic > .value,
-        .ui.@{value}.horizontal.statistic > .value {
+        @{ui}.@{value}.horizontal.statistics .statistic > .value,
+        @{ui}.@{value}.horizontal.statistic > .value {
             font-size: @@hs;
         }
-        .ui.@{value}.statistics .statistic > .text.value,
-        .ui.@{value}.statistic > .text.value {
+        @{ui}.@{value}.statistics .statistic > .text.value,
+        @{ui}.@{value}.statistic > .text.value {
             font-size: @@ts;
         }
     });

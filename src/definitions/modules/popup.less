@@ -23,7 +23,7 @@
             Popup
 *******************************/
 
-.ui.popup {
+@{ui}.popup {
     display: none;
     position: absolute;
     top: 0;
@@ -43,18 +43,18 @@
     border-radius: @borderRadius;
     box-shadow: @boxShadow;
 }
-.ui.popup > .header {
+@{ui}.popup > .header {
     padding: 0;
     font-family: @headerFont;
     font-size: @headerFontSize;
     line-height: @headerLineHeight;
     font-weight: @headerFontWeight;
 }
-.ui.popup > .header + .content {
+@{ui}.popup > .header + .content {
     padding-top: @headerDistance;
 }
 
-.ui.popup::before {
+@{ui}.popup::before {
     position: absolute;
     content: "";
     width: @arrowSize;
@@ -478,27 +478,27 @@
      Spacing
 --------------- */
 
-.ui.popup {
+@{ui}.popup {
     margin: 0;
 }
 
 & when (@variationPopupTop) {
     /* Extending from Top */
-    .ui.top.popup {
+    @{ui}.top.popup {
         margin: 0 0 @popupDistanceAway;
     }
     & when (@variationPopupLeft) {
-        .ui.top.left.popup {
+        @{ui}.top.left.popup {
             transform-origin: left bottom;
         }
     }
     & when (@variationPopupCenter) {
-        .ui.top.center.popup {
+        @{ui}.top.center.popup {
             transform-origin: center bottom;
         }
     }
     & when (@variationPopupRight) {
-        .ui.top.right.popup {
+        @{ui}.top.right.popup {
             transform-origin: right bottom;
         }
     }
@@ -507,13 +507,13 @@
 & when (@variationPopupCenter) {
     /* Extending from Vertical Center */
     & when (@variationPopupLeft) {
-        .ui.left.center.popup {
+        @{ui}.left.center.popup {
             margin: 0 @popupDistanceAway 0 0;
             transform-origin: right 50%;
         }
     }
     & when (@variationPopupRight) {
-        .ui.right.center.popup {
+        @{ui}.right.center.popup {
             margin: 0 0 0 @popupDistanceAway;
             transform-origin: left 50%;
         }
@@ -522,21 +522,21 @@
 
 & when (@variationPopupBottom) {
     /* Extending from Bottom */
-    .ui.bottom.popup {
+    @{ui}.bottom.popup {
         margin: @popupDistanceAway 0 0;
     }
     & when (@variationPopupLeft) {
-        .ui.bottom.left.popup {
+        @{ui}.bottom.left.popup {
             transform-origin: left top;
         }
     }
     & when (@variationPopupCenter) {
-        .ui.bottom.center.popup {
+        @{ui}.bottom.center.popup {
             transform-origin: center top;
         }
     }
     & when (@variationPopupRight) {
-        .ui.bottom.right.popup {
+        @{ui}.bottom.right.popup {
             transform-origin: right top;
         }
     }
@@ -546,7 +546,7 @@
     --------------- */
 
     /* --- Below --- */
-    .ui.bottom.center.popup::before {
+    @{ui}.bottom.center.popup::before {
         margin-left: @arrowOffset;
         top: @arrowOffset;
         left: 50%;
@@ -555,12 +555,12 @@
         box-shadow: @bottomArrowBoxShadow;
     }
 
-    .ui.bottom.left.popup {
+    @{ui}.bottom.left.popup {
         margin-left: @boxArrowOffset;
     }
 
     /* rtl:rename */
-    .ui.bottom.left.popup::before {
+    @{ui}.bottom.left.popup::before {
         top: @arrowOffset;
         left: @arrowDistanceFromEdge;
         right: auto;
@@ -569,12 +569,12 @@
         box-shadow: @bottomArrowBoxShadow;
     }
 
-    .ui.bottom.right.popup {
+    @{ui}.bottom.right.popup {
         margin-right: @boxArrowOffset;
     }
 
     /* rtl:rename */
-    .ui.bottom.right.popup::before {
+    @{ui}.bottom.right.popup::before {
         top: @arrowOffset;
         right: @arrowDistanceFromEdge;
         bottom: auto;
@@ -587,7 +587,7 @@
 & when (@variationPopupTop) {
     /* --- Above --- */
     & when (@variationPopupCenter) {
-        .ui.top.center.popup::before {
+        @{ui}.top.center.popup::before {
             top: auto;
             right: auto;
             bottom: @arrowOffset;
@@ -596,12 +596,12 @@
         }
     }
     & when (@variationPopupLeft) {
-        .ui.top.left.popup {
+        @{ui}.top.left.popup {
             margin-left: @boxArrowOffset;
         }
 
         /* rtl:rename */
-        .ui.top.left.popup::before {
+        @{ui}.top.left.popup::before {
             bottom: @arrowOffset;
             left: @arrowDistanceFromEdge;
             top: auto;
@@ -610,12 +610,12 @@
         }
     }
     & when (@variationPopupRight) {
-        .ui.top.right.popup {
+        @{ui}.top.right.popup {
             margin-right: @boxArrowOffset;
         }
 
         /* rtl:rename */
-        .ui.top.right.popup::before {
+        @{ui}.top.right.popup::before {
             bottom: @arrowOffset;
             right: @arrowDistanceFromEdge;
             top: auto;
@@ -630,7 +630,7 @@
 
     /* rtl:rename */
     & when (@variationPopupLeft) {
-        .ui.left.center.popup::before {
+        @{ui}.left.center.popup::before {
             top: 50%;
             right: @arrowOffset;
             bottom: auto;
@@ -643,7 +643,7 @@
         /* --- Right Center --- */
 
         /* rtl:rename */
-        .ui.right.center.popup::before {
+        @{ui}.right.center.popup::before {
             top: 50%;
             left: @arrowOffset;
             bottom: auto;
@@ -653,8 +653,8 @@
         }
     }
     & when (@variationPopupLeft) or (@variationPopupRight) {
-        .ui.right.center.popup::before,
-        .ui.left.center.popup::before {
+        @{ui}.right.center.popup::before,
+        @{ui}.left.center.popup::before {
             background: @arrowCenterBackground;
         }
     }
@@ -662,13 +662,13 @@
 
 & when (@variationPopupBottom) {
     /* Arrow Color By Location */
-    .ui.bottom.popup::before {
+    @{ui}.bottom.popup::before {
         background: @arrowTopBackground;
     }
 }
 
 & when (@variationPopupTop) {
-    .ui.top.popup::before {
+    @{ui}.top.popup::before {
         background: @arrowBottomBackground;
     }
 }
@@ -676,18 +676,18 @@
 & when (@variationPopupInverted) {
     & when (@variationPopupBottom) {
         /* Inverted Arrow Color */
-        .ui.inverted.bottom.popup::before {
+        @{ui}.inverted.bottom.popup::before {
             background: @invertedArrowTopBackground;
         }
     }
     & when (@variationPopupCenter) {
-        .ui.inverted.right.center.popup::before,
-        .ui.inverted.left.center.popup::before {
+        @{ui}.inverted.right.center.popup::before,
+        @{ui}.inverted.left.center.popup::before {
             background: @invertedArrowCenterBackground;
         }
     }
     & when (@variationPopupTop) {
-        .ui.inverted.top.popup::before {
+        @{ui}.inverted.top.popup::before {
             background: @invertedArrowBottomBackground;
         }
     }
@@ -698,7 +698,7 @@
 *******************************/
 
 /* Immediate Nested Grid */
-.ui.ui.ui.popup > .ui.grid@{notPadded} {
+@{ui}@{ui}@{ui}.popup > @{ui}.grid@{notPadded} {
     width: @nestedGridWidth;
     margin: @nestedGridMargin;
 }
@@ -707,7 +707,7 @@
             States
 *******************************/
 & when (@variationPopupLoading) {
-    .ui.loading.popup {
+    @{ui}.loading.popup {
         cursor: default;
         pointer-events: @loadingPointerEvents;
         user-select: none;
@@ -732,18 +732,18 @@
     }
 }
 
-.ui.invisible.popup {
+@{ui}.invisible.popup {
     display: block;
     visibility: hidden !important;
     z-index: @invisibleZIndex;
 }
 
-.ui.animating.popup,
-.ui.visible.popup {
+@{ui}.animating.popup,
+@{ui}.visible.popup {
     display: block;
 }
 
-.ui.visible.popup {
+@{ui}.visible.popup {
     transform: translateZ(0);
     backface-visibility: hidden;
 }
@@ -757,13 +757,13 @@
          Basic
     --------------- */
 
-    .ui.basic.popup::before {
+    @{ui}.basic.popup::before {
         display: none;
     }
 }
 
 & when (@variationPopupFixed) {
-    .ui.fixed.popup {
+    @{ui}.fixed.popup {
         width: @maxWidth;
     }
 }
@@ -773,13 +773,13 @@
          Wide
     --------------- */
 
-    .ui.wide.popup {
+    @{ui}.wide.popup {
         max-width: @wideWidth;
         &.fixed when (@variationPopupFixed) {
             width: @wideWidth;
         }
     }
-    .ui[class*="very wide"].popup {
+    @{ui}[class*="very wide"].popup {
         max-width: @veryWideWidth;
         &.fixed when (@variationPopupFixed) {
             width: @veryWideWidth;
@@ -787,8 +787,8 @@
     }
 
     @media only screen and (max-width: @largestMobileScreen) {
-        .ui.wide.popup,
-        .ui[class*="very wide"].popup {
+        @{ui}.wide.popup,
+        @{ui}[class*="very wide"].popup {
             max-width: @maxWidth;
             &.fixed when (@variationPopupFixed) {
                 width: @maxWidth;
@@ -802,7 +802,7 @@
          Fluid
     --------------- */
 
-    .ui.fluid.popup {
+    @{ui}.fluid.popup {
         width: 100%;
         max-width: none;
     }
@@ -814,17 +814,17 @@
     --------------- */
 
     /* Inverted colors */
-    .ui.inverted.popup {
+    @{ui}.inverted.popup {
         background: @invertedBackground;
         color: @invertedColor;
         border: @invertedBorder;
         box-shadow: @invertedBoxShadow;
     }
-    .ui.inverted.popup .header {
+    @{ui}.inverted.popup .header {
         background: @invertedHeaderBackground;
         color: @invertedHeaderColor;
     }
-    .ui.inverted.popup::before {
+    @{ui}.inverted.popup::before {
         background-color: @invertedArrowColor;
         box-shadow: none;
     }
@@ -839,8 +839,8 @@
         @ll: if(iscolor(@l), darken(@l, @loadingColoredPercent), @l);
 
         & when not (@variationPopupTooltip) {
-            .ui.ui.ui.@{color}.popup::before,
-            .ui.@{color}.popup {
+            @{ui}@{ui}@{ui}.@{color}.popup::before,
+            @{ui}.@{color}.popup {
                 background: @c;
                 color: @white;
                 border: none;
@@ -848,12 +848,12 @@
                     background: @cl;
                 }
             }
-            .ui.ui.ui.@{color}.popup::before {
+            @{ui}@{ui}@{ui}.@{color}.popup::before {
                 box-shadow: none;
             }
             & when (@variationPopupInverted) {
-                .ui.inverted.@{color}.popup::before,
-                .ui.inverted.@{color}.popup {
+                @{ui}.inverted.@{color}.popup::before,
+                @{ui}.inverted.@{color}.popup {
                     background: @l;
                     color: @black;
                     .loading& when (@variationPopupLoading) {
@@ -863,8 +863,8 @@
             }
         }
         & when (@variationPopupTooltip) {
-            .ui.ui.ui.@{color}.popup::before,
-            .ui.@{color}.popup,
+            @{ui}@{ui}@{ui}.@{color}.popup::before,
+            @{ui}.@{color}.popup,
             [data-tooltip][data-variation~="@{color}"]::after,
             [data-tooltip][data-variation~="@{color}"]::before {
                 background: @c;
@@ -872,26 +872,26 @@
                 border: none;
             }
             & when (@variationPopupLoading) {
-                .ui.ui.ui.@{color}.loading.popup::before,
-                .ui.@{color}.loading.popup {
+                @{ui}@{ui}@{ui}.@{color}.loading.popup::before,
+                @{ui}.@{color}.loading.popup {
                     background: @cl;
                 }
             }
-            .ui.ui.ui.@{color}.popup::before,
+            @{ui}@{ui}@{ui}.@{color}.popup::before,
             [data-tooltip][data-variation~="@{color}"]::before {
                 box-shadow: none;
             }
             & when (@variationPopupInverted) {
-                .ui.ui.ui.inverted.@{color}.popup::before,
-                .ui.inverted.@{color}.popup,
+                @{ui}@{ui}@{ui}.inverted.@{color}.popup::before,
+                @{ui}.inverted.@{color}.popup,
                 [data-tooltip][data-inverted][data-variation~="@{color}"]::after,
                 [data-tooltip][data-inverted][data-variation~="@{color}"]::before {
                     background: @l;
                     color: @black;
                 }
                 & when (@variationPopupLoading) {
-                    .ui.ui.ui.inverted.@{color}.loading.popup::before,
-                    .ui.inverted.@{color}.loading.popup {
+                    @{ui}@{ui}@{ui}.inverted.@{color}.loading.popup::before,
+                    @{ui}.inverted.@{color}.loading.popup {
                         background: @ll;
                     }
                 }
@@ -905,7 +905,7 @@
          Flowing
     --------------- */
 
-    .ui.flowing.popup {
+    @{ui}.flowing.popup {
         max-width: none;
     }
 }
@@ -914,13 +914,13 @@
      Sizes
 --------------- */
 
-.ui.popup {
+@{ui}.popup {
     font-size: @medium;
 }
 & when not (@variationPopupSizes = false) {
     each(@variationPopupSizes, {
         @s: @@value;
-        .ui.@{value}.popup {
+        @{ui}.@{value}.popup {
             font-size: @s;
         }
         & when (@variationPopupTooltip) {

@@ -150,7 +150,7 @@ a:hover {
     }
 
     @supports (-moz-appearance: none) {
-        body .ui {
+        body @{ui} {
             /* firefox: first color thumb, second track */
             scrollbar-color: @thumbBackground @trackBackground;
             scrollbar-width: thin;
@@ -158,21 +158,21 @@ a:hover {
     }
 
     /* Inverted UI */
-    body .ui.inverted:not(.dimmer)::-webkit-scrollbar-track {
+    body @{ui}.inverted:not(.dimmer)::-webkit-scrollbar-track {
         background: @trackInvertedBackground;
     }
-    body .ui.inverted:not(.dimmer)::-webkit-scrollbar-thumb {
+    body @{ui}.inverted:not(.dimmer)::-webkit-scrollbar-thumb {
         background: @thumbInvertedBackground;
     }
-    body .ui.inverted:not(.dimmer)::-webkit-scrollbar-thumb:window-inactive {
+    body @{ui}.inverted:not(.dimmer)::-webkit-scrollbar-thumb:window-inactive {
         background: @thumbInvertedInactiveBackground;
     }
-    body .ui.inverted:not(.dimmer)::-webkit-scrollbar-thumb:hover {
+    body @{ui}.inverted:not(.dimmer)::-webkit-scrollbar-thumb:hover {
         background: @thumbInvertedHoverBackground;
     }
 
     @supports (-moz-appearance: none) {
-        body .ui.inverted:not(.dimmer) {
+        body @{ui}.inverted:not(.dimmer) {
             /* firefox: first color thumb, second track */
             scrollbar-color: @thumbInvertedBackground @trackInvertedBackground;
         }

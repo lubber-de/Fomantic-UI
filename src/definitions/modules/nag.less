@@ -25,7 +25,7 @@
              Nag
 *******************************/
 
-.ui.nag {
+@{ui}.nag {
     display: none;
     opacity: @opacity;
     position: @position;
@@ -45,17 +45,17 @@
     transition: @transition;
 }
 
-a.ui.nag {
+a@{ui}.nag {
     cursor: pointer;
 }
 
-.ui.nag > .title {
+@{ui}.nag > .title {
     display: inline-block;
     margin: @titleMargin;
     color: @titleColor;
 }
 
-.ui.nag > .close.icon {
+@{ui}.nag > .close.icon {
     cursor: pointer;
     opacity: @closeOpacity;
     position: absolute;
@@ -67,7 +67,7 @@ a.ui.nag {
     transition: @closeTransition;
 }
 
-.ui.nag@{notOverlay}@{notFixed} {
+@{ui}.nag@{notOverlay}@{notFixed} {
     border-radius: @borderRadius;
 }
 
@@ -76,12 +76,12 @@ a.ui.nag {
 *******************************/
 
 /* Hover */
-.ui.nag:hover {
+@{ui}.nag:hover {
     background: @nagHoverBackground;
     opacity: @nagHoverOpacity;
 }
 
-.ui.nag > .close:hover {
+@{ui}.nag > .close:hover {
     opacity: @closeHoverOpacity;
 }
 
@@ -93,8 +93,8 @@ a.ui.nag {
     /* --------------
          Static
     --------------- */
-    .ui.overlay.nags,
-    .ui.overlay.nag {
+    @{ui}.overlay.nags,
+    @{ui}.overlay.nag {
         position: absolute;
     }
 }
@@ -103,8 +103,8 @@ a.ui.nag {
     /* --------------
          Fixed
     --------------- */
-    .ui.fixed.nags,
-    .ui.fixed.nag {
+    @{ui}.fixed.nags,
+    @{ui}.fixed.nag {
         position: fixed;
     }
 }
@@ -112,8 +112,8 @@ a.ui.nag {
     /* --------------
          Bottom
     --------------- */
-    .ui.bottom.nags,
-    .ui.bottom.nag {
+    @{ui}.bottom.nags,
+    @{ui}.bottom.nag {
         border-radius: @bottomBorderRadius;
         top: auto;
         bottom: @bottom;
@@ -125,17 +125,17 @@ a.ui.nag {
          Inverted
     --------------- */
 
-    .ui.inverted.nags .nag,
-    .ui.inverted.nag {
+    @{ui}.inverted.nags .nag,
+    @{ui}.inverted.nag {
         background-color: @invertedBackground;
         color: @darkTextColor;
     }
-    .ui.inverted.nags .nag > .close,
-    .ui.inverted.nag > .close {
+    @{ui}.inverted.nags .nag > .close,
+    @{ui}.inverted.nag > .close {
         color: @invertedCloseColor;
     }
-    .ui.inverted.nags .nag > .title,
-    .ui.inverted.nag > .title {
+    @{ui}.inverted.nags .nag > .title,
+    @{ui}.inverted.nag > .title {
         color: @invertedTitleColor;
     }
 }
@@ -147,8 +147,8 @@ a.ui.nag {
     each(@variationNagSizes, {
         @s: @@value;
         @sr: "@{value}Raw";
-        .ui.@{value}.nag,
-        .ui.@{value}.nags .nag {
+        @{ui}.@{value}.nag,
+        @{ui}.@{value}.nags .nag {
             font-size: @s;
             & when (@@sr > 1.4) {
                 line-height: 1;
@@ -167,14 +167,14 @@ a.ui.nag {
         @l: @colors[@@color][light];
         @isVeryDark: @colors[@@color][isVeryDark];
 
-        .ui.@{color}.nag {
+        @{ui}.@{color}.nag {
             background-color: @c;
             & when (@isVeryDark) {
                 color: @invertedTextColor;
             }
         }
         & when (@variationNagInverted) {
-            .ui.inverted.@{color}.nag {
+            @{ui}.inverted.@{color}.nag {
                 background-color: @l;
                 & .title when (@isVeryDark) {
                     color: @titleColor;
@@ -188,26 +188,26 @@ a.ui.nag {
     /*******************************
                Groups
     *******************************/
-    .ui.nags {
+    @{ui}.nags {
         top: @top;
         left: 0;
         width: @width;
     }
-    .ui.ui.nags .nag {
+    @{ui}@{ui}.nags .nag {
         border-radius: @groupedBorderRadius;
     }
-    .ui.nags@{notBottom} .nag:last-child {
+    @{ui}.nags@{notBottom} .nag:last-child {
         border-radius: @topBorderRadius;
     }
     & when(@variationNagBottom) {
-        .ui.bottom.nags .nag:first-child {
+        @{ui}.bottom.nags .nag:first-child {
             border-radius: @bottomBorderRadius;
         }
     }
-    .ui.nags@{notFixed}@{notOverlay} .nag:first-child {
+    @{ui}.nags@{notFixed}@{notOverlay} .nag:first-child {
         border-radius: @bottomBorderRadius;
     }
-    .ui.nags@{notFixed}@{notOverlay} .nag:only-child {
+    @{ui}.nags@{notFixed}@{notOverlay} .nag:only-child {
         border-radius: @borderRadius;
     }
 }

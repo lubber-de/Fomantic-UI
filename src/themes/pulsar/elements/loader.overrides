@@ -2,7 +2,7 @@
          Theme Overrides
 *******************************/
 
-.ui.loader::after {
+@{ui}.loader::after {
     animation: loader-pulsar 2s infinite linear;
 }
 

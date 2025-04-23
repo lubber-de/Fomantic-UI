@@ -25,7 +25,7 @@
 *******************************/
 
 /* Standard Size */
-.ui.loader {
+@{ui}.loader {
     display: none;
     position: absolute;
     top: @loaderTopOffset;
@@ -37,7 +37,7 @@
 }
 
 /* Static Shape */
-.ui.loader::before {
+@{ui}.loader::before {
     position: absolute;
     content: "";
     top: 0;
@@ -49,7 +49,7 @@
 }
 
 /* Active Shape */
-.ui.loader::after {
+@{ui}.loader::after {
     position: absolute;
     content: "";
     top: 0;
@@ -65,17 +65,17 @@
 & when (@variationLoaderSpeeds) {
     /* Speeds */
 
-    .ui.ui.fast.loading::after,
-    .ui.ui.fast.loading .input > i.icon::after,
-    .ui.ui.fast.loading > i.icon::after,
-    .ui.fast.loader::after {
+    @{ui}@{ui}.fast.loading::after,
+    @{ui}@{ui}.fast.loading .input > i.icon::after,
+    @{ui}@{ui}.fast.loading > i.icon::after,
+    @{ui}.fast.loader::after {
         animation-duration: @loaderSpeedFast;
     }
 
-    .ui.ui.slow.loading::after,
-    .ui.ui.slow.loading .input > i.icon::after,
-    .ui.ui.slow.loading > i.icon::after,
-    .ui.slow.loader::after {
+    @{ui}@{ui}.slow.loading::after,
+    @{ui}@{ui}.slow.loading .input > i.icon::after,
+    @{ui}@{ui}.slow.loading > i.icon::after,
+    @{ui}.slow.loader::after {
         animation-duration: @loaderSpeedSlow;
     }
 }
@@ -92,23 +92,23 @@
 -------------------- */
 
 /* Show inside active dimmer */
-.ui.dimmer > .loader {
+@{ui}.dimmer > .loader {
     display: block;
 }
 
 /* Black Dimmer */
-.ui.dimmer > .ui.loader {
+@{ui}.dimmer > @{ui}.loader {
     color: @invertedLoaderTextColor;
 }
-.ui.dimmer > .ui.loader@{notElastic}::before {
+@{ui}.dimmer > @{ui}.loader@{notElastic}::before {
     border-color: @invertedLoaderFillColor;
 }
 
 /* White Dimmer (Inverted) */
-.ui.inverted.dimmer > .ui.loader {
+@{ui}.inverted.dimmer > @{ui}.loader {
     color: @loaderTextColor;
 }
-.ui.inverted.dimmer > .ui.loader@{notElastic}::before {
+@{ui}.inverted.dimmer > @{ui}.loader@{notElastic}::before {
     border-color: @loaderFillColor;
 }
 
@@ -121,7 +121,7 @@
             Text
     -------------------- */
 
-    .ui.ui.ui.ui.text.loader {
+    @{ui}@{ui}@{ui}@{ui}.text.loader {
         width: auto;
         height: auto;
         text-align: center;
@@ -133,18 +133,18 @@
             States
 *******************************/
 & when (@variationLoaderIndeterminate) {
-    .ui.indeterminate.loader::after {
+    @{ui}.indeterminate.loader::after {
         animation-direction: @indeterminateDirection;
         animation-duration: @indeterminateSpeed;
     }
 }
 
-.ui.loader.active,
-.ui.loader.visible {
+@{ui}.loader.active,
+@{ui}.loader.visible {
     display: block;
 }
-.ui.loader.disabled,
-.ui.loader.hidden {
+@{ui}.loader.disabled,
+@{ui}.loader.hidden {
     display: none;
 }
 
@@ -156,19 +156,19 @@
         Sizes
 -------------------- */
 
-.ui.loader {
+@{ui}.loader {
     width: @medium;
     height: @medium;
     font-size: @mediumFontSize;
 }
-.ui.loader::before,
-.ui.loader::after {
+@{ui}.loader::before,
+@{ui}.loader::after {
     width: @medium;
     height: @medium;
     margin: @mediumOffset;
 }
 & when (@variationLoaderText) {
-    .ui.text.loader {
+    @{ui}.text.loader {
         min-width: @medium;
         padding-top: (@medium + @textDistance);
     }
@@ -178,19 +178,19 @@
         @o: @{value}Offset;
         @f: @{value}FontSize;
         @s: @@value;
-        .ui.@{value}.loader {
+        @{ui}.@{value}.loader {
             width: @s;
             height: @s;
             font-size: @@f;
         }
-        .ui.@{value}.loader::before,
-        .ui.@{value}.loader::after {
+        @{ui}.@{value}.loader::before,
+        @{ui}.@{value}.loader::after {
             width: @s;
             height: @s;
             margin: @@o;
         }
         & when (@variationLoaderText) {
-            .ui.@{value}.text.loader {
+            @{ui}.@{value}.text.loader {
                 min-width: @s;
                 padding-top: (@s + @textDistance);
             }
@@ -207,50 +207,50 @@
         @c: @colors[@@color][color];
         @l: @colors[@@color][light];
 
-        .ui.ui.@{color}.elastic.loader::before,
-        .ui.@{color}.basic.elastic.loading.button::before,
-        .ui.@{color}.basic.elastic.loading.button::after,
-        .ui.ui.ui.@{color}.elastic.loading:not(.segment):not(.segments):not(.card)::before,
-        .ui.ui.ui.@{color}.elastic.loading .input > i.icon::before,
-        .ui.ui.ui.ui.@{color}.elastic.loading > i.icon::before,
-        .ui.ui.ui.ui.@{color}.loading:not(.usual):not(.button)::after,
-        .ui.ui.ui.ui.@{color}.loading .input > i.icon::after,
-        .ui.ui.ui.ui.@{color}.loading > i.icon::after,
-        .ui.ui.ui.@{color}.loader::after {
+        @{ui}@{ui}.@{color}.elastic.loader::before,
+        @{ui}.@{color}.basic.elastic.loading.button::before,
+        @{ui}.@{color}.basic.elastic.loading.button::after,
+        @{ui}@{ui}@{ui}.@{color}.elastic.loading:not(.segment):not(.segments):not(.card)::before,
+        @{ui}@{ui}@{ui}.@{color}.elastic.loading .input > i.icon::before,
+        @{ui}@{ui}@{ui}@{ui}.@{color}.elastic.loading > i.icon::before,
+        @{ui}@{ui}@{ui}@{ui}.@{color}.loading:not(.usual):not(.button)::after,
+        @{ui}@{ui}@{ui}@{ui}.@{color}.loading .input > i.icon::after,
+        @{ui}@{ui}@{ui}@{ui}.@{color}.loading > i.icon::after,
+        @{ui}@{ui}@{ui}.@{color}.loader::after {
             color: @c;
         }
-        .ui.inverted.@{color}.elastic.loader::before,
-        .ui.ui.ui.inverted.@{color}.elastic.loading:not(.segment):not(.segments):not(.card)::before,
-        .ui.ui.ui.inverted.@{color}.elastic.loading .input > i.icon::before,
-        .ui.ui.ui.inverted.@{color}.elastic.loading > i.icon::before,
-        .ui.ui.ui.ui.inverted.@{color}.loading:not(.usual)::after,
-        .ui.ui.ui.ui.inverted.@{color}.loading .input > i.icon::after,
-        .ui.ui.ui.ui.inverted.@{color}.loading > i.icon::after,
-        .ui.ui.ui.inverted.@{color}.loader::after {
+        @{ui}.inverted.@{color}.elastic.loader::before,
+        @{ui}@{ui}@{ui}.inverted.@{color}.elastic.loading:not(.segment):not(.segments):not(.card)::before,
+        @{ui}@{ui}@{ui}.inverted.@{color}.elastic.loading .input > i.icon::before,
+        @{ui}@{ui}@{ui}.inverted.@{color}.elastic.loading > i.icon::before,
+        @{ui}@{ui}@{ui}@{ui}.inverted.@{color}.loading:not(.usual)::after,
+        @{ui}@{ui}@{ui}@{ui}.inverted.@{color}.loading .input > i.icon::after,
+        @{ui}@{ui}@{ui}@{ui}.inverted.@{color}.loading > i.icon::after,
+        @{ui}@{ui}@{ui}.inverted.@{color}.loader::after {
             color: @l;
         }
     });
 }
 
-.ui.ui.elastic.loader::before,
-.ui.ui.ui.elastic.loading::before,
-.ui.ui.ui.elastic.loading .input > i.icon::before,
-.ui.ui.ui.elastic.loading > i.icon::before,
-.ui.ui.ui.ui.loading:not(.usual)::after,
-.ui.ui.ui.ui.loading .input > i.icon::after,
-.ui.ui.ui.ui.loading > i.icon::after,
-.ui.ui.ui.loader::after {
+@{ui}@{ui}.elastic.loader::before,
+@{ui}@{ui}@{ui}.elastic.loading::before,
+@{ui}@{ui}@{ui}.elastic.loading .input > i.icon::before,
+@{ui}@{ui}@{ui}.elastic.loading > i.icon::before,
+@{ui}@{ui}@{ui}@{ui}.loading:not(.usual)::after,
+@{ui}@{ui}@{ui}@{ui}.loading .input > i.icon::after,
+@{ui}@{ui}@{ui}@{ui}.loading > i.icon::after,
+@{ui}@{ui}@{ui}.loader::after {
     border-color: currentColor;
 }
-.ui.ui.ui.ui.elastic.loading.button:not(.inverted):not(.basic)::before {
+@{ui}@{ui}@{ui}@{ui}.elastic.loading.button:not(.inverted):not(.basic)::before {
     color: @invertedLoaderLineColor;
 }
-.ui.elastic.basic.loading.button::before,
-.ui.elastic.basic.loading.button::after {
+@{ui}.elastic.basic.loading.button::before,
+@{ui}.elastic.basic.loading.button::after {
     color: @loaderLineColor;
 }
 & when (@variationLoaderDouble) {
-    .ui.ui.ui.ui.double.loading.button::after {
+    @{ui}@{ui}@{ui}@{ui}.double.loading.button::after {
         border-bottom-color: currentColor;
     }
 }
@@ -260,7 +260,7 @@
            Inline
     -------------------- */
 
-    .ui.inline.loader {
+    @{ui}.inline.loader {
         position: relative;
         vertical-align: @inlineVerticalAlign;
         margin: @inlineMargin;
@@ -269,44 +269,44 @@
         transform: none;
     }
 
-    .ui.inline.loader.active,
-    .ui.inline.loader.visible {
+    @{ui}.inline.loader.active,
+    @{ui}.inline.loader.visible {
         display: inline-block;
     }
 
     /* Centered Inline */
-    .ui.centered.inline.loader.active,
-    .ui.centered.inline.loader.visible {
+    @{ui}.centered.inline.loader.active,
+    @{ui}.centered.inline.loader.visible {
         display: block;
         margin-left: auto;
         margin-right: auto;
     }
 }
 
-.ui.ui.ui.ui.ui.ui.loading::after,
-.ui.ui.ui.ui.ui.ui.loading .input > i.icon::after,
-.ui.ui.ui.ui.ui.ui.loading > i.icon::after,
-.ui.ui.ui.ui.ui.loader::after {
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading .input > i.icon::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading > i.icon::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}.loader::after {
     border-left-color: transparent;
     border-right-color: transparent;
 }
-.ui.ui.ui.ui.ui.ui.ui.loading@{notDouble}::after,
-.ui.ui.ui.ui.ui.ui.ui.loading@{notDouble} .input > i.icon::after,
-.ui.ui.ui.ui.ui.ui.ui.loading@{notDouble} > i.icon::after,
-.ui.ui.ui.ui.ui.ui.loader@{notDouble}::after {
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading@{notDouble}::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading@{notDouble} .input > i.icon::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading@{notDouble} > i.icon::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loader@{notDouble}::after {
     border-bottom-color: transparent;
 }
-.ui.ui.ui.ui.ui.ui.loading.card::after,
-.ui.ui.ui.ui.ui.ui.loading.segments::after,
-.ui.ui.ui.ui.ui.ui.loading.segment::after,
-.ui.ui.ui.ui.ui.ui.loading.form::after {
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.card::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.segments::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.segment::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.form::after {
     border-left-color: @loaderFillColor;
     border-right-color: @loaderFillColor;
 }
-.ui.ui.ui.ui.ui.ui.loading.card@{notDouble}::after,
-.ui.ui.ui.ui.ui.ui.loading.segments@{notDouble}::after,
-.ui.ui.ui.ui.ui.ui.loading.segment@{notDouble}::after,
-.ui.ui.ui.ui.ui.ui.loading.form@{notDouble}::after {
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.card@{notDouble}::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.segments@{notDouble}::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.segment@{notDouble}::after,
+@{ui}@{ui}@{ui}@{ui}@{ui}@{ui}.loading.form@{notDouble}::after {
     border-bottom-color: @loaderFillColor;
 }
 
@@ -315,23 +315,23 @@
            Elastic
     -------------------- */
 
-    .ui.dimmer > .ui.elastic.loader {
+    @{ui}.dimmer > @{ui}.elastic.loader {
         color: @invertedLoaderLineColor;
     }
-    .ui.inverted.dimmer > .ui.elastic.loader {
+    @{ui}.inverted.dimmer > @{ui}.elastic.loader {
         color: @loaderLineColor;
     }
-    .ui.ui.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::after,
-    .ui.ui.elastic.loading .input > i.icon::after,
-    .ui.ui.elastic.loading > i.icon::after,
-    .ui.ui.elastic.loader::after {
+    @{ui}@{ui}.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::after,
+    @{ui}@{ui}.elastic.loading .input > i.icon::after,
+    @{ui}@{ui}.elastic.loading > i.icon::after,
+    @{ui}@{ui}.elastic.loader::after {
         animation: loader 1s infinite cubic-bezier(0.27, 1.05, 0.92, 0.61);
         animation-delay: 0.3s;
     }
-    .ui.ui.ui.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::before,
-    .ui.ui.ui.elastic.loading .input > i.icon::before,
-    .ui.ui.ui.elastic.loading > i.icon::before,
-    .ui.ui.elastic.loader::before {
+    @{ui}@{ui}@{ui}.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::before,
+    @{ui}@{ui}@{ui}.elastic.loading .input > i.icon::before,
+    @{ui}@{ui}@{ui}.elastic.loading > i.icon::before,
+    @{ui}@{ui}.elastic.loader::before {
         animation: elastic-loader 1s infinite cubic-bezier(0.27, 1.05, 0.92, 0.61);
         // https://github.com/fomantic/Fomantic-UI/pull/363
         // stylelint-disable-next-line property-no-vendor-prefix
@@ -339,35 +339,35 @@
         border-right-color: transparent;
     }
     & when (@variationLoaderInline) {
-        .ui.elastic.inline.loader:empty {
+        @{ui}.elastic.inline.loader:empty {
             animation: loader 8s infinite linear;
         }
     }
     & when (@variationLoaderSpeeds) {
-        .ui.ui.slow.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::after,
-        .ui.ui.slow.elastic.loading .input > i.icon::after,
-        .ui.ui.slow.elastic.loading > i.icon::after,
-        .ui.ui.slow.elastic.loader::after {
+        @{ui}@{ui}.slow.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::after,
+        @{ui}@{ui}.slow.elastic.loading .input > i.icon::after,
+        @{ui}@{ui}.slow.elastic.loading > i.icon::after,
+        @{ui}@{ui}.slow.elastic.loader::after {
             animation-duration: 1.5s;
             animation-delay: 0.45s;
         }
-        .ui.ui.ui.slow.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::before,
-        .ui.ui.ui.slow.elastic.loading .input > i.icon::before,
-        .ui.ui.ui.slow.elastic.loading > i.icon::before,
-        .ui.ui.slow.elastic.loader::before {
+        @{ui}@{ui}@{ui}.slow.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::before,
+        @{ui}@{ui}@{ui}.slow.elastic.loading .input > i.icon::before,
+        @{ui}@{ui}@{ui}.slow.elastic.loading > i.icon::before,
+        @{ui}@{ui}.slow.elastic.loader::before {
             animation-duration: 1.5s;
         }
-        .ui.ui.fast.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::after,
-        .ui.ui.fast.elastic.loading .input > i.icon::after,
-        .ui.ui.fast.elastic.loading > i.icon::after,
-        .ui.ui.fast.elastic.loader::after {
+        @{ui}@{ui}.fast.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::after,
+        @{ui}@{ui}.fast.elastic.loading .input > i.icon::after,
+        @{ui}@{ui}.fast.elastic.loading > i.icon::after,
+        @{ui}@{ui}.fast.elastic.loader::after {
             animation-duration: 0.66s;
             animation-delay: 0.2s;
         }
-        .ui.ui.ui.fast.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::before,
-        .ui.ui.ui.fast.elastic.loading .input > i.icon::before,
-        .ui.ui.ui.fast.elastic.loading > i.icon::before,
-        .ui.ui.fast.elastic.loader::before {
+        @{ui}@{ui}@{ui}.fast.elastic.loading:not(.form):not(.segment):not(.segments):not(.card)::before,
+        @{ui}@{ui}@{ui}.fast.elastic.loading .input > i.icon::before,
+        @{ui}@{ui}@{ui}.fast.elastic.loading > i.icon::before,
+        @{ui}@{ui}.fast.elastic.loader::before {
             animation-duration: 0.66s;
         }
     }

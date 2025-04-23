@@ -3,16 +3,16 @@
 *******************************/
 
 /* Labeled Input has padding */
-.ui.labeled.input {
+@{ui}.labeled.input {
     background-color: @white;
     border: @borderWidth solid @borderColor;
     border-radius: @borderRadius !important;
 }
-.ui.labeled.input input {
+@{ui}.labeled.input input {
     box-shadow: none !important;
     border: none !important;
 }
-.ui.labeled.input .label {
+@{ui}.labeled.input .label {
     font-weight: normal;
     align-self: center;
     font-size: 12px;
@@ -22,11 +22,11 @@
 }
 
 /* GitHub Uses Focus Group with class name added */
-.ui.labeled.input.focused {
+@{ui}.labeled.input.focused {
     border-color: @focusBorderColor;
     box-shadow: @focusBoxShadow;
 }
-.ui.labeled.input.focused .label {
+@{ui}.labeled.input.focused .label {
     background-color: #e1eaf5;
     color: #4078c0;
 }

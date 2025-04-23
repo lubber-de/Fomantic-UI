@@ -4,6 +4,10 @@
 
 @import "variation.variables";
 
+// set to false to remove all ".ui" usages
+@uiClass: ui;
+@ui: if(not(@uiClass = false), e(".@{uiClass}"));
+
 /* -------------------
        Fonts
 -------------------- */

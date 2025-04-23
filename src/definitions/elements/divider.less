@@ -24,7 +24,7 @@
             Divider
 *******************************/
 
-.ui.divider {
+@{ui}.divider {
     margin: @margin;
     line-height: 1;
     height: 0;
@@ -40,7 +40,7 @@
       Basic
 --------------- */
 
-.ui.divider@{notVertical}@{notHorizontal} {
+@{ui}.divider@{notVertical}@{notHorizontal} {
     border-top: @shadowWidth @borderStyle @shadowColor;
     border-bottom: @highlightWidth @borderStyle @highlightColor;
 }
@@ -50,8 +50,8 @@
 --------------- */
 
 /* Allow divider between each column row */
-.ui.grid > .column + .divider@{notVertical},
-.ui.grid > .row > .column + .divider@{notVertical} {
+@{ui}.grid > .column + .divider@{notVertical},
+@{ui}.grid > .row > .column + .divider@{notVertical} {
     left: auto;
 }
 
@@ -60,7 +60,7 @@
        Horizontal
     --------------- */
 
-    .ui.horizontal.divider {
+    @{ui}.horizontal.divider {
         display: table;
         white-space: nowrap;
         height: auto;
@@ -69,8 +69,8 @@
         text-align: center;
     }
 
-    .ui.horizontal.divider::before,
-    .ui.horizontal.divider::after {
+    @{ui}.horizontal.divider::before,
+    @{ui}.horizontal.divider::after {
         content: "";
         display: table-cell;
         position: relative;
@@ -79,10 +79,10 @@
         background-repeat: no-repeat;
     }
 
-    .ui.horizontal.divider::before {
+    @{ui}.horizontal.divider::before {
         background-position: right @horizontalDividerMargin top 50%;
     }
-    .ui.horizontal.divider::after {
+    @{ui}.horizontal.divider::after {
         background-position: left @horizontalDividerMargin top 50%;
     }
 }
@@ -92,7 +92,7 @@
         Vertical
     --------------- */
 
-    .ui.vertical.divider {
+    @{ui}.vertical.divider {
         position: absolute;
         z-index: 2;
         top: 50%;
@@ -106,8 +106,8 @@
         transform: translateX(-50%);
     }
 
-    .ui.vertical.divider::before,
-    .ui.vertical.divider::after {
+    @{ui}.vertical.divider::before,
+    @{ui}.vertical.divider::after {
         position: absolute;
         left: 50%;
         content: "";
@@ -118,27 +118,27 @@
         height: @verticalDividerHeight;
     }
 
-    .ui.vertical.divider::before {
+    @{ui}.vertical.divider::before {
         top: -100%;
     }
-    .ui.vertical.divider::after {
+    @{ui}.vertical.divider::after {
         top: auto;
         bottom: 0;
     }
 
     & when (@variationGridStackable) {
         /* Inside grid */
-        .ui.stackable.grid .ui.vertical.divider,
-        .ui.grid .stackable.row .ui.vertical.divider {
+        @{ui}.stackable.grid @{ui}.vertical.divider,
+        @{ui}.grid .stackable.row @{ui}.vertical.divider {
             flex: 1;
         }
         @media only screen and (max-width: @largestMobileScreen) {
-            .ui.stackable.grid .column + .ui.vertical.divider,
-            .ui.grid .stackable.row .column + .ui.vertical.divider {
+            @{ui}.stackable.grid .column + @{ui}.vertical.divider,
+            @{ui}.grid .stackable.row .column + @{ui}.vertical.divider {
                 margin: @verticalDividerMargin;
             }
-            .ui.stackable.grid .ui.vertical.divider,
-            .ui.grid .stackable.row .ui.vertical.divider {
+            @{ui}.stackable.grid @{ui}.vertical.divider,
+            @{ui}.grid .stackable.row @{ui}.vertical.divider {
                 display: table;
                 white-space: nowrap;
                 height: auto;
@@ -152,10 +152,10 @@
                 transform: none;
             }
 
-            .ui.stackable.grid .ui.vertical.divider::before,
-            .ui.grid .stackable.row .ui.vertical.divider::before,
-            .ui.stackable.grid .ui.vertical.divider::after,
-            .ui.grid .stackable.row .ui.vertical.divider::after {
+            @{ui}.stackable.grid @{ui}.vertical.divider::before,
+            @{ui}.grid .stackable.row @{ui}.vertical.divider::before,
+            @{ui}.stackable.grid @{ui}.vertical.divider::after,
+            @{ui}.grid .stackable.row @{ui}.vertical.divider::after {
                 left: 0;
                 border-left: none;
                 border-right: none;
@@ -167,12 +167,12 @@
                 background-repeat: no-repeat;
             }
 
-            .ui.stackable.grid .ui.vertical.divider::before,
-            .ui.grid .stackable.row .ui.vertical.divider::before {
+            @{ui}.stackable.grid @{ui}.vertical.divider::before,
+            @{ui}.grid .stackable.row @{ui}.vertical.divider::before {
                 background-position: right @horizontalDividerMargin top 50%;
             }
-            .ui.stackable.grid .ui.vertical.divider::after,
-            .ui.grid .stackable.row .ui.vertical.divider::after {
+            @{ui}.stackable.grid @{ui}.vertical.divider::after,
+            @{ui}.grid .stackable.row @{ui}.vertical.divider::after {
                 background-position: left @horizontalDividerMargin top 50%;
             }
         }
@@ -184,7 +184,7 @@
           Icon
     --------------- */
 
-    .ui.divider > .icon {
+    @{ui}.divider > .icon {
         margin: @dividerIconMargin;
         font-size: @dividerIconSize;
         height: 1em;
@@ -196,7 +196,7 @@
     /* --------------
          Header
     --------------- */
-    .ui.horizontal.divider[class*="left aligned"] {
+    @{ui}.horizontal.divider[class*="left aligned"] {
         &::before {
             display: none;
         }
@@ -204,7 +204,7 @@
             width: 100%;
         }
     }
-    .ui.horizontal.divider[class*="right aligned"] {
+    @{ui}.horizontal.divider[class*="right aligned"] {
         &::before {
             width: 100%;
         }
@@ -223,12 +223,12 @@
         Hidden
     --------------- */
 
-    .ui.hidden.divider {
+    @{ui}.hidden.divider {
         border-color: transparent !important;
     }
 
-    .ui.hidden.divider::before,
-    .ui.hidden.divider::after {
+    @{ui}.hidden.divider::before,
+    @{ui}.hidden.divider::after {
         display: none;
     }
 }
@@ -237,14 +237,14 @@
     Inverted
 --------------- */
 & when (@variationDividerInverted) {
-    .ui.divider.inverted,
-    .ui.vertical.inverted.divider,
-    .ui.horizontal.inverted.divider {
+    @{ui}.divider.inverted,
+    @{ui}.vertical.inverted.divider,
+    @{ui}.horizontal.inverted.divider {
         color: @invertedTextColor;
     }
-    .ui.divider.inverted,
-    .ui.divider.inverted::after,
-    .ui.divider.inverted::before {
+    @{ui}.divider.inverted,
+    @{ui}.divider.inverted::after,
+    @{ui}.divider.inverted::before {
         border-color: @invertedShadowColor @invertedHighlightColor @invertedHighlightColor @invertedShadowColor !important;
     }
 }
@@ -253,7 +253,7 @@
     Fitted
 --------------- */
 & when (@variationDividerFitted) {
-    .ui.fitted.divider {
+    @{ui}.fitted.divider {
         margin: 0;
     }
 }
@@ -263,7 +263,7 @@
         Clearing
     --------------- */
 
-    .ui.clearing.divider {
+    @{ui}.clearing.divider {
         clear: both;
     }
 }
@@ -273,7 +273,7 @@
         Section
     --------------- */
 
-    .ui.section.divider {
+    @{ui}.section.divider {
         margin-top: @sectionMargin;
         margin-bottom: @sectionMargin;
     }
@@ -283,13 +283,13 @@
      Sizes
 --------------- */
 
-.ui.divider {
+@{ui}.divider {
     font-size: @medium;
 }
 & when not (@variationDividerSizes = false) {
     each(@variationDividerSizes, {
         @s: @@value;
-        .ui.@{value}.divider {
+        @{ui}.@{value}.divider {
             font-size: @s;
         }
     });

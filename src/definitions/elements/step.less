@@ -29,7 +29,7 @@
             Plural
 *******************************/
 
-.ui.steps@{notCircular} {
+@{ui}.steps@{notCircular} {
     display: inline-flex;
     flex-direction: row;
     align-items: stretch;
@@ -40,17 +40,17 @@
     border-radius: @stepsBorderRadius;
     border: @stepsBorder;
 }
-.ui.steps@{notUnstackable} {
+@{ui}.steps@{notUnstackable} {
     flex-wrap: wrap;
 }
 
 /* First Steps */
-.ui.steps:first-child {
+@{ui}.steps:first-child {
     margin-top: 0;
 }
 
 /* Last Steps */
-.ui.steps:last-child {
+@{ui}.steps:last-child {
     margin-bottom: 0;
 }
 
@@ -58,7 +58,7 @@
            Singular
 *******************************/
 
-.ui.steps@{notCircular} .step {
+@{ui}.steps@{notCircular} .step {
     position: relative;
     display: flex;
     flex: 1 0 auto;
@@ -78,7 +78,7 @@
 }
 
 /* Arrow */
-.ui.steps@{notCircular} .step::after {
+@{ui}.steps@{notCircular} .step::after {
     display: none;
     position: absolute;
     z-index: 2;
@@ -96,20 +96,20 @@
 }
 
 /* First Step */
-.ui.steps@{notCircular} .step:first-child {
+@{ui}.steps@{notCircular} .step:first-child {
     padding-left: @horizontalPadding;
     border-radius: @stepsBorderRadius 0 0 @stepsBorderRadius;
 }
 
 /* Last Step */
-.ui.steps@{notCircular} .step:last-child {
+@{ui}.steps@{notCircular} .step:last-child {
     border-radius: 0 @stepsBorderRadius @stepsBorderRadius 0;
     border-right: none;
     margin-right: 0;
 }
 
 /* Only Step */
-.ui.steps@{notCircular} .step:only-child {
+@{ui}.steps@{notCircular} .step:only-child {
     border-radius: @stepsBorderRadius;
 }
 
@@ -118,51 +118,51 @@
 *******************************/
 
 /* Title */
-.ui.steps .step .title {
+@{ui}.steps .step .title {
     font-family: @titleFontFamily;
     font-size: @titleFontSize;
     font-weight: @titleFontWeight;
     line-height: @lineHeight;
 }
-.ui.steps .step > .title {
+@{ui}.steps .step > .title {
     width: 100%;
 }
 
 /* Description */
-.ui.steps .step .description {
+@{ui}.steps .step .description {
     font-weight: @descriptionFontWeight;
     font-size: @descriptionFontSize;
     color: @descriptionColor;
     line-height: @lineHeight;
 }
-.ui.steps .step > .description {
+@{ui}.steps .step > .description {
     width: 100%;
 }
-.ui.steps .step .title ~ .description {
+@{ui}.steps .step .title ~ .description {
     margin-top: @descriptionDistance;
 }
 
 /* Icon */
-.ui.steps .step > i.icon {
+@{ui}.steps .step > i.icon {
     line-height: 1;
     font-size: @iconSize;
     margin: 0 @iconDistance 0 0;
 }
-.ui.steps .step > i.icon,
-.ui.steps .step > i.icon ~ .content {
+@{ui}.steps .step > i.icon,
+@{ui}.steps .step > i.icon ~ .content {
     display: block;
     flex: 0 1 auto;
     align-self: @iconAlign;
 }
 
 /* Horizontal Icon */
-.ui.steps@{notVertical} .step > i.icon {
+@{ui}.steps@{notVertical} .step > i.icon {
     width: auto;
 }
 
 /* Link */
-.ui.steps .link.step,
-.ui.steps a.step {
+@{ui}.steps .link.step,
+@{ui}.steps a.step {
     cursor: pointer;
 }
 
@@ -171,7 +171,7 @@
 *******************************/
 
 & when (@variationStepCircular) {
-    .ui.circular.steps {
+    @{ui}.circular.steps {
         border: 0;
         border-radius: 0;
         box-shadow: none;
@@ -293,10 +293,10 @@
         }
     }
     @supports selector(:has(.f)) {
-        .ui.circular.steps@{notVertical} .step:last-child:has(.content) {
+        @{ui}.circular.steps@{notVertical} .step:last-child:has(.content) {
             flex: 1;
         }
-        .ui.circular.steps@{notVertical} .step:last-child:has(.center.aligned.content) {
+        @{ui}.circular.steps@{notVertical} .step:last-child:has(.center.aligned.content) {
             background: none;
         }
     }
@@ -307,10 +307,10 @@
          Ordered
     --------------- */
 
-    .ui.ordered.steps {
+    @{ui}.ordered.steps {
         counter-reset: ordered;
     }
-    .ui.ordered.steps .step::before {
+    @{ui}.ordered.steps .step::before {
         text-align: center;
         content: counter(ordered);
         align-self: @iconAlign;
@@ -318,7 +318,7 @@
         font-family: @orderedFontFamily;
         font-weight: @orderedFontWeight;
     }
-    .ui.ordered.steps@{notCircular} .step::before {
+    @{ui}.ordered.steps@{notCircular} .step::before {
         display: block;
         position: static;
         font-size: @iconSize;
@@ -326,7 +326,7 @@
     }
 
     & when (@variationStepCircular) {
-        .ui.circular.ordered.steps .step {
+        @{ui}.circular.ordered.steps .step {
             &::before {
                 line-height: calc(@circularStepRingSize - @circularStepBorderWidth);
             }
@@ -342,7 +342,7 @@
         }
     }
 
-    .ui.ordered.steps .step > * {
+    @{ui}.ordered.steps .step > * {
         display: block;
         align-self: @iconAlign;
     }
@@ -353,57 +353,57 @@
         Vertical
     --------------- */
 
-    .ui.vertical.steps@{notCircular} {
+    @{ui}.vertical.steps@{notCircular} {
         display: inline-flex;
         flex-direction: column;
         overflow: visible;
     }
-    .ui.vertical.steps@{notCircular} .step {
+    @{ui}.vertical.steps@{notCircular} .step {
         justify-content: flex-start;
         border-radius: @borderRadius;
         padding: @verticalPadding @horizontalPadding;
         border-right: none;
         border-bottom: @verticalDivider;
     }
-    .ui.vertical.steps@{notCircular} .step:first-child {
+    @{ui}.vertical.steps@{notCircular} .step:first-child {
         padding: @verticalPadding @horizontalPadding;
         border-radius: @stepsBorderRadius @stepsBorderRadius 0 0;
     }
-    .ui.vertical.steps@{notCircular} .step:last-child {
+    @{ui}.vertical.steps@{notCircular} .step:last-child {
         border-bottom: none;
         border-radius: 0 0 @stepsBorderRadius @stepsBorderRadius;
     }
-    .ui.vertical.steps@{notCircular} .step:only-child {
+    @{ui}.vertical.steps@{notCircular} .step:only-child {
         border-radius: @stepsBorderRadius;
     }
 
     /* Arrow */
-    .ui.vertical.steps@{notCircular} .step::after {
+    @{ui}.vertical.steps@{notCircular} .step::after {
         top: @verticalArrowTopOffset;
         right: @verticalArrowRightOffset;
         border-width: @verticalArrowBorderWidth;
         display: @verticalArrowDisplay;
     }
-    .ui.right.vertical.steps@{notCircular} .step::after {
+    @{ui}.right.vertical.steps@{notCircular} .step::after {
         border-width: @verticalLeftArrowBorderWidth;
         left: @verticalLeftArrowLeftOffset;
         right: @verticalLeftArrowRightOffset;
         transform: translateY(-50%) translateX(-50%) rotate(-45deg);
     }
 
-    .ui.vertical.steps@{notCircular} .active.step::after {
+    @{ui}.vertical.steps@{notCircular} .active.step::after {
         display: @verticalActiveArrowDisplay;
     }
-    .ui.vertical.steps@{notCircular} .step:last-child::after {
+    @{ui}.vertical.steps@{notCircular} .step:last-child::after {
         display: @verticalLastArrowDisplay;
     }
-    .ui.vertical.steps@{notCircular} .active.step:last-child::after {
+    @{ui}.vertical.steps@{notCircular} .active.step:last-child::after {
         display: @verticalActiveLastArrowDisplay;
     }
 
     /* Circular Step */
     & when (@variationStepCircular) {
-        .ui.circular.vertical.steps {
+        @{ui}.circular.vertical.steps {
             display: inline-flex;
             flex-flow: column wrap;
             align-items: flex-start;
@@ -461,12 +461,12 @@
 
 /* Mobile (Default) */
 @media only screen and (max-width: (@largestMobileScreen)) {
-    .ui.steps@{notUnstackable}@{notCircular} {
+    @{ui}.steps@{notUnstackable}@{notCircular} {
         display: inline-flex;
         overflow: visible;
         flex-direction: column;
     }
-    .ui.steps@{notUnstackable}@{notCircular} .step {
+    @{ui}.steps@{notUnstackable}@{notCircular} .step {
         width: 100% !important;
         flex-direction: column;
         border-radius: @borderRadius;
@@ -474,36 +474,36 @@
         border-right: none;
         border-bottom: @stepsBorder;
     }
-    .ui.steps@{notUnstackable}@{notCircular} .step:first-child {
+    @{ui}.steps@{notUnstackable}@{notCircular} .step:first-child {
         padding: @verticalPadding @horizontalPadding;
         border-radius: @stepsBorderRadius @stepsBorderRadius 0 0;
     }
-    .ui.steps@{notUnstackable}@{notCircular} .step:last-child {
+    @{ui}.steps@{notUnstackable}@{notCircular} .step:last-child {
         border-radius: 0 0 @stepsBorderRadius @stepsBorderRadius;
         border-bottom: none;
     }
 
     /* Arrow */
-    .ui.steps@{notUnstackable}@{notCircular} .step::after {
+    @{ui}.steps@{notUnstackable}@{notCircular} .step::after {
         top: unset;
         bottom: -@arrowSize;
         right: 50%;
         transform: translateY(-50%) translateX(50%) rotate(45deg);
     }
     & when (@variationStepVertical) {
-        .ui.vertical.steps@{notCircular} .active.step:last-child::after {
+        @{ui}.vertical.steps@{notCircular} .active.step:last-child::after {
             display: none;
         }
     }
 
     /* Content */
-    .ui.steps@{notUnstackable}@{notCircular} .step .content {
+    @{ui}.steps@{notUnstackable}@{notCircular} .step .content {
         text-align: center;
     }
 
     /* Icon */
-    .ui.steps@{notUnstackable}@{notCircular} .step > i.icon,
-    .ui.ordered.steps@{notUnstackable}@{notCircular} .step::before {
+    @{ui}.steps@{notUnstackable}@{notCircular} .step > i.icon,
+    @{ui}.ordered.steps@{notUnstackable}@{notCircular} .step::before {
         margin: 0 0 @mobileIconDistance 0;
     }
 }
@@ -513,86 +513,86 @@
 *******************************/
 
 /* Link Hover */
-.ui.steps@{notCircular} .link.step:hover::after,
-.ui.steps@{notCircular} .link.step:hover,
-.ui.steps@{notCircular} a.step:hover::after,
-.ui.steps@{notCircular} a.step:hover {
+@{ui}.steps@{notCircular} .link.step:hover::after,
+@{ui}.steps@{notCircular} .link.step:hover,
+@{ui}.steps@{notCircular} a.step:hover::after,
+@{ui}.steps@{notCircular} a.step:hover {
     background: @hoverBackground;
     color: @hoverColor;
 }
 
 /* Link Down */
-.ui.steps@{notCircular} .link.step:active::after,
-.ui.steps@{notCircular} .link.step:active,
-.ui.steps@{notCircular} a.step:active::after,
-.ui.steps@{notCircular} a.step:active {
+@{ui}.steps@{notCircular} .link.step:active::after,
+@{ui}.steps@{notCircular} .link.step:active,
+@{ui}.steps@{notCircular} a.step:active::after,
+@{ui}.steps@{notCircular} a.step:active {
     background: @downBackground;
     color: @downColor;
 }
 
 /* Active */
-.ui.steps@{notCircular} .step.active {
+@{ui}.steps@{notCircular} .step.active {
     cursor: auto;
     background: @activeBackground;
 }
-.ui.steps@{notCircular} .step.active::after {
+@{ui}.steps@{notCircular} .step.active::after {
     background: @activeBackground;
 }
-.ui.steps@{notCircular} .step.active .title {
+@{ui}.steps@{notCircular} .step.active .title {
     color: @activeColor;
 }
-.ui.ordered.steps .step.active::before,
-.ui.steps .active.step i.icon {
+@{ui}.ordered.steps .step.active::before,
+@{ui}.steps .active.step i.icon {
     color: @activeIconColor;
 }
 
 /* Active Arrow */
-.ui.steps@{notCircular} .step::after {
+@{ui}.steps@{notCircular} .step::after {
     display: @arrowDisplay;
 }
-.ui.steps@{notCircular} .active.step::after {
+@{ui}.steps@{notCircular} .active.step::after {
     display: @activeArrowDisplay;
 }
-.ui.steps@{notCircular} .step:last-child::after {
+@{ui}.steps@{notCircular} .step:last-child::after {
     display: @lastArrowDisplay;
 }
-.ui.steps@{notCircular} .active.step:last-child::after {
+@{ui}.steps@{notCircular} .active.step:last-child::after {
     display: @activeLastArrowDisplay;
 }
 
 /* Active Hover */
-.ui.steps@{notCircular} .link.active.step:hover::after,
-.ui.steps@{notCircular} .link.active.step:hover,
-.ui.steps@{notCircular} a.active.step:hover::after,
-.ui.steps@{notCircular} a.active.step:hover {
+@{ui}.steps@{notCircular} .link.active.step:hover::after,
+@{ui}.steps@{notCircular} .link.active.step:hover,
+@{ui}.steps@{notCircular} a.active.step:hover::after,
+@{ui}.steps@{notCircular} a.active.step:hover {
     cursor: pointer;
     background: @activeHoverBackground;
     color: @activeHoverColor;
 }
 
 /* Completed */
-.ui.steps .step.completed > i.icon::before,
-.ui.ordered.steps .step.completed::before {
+@{ui}.steps .step.completed > i.icon::before,
+@{ui}.ordered.steps .step.completed::before {
     color: @completedColor;
 }
 
 & when (@variationStepDisabled) {
     /* Disabled */
-    .ui.steps@{notCircular} .disabled.step {
+    @{ui}.steps@{notCircular} .disabled.step {
         cursor: auto;
         background: @disabledBackground;
         pointer-events: none;
     }
-    .ui.steps@{notCircular} .disabled.step,
-    .ui.steps@{notCircular} .disabled.step .title,
-    .ui.steps@{notCircular} .disabled.step .description {
+    @{ui}.steps@{notCircular} .disabled.step,
+    @{ui}.steps@{notCircular} .disabled.step .title,
+    @{ui}.steps@{notCircular} .disabled.step .description {
         color: @disabledColor;
     }
-    .ui.steps@{notCircular} .disabled.step::after {
+    @{ui}.steps@{notCircular} .disabled.step::after {
         background: @disabledBackground;
     }
     & when (@variationStepCircular) {
-        .ui.circular.steps .disabled.step {
+        @{ui}.circular.steps .disabled.step {
             cursor: auto;
             opacity: @circularStepDisabledItemOpacity;
             pointer-events: none;
@@ -616,31 +616,31 @@
 
     /* Tablet Or Below */
     @media only screen and (max-width: @largestTabletScreen) {
-        .ui[class*="tablet stackable"].steps@{notCircular} {
+        @{ui}[class*="tablet stackable"].steps@{notCircular} {
             display: inline-flex;
             overflow: visible;
             flex-direction: column;
         }
 
         /* Steps */
-        .ui[class*="tablet stackable"].steps@{notCircular} .step {
+        @{ui}[class*="tablet stackable"].steps@{notCircular} .step {
             flex-direction: column;
             border-radius: @borderRadius;
             padding: @verticalPadding @horizontalPadding;
             border-right: none;
             border-bottom: @stepsBorder;
         }
-        .ui[class*="tablet stackable"].steps@{notCircular} .step:first-child {
+        @{ui}[class*="tablet stackable"].steps@{notCircular} .step:first-child {
             padding: @verticalPadding @horizontalPadding;
             border-radius: @stepsBorderRadius @stepsBorderRadius 0 0;
         }
-        .ui[class*="tablet stackable"].steps@{notCircular} .step:last-child {
+        @{ui}[class*="tablet stackable"].steps@{notCircular} .step:last-child {
             border-radius: 0 0 @stepsBorderRadius @stepsBorderRadius;
             border-bottom: none;
         }
 
         /* Arrow */
-        .ui[class*="tablet stackable"].steps@{notCircular} .step::after {
+        @{ui}[class*="tablet stackable"].steps@{notCircular} .step::after {
             top: unset;
             bottom: -@arrowSize;
             right: 50%;
@@ -648,13 +648,13 @@
         }
 
         /* Content */
-        .ui[class*="tablet stackable"].steps@{notCircular} .step .content {
+        @{ui}[class*="tablet stackable"].steps@{notCircular} .step .content {
             text-align: center;
         }
 
         /* Icon */
-        .ui[class*="tablet stackable"].steps .step > i.icon,
-        .ui[class*="tablet stackable"].ordered.steps .step::before {
+        @{ui}[class*="tablet stackable"].steps .step > i.icon,
+        @{ui}[class*="tablet stackable"].ordered.steps .step::before {
             margin: 0 0 @mobileIconDistance 0;
         }
     }
@@ -666,7 +666,7 @@
     --------------- */
 
     /* Fluid */
-    .ui.fluid.steps {
+    @{ui}.fluid.steps {
         display: flex;
         width: 100%;
     }
@@ -678,28 +678,28 @@
     --------------- */
 
     /* Top */
-    .ui.attached.steps@{notCircular} {
+    @{ui}.attached.steps@{notCircular} {
         width: @attachedWidth !important;
         margin: 0 @attachedHorizontalOffset @attachedVerticalOffset;
         max-width: @attachedWidth;
         border-radius: @stepsBorderRadius @stepsBorderRadius 0 0;
     }
-    .ui.attached.steps@{notCircular} .step:first-child {
+    @{ui}.attached.steps@{notCircular} .step:first-child {
         border-radius: @stepsBorderRadius 0 0 0;
     }
-    .ui.attached.steps@{notCircular} .step:last-child {
+    @{ui}.attached.steps@{notCircular} .step:last-child {
         border-radius: 0 @stepsBorderRadius 0 0;
     }
 
     /* Bottom */
-    .ui.bottom.attached.steps@{notCircular} {
+    @{ui}.bottom.attached.steps@{notCircular} {
         margin: @attachedVerticalOffset @attachedHorizontalOffset 0;
         border-radius: 0 0 @stepsBorderRadius @stepsBorderRadius;
     }
-    .ui.bottom.attached.steps@{notCircular} .step:first-child {
+    @{ui}.bottom.attached.steps@{notCircular} .step:first-child {
         border-radius: 0 0 0 @stepsBorderRadius;
     }
-    .ui.bottom.attached.steps@{notCircular} .step:last-child {
+    @{ui}.bottom.attached.steps@{notCircular} .step:last-child {
         border-radius: 0 0 @stepsBorderRadius 0;
     }
 }
@@ -709,48 +709,48 @@
         Evenly Divided
     -------------------- */
 
-    .ui.one.steps,
-    .ui.two.steps,
-    .ui.three.steps,
-    .ui.four.steps,
-    .ui.five.steps,
-    .ui.six.steps,
-    .ui.seven.steps,
-    .ui.eight.steps {
+    @{ui}.one.steps,
+    @{ui}.two.steps,
+    @{ui}.three.steps,
+    @{ui}.four.steps,
+    @{ui}.five.steps,
+    @{ui}.six.steps,
+    @{ui}.seven.steps,
+    @{ui}.eight.steps {
         width: 100%;
     }
-    .ui.one.steps > .step,
-    .ui.two.steps > .step,
-    .ui.three.steps > .step,
-    .ui.four.steps > .step,
-    .ui.five.steps > .step,
-    .ui.six.steps > .step,
-    .ui.seven.steps > .step,
-    .ui.eight.steps > .step {
+    @{ui}.one.steps > .step,
+    @{ui}.two.steps > .step,
+    @{ui}.three.steps > .step,
+    @{ui}.four.steps > .step,
+    @{ui}.five.steps > .step,
+    @{ui}.six.steps > .step,
+    @{ui}.seven.steps > .step,
+    @{ui}.eight.steps > .step {
         flex-wrap: nowrap;
     }
-    .ui.one.steps > .step {
+    @{ui}.one.steps > .step {
         width: 100%;
     }
-    .ui.two.steps > .step {
+    @{ui}.two.steps > .step {
         width: 50%;
     }
-    .ui.three.steps > .step {
+    @{ui}.three.steps > .step {
         width: 33.333%;
     }
-    .ui.four.steps > .step {
+    @{ui}.four.steps > .step {
         width: 25%;
     }
-    .ui.five.steps > .step {
+    @{ui}.five.steps > .step {
         width: 20%;
     }
-    .ui.six.steps > .step {
+    @{ui}.six.steps > .step {
         width: 16.666%;
     }
-    .ui.seven.steps > .step {
+    @{ui}.seven.steps > .step {
         width: 14.285%;
     }
-    .ui.eight.steps > .step {
+    @{ui}.eight.steps > .step {
         width: 12.5%;
     }
 }
@@ -759,19 +759,19 @@
        Sizes
 -------------------- */
 
-.ui.steps .step,
-.ui.step {
+@{ui}.steps .step,
+@{ui}.step {
     font-size: @medium;
 }
 & when not (@variationStepSizes = false) {
     each(@variationStepSizes, {
         @s: @@value;
-        .ui.@{value}.steps .step,
-        .ui.@{value}.step {
+        @{ui}.@{value}.steps .step,
+        @{ui}.@{value}.step {
             font-size: @s;
         }
         & when (@variationStepCircular) {
-            .ui.@{value}.circular.steps@{notVertical} {
+            @{ui}.@{value}.circular.steps@{notVertical} {
                 margin: @s 0;
                 padding: @s 0;
             }
@@ -784,68 +784,68 @@
         Inverted
     --------------- */
 
-    .ui.inverted.steps@{notCircular} {
+    @{ui}.inverted.steps@{notCircular} {
         border: 1px solid @solidWhiteBorderColor;
     }
 
-    .ui.inverted.steps@{notCircular} .step {
+    @{ui}.inverted.steps@{notCircular} .step {
         color: @invertedTextColor;
         background: @black;
         border-color: @solidWhiteBorderColor;
     }
 
-    .ui.inverted.steps@{notCircular} .step::after {
+    @{ui}.inverted.steps@{notCircular} .step::after {
         background-color: @black;
         border-color: @solidWhiteBorderColor;
     }
 
-    .ui.inverted.steps .step .description {
+    @{ui}.inverted.steps .step .description {
         color: @invertedTextColor;
     }
 
     /* Active */
-    .ui.inverted.steps@{notCircular} .step.active,
-    .ui.inverted.steps@{notCircular} .step.active::after {
+    @{ui}.inverted.steps@{notCircular} .step.active,
+    @{ui}.inverted.steps@{notCircular} .step.active::after {
         background: @invertedActiveBackground;
     }
-    .ui.inverted.ordered.steps@{notCircular} .step.active::before,
-    .ui.inverted.steps@{notCircular} .active.step i.icon {
+    @{ui}.inverted.ordered.steps@{notCircular} .step.active::before,
+    @{ui}.inverted.steps@{notCircular} .active.step i.icon {
         color: @invertedSelectedTextColor;
     }
 
     & when (@variationStepDisabled) {
         /* Disabled */
-        .ui.inverted.steps@{notCircular} .disabled.step,
-        .ui.inverted.steps@{notCircular} .disabled.step::after {
+        @{ui}.inverted.steps@{notCircular} .disabled.step,
+        @{ui}.inverted.steps@{notCircular} .disabled.step::after {
             background: @invertedDisabledBackground;
         }
-        .ui.inverted.steps@{notCircular} .disabled.step,
-        .ui.inverted.steps@{notCircular} .disabled.step .title,
-        .ui.inverted.steps@{notCircular} .disabled.step .description {
+        @{ui}.inverted.steps@{notCircular} .disabled.step,
+        @{ui}.inverted.steps@{notCircular} .disabled.step .title,
+        @{ui}.inverted.steps@{notCircular} .disabled.step .description {
             color: @invertedDisabledTextColor;
         }
     }
 
     /* Link Hover */
-    .ui.inverted.steps@{notCircular} .link.step:hover::after,
-    .ui.inverted.steps@{notCircular} .link.step:hover,
-    .ui.inverted.steps@{notCircular} a.step:hover::after,
-    .ui.inverted.steps@{notCircular} a.step:hover {
+    @{ui}.inverted.steps@{notCircular} .link.step:hover::after,
+    @{ui}.inverted.steps@{notCircular} .link.step:hover,
+    @{ui}.inverted.steps@{notCircular} a.step:hover::after,
+    @{ui}.inverted.steps@{notCircular} a.step:hover {
         background: @invertedHoverBackground;
         color: @invertedHoveredTextColor;
     }
 
     /* Link Down */
-    .ui.inverted.steps@{notCircular} .link.step:active::after,
-    .ui.inverted.steps@{notCircular} .link.step:active,
-    .ui.inverted.steps@{notCircular} a.step:active::after,
-    .ui.inverted.steps@{notCircular} a.step:active {
+    @{ui}.inverted.steps@{notCircular} .link.step:active::after,
+    @{ui}.inverted.steps@{notCircular} .link.step:active,
+    @{ui}.inverted.steps@{notCircular} a.step:active::after,
+    @{ui}.inverted.steps@{notCircular} a.step:active {
         background: @invertedActiveHoverBackground;
         color: @invertedPressedTextColor;
     }
     & when (@variationStepCircular) {
         /* Circular Step */
-        .ui.inverted.circular.steps {
+        @{ui}.inverted.circular.steps {
             & .step .content {
                 color: @invertedTextColor;
             }
@@ -884,7 +884,7 @@
         @variation: @value;
         @color: @colors[@@variation][color];
 
-        .ui.ui.circular.steps .step.@{variation} {
+        @{ui}@{ui}.circular.steps .step.@{variation} {
             &::before {
                 border-color: @color;
             }
@@ -892,7 +892,7 @@
                 background: @color;
             }
         }
-        .ui.ui.@{variation}.circular.steps .step, .ui.ui.ui.circular.steps .step.@{variation} {
+        @{ui}@{ui}.@{variation}.circular.steps .step, @{ui}@{ui}@{ui}.circular.steps .step.@{variation} {
             &.active::before {
                 border-color: @color;
             }
@@ -904,24 +904,24 @@
                 border-color: @color;
             }
         }
-        .ui.ui.@{variation}.circular.steps@{notVertical} .step, .ui.ui.ui.circular.steps@{notVertical} .step.@{variation} {
+        @{ui}@{ui}.@{variation}.circular.steps@{notVertical} .step, @{ui}@{ui}@{ui}.circular.steps@{notVertical} .step.@{variation} {
             &.completed {
                 background: @color;
             }
         }
-        .ui.ui.circular.steps@{notVertical} .step.@{variation} {
+        @{ui}@{ui}.circular.steps@{notVertical} .step.@{variation} {
             background: @color;
         }
-        .ui.ui.@{variation}.circular.steps .step, .ui.ui.ui.circular.steps .step.@{variation} {
+        @{ui}@{ui}.@{variation}.circular.steps .step, @{ui}@{ui}@{ui}.circular.steps .step.@{variation} {
             &.active .content .title {
                 color: @color;
             }
         }
         & when (@variationStepVertical) {
-            .ui.ui.vertical.circular.steps .step.completed.@{variation} .content::before {
+            @{ui}@{ui}.vertical.circular.steps .step.completed.@{variation} .content::before {
                 border-color: @color;
             }
-            .ui.ui.@{variation}.vertical.circular.steps .step, .ui.ui.vertical.circular.steps .step.@{variation} {
+            @{ui}@{ui}.@{variation}.vertical.circular.steps .step, @{ui}@{ui}.vertical.circular.steps .step.@{variation} {
                 &.completed .content::before {
                     border-color: @color;
                 }
@@ -929,7 +929,7 @@
         }
 
         & when (@variationStepOrdered) {
-            .ui.ui.@{variation}.circular.ordered.steps .step, .ui.ui.circular.ordered.steps .step.@{variation} {
+            @{ui}@{ui}.@{variation}.circular.ordered.steps .step, @{ui}@{ui}.circular.ordered.steps .step.@{variation} {
                 &::after {
                     background: transparent;
                 }

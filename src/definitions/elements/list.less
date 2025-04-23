@@ -28,24 +28,24 @@
             List
 *******************************/
 
-ul.ui.list,
-ol.ui.list,
-.ui.list {
+ul@{ui}.list,
+ol@{ui}.list,
+@{ui}.list {
     list-style-type: @listStyleType;
     margin: @margin;
     padding: @verticalPadding @horizontalPadding;
 }
 
-ul.ui.list:first-child,
-ol.ui.list:first-child,
-.ui.list:first-child {
+ul@{ui}.list:first-child,
+ol@{ui}.list:first-child,
+@{ui}.list:first-child {
     margin-top: 0;
     padding-top: 0;
 }
 
-ul.ui.list:last-child,
-ol.ui.list:last-child,
-.ui.list:last-child {
+ul@{ui}.list:last-child,
+ol@{ui}.list:last-child,
+@{ui}.list:last-child {
     margin-bottom: 0;
     padding-bottom: 0;
 }
@@ -55,10 +55,10 @@ ol.ui.list:last-child,
 *******************************/
 
 /* List Item */
-ul.ui.list li,
-ol.ui.list li,
-.ui.list > .item,
-.ui.list .list > .item {
+ul@{ui}.list li,
+ol@{ui}.list li,
+@{ui}.list > .item,
+@{ui}.list .list > .item {
     display: list-item;
     table-layout: fixed;
     list-style-type: @listStyleType;
@@ -67,10 +67,10 @@ ol.ui.list li,
     line-height: @itemLineHeight;
 }
 
-ul.ui.list > li:first-child::after,
-ol.ui.list > li:first-child::after,
-.ui.list > .list > .item::after,
-.ui.list > .item::after {
+ul@{ui}.list > li:first-child::after,
+ol@{ui}.list > li:first-child::after,
+@{ui}.list > .list > .item::after,
+@{ui}.list > .item::after {
     content: "";
     display: block;
     height: 0;
@@ -78,40 +78,40 @@ ol.ui.list > li:first-child::after,
     visibility: hidden;
 }
 
-ul.ui.list li:first-child,
-ol.ui.list li:first-child,
-.ui.list .list > .item:first-child,
-.ui.list > .item:first-child {
+ul@{ui}.list li:first-child,
+ol@{ui}.list li:first-child,
+@{ui}.list .list > .item:first-child,
+@{ui}.list > .item:first-child {
     padding-top: 0;
 }
-ul.ui.list li:last-child,
-ol.ui.list li:last-child,
-.ui.list .list > .item:last-child,
-.ui.list > .item:last-child {
+ul@{ui}.list li:last-child,
+ol@{ui}.list li:last-child,
+@{ui}.list .list > .item:last-child,
+@{ui}.list > .item:last-child {
     padding-bottom: 0;
 }
 
 /* Child List */
-ul.ui.list ul,
-ol.ui.list ol,
-.ui.list .list@{notIcon} {
+ul@{ui}.list ul,
+ol@{ui}.list ol,
+@{ui}.list .list@{notIcon} {
     clear: both;
     margin: 0;
     padding: @childListPadding;
 }
 
 /* Child Item */
-ul.ui.list ul li,
-ol.ui.list ol li,
-.ui.list .list > .item {
+ul@{ui}.list ul li,
+ol@{ui}.list ol li,
+@{ui}.list .list > .item {
     padding: @childItemPadding;
     line-height: @childItemLineHeight;
 }
 
 & when (@variationListIcon) {
     /* Icon */
-    .ui.list .list > .item > i.icon,
-    .ui.list > .item > i.icon {
+    @{ui}.list .list > .item > i.icon,
+    @{ui}.list > .item > i.icon {
         display: table-cell;
         min-width: 1.55em;
         margin: 0;
@@ -122,8 +122,8 @@ ol.ui.list ol li,
             vertical-align: @iconContentVerticalAlign;
         }
     }
-    .ui.list .list > .item > i.icon:only-child,
-    .ui.list > .item > i.icon:only-child {
+    @{ui}.list .list > .item > i.icon:only-child,
+    @{ui}.list > .item > i.icon:only-child {
         display: inline-block;
         min-width: auto;
         vertical-align: @iconVerticalAlign;
@@ -132,41 +132,41 @@ ol.ui.list ol li,
 
 & when (@variationListImage) {
     /* Image */
-    .ui.list .list > .item > .image,
-    .ui.list > .item > .image {
+    @{ui}.list .list > .item > .image,
+    @{ui}.list > .item > .image {
         display: table-cell;
         background-color: transparent;
         margin: 0;
         vertical-align: @imageAlign;
     }
-    .ui.list .list > .item > .image:not(:only-child):not(img),
-    .ui.list > .item > .image:not(:only-child):not(img) {
+    @{ui}.list .list > .item > .image:not(:only-child):not(img),
+    @{ui}.list > .item > .image:not(:only-child):not(img) {
         padding-right: @imageDistance;
     }
-    .ui.list .list > .item > .image img,
-    .ui.list > .item > .image img {
+    @{ui}.list .list > .item > .image img,
+    @{ui}.list > .item > .image img {
         vertical-align: @imageAlign;
     }
 
-    .ui.list .list > .item > img.image,
-    .ui.list .list > .item > .image:only-child,
-    .ui.list > .item > img.image,
-    .ui.list > .item > .image:only-child {
+    @{ui}.list .list > .item > img.image,
+    @{ui}.list .list > .item > .image:only-child,
+    @{ui}.list > .item > img.image,
+    @{ui}.list > .item > .image:only-child {
         display: inline-block;
     }
 }
 
 /* Content */
-.ui.list .list > .item > .content,
-.ui.list > .item > .content {
+@{ui}.list .list > .item > .content,
+@{ui}.list > .item > .content {
     line-height: @contentLineHeight;
     color: @contentColor;
 }
 & when (@variationListImage) or (@variationListIcon) {
-    .ui.list .list > .item > .image + .content,
-    .ui.list .list > .item > i.icon + .content,
-    .ui.list > .item > .image + .content,
-    .ui.list > .item > i.icon + .content {
+    @{ui}.list .list > .item > .image + .content,
+    @{ui}.list .list > .item > i.icon + .content,
+    @{ui}.list > .item > .image + .content,
+    @{ui}.list > .item > i.icon + .content {
         display: table-cell;
         width: 100%;
         padding: 0 0 0 @contentDistance;
@@ -174,27 +174,27 @@ ol.ui.list ol li,
     }
 }
 & when (@variationListIcon) {
-    .ui.list .list > .item > i.loading.icon + .content,
-    .ui.list > .item > i.loading.icon + .content {
+    @{ui}.list .list > .item > i.loading.icon + .content,
+    @{ui}.list > .item > i.loading.icon + .content {
         padding-left: e(%("calc(%d + %d)", @iconDistance, @contentDistance));
     }
 }
 & when (@variationListImage) {
-    .ui.list .list > .item > img.image + .content,
-    .ui.list > .item > img.image + .content {
+    @{ui}.list .list > .item > img.image + .content,
+    @{ui}.list > .item > img.image + .content {
         display: inline-block;
         width: auto;
     }
 }
-.ui.list .list > .item > .content > .list,
-.ui.list > .item > .content > .list {
+@{ui}.list .list > .item > .content > .list,
+@{ui}.list > .item > .content > .list {
     margin-left: 0;
     padding-left: 0;
 }
 & when (@variationListHeader) {
     /* Header */
-    .ui.list .list > .item .header,
-    .ui.list > .item .header {
+    @{ui}.list .list > .item .header,
+    @{ui}.list > .item .header {
         display: block;
         margin: 0;
         font-family: @itemHeaderFontFamily;
@@ -205,69 +205,69 @@ ol.ui.list ol li,
 
 & when (@variationListDescription) {
     /* Description */
-    .ui.list .list > .item .description,
-    .ui.list > .item .description {
+    @{ui}.list .list > .item .description,
+    @{ui}.list > .item .description {
         display: block;
         color: @itemDescriptionColor;
     }
 }
 
 /* Child Link */
-.ui.list > .item a,
-.ui.list .list > .item a {
+@{ui}.list > .item a,
+@{ui}.list .list > .item a {
     cursor: pointer;
 }
 
 /* Linking Item */
-.ui.list .list > a.item,
-.ui.list > a.item {
+@{ui}.list .list > a.item,
+@{ui}.list > a.item {
     cursor: pointer;
     color: @itemLinkColor;
 }
-.ui.list .list > a.item:hover,
-.ui.list > a.item:hover {
+@{ui}.list .list > a.item:hover,
+@{ui}.list > a.item:hover {
     color: @itemLinkHoverColor;
 }
 
 & when (@variationListIcon) {
     /* Linked Item Icons */
-    .ui.list .list > a.item > i.icons,
-    .ui.list > a.item > i.icons,
-    .ui.list .list > a.item > i.icon,
-    .ui.list > a.item > i.icon {
+    @{ui}.list .list > a.item > i.icons,
+    @{ui}.list > a.item > i.icons,
+    @{ui}.list .list > a.item > i.icon,
+    @{ui}.list > a.item > i.icon {
         color: @itemLinkIconColor;
     }
 }
 
 & when (@variationListHeader) {
     /* Header Link */
-    .ui.list .list > .item a.header,
-    .ui.list > .item a.header {
+    @{ui}.list .list > .item a.header,
+    @{ui}.list > .item a.header {
         cursor: pointer;
         color: @itemHeaderLinkColor !important;
     }
-    .ui.list .list > .item > a.header:hover,
-    .ui.list > .item > a.header:hover {
+    @{ui}.list .list > .item > a.header:hover,
+    @{ui}.list > .item > a.header:hover {
         color: @itemHeaderLinkHoverColor !important;
     }
 }
 
 & when (@variationListFloated) {
     /* Floated Content */
-    .ui[class*="left floated"].list {
+    @{ui}[class*="left floated"].list {
         float: left;
     }
-    .ui[class*="right floated"].list {
+    @{ui}[class*="right floated"].list {
         float: right;
     }
 
-    .ui.list .list > .item [class*="left floated"],
-    .ui.list > .item [class*="left floated"] {
+    @{ui}.list .list > .item [class*="left floated"],
+    @{ui}.list > .item [class*="left floated"] {
         float: left;
         margin: @leftFloatMargin;
     }
-    .ui.list .list > .item [class*="right floated"],
-    .ui.list > .item [class*="right floated"] {
+    @{ui}.list .list > .item [class*="right floated"],
+    @{ui}.list > .item [class*="right floated"] {
         float: right;
         margin: @rightFloatMargin;
     }
@@ -277,8 +277,8 @@ ol.ui.list ol li,
             Coupling
 *******************************/
 
-.ui.menu .ui.list > .item,
-.ui.menu .ui.list .list > .item {
+@{ui}.menu @{ui}.list > .item,
+@{ui}.menu @{ui}.list .list > .item {
     display: list-item;
     table-layout: fixed;
     background-color: transparent;
@@ -287,17 +287,17 @@ ol.ui.list ol li,
     padding: @itemVerticalPadding @itemHorizontalPadding;
     line-height: @itemLineHeight;
 }
-.ui.menu .ui.list .list > .item::before,
-.ui.menu .ui.list > .item::before {
+@{ui}.menu @{ui}.list .list > .item::before,
+@{ui}.menu @{ui}.list > .item::before {
     border: none;
     background: none;
 }
-.ui.menu .ui.list .list > .item:first-child,
-.ui.menu .ui.list > .item:first-child {
+@{ui}.menu @{ui}.list .list > .item:first-child,
+@{ui}.menu @{ui}.list > .item:first-child {
     padding-top: 0;
 }
-.ui.menu .ui.list .list > .item:last-child,
-.ui.menu .ui.list > .item:last-child {
+@{ui}.menu @{ui}.list .list > .item:last-child,
+@{ui}.menu @{ui}.list > .item:last-child {
     padding-bottom: 0;
 }
 
@@ -310,57 +310,57 @@ ol.ui.list ol li,
           Horizontal
     -------------------- */
 
-    .ui.horizontal.list {
+    @{ui}.horizontal.list {
         display: inline-block;
         font-size: 0;
     }
-    .ui.horizontal.list > .item {
+    @{ui}.horizontal.list > .item {
         display: inline-block;
         margin-right: @horizontalSpacing;
         font-size: 1rem;
     }
-    .ui.horizontal.list@{notCelled} > .item:last-child {
+    @{ui}.horizontal.list@{notCelled} > .item:last-child {
         margin-right: 0;
         padding-right: 0;
     }
-    .ui.horizontal.list .list@{notIcon} {
+    @{ui}.horizontal.list .list@{notIcon} {
         padding-left: 0;
         padding-bottom: 0;
     }
-    .ui.horizontal.list > .item > .image,
-    .ui.horizontal.list .list > .item > .image,
-    .ui.horizontal.list > .item > i.icon,
-    .ui.horizontal.list .list > .item > i.icon,
-    .ui.horizontal.list > .item > .content,
-    .ui.horizontal.list .list > .item > .content {
+    @{ui}.horizontal.list > .item > .image,
+    @{ui}.horizontal.list .list > .item > .image,
+    @{ui}.horizontal.list > .item > i.icon,
+    @{ui}.horizontal.list .list > .item > i.icon,
+    @{ui}.horizontal.list > .item > .content,
+    @{ui}.horizontal.list .list > .item > .content {
         vertical-align: @horizontalVerticalAlign;
     }
 
     /* Padding on all elements */
-    .ui.horizontal.list > .item:first-child,
-    .ui.horizontal.list > .item:last-child {
+    @{ui}.horizontal.list > .item:first-child,
+    @{ui}.horizontal.list > .item:last-child {
         padding-top: @itemVerticalPadding;
         padding-bottom: @itemVerticalPadding;
     }
     & when (@variationListIcon) {
         /* Horizontal List */
-        .ui.horizontal.list > .item > i.icon,
-        .ui.horizontal.list .item > i.icons > i.icon {
+        @{ui}.horizontal.list > .item > i.icon,
+        @{ui}.horizontal.list .item > i.icons > i.icon {
             margin: 0;
             padding: 0 @horizontalIconDistance 0 0;
         }
     }
     & when (@variationListImage) or (@variationListIcon) {
-        .ui.horizontal.list > .item > .image + .content,
-        .ui.horizontal.list > .item > i.icon,
-        .ui.horizontal.list > .item > i.icon + .content {
+        @{ui}.horizontal.list > .item > .image + .content,
+        @{ui}.horizontal.list > .item > i.icon,
+        @{ui}.horizontal.list > .item > i.icon + .content {
             float: none;
             display: inline-block;
             width: auto;
         }
     }
     & when (@variationListImage) {
-        .ui.horizontal.list > .item > .image {
+        @{ui}.horizontal.list > .item > .image {
             display: inline-block;
         }
     }
@@ -375,14 +375,14 @@ ol.ui.list ol li,
            Disabled
     -------------------- */
 
-    .ui.list .list > .disabled.item,
-    .ui.list > .disabled.item {
+    @{ui}.list .list > .disabled.item,
+    @{ui}.list > .disabled.item {
         pointer-events: none;
         color: @disabledColor !important;
     }
     & when (@variationListInverted) {
-        .ui.inverted.list .list > .disabled.item,
-        .ui.inverted.list > .disabled.item {
+        @{ui}.inverted.list .list > .disabled.item,
+        @{ui}.inverted.list > .disabled.item {
             color: @invertedDisabledColor !important;
         }
     }
@@ -392,10 +392,10 @@ ol.ui.list ol li,
         Hover
 -------------------- */
 & when (@variationListIcon) {
-    .ui.list .list > a.item:hover > .icons,
-    .ui.list > a.item:hover > .icons,
-    .ui.list .list > a.item:hover > i.icon,
-    .ui.list > a.item:hover > i.icon {
+    @{ui}.list .list > a.item:hover > .icons,
+    @{ui}.list > a.item:hover > .icons,
+    @{ui}.list .list > a.item:hover > i.icon,
+    @{ui}.list > a.item:hover > i.icon {
         color: @itemLinkIconHoverColor;
     }
 }
@@ -409,44 +409,44 @@ ol.ui.list ol li,
            Inverted
     -------------------- */
     & when (@variationListIcon) {
-        .ui.inverted.list .list > a.item > i.icon,
-        .ui.inverted.list > a.item > i.icon {
+        @{ui}.inverted.list .list > a.item > i.icon,
+        @{ui}.inverted.list > a.item > i.icon {
             color: @invertedIconLinkColor;
         }
     }
     & when (@variationListHeader) {
-        .ui.inverted.list .list > .item .header,
-        .ui.inverted.list > .item .header {
+        @{ui}.inverted.list .list > .item .header,
+        @{ui}.inverted.list > .item .header {
             color: @invertedHeaderColor;
         }
     }
     & when (@variationListDescription) {
-        .ui.inverted.list .list > .item .description,
-        .ui.inverted.list > .item .description {
+        @{ui}.inverted.list .list > .item .description,
+        @{ui}.inverted.list > .item .description {
             color: @invertedDescriptionColor;
         }
     }
-    .ui.inverted.list .list > .item > .content,
-    .ui.inverted.list > .item > .content {
+    @{ui}.inverted.list .list > .item > .content,
+    @{ui}.inverted.list > .item > .content {
         color: @invertedContentColor;
     }
 
     /* Item Link */
-    .ui.inverted.list .list > a.item,
-    .ui.inverted.list > a.item {
+    @{ui}.inverted.list .list > a.item,
+    @{ui}.inverted.list > a.item {
         cursor: pointer;
         color: @invertedItemLinkColor;
     }
-    .ui.inverted.list .list > a.item:hover,
-    .ui.inverted.list > a.item:hover {
+    @{ui}.inverted.list .list > a.item:hover,
+    @{ui}.inverted.list > a.item:hover {
         color: @invertedItemLinkHoverColor;
     }
 
     /* Linking Content */
-    .ui.inverted.list .item a:not(.ui) {
+    @{ui}.inverted.list .item a:not(@{ui}) {
         color: @invertedItemLinkColor !important;
     }
-    .ui.inverted.list .item a:not(.ui):hover {
+    @{ui}.inverted.list .item a:not(@{ui}):hover {
         color: @invertedItemLinkHoverColor !important;
     }
 }
@@ -456,19 +456,19 @@ ol.ui.list ol li,
            Aligned
     -------------------- */
 
-    .ui.list[class*="top aligned"] .image,
-    .ui.list[class*="top aligned"] .content,
-    .ui.list [class*="top aligned"] {
+    @{ui}.list[class*="top aligned"] .image,
+    @{ui}.list[class*="top aligned"] .content,
+    @{ui}.list [class*="top aligned"] {
         vertical-align: top !important;
     }
-    .ui.list[class*="middle aligned"] .image,
-    .ui.list[class*="middle aligned"] .content,
-    .ui.list [class*="middle aligned"] {
+    @{ui}.list[class*="middle aligned"] .image,
+    @{ui}.list[class*="middle aligned"] .content,
+    @{ui}.list [class*="middle aligned"] {
         vertical-align: middle !important;
     }
-    .ui.list[class*="bottom aligned"] .image,
-    .ui.list[class*="bottom aligned"] .content,
-    .ui.list [class*="bottom aligned"] {
+    @{ui}.list[class*="bottom aligned"] .image,
+    @{ui}.list[class*="bottom aligned"] .content,
+    @{ui}.list [class*="bottom aligned"] {
         vertical-align: bottom !important;
     }
 }
@@ -478,41 +478,41 @@ ol.ui.list ol li,
            Link
     -------------------- */
 
-    .ui.link.list .item,
-    .ui.link.list a.item,
-    .ui.link.list .item a:not(.ui) {
+    @{ui}.link.list .item,
+    @{ui}.link.list a.item,
+    @{ui}.link.list .item a:not(@{ui}) {
         color: @linkListItemColor;
         transition: @linkListTransition;
     }
-    .ui.ui.link.list a.item:hover,
-    .ui.ui.link.list .item a:not(.ui):hover {
+    @{ui}@{ui}.link.list a.item:hover,
+    @{ui}@{ui}.link.list .item a:not(@{ui}):hover {
         color: @linkListItemHoverColor;
     }
-    .ui.ui.link.list a.item:active,
-    .ui.ui.link.list .item a:not(.ui):active {
+    @{ui}@{ui}.link.list a.item:active,
+    @{ui}@{ui}.link.list .item a:not(@{ui}):active {
         color: @linkListItemDownColor;
     }
-    .ui.ui.link.list .active.item,
-    .ui.ui.link.list .active.item a:not(.ui) {
+    @{ui}@{ui}.link.list .active.item,
+    @{ui}@{ui}.link.list .active.item a:not(@{ui}) {
         color: @linkListItemActiveColor;
     }
     & when (@variationListInverted) {
         /* Inverted */
-        .ui.inverted.link.list .item,
-        .ui.inverted.link.list a.item,
-        .ui.inverted.link.list .item a:not(.ui) {
+        @{ui}.inverted.link.list .item,
+        @{ui}.inverted.link.list a.item,
+        @{ui}.inverted.link.list .item a:not(@{ui}) {
             color: @invertedLinkListItemColor;
         }
-        .ui.ui.inverted.link.list a.item:hover,
-        .ui.ui.inverted.link.list .item a:not(.ui):hover {
+        @{ui}@{ui}.inverted.link.list a.item:hover,
+        @{ui}@{ui}.inverted.link.list .item a:not(@{ui}):hover {
             color: @invertedLinkListItemHoverColor;
         }
-        .ui.ui.inverted.link.list a.item:active,
-        .ui.ui.inverted.link.list .item a:not(.ui):active {
+        @{ui}@{ui}.inverted.link.list a.item:active,
+        @{ui}@{ui}.inverted.link.list .item a:not(@{ui}):active {
             color: @invertedLinkListItemDownColor;
         }
-        .ui.ui.inverted.link.list a.active.item,
-        .ui.ui.inverted.link.list .active.item a:not(.ui) {
+        @{ui}@{ui}.inverted.link.list a.active.item,
+        @{ui}@{ui}.inverted.link.list .active.item a:not(@{ui}) {
             color: @invertedLinkListItemActiveColor;
         }
     }
@@ -523,8 +523,8 @@ ol.ui.list ol li,
           Selection
     -------------------- */
 
-    .ui.selection.list .list > .item,
-    .ui.selection.list > .item {
+    @{ui}.selection.list .list > .item,
+    @{ui}.selection.list > .item {
         cursor: pointer;
         background: @selectionListBackground;
         padding: @selectionListItemVerticalPadding @selectionListItemHorizontalPadding;
@@ -533,41 +533,41 @@ ol.ui.list ol li,
         border-radius: @selectionListItemBorderRadius;
         transition: @selectionListTransition;
     }
-    .ui.selection.list .list > .item:last-child,
-    .ui.selection.list > .item:last-child {
+    @{ui}.selection.list .list > .item:last-child,
+    @{ui}.selection.list > .item:last-child {
         margin-bottom: 0;
     }
-    .ui.selection.list .list > .item:hover,
-    .ui.selection.list > .item:hover {
+    @{ui}.selection.list .list > .item:hover,
+    @{ui}.selection.list > .item:hover {
         background: @selectionListHoverBackground;
         color: @selectionListHoverColor;
     }
-    .ui.selection.list .list > .item:active,
-    .ui.selection.list > .item:active {
+    @{ui}.selection.list .list > .item:active,
+    @{ui}.selection.list > .item:active {
         background: @selectionListDownBackground;
         color: @selectionListDownColor;
     }
-    .ui.selection.list .list > .item.active,
-    .ui.selection.list > .item.active {
+    @{ui}.selection.list .list > .item.active,
+    @{ui}.selection.list > .item.active {
         background: @selectionListActiveBackground;
         color: @selectionListActiveColor;
     }
 
     & when (@variationListInverted) {
         /* Inverted */
-        .ui.inverted.selection.list > .item {
+        @{ui}.inverted.selection.list > .item {
             background: @invertedSelectionListBackground;
             color: @invertedSelectionListColor;
         }
-        .ui.inverted.selection.list > .item:hover {
+        @{ui}.inverted.selection.list > .item:hover {
             background: @invertedSelectionListHoverBackground;
             color: @invertedSelectionListHoverColor;
         }
-        .ui.inverted.selection.list > .item:active {
+        @{ui}.inverted.selection.list > .item:active {
             background: @invertedSelectionListDownBackground;
             color: @invertedSelectionListDownColor;
         }
-        .ui.inverted.selection.list > .item.active {
+        @{ui}.inverted.selection.list > .item.active {
             background: @invertedSelectionListActiveBackground;
             color: @invertedSelectionListActiveColor;
         }
@@ -575,10 +575,10 @@ ol.ui.list ol li,
 
     & when (@variationListCelled) or (@variationListDivided) {
         /* Celled / Divided Selection List */
-        .ui.celled.selection.list .list > .item,
-        .ui.divided.selection.list .list > .item,
-        .ui.celled.selection.list > .item,
-        .ui.divided.selection.list > .item {
+        @{ui}.celled.selection.list .list > .item,
+        @{ui}.divided.selection.list .list > .item,
+        @{ui}.celled.selection.list > .item,
+        @{ui}.divided.selection.list > .item {
             border-radius: 0;
         }
     }
@@ -589,10 +589,10 @@ ol.ui.list ol li,
            Animated
     -------------------- */
 
-    .ui.animated.list > .item {
+    @{ui}.animated.list > .item {
         transition: @animatedListTransition;
     }
-    .ui.animated.list@{notHorizontal} > .item:hover {
+    @{ui}.animated.list@{notHorizontal} > .item:hover {
         padding-left: @animatedListIndent;
     }
 }
@@ -601,13 +601,13 @@ ol.ui.list ol li,
     /* -------------------
            Fitted
     -------------------- */
-    .ui.fitted.list@{notSelection} .list > .item,
-    .ui.fitted.list@{notSelection} > .item {
+    @{ui}.fitted.list@{notSelection} .list > .item,
+    @{ui}.fitted.list@{notSelection} > .item {
         padding-left: 0;
         padding-right: 0;
     }
-    .ui.fitted.selection.list .list > .item,
-    .ui.fitted.selection.list > .item {
+    @{ui}.fitted.selection.list .list > .item,
+    @{ui}.fitted.selection.list > .item {
         margin-left: -@selectionListItemHorizontalPadding;
         margin-right: -@selectionListItemHorizontalPadding;
     }
@@ -618,18 +618,18 @@ ol.ui.list ol li,
           Bulleted
     -------------------- */
 
-    ul.ui.list,
-    .ui.bulleted.list {
+    ul@{ui}.list,
+    @{ui}.bulleted.list {
         margin-left: @bulletDistance;
     }
-    ul.ui.list li,
-    .ui.bulleted.list .list > .item,
-    .ui.bulleted.list > .item {
+    ul@{ui}.list li,
+    @{ui}.bulleted.list .list > .item,
+    @{ui}.bulleted.list > .item {
         position: relative;
     }
-    ul.ui.list li::before,
-    .ui.bulleted.list .list > .item::before,
-    .ui.bulleted.list > .item::before {
+    ul@{ui}.list li::before,
+    @{ui}.bulleted.list .list > .item::before,
+    @{ui}.bulleted.list > .item::before {
         user-select: none;
         pointer-events: none;
         position: absolute;
@@ -643,37 +643,37 @@ ol.ui.list ol li,
         vertical-align: @bulletVerticalAlign;
     }
 
-    ul.ui.list li::before,
-    .ui.bulleted.list .list > a.item::before,
-    .ui.bulleted.list > a.item::before {
+    ul@{ui}.list li::before,
+    @{ui}.bulleted.list .list > a.item::before,
+    @{ui}.bulleted.list > a.item::before {
         color: @bulletLinkColor;
     }
 
-    ul.ui.list ul,
-    .ui.bulleted.list .list@{notIcon} {
+    ul@{ui}.list ul,
+    @{ui}.bulleted.list .list@{notIcon} {
         padding-left: @bulletChildDistance;
     }
 
     & when (@variationListHorizontal) {
         /* Horizontal Bulleted */
-        ul.ui.horizontal.bulleted.list,
-        .ui.horizontal.bulleted.list {
+        ul@{ui}.horizontal.bulleted.list,
+        @{ui}.horizontal.bulleted.list {
             margin-left: 0;
         }
-        ul.ui.horizontal.bulleted.list li,
-        .ui.horizontal.bulleted.list > .item {
+        ul@{ui}.horizontal.bulleted.list li,
+        @{ui}.horizontal.bulleted.list > .item {
             margin-left: @horizontalBulletSpacing;
         }
-        ul.ui.horizontal.bulleted.list li:first-child,
-        .ui.horizontal.bulleted.list > .item:first-child {
+        ul@{ui}.horizontal.bulleted.list li:first-child,
+        @{ui}.horizontal.bulleted.list > .item:first-child {
             margin-left: 0;
         }
-        ul.ui.horizontal.bulleted.list li::before,
-        .ui.horizontal.bulleted.list > .item::before {
+        ul@{ui}.horizontal.bulleted.list li::before,
+        @{ui}.horizontal.bulleted.list > .item::before {
             color: @horizontalBulletColor;
         }
-        ul.ui.horizontal.bulleted.list li:first-child::before,
-        .ui.horizontal.bulleted.list > .item:first-child::before {
+        ul@{ui}.horizontal.bulleted.list li:first-child::before,
+        @{ui}.horizontal.bulleted.list > .item:first-child::before {
             display: none;
         }
     }
@@ -684,23 +684,23 @@ ol.ui.list ol li,
            Ordered
     -------------------- */
 
-    ol.ui.list,
-    .ui.ordered.list,
-    .ui.ordered.list .list@{notIcon},
-    ol.ui.list ol {
+    ol@{ui}.list,
+    @{ui}.ordered.list,
+    @{ui}.ordered.list .list@{notIcon},
+    ol@{ui}.list ol {
         counter-reset: @orderedCountName;
         margin-left: @orderedCountDistance;
         list-style-type: none;
     }
-    ol.ui.list li,
-    .ui.ordered.list .list > .item,
-    .ui.ordered.list > .item {
+    ol@{ui}.list li,
+    @{ui}.ordered.list .list > .item,
+    @{ui}.ordered.list > .item {
         list-style-type: none;
         position: relative;
     }
-    ol.ui.list li::before,
-    .ui.ordered.list .list > .item::before,
-    .ui.ordered.list > .item::before {
+    ol@{ui}.list li::before,
+    @{ui}.ordered.list .list > .item::before,
+    @{ui}.ordered.list > .item::before {
         position: absolute;
         top: auto;
         left: auto;
@@ -716,41 +716,41 @@ ol.ui.list ol li,
     }
 
     & when (@variationListInverted) {
-        ol.ui.inverted.list li::before,
-        .ui.ordered.inverted.list .list > .item::before,
-        .ui.ordered.inverted.list > .item::before {
+        ol@{ui}.inverted.list li::before,
+        @{ui}.ordered.inverted.list .list > .item::before,
+        @{ui}.ordered.inverted.list > .item::before {
             color: @orderedInvertedCountColor;
         }
     }
 
     /* Value */
-    .ui.ordered.list .list > .item[data-value]::before,
-    .ui.ordered.list > .item[data-value]::before {
+    @{ui}.ordered.list .list > .item[data-value]::before,
+    @{ui}.ordered.list > .item[data-value]::before {
         content: attr(data-value);
     }
-    ol.ui.list li[value]::before {
+    ol@{ui}.list li[value]::before {
         content: attr(value);
     }
 
     /* Child Lists */
-    ol.ui.list ol,
-    .ui.ordered.list .list@{notIcon} {
+    ol@{ui}.list ol,
+    @{ui}.ordered.list .list@{notIcon} {
         margin-left: @orderedChildCountDistance;
     }
-    ol.ui.list ol li::before,
-    .ui.ordered.list .list > .item::before {
+    ol@{ui}.list ol li::before,
+    @{ui}.ordered.list .list > .item::before {
         margin-left: @orderedChildCountOffset;
     }
 
     & when (@variationListHorizontal) {
         /* Horizontal Ordered */
-        ol.ui.horizontal.list,
-        .ui.ordered.horizontal.list {
+        ol@{ui}.horizontal.list,
+        @{ui}.ordered.horizontal.list {
             margin-left: 0;
         }
-        ol.ui.horizontal.list li::before,
-        .ui.ordered.horizontal.list .list > .item::before,
-        .ui.ordered.horizontal.list > .item::before {
+        ol@{ui}.horizontal.list li::before,
+        @{ui}.ordered.horizontal.list .list > .item::before,
+        @{ui}.ordered.horizontal.list > .item::before {
             position: static;
             margin: 0 @horizontalOrderedCountDistance 0 0;
         }
@@ -759,9 +759,9 @@ ol.ui.list ol li,
 
 & when (@variationListSuffixed) {
     /* Suffixed Ordered */
-    ol.ui.suffixed.list li::before,
-    .ui.suffixed.ordered.list .list > .item::before,
-    .ui.suffixed.ordered.list > .item::before {
+    ol@{ui}.suffixed.list li::before,
+    @{ui}.suffixed.ordered.list .list > .item::before,
+    @{ui}.suffixed.ordered.list > .item::before {
         content: @orderedCountContentSuffixed;
     }
 }
@@ -771,52 +771,52 @@ ol.ui.list ol li,
            Divided
     -------------------- */
 
-    .ui.divided.list > .item {
+    @{ui}.divided.list > .item {
         border-top: @dividedBorder;
     }
-    .ui.divided.list .list > .item {
+    @{ui}.divided.list .list > .item {
         border-top: @dividedChildListBorder;
     }
-    .ui.divided.list .item .list > .item {
+    @{ui}.divided.list .item .list > .item {
         border-top: @dividedChildItemBorder;
     }
-    .ui.divided.list .list > .item:first-child,
-    .ui.divided.list > .item:first-child {
+    @{ui}.divided.list .list > .item:first-child,
+    @{ui}.divided.list > .item:first-child {
         border-top: none;
     }
 
     /* Sub Menu */
-    .ui.divided.list@{notHorizontal} .list > .item:first-child {
+    @{ui}.divided.list@{notHorizontal} .list > .item:first-child {
         border-top-width: @dividedBorderWidth;
     }
 
     & when (@variationListBulleted) {
         /* Divided bulleted */
-        .ui.divided.bulleted.list@{notHorizontal},
-        .ui.divided.bulleted.list .list@{notIcon} {
+        @{ui}.divided.bulleted.list@{notHorizontal},
+        @{ui}.divided.bulleted.list .list@{notIcon} {
             margin-left: 0;
             padding-left: 0;
         }
-        .ui.divided.bulleted.list > .item@{notHorizontal} {
+        @{ui}.divided.bulleted.list > .item@{notHorizontal} {
             padding-left: @bulletDistance;
         }
     }
 
     & when (@variationListOrdered) {
         /* Divided Ordered */
-        .ui.divided.ordered.list {
+        @{ui}.divided.ordered.list {
             margin-left: 0;
         }
-        .ui.divided.ordered.list .list > .item,
-        .ui.divided.ordered.list > .item {
+        @{ui}.divided.ordered.list .list > .item,
+        @{ui}.divided.ordered.list > .item {
             padding-left: @orderedCountDistance;
         }
-        .ui.divided.ordered.list .item .list@{notIcon} {
+        @{ui}.divided.ordered.list .item .list@{notIcon} {
             margin-left: 0;
             margin-right: 0;
             padding-bottom: @itemVerticalPadding;
         }
-        .ui.divided.ordered.list .item .list > .item {
+        @{ui}.divided.ordered.list .item .list > .item {
             padding-left: @orderedChildCountDistance;
         }
     }
@@ -824,8 +824,8 @@ ol.ui.list ol li,
     & when (@variationListSelection) {
         /* Divided Selection */
 
-        .ui.divided.selection.list .list > .item,
-        .ui.divided.selection.list > .item {
+        @{ui}.divided.selection.list .list > .item,
+        @{ui}.divided.selection.list > .item {
             margin: 0;
             border-radius: 0;
         }
@@ -833,22 +833,22 @@ ol.ui.list ol li,
 
     & when (@variationListHorizontal) {
         /* Divided horizontal */
-        .ui.divided.horizontal.list {
+        @{ui}.divided.horizontal.list {
             margin-left: 0;
         }
-        .ui.divided.horizontal.list > .item {
+        @{ui}.divided.horizontal.list > .item {
             padding-left: @horizontalDividedSpacing;
         }
-        .ui.divided.horizontal.list > .item:not(:last-child) {
+        @{ui}.divided.horizontal.list > .item:not(:last-child) {
             padding-right: @horizontalDividedSpacing;
         }
-        .ui.divided.horizontal.list > .item {
+        @{ui}.divided.horizontal.list > .item {
             border-top: none;
             border-right: @dividedBorder;
             margin: 0;
             line-height: @horizontalDividedLineHeight;
         }
-        .ui.horizontal.divided.list > .item:last-child {
+        @{ui}.horizontal.divided.list > .item:last-child {
             border-right: none;
         }
     }
@@ -856,9 +856,9 @@ ol.ui.list ol li,
     & when (@variationListInverted) {
         /* Inverted */
 
-        .ui.divided.inverted.list > .item,
-        .ui.divided.inverted.list > .list,
-        .ui.divided.inverted.horizontal.list > .item {
+        @{ui}.divided.inverted.list > .item,
+        @{ui}.divided.inverted.list > .list,
+        @{ui}.divided.inverted.horizontal.list > .item {
             border-color: @dividedInvertedBorderColor;
         }
     }
@@ -869,41 +869,41 @@ ol.ui.list ol li,
             Celled
     -------------------- */
 
-    .ui.celled.list > .item,
-    .ui.celled.list > .list {
+    @{ui}.celled.list > .item,
+    @{ui}.celled.list > .list {
         border-top: @celledBorder;
         padding-left: @celledHorizontalPadding;
         padding-right: @celledHorizontalPadding;
     }
-    .ui.celled.list > .item:last-child {
+    @{ui}.celled.list > .item:last-child {
         border-bottom: @celledBorder;
     }
 
     /* Padding on all elements */
-    .ui.celled.list > .item:first-child,
-    .ui.celled.list > .item:last-child {
+    @{ui}.celled.list > .item:first-child,
+    @{ui}.celled.list > .item:last-child {
         padding-top: @itemVerticalPadding;
         padding-bottom: @itemVerticalPadding;
     }
 
     /* Sub Menu */
-    .ui.celled.list .item .list > .item {
+    @{ui}.celled.list .item .list > .item {
         border-width: 0;
     }
-    .ui.celled.list .list > .item:first-child {
+    @{ui}.celled.list .list > .item:first-child {
         border-top-width: 0;
     }
 
     & when (@variationListBulleted) {
         /* Celled Bulleted */
-        .ui.celled.bulleted.list {
+        @{ui}.celled.bulleted.list {
             margin-left: 0;
         }
-        .ui.celled.bulleted.list .list > .item,
-        .ui.celled.bulleted.list > .item {
+        @{ui}.celled.bulleted.list .list > .item,
+        @{ui}.celled.bulleted.list > .item {
             padding-left: (@bulletDistance);
         }
-        .ui.celled.bulleted.list .item .list@{notIcon} {
+        @{ui}.celled.bulleted.list .item .list@{notIcon} {
             margin-left: -(@bulletDistance);
             margin-right: -(@bulletDistance);
             padding-bottom: @itemVerticalPadding;
@@ -912,30 +912,30 @@ ol.ui.list ol li,
 
     & when (@variationListOrdered) {
         /* Celled Ordered */
-        .ui.celled.ordered.list {
+        @{ui}.celled.ordered.list {
             margin-left: 0;
         }
-        .ui.celled.ordered.list .list > .item,
-        .ui.celled.ordered.list > .item {
+        @{ui}.celled.ordered.list .list > .item,
+        @{ui}.celled.ordered.list > .item {
             padding-left: @orderedCountDistance;
         }
-        .ui.celled.ordered.list .item .list@{notIcon} {
+        @{ui}.celled.ordered.list .item .list@{notIcon} {
             margin-left: 0;
             margin-right: 0;
             padding-bottom: @itemVerticalPadding;
         }
-        .ui.celled.ordered.list .list > .item {
+        @{ui}.celled.ordered.list .list > .item {
             padding-left: @orderedChildCountDistance;
         }
     }
 
     & when (@variationListHorizontal) {
         /* Celled Horizontal */
-        .ui.horizontal.celled.list {
+        @{ui}.horizontal.celled.list {
             margin-left: 0;
         }
-        .ui.horizontal.celled.list .list > .item,
-        .ui.horizontal.celled.list > .item {
+        @{ui}.horizontal.celled.list .list > .item,
+        @{ui}.horizontal.celled.list > .item {
             border-top: none;
             border-left: @celledBorder;
             margin: 0;
@@ -943,8 +943,8 @@ ol.ui.list ol li,
             padding-right: @horizontalCelledSpacing;
             line-height: @horizontalCelledLineHeight;
         }
-        .ui.horizontal.celled.list .list > .item:last-child,
-        .ui.horizontal.celled.list > .item:last-child {
+        @{ui}.horizontal.celled.list .list > .item:last-child,
+        @{ui}.horizontal.celled.list > .item:last-child {
             border-bottom: none;
             border-right: @celledBorder;
         }
@@ -952,12 +952,12 @@ ol.ui.list ol li,
 
     & when (@variationListInverted) {
         /* Inverted */
-        .ui.celled.inverted.list > .item,
-        .ui.celled.inverted.list > .list {
+        @{ui}.celled.inverted.list > .item,
+        @{ui}.celled.inverted.list > .list {
             border-color: @celledInvertedBorder;
         }
-        .ui.celled.inverted.horizontal.list .list > .item,
-        .ui.celled.inverted.horizontal.list > .item {
+        @{ui}.celled.inverted.horizontal.list .list > .item,
+        @{ui}.celled.inverted.horizontal.list > .item {
             border-color: @celledInvertedBorder;
         }
     }
@@ -968,39 +968,39 @@ ol.ui.list ol li,
            Relaxed
     -------------------- */
 
-    .ui.relaxed.list@{notHorizontal} > .item:not(:first-child) {
+    @{ui}.relaxed.list@{notHorizontal} > .item:not(:first-child) {
         padding-top: @relaxedItemVerticalPadding;
     }
-    .ui.relaxed.list@{notHorizontal} > .item:not(:last-child) {
+    @{ui}.relaxed.list@{notHorizontal} > .item:not(:last-child) {
         padding-bottom: @relaxedItemVerticalPadding;
     }
 
     & when (@variationListHorizontal) {
-        .ui.horizontal.relaxed.list .list > .item:not(:first-child),
-        .ui.horizontal.relaxed.list > .item:not(:first-child) {
+        @{ui}.horizontal.relaxed.list .list > .item:not(:first-child),
+        @{ui}.horizontal.relaxed.list > .item:not(:first-child) {
             padding-left: @relaxedHorizontalPadding;
         }
-        .ui.horizontal.relaxed.list .list > .item:not(:last-child),
-        .ui.horizontal.relaxed.list > .item:not(:last-child) {
+        @{ui}.horizontal.relaxed.list .list > .item:not(:last-child),
+        @{ui}.horizontal.relaxed.list > .item:not(:last-child) {
             padding-right: @relaxedHorizontalPadding;
         }
     }
     & when (@variationListVeryRelaxed) {
         /* Very Relaxed */
-        .ui[class*="very relaxed"].list@{notHorizontal} > .item:not(:first-child) {
+        @{ui}[class*="very relaxed"].list@{notHorizontal} > .item:not(:first-child) {
             padding-top: @veryRelaxedItemVerticalPadding;
         }
-        .ui[class*="very relaxed"].list@{notHorizontal} > .item:not(:last-child) {
+        @{ui}[class*="very relaxed"].list@{notHorizontal} > .item:not(:last-child) {
             padding-bottom: @veryRelaxedItemVerticalPadding;
         }
 
         & when (@variationListHorizontal) {
-            .ui.horizontal[class*="very relaxed"].list .list > .item:not(:first-child),
-            .ui.horizontal[class*="very relaxed"].list > .item:not(:first-child) {
+            @{ui}.horizontal[class*="very relaxed"].list .list > .item:not(:first-child),
+            @{ui}.horizontal[class*="very relaxed"].list > .item:not(:first-child) {
                 padding-left: @veryRelaxedHorizontalPadding;
             }
-            .ui.horizontal[class*="very relaxed"].list .list > .item:not(:last-child),
-            .ui.horizontal[class*="very relaxed"].list > .item:not(:last-child) {
+            @{ui}.horizontal[class*="very relaxed"].list .list > .item:not(:last-child),
+            @{ui}.horizontal[class*="very relaxed"].list > .item:not(:last-child) {
                 padding-right: @veryRelaxedHorizontalPadding;
             }
         }
@@ -1011,19 +1011,19 @@ ol.ui.list ol li,
       Sizes
 -------------------- */
 
-.ui.list {
+@{ui}.list {
     font-size: @relativeMedium;
 }
 & when not (@variationListSizes = false) {
     each(@variationListSizes, {
         @rs: @{value}ListSize;
         @s: @@value;
-        .ui.@{value}.list {
+        @{ui}.@{value}.list {
             font-size: @@rs;
         }
         & when (@variationListHorizontal) {
-            .ui.@{value}.horizontal.list .list > .item,
-            .ui.@{value}.horizontal.list > .item {
+            @{ui}.@{value}.horizontal.list .list > .item,
+            @{ui}.@{value}.horizontal.list > .item {
                 font-size: @s;
             }
         }

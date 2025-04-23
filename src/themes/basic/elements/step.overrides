@@ -2,9 +2,9 @@
            Overrides
 *******************************/
 
-.ui.steps .step::after {
+@{ui}.steps .step::after {
     display: none !important;
 }
-.ui.steps .step {
+@{ui}.steps .step {
     border-radius: 500px !important;
 }

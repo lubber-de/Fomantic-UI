@@ -21,17 +21,17 @@
            Rating
 *******************************/
 
-.ui.rating {
+@{ui}.rating {
     display: inline-flex;
     white-space: @whiteSpace;
     vertical-align: @verticalAlign;
 }
-.ui.rating:last-child {
+@{ui}.rating:last-child {
     margin-right: 0;
 }
 
 /* Icon */
-.ui.rating .icon {
+@{ui}.rating .icon {
     padding: 0;
     margin: 0;
     text-align: center;
@@ -55,25 +55,25 @@
 -------------------- */
 
 /* Inactive Icon */
-.ui.rating .icon {
+@{ui}.rating .icon {
     background: @inactiveBackground;
     color: @inactiveColor;
 }
 
 /* Active Icon */
-.ui.rating .active.icon {
+@{ui}.rating .active.icon {
     background: @activeBackground;
     color: @activeColor;
 }
 
 & when (@variationRatingPartial) {
     /* Partially Active Icon */
-    .ui.rating .icon.partial.active {
+    @{ui}.rating .icon.partial.active {
         background: linear-gradient(to right, @activeColor 0% var(--full), @inactiveColor var(--full) 100%);
     }
 
     /* central override for colors */
-    .ui.ui.ui.rating .icon.partial.active {
+    @{ui}@{ui}@{ui}.rating .icon.partial.active {
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
@@ -82,9 +82,9 @@
 }
 
 /* Selected Icon */
-.ui.rating .icon.selected,
-.ui.rating .icon.selected.active,
-.ui.rating .icon.selected.partial.active {
+@{ui}.rating .icon.selected,
+@{ui}.rating .icon.selected.active,
+@{ui}.rating .icon.selected.partial.active {
     background: @selectedBackground;
     color: @selectedColor;
     background-clip: unset;
@@ -101,7 +101,7 @@
         @h: @colors[@@color][hover];
         @lh: @colors[@@color][lightHover];
 
-        .ui.@{color}.rating .active.icon {
+        @{ui}.@{color}.rating .active.icon {
             color: @l;
             text-shadow:
                 0 -@shadowWidth 0 @c,
@@ -109,9 +109,9 @@
                 0 @shadowWidth 0 @c,
                 @shadowWidth 0 0 @c;
         }
-        .ui.@{color}.rating .icon.selected,
-        .ui.@{color}.rating .icon.selected.active,
-        .ui.@{color}.rating .icon.selected.partial.active {
+        @{ui}.@{color}.rating .icon.selected,
+        @{ui}.@{color}.rating .icon.selected.active,
+        @{ui}.@{color}.rating .icon.selected.partial.active {
             background: inherit;
             color: @lh;
             text-shadow:
@@ -124,7 +124,7 @@
             background-clip: unset;
         }
         & when (@variationRatingPartial) {
-            .ui.@{color}.rating .icon.partial.active {
+            @{ui}.@{color}.rating .icon.partial.active {
                 background: linear-gradient(to right, @l 0% var(--full), @inactiveColor var(--full) 100%);
                 -webkit-text-stroke: @c 0.78px;
             }
@@ -142,7 +142,7 @@
     -------------------- */
 
     /* disabled rating */
-    .ui.disabled.rating .icon {
+    @{ui}.disabled.rating .icon {
         cursor: default;
         pointer-events: none;
     }
@@ -153,11 +153,11 @@
 -------------------- */
 
 /* Selected Rating */
-.ui.rating.selected .active.icon {
+@{ui}.rating.selected .active.icon {
     opacity: @interactiveActiveIconOpacity;
 }
-.ui.rating.selected .icon.selected,
-.ui.rating .icon.selected {
+@{ui}.rating.selected .icon.selected,
+@{ui}.rating .icon.selected {
     opacity: @interactiveSelectedIconOpacity;
 }
 
@@ -165,13 +165,13 @@
           Variations
 *******************************/
 
-.ui.rating {
+@{ui}.rating {
     font-size: @medium;
 }
 & when not (@variationRatingSizes = false) {
     each(@variationRatingSizes, {
         @s: @@value;
-        .ui.@{value}.rating {
+        @{ui}.@{value}.rating {
             font-size: @s;
         }
     });

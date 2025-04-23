@@ -24,58 +24,58 @@
 
 @notCheckbox: if(@variationCheckboxSlider, e(":not(.checkbox)"));
 
-.ui.slider@{notVertical}@{notCheckbox} {
+@{ui}.slider@{notVertical}@{notCheckbox} {
     width: 100%;
     padding: @padding;
 }
 
-.ui.slider@{notCheckbox} {
+@{ui}.slider@{notCheckbox} {
     position: relative;
 }
 
-.ui.slider@{notCheckbox}:focus {
+@{ui}.slider@{notCheckbox}:focus {
     outline: 0;
 }
 
-.ui.slider .inner {
+@{ui}.slider .inner {
     position: relative;
     z-index: 2;
 }
 
-.ui.slider@{notVertical} .inner {
+@{ui}.slider@{notVertical} .inner {
     height: @height;
 }
 
-.ui.slider .inner:hover {
+@{ui}.slider .inner:hover {
     cursor: @hoverPointer;
 }
 
-.ui.slider .inner .track {
+@{ui}.slider .inner .track {
     position: absolute;
     border-radius: @trackBorderRadius;
     background-color: @trackColor;
 }
 
-.ui.slider@{notVertical} .inner .track {
+@{ui}.slider@{notVertical} .inner .track {
     width: 100%;
     height: @trackHeight;
     top: @trackPositionTop;
     left: 0;
 }
 
-.ui.slider .inner .track-fill {
+@{ui}.slider .inner .track-fill {
     position: absolute;
     border-radius: @trackFillBorderRadius;
     background-color: @trackFillColor;
 }
 
-.ui.slider@{notVertical} .inner .track-fill {
+@{ui}.slider@{notVertical} .inner .track-fill {
     height: @trackFillHeight;
     top: @trackPositionTop;
     left: 0;
 }
 
-.ui.slider .inner .thumb {
+@{ui}.slider .inner .thumb {
     position: absolute;
     left: 0;
     top: 0;
@@ -87,12 +87,12 @@
     transition: @thumbTransition;
 }
 
-.ui.slider@{notDisabled} .inner .thumb:hover {
+@{ui}.slider@{notDisabled} .inner .thumb:hover {
     cursor: @thumbHoverPointer;
     background: @thumbHoverBackground;
 }
 
-.ui.slider@{notDisabled}:focus .inner .thumb {
+@{ui}.slider@{notDisabled}:focus .inner .thumb {
     background: @thumbHoverBackground;
 }
 
@@ -105,15 +105,15 @@
          Disabled
     --------------- */
 
-    .ui.disabled.slider@{notCheckbox} {
+    @{ui}.disabled.slider@{notCheckbox} {
         opacity: @disabledOpacity;
     }
 
-    .ui.disabled.slider .inner:hover {
+    @{ui}.disabled.slider .inner:hover {
         cursor: auto;
     }
 
-    .ui.disabled.slider .inner .track-fill {
+    @{ui}.disabled.slider .inner .track-fill {
         background: @disabledTrackFillColor;
     }
 }
@@ -123,22 +123,22 @@
         Reversed
     --------------- */
 
-    .ui.reversed.slider .inner .track-fill {
+    @{ui}.reversed.slider .inner .track-fill {
         left: auto;
         right: 0;
     }
 
-    .ui.reversed.slider@{notVertical} .inner .thumb {
+    @{ui}.reversed.slider@{notVertical} .inner .thumb {
         left: auto;
         right: 0;
     }
 
-    .ui.reversed.vertical.slider .inner .thumb {
+    @{ui}.reversed.vertical.slider .inner .thumb {
         left: @thumbVerticalSliderOffset;
     }
 
     & when (@variationSliderLabeled) {
-        .ui.labeled.reversed.slider > .labels .label {
+        @{ui}.labeled.reversed.slider > .labels .label {
             transform: translate(-100%, -100%);
         }
     }
@@ -153,36 +153,36 @@
         Vertical
     --------------- */
 
-    .ui.vertical.slider {
+    @{ui}.vertical.slider {
         height: 100%;
         width: @height;
         padding: @verticalPadding;
     }
 
-    .ui.vertical.slider .inner {
+    @{ui}.vertical.slider .inner {
         height: 100%;
     }
 
-    .ui.vertical.slider .inner .track {
+    @{ui}.vertical.slider .inner .track {
         height: 100%;
         width: @trackHeight;
         left: @trackPositionTop;
         top: 0;
     }
 
-    .ui.vertical.slider .inner .track-fill {
+    @{ui}.vertical.slider .inner .track-fill {
         width: @trackFillHeight;
         left: @trackPositionTop;
         top: 0;
     }
     & when (@variationSliderReversed) {
         /* Vertical Reversed */
-        .ui.vertical.reversed.slider .inner .thumb {
+        @{ui}.vertical.reversed.slider .inner .thumb {
             top: auto;
             bottom: 0;
         }
 
-        .ui.vertical.reversed.slider .inner .track-fill {
+        @{ui}.vertical.reversed.slider .inner .track-fill {
             top: auto;
             bottom: 0;
         }
@@ -194,7 +194,7 @@
         Labeled
     --------------- */
 
-    .ui.labeled.slider > .labels {
+    @{ui}.labeled.slider > .labels {
         height: @labelHeight;
         width: auto;
         margin: 0;
@@ -205,27 +205,27 @@
         right: 0;
     }
 
-    .ui.labeled.slider@{notVertical} > .labels {
+    @{ui}.labeled.slider@{notVertical} > .labels {
         transform: translateY(-50%);
     }
 
-    .ui.labeled.slider > .labels .label {
+    @{ui}.labeled.slider > .labels .label {
         display: inline-flex;
         position: absolute;
         transform: translate(-50%, -100%);
         white-space: nowrap;
-        &:not(.ui) {
+        &:not(@{ui}) {
             padding: @labelPadding;
         }
     }
     & when (@variationSliderBottomAligned) {
-        .ui.bottom.aligned.labeled.slider > .labels .label {
+        @{ui}.bottom.aligned.labeled.slider > .labels .label {
             bottom: 0;
             transform: translate(-50%, 100%);
         }
     }
     & when (@variationSliderTicked) {
-        .ui.labeled.ticked.slider > .labels .label::after {
+        @{ui}.labeled.ticked.slider > .labels .label::after {
             content: " ";
             height: @labelHeight;
             width: @labelWidth;
@@ -235,36 +235,36 @@
             left: 50%;
         }
         & when (@variationSliderBottomAligned) {
-            .ui.bottom.aligned.labeled.ticked.slider > .labels .label::after {
+            @{ui}.bottom.aligned.labeled.ticked.slider > .labels .label::after {
                 top: auto;
                 bottom: 100%;
             }
             & when (@variationSliderUiLabel) {
-                .ui.labeled.slider.bottom.aligned .labels .ui.label {
+                @{ui}.labeled.slider.bottom.aligned .labels @{ui}.label {
                     margin-bottom: -@uiLabelMargin;
                 }
-                .ui.labeled.ticked.slider.bottom.aligned .labels .ui.label::after {
+                @{ui}.labeled.ticked.slider.bottom.aligned .labels @{ui}.label::after {
                     margin-bottom: @uiLabelMargin;
                 }
             }
         }
-        .ui.labeled.ticked.slider > .labels .halftick.label::after {
+        @{ui}.labeled.ticked.slider > .labels .halftick.label::after {
             height: (@labelHeight / 2);
         }
         & when (@variationSliderInverted) {
-            .ui.inverted.labeled.ticked.slider > .labels .label::after {
+            @{ui}.inverted.labeled.ticked.slider > .labels .label::after {
                 background: @invertedLabelColor;
             }
         }
     }
     & when (@variationSliderUiLabel) {
-        .ui.labeled.slider@{notVertical}@{notBottom} .labels .ui.label {
+        @{ui}.labeled.slider@{notVertical}@{notBottom} .labels @{ui}.label {
             margin-top: -@uiLabelMargin;
         }
-        .ui.labeled.ticked.slider@{notVertical}@{notBottom} .labels .ui.label::after {
+        @{ui}.labeled.ticked.slider@{notVertical}@{notBottom} .labels @{ui}.label::after {
             margin-top: @uiLabelMargin;
         }
-        .ui.labeled.ticked.slider@{notVertical} > .labels .ui.label::after {
+        @{ui}.labeled.ticked.slider@{notVertical} > .labels @{ui}.label::after {
             height: @uiLabelTickHeight;
         }
     }
@@ -272,7 +272,7 @@
     & when (@variationSliderVertical) {
         /* Vertical Labels */
 
-        .ui.labeled.vertical.slider > .labels {
+        @{ui}.labeled.vertical.slider > .labels {
             width: @labelHeight;
             height: auto;
             left: 50%;
@@ -281,59 +281,59 @@
             transform: translateX(-50%);
         }
 
-        .ui.labeled.vertical.slider > .labels .label {
+        @{ui}.labeled.vertical.slider > .labels .label {
             transform: translate(-100%, -50%);
         }
 
-        .ui.labeled.vertical.slider > .labels .label::after {
+        @{ui}.labeled.vertical.slider > .labels .label::after {
             width: @labelHeight;
             height: @labelWidth;
             left: 100%;
             top: 50%;
         }
-        .ui.labeled.vertical.slider > .labels .halftick.label::after {
+        @{ui}.labeled.vertical.slider > .labels .halftick.label::after {
             width: (@labelHeight / 2);
             height: @labelWidth;
         }
-        .ui.labeled.vertical.slider@{notRight} > .labels .halftick.label::after {
+        @{ui}.labeled.vertical.slider@{notRight} > .labels .halftick.label::after {
             margin-left: @verticalTickDistance;
         }
 
         & when (@variationSliderReversed) {
             /* Vertical Reversed Labels */
-            .ui.labeled.vertical.reversed.slider > .labels .label {
+            @{ui}.labeled.vertical.reversed.slider > .labels .label {
                 transform: translate(-100%, 50%);
             }
         }
         & when (@variationSliderUiLabel) {
-            .ui.labeled.ticked.vertical.slider@{notRight} > .labels .ui.label::after {
+            @{ui}.labeled.ticked.vertical.slider@{notRight} > .labels @{ui}.label::after {
                 margin-left: @verticalUiLabelMargin;
             }
         }
         & when (@variationSliderRightAligned) {
-            .ui.labeled.vertical.right.aligned.slider > .labels {
+            @{ui}.labeled.vertical.right.aligned.slider > .labels {
                 transform: translateX(50%);
                 left: e(%("calc(100%% + %d)", @verticalTickDistance));
             }
-            .ui.labeled.vertical.right.aligned.slider > .labels .label {
+            @{ui}.labeled.vertical.right.aligned.slider > .labels .label {
                 transform: translate(100%, -50%);
                 right: 100%;
             }
 
-            .ui.labeled.vertical.right.aligned.slider > .labels .label::after {
+            @{ui}.labeled.vertical.right.aligned.slider > .labels .label::after {
                 right: 100%;
                 left: auto;
             }
-            .ui.labeled.vertical.right.aligned.slider > .labels .halftick.label::after {
+            @{ui}.labeled.vertical.right.aligned.slider > .labels .halftick.label::after {
                 margin-right: @verticalTickDistance;
             }
             & when (@variationSliderReversed) {
-                .ui.labeled.vertical.reversed.right.aligned.slider > .labels .label {
+                @{ui}.labeled.vertical.reversed.right.aligned.slider > .labels .label {
                     transform: translate(100%, 50%);
                 }
             }
             & when (@variationSliderUiLabel) {
-                .ui.labeled.ticked.vertical.right.aligned.slider > .labels .ui.label::after {
+                @{ui}.labeled.ticked.vertical.right.aligned.slider > .labels @{ui}.label::after {
                     margin-right: @verticalUiLabelMargin;
                 }
             }
@@ -345,13 +345,13 @@
     Hover
 --------------- */
 
-.ui.hover.slider .inner .thumb {
+@{ui}.hover.slider .inner .thumb {
     opacity: @hoverVarOpacity;
     transition: @hoverOpacityTransition;
 }
 
-.ui.hover.slider@{notDisabled}:hover .inner .thumb,
-.ui.hover.slider@{notDisabled}:focus .inner .thumb {
+@{ui}.hover.slider@{notDisabled}:hover .inner .thumb,
+@{ui}.hover.slider@{notDisabled}:focus .inner .thumb {
     opacity: @hoverVarHoverOpacity;
 }
 
@@ -360,31 +360,31 @@
         Inverted
     --------------- */
 
-    .ui.inverted.slider .inner .track-fill {
+    @{ui}.inverted.slider .inner .track-fill {
         background-color: @invertedTrackFillColor;
     }
 
-    .ui.inverted.slider .inner .track {
+    @{ui}.inverted.slider .inner .track {
         background-color: @transparentWhite;
     }
 }
 & when (@variationSliderHighlight) {
-    .ui.labeled.slider > .active.labels .label {
+    @{ui}.labeled.slider > .active.labels .label {
         transition: @highlightTransition;
     }
     & when (@variationSliderTicked) {
-        .ui.labeled.ticked.slider > .active.labels .active.label::after {
+        @{ui}.labeled.ticked.slider > .active.labels .active.label::after {
             background: @trackFillColor;
         }
         & when (@variationSliderInverted) {
-            .ui.inverted.labeled.ticked.slider > .active.labels .active.label::after {
+            @{ui}.inverted.labeled.ticked.slider > .active.labels .active.label::after {
                 background: @invertedTrackFillColor;
             }
         }
     }
 
-    .ui.labeled.ticked.slider > .active.labels .active.label::after,
-    .ui.labeled.slider > .active.labels .label:not(.active) {
+    @{ui}.labeled.ticked.slider > .active.labels .active.label::after,
+    @{ui}.labeled.slider > .active.labels .label:not(.active) {
         opacity: @highlightOpacity;
     }
 }
@@ -401,41 +401,41 @@
         @lh: @colors[@@color][lightHover];
 
         /* Standard */
-        .ui.@{color}.slider .inner .track-fill {
+        @{ui}.@{color}.slider .inner .track-fill {
             background-color: @c;
         }
         & when (@variationSliderInverted) {
-            .ui.@{color}.inverted.slider .inner .track-fill {
+            @{ui}.@{color}.inverted.slider .inner .track-fill {
                 background-color: @l;
             }
         }
 
         & when (@variationSliderBasic) {
             /* Basic */
-            .ui.@{color}.slider.basic .inner .thumb {
+            @{ui}.@{color}.slider.basic .inner .thumb {
                 background-color: @c;
             }
-            .ui.@{color}.slider.basic .inner .thumb:hover,
-            .ui.@{color}.slider.basic:focus .inner .thumb {
+            @{ui}.@{color}.slider.basic .inner .thumb:hover,
+            @{ui}.@{color}.slider.basic:focus .inner .thumb {
                 background-color: @h;
             }
             & when (@variationSliderInverted) {
                 /* Basic Inverted */
-                .ui.@{color}.inverted.slider.basic .inner .thumb {
+                @{ui}.@{color}.inverted.slider.basic .inner .thumb {
                     background-color: @l;
                 }
-                .ui.@{color}.inverted.slider.basic .inner .thumb:hover,
-                .ui.@{color}.inverted.slider.basic:focus .inner .thumb {
+                @{ui}.@{color}.inverted.slider.basic .inner .thumb:hover,
+                @{ui}.@{color}.inverted.slider.basic:focus .inner .thumb {
                     background-color: @lh;
                 }
             }
         }
         & when (@variationSliderHighlight) and (@variationSliderTicked) {
-            .ui.@{color}.labeled.ticked.slider > .active.labels .active.label::after {
+            @{ui}.@{color}.labeled.ticked.slider > .active.labels .active.label::after {
                 background-color: @c;
             }
             & when (@variationSliderInverted) {
-                .ui.@{color}.inverted.labeled.ticked.slider > .active.labels .active.label::after {
+                @{ui}.@{color}.inverted.labeled.ticked.slider > .active.labels .active.label::after {
                     background-color: @l;
                 }
             }
@@ -450,11 +450,11 @@
     --------------- */
 
     /* Standard */
-    .ui.slider.basic .inner .thumb {
+    @{ui}.slider.basic .inner .thumb {
         background-color: @trackFillColor;
     }
-    .ui.slider.basic .inner .thumb:hover,
-    .ui.slider.basic:focus .inner .thumb {
+    @{ui}.slider.basic .inner .thumb:hover,
+    @{ui}.slider.basic:focus .inner .thumb {
         background-color: @trackFillColorFocus;
     }
 
@@ -464,11 +464,11 @@
         --------------- */
 
         /* Standard */
-        .ui.inverted.slider.basic .inner .thumb {
+        @{ui}.inverted.slider.basic .inner .thumb {
             background-color: @invertedTrackFillColor;
         }
-        .ui.inverted.slider.basic .inner .thumb:hover,
-        .ui.inverted.slider.basic:focus .inner .thumb {
+        @{ui}.inverted.slider.basic .inner .thumb:hover,
+        @{ui}.inverted.slider.basic:focus .inner .thumb {
             background-color: @invertedTrackFillColorFocus;
         }
     }
@@ -484,43 +484,43 @@
         @th: @{value}TrackHeight;
         @tp: @{value}TrackPositionTop;
         @lh: @{value}LabelHeight;
-        .ui.slider.@{value} .inner .thumb {
+        @{ui}.slider.@{value} .inner .thumb {
             height: @@h;
             width: @@h;
         }
-        .ui.slider.@{value}@{notVertical} .inner {
+        @{ui}.slider.@{value}@{notVertical} .inner {
             height: @@h;
         }
-        .ui.slider.@{value}@{notVertical} .inner .track,
-        .ui.slider.@{value}@{notVertical} .inner .track-fill {
+        @{ui}.slider.@{value}@{notVertical} .inner .track,
+        @{ui}.slider.@{value}@{notVertical} .inner .track-fill {
             height: @@th;
             top: @@tp;
         }
         & when (@variationSliderLabeled) {
-            .ui.@{value}.labeled.slider@{notVertical} > .labels,
-            .ui.@{value}.labeled.slider@{notVertical} > .labels .label::after {
+            @{ui}.@{value}.labeled.slider@{notVertical} > .labels,
+            @{ui}.@{value}.labeled.slider@{notVertical} > .labels .label::after {
                 height: @@lh;
             }
-            .ui.@{value}.labeled.slider@{notVertical} > .labels .halftick.label::after {
+            @{ui}.@{value}.labeled.slider@{notVertical} > .labels .halftick.label::after {
                 height: (@@lh / 2);
             }
         }
         & when (@variationSliderVertical) {
             /* Small Vertical */
-            .ui.slider.@{value}.vertical .inner {
+            @{ui}.slider.@{value}.vertical .inner {
                 width: @@h;
             }
-            .ui.slider.@{value}.vertical .inner .track,
-            .ui.slider.@{value}.vertical .inner .track-fill {
+            @{ui}.slider.@{value}.vertical .inner .track,
+            @{ui}.slider.@{value}.vertical .inner .track-fill {
                 width: @@th;
                 left: @@tp;
             }
             & when (@variationSliderLabeled) {
-                .ui.@{value}.labeled.vertical.slider> .labels,
-                .ui.@{value}.labeled.vertical.slider> .labels .label::after {
+                @{ui}.@{value}.labeled.vertical.slider> .labels,
+                @{ui}.@{value}.labeled.vertical.slider> .labels .label::after {
                     width: @@lh;
                 }
-                .ui.@{value}.labeled.vertical.slider> .labels .halftick.label::after {
+                @{ui}.@{value}.labeled.vertical.slider> .labels .halftick.label::after {
                     width: (@@lh / 2);
                 }
             }

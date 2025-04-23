@@ -21,11 +21,11 @@
              Search
 *******************************/
 
-.ui.search {
+@{ui}.search {
     position: relative;
 }
 
-.ui.search > .prompt {
+@{ui}.search > .prompt {
     margin: 0;
     outline: none;
     -webkit-appearance: none;
@@ -43,7 +43,7 @@
     transition: @promptTransition;
 }
 
-.ui.search .prompt {
+@{ui}.search .prompt {
     border-radius: @promptBorderRadius;
 }
 
@@ -51,7 +51,7 @@
      Icon
 --------------- */
 
-.ui.search .prompt ~ .search.icon {
+@{ui}.search .prompt ~ .search.icon {
     cursor: pointer;
 }
 
@@ -59,7 +59,7 @@
     Results
 --------------- */
 
-.ui.search > .results {
+@{ui}.search > .results {
     display: none;
     position: absolute;
     top: 100%;
@@ -76,10 +76,10 @@
     border: @resultsBorder;
     z-index: @resultsZIndex;
 }
-.ui.search > .results > :first-child {
+@{ui}.search > .results > :first-child {
     border-radius: @resultsBorderRadius @resultsBorderRadius 0 0;
 }
-.ui.search > .results > :last-child {
+@{ui}.search > .results > :last-child {
     border-radius: 0 0 @resultsBorderRadius @resultsBorderRadius;
 }
 
@@ -87,7 +87,7 @@
     Result
 --------------- */
 
-.ui.search > .results .result {
+@{ui}.search > .results .result {
     cursor: pointer;
     display: block;
     overflow: hidden;
@@ -97,12 +97,12 @@
     line-height: @resultLineHeight;
     border-bottom: @resultDivider;
 }
-.ui.search > .results .result:last-child {
+@{ui}.search > .results .result:last-child {
     border-bottom: @resultLastDivider !important;
 }
 
 /* Image */
-.ui.search > .results .result .image {
+@{ui}.search > .results .result .image {
     float: @resultImageFloat;
     overflow: hidden;
     background: @resultImageBackground;
@@ -110,7 +110,7 @@
     height: @resultImageHeight;
     border-radius: @resultImageBorderRadius;
 }
-.ui.search > .results .result .image img {
+@{ui}.search > .results .result .image img {
     display: block;
     width: auto;
     height: 100%;
@@ -120,23 +120,23 @@
       Info
 --------------- */
 
-.ui.search > .results .result .image + .content {
+@{ui}.search > .results .result .image + .content {
     margin: @resultImageMargin;
 }
 
-.ui.search > .results .result .title {
+@{ui}.search > .results .result .title {
     margin: @resultTitleMargin;
     font-family: @resultTitleFont;
     font-weight: @resultTitleFontWeight;
     font-size: @resultTitleFontSize;
     color: @resultTitleColor;
 }
-.ui.search > .results .result .description {
+@{ui}.search > .results .result .description {
     margin-top: @resultDescriptionDistance;
     font-size: @resultDescriptionFontSize;
     color: @resultDescriptionColor;
 }
-.ui.search > .results .result .price {
+@{ui}.search > .results .result .price {
     float: @resultPriceFloat;
     color: @resultPriceColor;
 }
@@ -145,23 +145,23 @@
     Message
 --------------- */
 
-.ui.search > .results > .message {
+@{ui}.search > .results > .message {
     padding: @messageVerticalPadding @messageHorizontalPadding;
 }
-.ui.search > .results > .message .header {
+@{ui}.search > .results > .message .header {
     font-family: @headerFont;
     font-size: @messageHeaderFontSize;
     font-weight: @messageHeaderFontWeight;
     color: @messageHeaderColor;
 }
-.ui.search > .results > .message .description {
+@{ui}.search > .results > .message .description {
     margin-top: @messageDescriptionDistance;
     font-size: @messageDescriptionFontSize;
     color: @messageDescriptionColor;
 }
 
 /* View All Results */
-.ui.search > .results > .action {
+@{ui}.search > .results > .action {
     display: block;
     border-top: @actionBorder;
     background: @actionBackground;
@@ -179,7 +179,7 @@
        Focus
 --------------------- */
 
-.ui.search > .prompt:focus {
+@{ui}.search > .prompt:focus {
     border-color: @promptFocusBorderColor;
     background: @promptFocusBackground;
     color: @promptFocusColor;
@@ -190,7 +190,7 @@
            Loading
     --------------------- */
 
-    .ui.loading.search .input > i.icon::before {
+    @{ui}.loading.search .input > i.icon::before {
         position: absolute;
         content: "";
         top: 50%;
@@ -201,7 +201,7 @@
         border-radius: @circularRadius;
         border: @loaderLineWidth solid @loaderFillColor;
     }
-    .ui.loading.search .input > i.icon::after {
+    @{ui}.loading.search .input > i.icon::after {
         position: absolute;
         content: "";
         top: 50%;
@@ -220,11 +220,11 @@
       Hover
 --------------- */
 
-.ui.search > .results .result:hover,
-.ui.category.search > .results .category .result:hover {
+@{ui}.search > .results .result:hover,
+@{ui}.category.search > .results .category .result:hover {
     background: @resultHoverBackground;
 }
-.ui.search .action:hover:not(div) {
+@{ui}.search .action:hover:not(div) {
     background: @actionHoverBackground;
 }
 
@@ -232,25 +232,25 @@
       Active
 --------------- */
 & when (@variationSearchCategory) {
-    .ui.category.search > .results .category.active {
+    @{ui}.category.search > .results .category.active {
         background: @categoryActiveBackground;
     }
-    .ui.category.search > .results .category.active > .name {
+    @{ui}.category.search > .results .category.active > .name {
         color: @categoryNameActiveColor;
     }
 }
 
-.ui.search > .results .result.active,
-.ui.category.search > .results .category .result.active {
+@{ui}.search > .results .result.active,
+@{ui}.category.search > .results .category .result.active {
     position: relative;
     border-left-color: @resultActiveBorderLeft;
     background: @resultActiveBackground;
     box-shadow: @resultActiveBoxShadow;
 }
-.ui.search > .results .result.active .title {
+@{ui}.search > .results .result.active .title {
     color: @resultActiveTitleColor;
 }
-.ui.search > .results .result.active .description {
+@{ui}.search > .results .result.active .description {
     color: @resultActiveDescriptionColor;
 }
 
@@ -260,7 +260,7 @@
     ---------------------- */
 
     /* Disabled */
-    .ui.disabled.search {
+    @{ui}.disabled.search {
         cursor: default;
         pointer-events: none;
         opacity: @disabledOpacity;
@@ -276,7 +276,7 @@
         Clear Icon
     --------------- */
 
-    .ui.search > .icon.input > .remove.icon {
+    @{ui}.search > .icon.input > .remove.icon {
         pointer-events: all;
         transition: @clearableIconTransition;
         cursor: pointer;
@@ -285,10 +285,10 @@
             opacity: @clearableIconHoverOpacity;
         }
     }
-    .ui.search > .icon.input:not([class*="left icon"]) > .icon ~ .remove.icon {
+    @{ui}.search > .icon.input:not([class*="left icon"]) > .icon ~ .remove.icon {
         right: @clearableIconInputRight;
     }
-    .ui.search input[type="search"]::-webkit-search-cancel-button {
+    @{ui}.search input[type="search"]::-webkit-search-cancel-button {
         -webkit-appearance: none;
         cursor: pointer;
         transition: @clearableIconTransition;
@@ -301,12 +301,12 @@
         }
     }
     & when (@variationSearchLoading) {
-        .ui.loading.search input[type="search"]::-webkit-search-cancel-button {
+        @{ui}.loading.search input[type="search"]::-webkit-search-cancel-button {
             display: none;
         }
     }
-    .ui.search > .icon.input > input:placeholder-shown ~ .remove.icon,
-    .ui.search.loading > .icon.input > .remove.icon {
+    @{ui}.search > .icon.input > input:placeholder-shown ~ .remove.icon,
+    @{ui}.search.loading > .icon.input > .remove.icon {
         display: none;
     }
 }
@@ -316,17 +316,17 @@
         Category
     --------------- */
 
-    .ui.category.search .results {
+    @{ui}.category.search .results {
         width: @categoryResultsWidth;
     }
 
-    .ui.category.search .results.animating,
-    .ui.category.search .results.visible {
+    @{ui}.category.search .results.animating,
+    @{ui}.category.search .results.visible {
         display: table;
     }
 
     /* Category */
-    .ui.category.search > .results .category {
+    @{ui}.category.search > .results .category {
         display: table-row;
         background: @categoryBackground;
         box-shadow: @categoryBoxShadow;
@@ -334,20 +334,20 @@
     }
 
     /* Last Category */
-    .ui.category.search > .results .category:last-child {
+    @{ui}.category.search > .results .category:last-child {
         border-bottom: none;
     }
 
     /* First / Last */
-    .ui.category.search > .results .category:first-child .name + .result {
+    @{ui}.category.search > .results .category:first-child .name + .result {
         border-radius: 0 @resultsBorderRadius 0 0;
     }
-    .ui.category.search > .results .category:last-child .result:last-child {
+    @{ui}.category.search > .results .category:last-child .result:last-child {
         border-radius: 0 0 @resultsBorderRadius 0;
     }
 
     /* Category Result Name */
-    .ui.category.search > .results .category > .name {
+    @{ui}.category.search > .results .category > .name {
         display: table-cell;
         text-overflow: ellipsis;
         width: @categoryNameWidth;
@@ -362,26 +362,26 @@
     }
 
     /* Category Result */
-    .ui.category.search > .results .category .results {
+    @{ui}.category.search > .results .category .results {
         display: table-cell;
         background: @categoryResultBackground;
         border-left: @categoryResultLeftBorder;
         border-bottom: @categoryDivider;
     }
-    .ui.category.search > .results .category .result {
+    @{ui}.category.search > .results .category .result {
         border-bottom: @categoryResultDivider;
         transition: @categoryResultTransition;
         padding: @categoryResultPadding;
     }
 
     & when (@variationSearchHorizontalCategory) {
-        .ui.horizontal.category.search > .results .category,
-        .ui.horizontal.category.search > .results .category > .name,
-        .ui.horizontal.category.search > .results .category > .results {
+        @{ui}.horizontal.category.search > .results .category,
+        @{ui}.horizontal.category.search > .results .category > .name,
+        @{ui}.horizontal.category.search > .results .category > .results {
             display: block;
         }
 
-        .ui.horizontal.category.search > .results .category > .results {
+        @{ui}.horizontal.category.search > .results .category > .results {
             width: 100%;
             border-left: 0;
         }
@@ -399,9 +399,9 @@
          Scrolling
     -------------------- */
 
-    .ui.scrolling.search > .results,
-    .ui.search.long > .results,
-    .ui.search.short > .results {
+    @{ui}.scrolling.search > .results,
+    @{ui}.search.long > .results,
+    @{ui}.search.short > .results {
         overflow-x: hidden;
         overflow-y: auto;
         overscroll-behavior: @overscrollBehavior;
@@ -411,7 +411,7 @@
 
 & when (@variationSearchScrolling) {
     @media only screen and (max-width: @largestMobileScreen) {
-        .ui.scrolling.search > .results {
+        @{ui}.scrolling.search > .results {
             max-height: @scrollingMobileMaxResultsHeight;
             .resizable& when (@variationSearchResizable) {
                 height: @scrollingMobileMaxResultsHeight;
@@ -419,7 +419,7 @@
         }
     }
     @media only screen and (min-width: @tabletBreakpoint) {
-        .ui.scrolling.search > .results {
+        @{ui}.scrolling.search > .results {
             max-height: @scrollingTabletMaxResultsHeight;
             .resizable& when (@variationSearchResizable) {
                 height: @scrollingTabletMaxResultsHeight;
@@ -427,7 +427,7 @@
         }
     }
     @media only screen and (min-width: @computerBreakpoint) {
-        .ui.scrolling.search > .results {
+        @{ui}.scrolling.search > .results {
             max-height: @scrollingComputerMaxResultsHeight;
             .resizable& when (@variationSearchResizable) {
                 height: @scrollingComputerMaxResultsHeight;
@@ -435,7 +435,7 @@
         }
     }
     @media only screen and (min-width: @widescreenMonitorBreakpoint) {
-        .ui.scrolling.search > .results {
+        @{ui}.scrolling.search > .results {
             max-height: @scrollingWidescreenMaxResultsHeight;
             .resizable& when (@variationSearchResizable) {
                 height: @scrollingWidescreenMaxResultsHeight;
@@ -443,7 +443,7 @@
         }
     }
     & when (@variationSearchResizable) {
-        .ui.scrolling.resizable.search > .results {
+        @{ui}.scrolling.resizable.search > .results {
             resize: @resizableDirection;
             max-height: none;
         }
@@ -452,21 +452,21 @@
 
 @media only screen and (max-width: @largestMobileScreen) {
     & when (@variationSearchShort) {
-        .ui.search.short > .results {
+        @{ui}.search.short > .results {
             max-height: @scrollingMobileMaxResultsHeight;
         }
         & when (@variationSearchVeryShort) {
-            .ui.search[class*="very short"] > .results {
+            @{ui}.search[class*="very short"] > .results {
                 max-height: @scrollingMobileMaxResultsHeight * 0.75;
             }
         }
     }
     & when (@variationSearchLong) {
-        .ui.search.long > .results {
+        @{ui}.search.long > .results {
             max-height: @scrollingMobileMaxResultsHeight * 2;
         }
         & when (@variationSearchVeryLong) {
-            .ui.search[class*="very long"] > .results {
+            @{ui}.search[class*="very long"] > .results {
                 max-height: @scrollingMobileMaxResultsHeight * 3;
             }
         }
@@ -474,21 +474,21 @@
 }
 @media only screen and (min-width: @tabletBreakpoint) {
     & when (@variationSearchShort) {
-        .ui.search.short > .results {
+        @{ui}.search.short > .results {
             max-height: @scrollingTabletMaxResultsHeight;
         }
         & when (@variationSearchVeryShort) {
-            .ui.search[class*="very short"] > .results {
+            @{ui}.search[class*="very short"] > .results {
                 max-height: @scrollingTabletMaxResultsHeight * 0.75;
             }
         }
     }
     & when (@variationSearchLong) {
-        .ui.search.long > .results {
+        @{ui}.search.long > .results {
             max-height: @scrollingTabletMaxResultsHeight * 2;
         }
         & when (@variationSearchVeryLong) {
-            .ui.search[class*="very long"] > .results {
+            @{ui}.search[class*="very long"] > .results {
                 max-height: @scrollingTabletMaxResultsHeight * 3;
             }
         }
@@ -496,21 +496,21 @@
 }
 @media only screen and (min-width: @computerBreakpoint) {
     & when (@variationSearchShort) {
-        .ui.search.short > .results {
+        @{ui}.search.short > .results {
             max-height: @scrollingComputerMaxResultsHeight;
         }
         & when (@variationSearchVeryShort) {
-            .ui.search[class*="very short"] > .results {
+            @{ui}.search[class*="very short"] > .results {
                 max-height: @scrollingComputerMaxResultsHeight * 0.75;
             }
         }
     }
     & when (@variationSearchLong) {
-        .ui.search.long > .results {
+        @{ui}.search.long > .results {
             max-height: @scrollingComputerMaxResultsHeight * 2;
         }
         & when (@variationSearchVeryLong) {
-            .ui.search[class*="very long"] > .results {
+            @{ui}.search[class*="very long"] > .results {
                 max-height: @scrollingComputerMaxResultsHeight * 3;
             }
         }
@@ -518,21 +518,21 @@
 }
 @media only screen and (min-width: @widescreenMonitorBreakpoint) {
     & when (@variationSearchShort) {
-        .ui.search.short > .results {
+        @{ui}.search.short > .results {
             max-height: @scrollingWidescreenMaxResultsHeight;
         }
         & when (@variationSearchVeryShort) {
-            .ui.search[class*="very short"] > .results {
+            @{ui}.search[class*="very short"] > .results {
                 max-height: @scrollingWidescreenMaxResultsHeight * 0.75;
             }
         }
     }
     & when (@variationSearchLong) {
-        .ui.search.long > .results {
+        @{ui}.search.long > .results {
             max-height: @scrollingWidescreenMaxResultsHeight * 2;
         }
         & when (@variationSearchVeryLong) {
-            .ui.search[class*="very long"] > .results {
+            @{ui}.search[class*="very long"] > .results {
                 max-height: @scrollingWidescreenMaxResultsHeight * 3;
             }
         }
@@ -544,11 +544,11 @@
          Left / Right
     -------------------- */
 
-    .ui[class*="left aligned"].search > .results {
+    @{ui}[class*="left aligned"].search > .results {
         right: auto;
         left: 0;
     }
-    .ui[class*="right aligned"].search > .results {
+    @{ui}[class*="right aligned"].search > .results {
         right: 0;
         left: auto;
     }
@@ -559,7 +559,7 @@
 --------------- */
 
 & when (@variationSearchFluid) {
-    .ui.fluid.search .results {
+    @{ui}.fluid.search .results {
         width: 100%;
     }
 }
@@ -568,20 +568,20 @@
       Sizes
 --------------- */
 
-.ui.search {
+@{ui}.search {
     font-size: @relativeMedium;
 }
 & when not (@variationSearchSizes = false) {
     each(@variationSearchSizes, {
         @s: @{value}SearchSize;
-        .ui.@{value}.search {
+        @{ui}.@{value}.search {
             font-size: @@s;
         }
     });
 }
 
 & when (@variationSearchHighlightMatches) {
-    .ui.search > .results mark {
+    @{ui}.search > .results mark {
         background: @highlightMatchesBackground;
         color: @highlightMatchesColor;
     }
@@ -592,7 +592,7 @@
 --------------- */
 
 @media only screen and (max-width: @largestMobileScreen) {
-    .ui.search .results {
+    @{ui}.search .results {
         max-width: @mobileMaxWidth;
     }
 }

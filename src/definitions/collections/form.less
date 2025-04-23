@@ -38,7 +38,7 @@
         Form
 --------------------- */
 
-.ui.form {
+@{ui}.form {
     position: relative;
     max-width: 100%;
 }
@@ -47,7 +47,7 @@
         Content
 --------------------- */
 
-.ui.form > p {
+@{ui}.form > p {
     margin: @paragraphMargin;
 }
 
@@ -55,18 +55,18 @@
         Field
 --------------------- */
 
-.ui.form .field {
+@{ui}.form .field {
     clear: both;
     margin: @fieldMargin;
 }
 
-.ui.form .fields .fields,
-.ui.form .field:last-child,
-.ui.form .fields:last-child .field {
+@{ui}.form .fields .fields,
+@{ui}.form .field:last-child,
+@{ui}.form .fields:last-child .field {
     margin-bottom: 0;
 }
 
-.ui.form .fields .field {
+@{ui}.form .fields .field {
     clear: both;
     margin: 0;
 }
@@ -75,14 +75,14 @@
         Labels
 --------------------- */
 
-.ui.form .field > label {
+@{ui}.form .field > label {
     display: block;
     margin: @labelMargin;
     font-size: @labelFontSize;
     font-weight: @labelFontWeight;
     text-transform: @labelTextTransform;
 }
-.ui.form@{notInverted} .field > label:not(.button) {
+@{ui}.form@{notInverted} .field > label:not(.button) {
     color: @labelColor;
 }
 
@@ -90,47 +90,47 @@
     Standard Inputs
 --------------------- */
 
-.ui.form textarea,
-.ui.form input:not([type]),
-.ui.form input[type="color"],
-.ui.form input[type="date"],
-.ui.form input[type="datetime-local"],
-.ui.form input[type="email"],
-.ui.form input[type="month"],
-.ui.form input[type="number"],
-.ui.form input[type="password"],
-.ui.form input[type="search"],
-.ui.form input[type="tel"],
-.ui.form input[type="time"],
-.ui.form input[type="text"],
-.ui.form input[type="file"],
-.ui.form input[type="url"],
-.ui.form input[type="week"] {
+@{ui}.form textarea,
+@{ui}.form input:not([type]),
+@{ui}.form input[type="color"],
+@{ui}.form input[type="date"],
+@{ui}.form input[type="datetime-local"],
+@{ui}.form input[type="email"],
+@{ui}.form input[type="month"],
+@{ui}.form input[type="number"],
+@{ui}.form input[type="password"],
+@{ui}.form input[type="search"],
+@{ui}.form input[type="tel"],
+@{ui}.form input[type="time"],
+@{ui}.form input[type="text"],
+@{ui}.form input[type="file"],
+@{ui}.form input[type="url"],
+@{ui}.form input[type="week"] {
     width: @inputWidth;
     vertical-align: top;
 }
 
 /* Set max height on unusual input */
-.ui.form ::-webkit-datetime-edit,
-.ui.form ::-webkit-inner-spin-button {
+@{ui}.form ::-webkit-datetime-edit,
+@{ui}.form ::-webkit-inner-spin-button {
     height: @inputLineHeight;
 }
 
-.ui.form input:not([type]),
-.ui.form input[type="color"],
-.ui.form input[type="date"],
-.ui.form input[type="datetime-local"],
-.ui.form input[type="email"],
-.ui.form input[type="month"],
-.ui.form input[type="number"],
-.ui.form input[type="password"],
-.ui.form input[type="search"],
-.ui.form input[type="tel"],
-.ui.form input[type="time"],
-.ui.form input[type="text"],
-.ui.form input[type="file"],
-.ui.form input[type="url"],
-.ui.form input[type="week"] {
+@{ui}.form input:not([type]),
+@{ui}.form input[type="color"],
+@{ui}.form input[type="date"],
+@{ui}.form input[type="datetime-local"],
+@{ui}.form input[type="email"],
+@{ui}.form input[type="month"],
+@{ui}.form input[type="number"],
+@{ui}.form input[type="password"],
+@{ui}.form input[type="search"],
+@{ui}.form input[type="tel"],
+@{ui}.form input[type="time"],
+@{ui}.form input[type="text"],
+@{ui}.form input[type="file"],
+@{ui}.form input[type="url"],
+@{ui}.form input[type="week"] {
     font-family: @inputFont;
     margin: 0;
     outline: none;
@@ -146,11 +146,11 @@
     box-shadow: @inputBoxShadow;
     transition: @inputTransition;
 }
-.ui.form input[type="color"] {
+@{ui}.form input[type="color"] {
     padding: initial;
 }
 
-.ui.form input::-webkit-calendar-picker-indicator {
+@{ui}.form input::-webkit-calendar-picker-indicator {
     padding: 0;
     opacity: @iconOpacity;
     transition: @iconTransition;
@@ -158,8 +158,8 @@
 }
 
 /* Text Area */
-.ui.input textarea,
-.ui.form textarea {
+@{ui}.input textarea,
+@{ui}.form textarea {
     margin: 0;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -177,18 +177,18 @@
     resize: @textAreaResize;
     min-height: @actionTextareaMinHeight;
 }
-.ui.input > textarea {
+@{ui}.input > textarea {
     flex: 1 1 auto;
     max-width: 100%;
 }
-.ui.form textarea:not([rows]) {
+@{ui}.form textarea:not([rows]) {
     height: @textAreaHeight;
     min-height: @textAreaMinHeight;
     max-height: @textAreaMaxHeight;
 }
 
-.ui.form textarea,
-.ui.form input[type="checkbox"] {
+@{ui}.form textarea,
+@{ui}.form input[type="checkbox"] {
     vertical-align: @checkboxVerticalAlign;
 }
 
@@ -196,25 +196,25 @@
     Checkbox margin
 --------------------- */
 
-.ui.form .fields@{notGrouped}@{notInline} .field:not(:only-child) label + .ui.ui.checkbox {
+@{ui}.form .fields@{notGrouped}@{notInline} .field:not(:only-child) label + @{ui}@{ui}.checkbox {
     margin-top: @checkboxLabelFieldTopMargin;
 }
-.ui.form .fields@{notGrouped}@{notInline} .field:not(:only-child) .ui.checkbox {
+@{ui}.form .fields@{notGrouped}@{notInline} .field:not(:only-child) @{ui}.checkbox {
     margin-top: @inputLineHeight + @checkboxFieldTopMargin;
 }
-.ui.form .fields@{notGrouped}@{notInline} .field:not(:only-child) .ui.toggle.checkbox {
+@{ui}.form .fields@{notGrouped}@{notInline} .field:not(:only-child) @{ui}.toggle.checkbox {
     margin-top: @inputLineHeight + @checkboxToggleFieldTopMargin;
 }
-.ui.form .fields@{notGrouped}@{notInline} .field:not(:only-child) .ui.slider.checkbox {
+@{ui}.form .fields@{notGrouped}@{notInline} .field:not(:only-child) @{ui}.slider.checkbox {
     margin-top: @inputLineHeight + @checkboxSliderFieldTopMargin;
 }
-.ui.ui.form .field .fields .field:not(:only-child) .ui.checkbox {
+@{ui}@{ui}.form .field .fields .field:not(:only-child) @{ui}.checkbox {
     margin-top: (@checkboxFieldTopMargin / 2);
 }
-.ui.ui.form .field .fields .field:not(:only-child) .ui.toggle.checkbox {
+@{ui}@{ui}.form .field .fields .field:not(:only-child) @{ui}.toggle.checkbox {
     margin-top: (@checkboxToggleFieldTopMargin / 2);
 }
-.ui.ui.form .field .fields .field:not(:only-child) .ui.slider.checkbox {
+@{ui}@{ui}.form .field .fields .field:not(:only-child) @{ui}.slider.checkbox {
     margin-top: (@checkboxSliderFieldTopMargin / 2);
 }
 
@@ -223,14 +223,14 @@
           Transparent
     --------------------- */
 
-    .ui.form .field .transparent.input@{notIcon} input,
-    .ui.form .field input.transparent,
-    .ui.form .field textarea.transparent {
+    @{ui}.form .field .transparent.input@{notIcon} input,
+    @{ui}.form .field input.transparent,
+    @{ui}.form .field textarea.transparent {
         padding: @transparentPadding;
     }
 
-    .ui.form .field input.transparent,
-    .ui.form .field textarea.transparent {
+    @{ui}.form .field input.transparent,
+    @{ui}.form .field textarea.transparent {
         border-color: transparent !important;
         background-color: transparent !important;
         box-shadow: none !important;
@@ -241,7 +241,7 @@
   Input w/ attached Button
 --------------------------- */
 
-.ui.form input.attached {
+@{ui}.form input.attached {
     width: auto;
 }
 
@@ -249,7 +249,7 @@
      Basic Select
 --------------------- */
 
-.ui.form select {
+@{ui}.form select {
     display: block;
     height: auto;
     width: 100%;
@@ -267,22 +267,22 @@
 --------------------- */
 
 /* Block */
-.ui.form .field > .selection.dropdown@{notCompact} {
+@{ui}.form .field > .selection.dropdown@{notCompact} {
     min-width: auto;
     width: 100%;
 }
-.ui.form .field > .selection.dropdown > .dropdown.icon {
+@{ui}.form .field > .selection.dropdown > .dropdown.icon {
     float: right;
 }
 
 & when (@variationFormInline) {
     /* Inline */
-    .ui.form .inline.fields .field > .selection.dropdown,
-    .ui.form .inline.field > .selection.dropdown {
+    @{ui}.form .inline.fields .field > .selection.dropdown,
+    @{ui}.form .inline.field > .selection.dropdown {
         width: auto;
     }
-    .ui.form .inline.fields .field > .selection.dropdown > .dropdown.icon,
-    .ui.form .inline.field > .selection.dropdown > .dropdown.icon {
+    @{ui}.form .inline.fields .field > .selection.dropdown > .dropdown.icon,
+    @{ui}.form .inline.field > .selection.dropdown > .dropdown.icon {
         float: none;
     }
 }
@@ -292,41 +292,41 @@
 --------------------- */
 
 /* Block */
-.ui.form .field .ui.input,
-.ui.form .fields .field .ui.input,
-.ui.form .wide.field .ui.input {
+@{ui}.form .field @{ui}.input,
+@{ui}.form .fields .field @{ui}.input,
+@{ui}.form .wide.field @{ui}.input {
     width: 100%;
 }
 
 & when (@variationFormInline) {
     /* Inline */
-    .ui.form .inline.fields .field@{notWide} .ui.input,
-    .ui.form .inline.field@{notWide} .ui.input {
+    @{ui}.form .inline.fields .field@{notWide} @{ui}.input,
+    @{ui}.form .inline.field@{notWide} @{ui}.input {
         width: auto;
         vertical-align: middle;
     }
 }
 
 /* Auto Input */
-.ui.form .fields .field .ui.input input,
-.ui.form .fields .field .ui.input textarea,
-.ui.form .field .ui.input input,
-.ui.form .field .ui.input textarea {
+@{ui}.form .fields .field @{ui}.input input,
+@{ui}.form .fields .field @{ui}.input textarea,
+@{ui}.form .field @{ui}.input input,
+@{ui}.form .field @{ui}.input textarea {
     width: 100%;
 }
 
 & when (@variationFormEqualWidth) or (@variationFormWide) {
     /* Full Width Input */
-    .ui.form .ten.fields .ui.input input,
-    .ui.form .nine.fields .ui.input input,
-    .ui.form .eight.fields .ui.input input,
-    .ui.form .seven.fields .ui.input input,
-    .ui.form .six.fields .ui.input input,
-    .ui.form .five.fields .ui.input input,
-    .ui.form .four.fields .ui.input input,
-    .ui.form .three.fields .ui.input input,
-    .ui.form .two.fields .ui.input input,
-    .ui.form .wide.field .ui.input input {
+    @{ui}.form .ten.fields @{ui}.input input,
+    @{ui}.form .nine.fields @{ui}.input input,
+    @{ui}.form .eight.fields @{ui}.input input,
+    @{ui}.form .seven.fields @{ui}.input input,
+    @{ui}.form .six.fields @{ui}.input input,
+    @{ui}.form .five.fields @{ui}.input input,
+    @{ui}.form .four.fields @{ui}.input input,
+    @{ui}.form .three.fields @{ui}.input input,
+    @{ui}.form .two.fields @{ui}.input input,
+    @{ui}.form .wide.field @{ui}.input input {
         flex: 1 0 auto;
         width: 0;
     }
@@ -338,15 +338,15 @@
 & when not (@variationFormStates = false) {
     each(@variationFormStates, {
         @state: @value;
-        .ui.form .@{state}.message,
-        .ui.form .@{state}.message:empty {
+        @{ui}.form .@{state}.message,
+        @{ui}.form .@{state}.message:empty {
             display: none;
         }
     });
 }
 
 /* Assumptions */
-.ui.form .message:first-child {
+@{ui}.form .message:first-child {
     margin-top: 0;
 }
 
@@ -354,7 +354,7 @@
    Validation Prompt
 --------------------- */
 
-.ui.form .field .prompt.label {
+@{ui}.form .field .prompt.label {
     white-space: normal;
     background: @promptBackground !important;
     border: @promptBorder !important;
@@ -364,13 +364,13 @@
     }
 }
 & when (@variationFormInline) {
-    .ui.form .inline.fields .field .prompt,
-    .ui.form .inline.field .prompt {
+    @{ui}.form .inline.fields .field .prompt,
+    @{ui}.form .inline.field .prompt {
         vertical-align: top;
         margin: @inlinePromptMargin;
     }
-    .ui.form .inline.fields .field .prompt::before,
-    .ui.form .inline.field .prompt::before {
+    @{ui}.form .inline.fields .field .prompt::before,
+    @{ui}.form .inline.field .prompt::before {
         border-width: 0 0 @inlinePromptBorderWidth @inlinePromptBorderWidth;
         bottom: auto;
         right: auto;
@@ -387,13 +387,13 @@
       Autofilled
 --------------------- */
 
-.ui.form .field.field input:-webkit-autofill {
+@{ui}.form .field.field input:-webkit-autofill {
     box-shadow: 0 0 0 100px @inputAutoFillBackground inset !important;
     border-color: @inputAutoFillBorder !important;
 }
 
 /* Focus */
-.ui.form .field.field input:-webkit-autofill:focus {
+@{ui}.form .field.field input:-webkit-autofill:focus {
     box-shadow: 0 0 0 100px @inputAutoFillFocusBackground inset !important;
     border-color: @inputAutoFillFocusBorder !important;
 }
@@ -403,14 +403,14 @@
 --------------------- */
 
 /* browsers require these rules separate */
-.ui.form ::placeholder {
+@{ui}.form ::placeholder {
     color: @inputPlaceholderColor;
 }
-.ui.form ::-moz-placeholder {
+@{ui}.form ::-moz-placeholder {
     opacity: 1;
 }
 
-.ui.form :focus::placeholder {
+@{ui}.form :focus::placeholder {
     color: @inputPlaceholderFocusColor;
 }
 
@@ -418,21 +418,21 @@
         Focus
 --------------------- */
 
-.ui.form input:not([type]):focus,
-.ui.form input[type="color"]:focus,
-.ui.form input[type="date"]:focus,
-.ui.form input[type="datetime-local"]:focus,
-.ui.form input[type="email"]:focus,
-.ui.form input[type="month"]:focus,
-.ui.form input[type="number"]:focus,
-.ui.form input[type="password"]:focus,
-.ui.form input[type="search"]:focus,
-.ui.form input[type="tel"]:focus,
-.ui.form input[type="time"]:focus,
-.ui.form input[type="text"]:focus,
-.ui.form input[type="file"]:focus,
-.ui.form input[type="url"]:focus,
-.ui.form input[type="week"]:focus {
+@{ui}.form input:not([type]):focus,
+@{ui}.form input[type="color"]:focus,
+@{ui}.form input[type="date"]:focus,
+@{ui}.form input[type="datetime-local"]:focus,
+@{ui}.form input[type="email"]:focus,
+@{ui}.form input[type="month"]:focus,
+@{ui}.form input[type="number"]:focus,
+@{ui}.form input[type="password"]:focus,
+@{ui}.form input[type="search"]:focus,
+@{ui}.form input[type="tel"]:focus,
+@{ui}.form input[type="time"]:focus,
+@{ui}.form input[type="text"]:focus,
+@{ui}.form input[type="file"]:focus,
+@{ui}.form input[type="url"]:focus,
+@{ui}.form input[type="week"]:focus {
     color: @inputFocusColor;
     border-color: @inputFocusBorderColor;
     border-radius: @inputFocusBorderRadius;
@@ -440,7 +440,7 @@
     box-shadow: @inputFocusBoxShadow;
 }
 & when (@variationInputAction) {
-    .ui.form .ui.action.input:not([class*="left action"]) {
+    @{ui}.form @{ui}.action.input:not([class*="left action"]) {
         & input:not([type]):focus,
         input[type="color"]:focus,
         input[type="date"]:focus,
@@ -462,7 +462,7 @@
         }
     }
 
-    .ui.form .ui[class*="left action"].input {
+    @{ui}.form @{ui}[class*="left action"].input {
         & input:not([type]),
         input[type="color"],
         input[type="date"],
@@ -484,7 +484,7 @@
         }
     }
 }
-.ui.form textarea:focus {
+@{ui}.form textarea:focus {
     color: @textAreaFocusColor;
     border-color: @textAreaFocusBorderColor;
     border-radius: @textAreaFocusBorderRadius;
@@ -494,7 +494,7 @@
 }
 
 /* Focus */
-.ui.form input:focus::-webkit-calendar-picker-indicator {
+@{ui}.form input:focus::-webkit-calendar-picker-indicator {
     opacity: @iconFocusOpacity;
 }
 
@@ -510,90 +510,90 @@
         @lbg: @formStates[@@state][labelBackground];
 
         /* On Form */
-        .ui.form.@{state} .@{state}.message:not(:empty) {
+        @{ui}.form.@{state} .@{state}.message:not(:empty) {
             display: block;
         }
-        .ui.form.@{state} .compact.@{state}.message:not(:empty) {
+        @{ui}.form.@{state} .compact.@{state}.message:not(:empty) {
             display: inline-block;
         }
-        .ui.form.@{state} .icon.@{state}.message:not(:empty) {
+        @{ui}.form.@{state} .icon.@{state}.message:not(:empty) {
             display: flex;
         }
 
         /* On Field(s) */
-        .ui.form .fields.@{state} .@{state}.message:not(:empty),
-        .ui.form .field.@{state} .@{state}.message:not(:empty) {
+        @{ui}.form .fields.@{state} .@{state}.message:not(:empty),
+        @{ui}.form .field.@{state} .@{state}.message:not(:empty) {
             display: block;
         }
-        .ui.form .fields.@{state} .compact.@{state}.message:not(:empty),
-        .ui.form .field.@{state} .compact.@{state}.message:not(:empty) {
+        @{ui}.form .fields.@{state} .compact.@{state}.message:not(:empty),
+        @{ui}.form .field.@{state} .compact.@{state}.message:not(:empty) {
             display: inline-block;
         }
-        .ui.form .fields.@{state} .icon.@{state}.message:not(:empty),
-        .ui.form .field.@{state} .icon.@{state}.message:not(:empty) {
+        @{ui}.form .fields.@{state} .icon.@{state}.message:not(:empty),
+        @{ui}.form .field.@{state} .icon.@{state}.message:not(:empty) {
             display: flex;
         }
 
-        .ui.ui.form .fields.@{state} .field label,
-        .ui.ui.form .fields.@{state} .field .ui.label@{notCorner},
-        .ui.ui.form .field.@{state} label,
-        .ui.ui.form .field.@{state} .ui.label@{notCorner},
-        .ui.ui.form .fields.@{state} .field .input,
-        .ui.ui.form .field.@{state} .input {
+        @{ui}@{ui}.form .fields.@{state} .field label,
+        @{ui}@{ui}.form .fields.@{state} .field @{ui}.label@{notCorner},
+        @{ui}@{ui}.form .field.@{state} label,
+        @{ui}@{ui}.form .field.@{state} @{ui}.label@{notCorner},
+        @{ui}@{ui}.form .fields.@{state} .field .input,
+        @{ui}@{ui}.form .field.@{state} .input {
             color: @c;
         }
 
         @supports selector(:has(.f)) {
-            .ui.form .fields:has(.@{state}) > label {
+            @{ui}.form .fields:has(.@{state}) > label {
                 color: @c;
             }
         }
 
-        .ui.form .fields.@{state} .field .ui.label,
-        .ui.form .field.@{state} .ui.label {
+        @{ui}.form .fields.@{state} .field @{ui}.label,
+        @{ui}.form .field.@{state} @{ui}.label {
             background-color: @lbg;
         }
 
-        .ui.form .fields.@{state} .field .corner.label,
-        .ui.form .field.@{state} .corner.label {
+        @{ui}.form .fields.@{state} .field .corner.label,
+        @{ui}.form .field.@{state} .corner.label {
             border-color: @c;
             color: @formStates[@@state][cornerLabelColor];
         }
 
-        .ui.form .fields.@{state} .field textarea,
-        .ui.form .fields.@{state} .field select,
-        .ui.form .fields.@{state} .field input:not([type]),
-        .ui.form .fields.@{state} .field input[type="color"],
-        .ui.form .fields.@{state} .field input[type="date"],
-        .ui.form .fields.@{state} .field input[type="datetime-local"],
-        .ui.form .fields.@{state} .field input[type="email"],
-        .ui.form .fields.@{state} .field input[type="month"],
-        .ui.form .fields.@{state} .field input[type="number"],
-        .ui.form .fields.@{state} .field input[type="password"],
-        .ui.form .fields.@{state} .field input[type="search"],
-        .ui.form .fields.@{state} .field input[type="tel"],
-        .ui.form .fields.@{state} .field input[type="time"],
-        .ui.form .fields.@{state} .field input[type="text"],
-        .ui.form .fields.@{state} .field input[type="file"],
-        .ui.form .fields.@{state} .field input[type="url"],
-        .ui.form .fields.@{state} .field input[type="week"],
-        .ui.form .field.@{state} textarea,
-        .ui.form .field.@{state} select,
-        .ui.form .field.@{state} input:not([type]),
-        .ui.form .field.@{state} input[type="color"],
-        .ui.form .field.@{state} input[type="date"],
-        .ui.form .field.@{state} input[type="datetime-local"],
-        .ui.form .field.@{state} input[type="email"],
-        .ui.form .field.@{state} input[type="month"],
-        .ui.form .field.@{state} input[type="number"],
-        .ui.form .field.@{state} input[type="password"],
-        .ui.form .field.@{state} input[type="search"],
-        .ui.form .field.@{state} input[type="tel"],
-        .ui.form .field.@{state} input[type="time"],
-        .ui.form .field.@{state} input[type="text"],
-        .ui.form .field.@{state} input[type="file"],
-        .ui.form .field.@{state} input[type="url"],
-        .ui.form .field.@{state} input[type="week"] {
+        @{ui}.form .fields.@{state} .field textarea,
+        @{ui}.form .fields.@{state} .field select,
+        @{ui}.form .fields.@{state} .field input:not([type]),
+        @{ui}.form .fields.@{state} .field input[type="color"],
+        @{ui}.form .fields.@{state} .field input[type="date"],
+        @{ui}.form .fields.@{state} .field input[type="datetime-local"],
+        @{ui}.form .fields.@{state} .field input[type="email"],
+        @{ui}.form .fields.@{state} .field input[type="month"],
+        @{ui}.form .fields.@{state} .field input[type="number"],
+        @{ui}.form .fields.@{state} .field input[type="password"],
+        @{ui}.form .fields.@{state} .field input[type="search"],
+        @{ui}.form .fields.@{state} .field input[type="tel"],
+        @{ui}.form .fields.@{state} .field input[type="time"],
+        @{ui}.form .fields.@{state} .field input[type="text"],
+        @{ui}.form .fields.@{state} .field input[type="file"],
+        @{ui}.form .fields.@{state} .field input[type="url"],
+        @{ui}.form .fields.@{state} .field input[type="week"],
+        @{ui}.form .field.@{state} textarea,
+        @{ui}.form .field.@{state} select,
+        @{ui}.form .field.@{state} input:not([type]),
+        @{ui}.form .field.@{state} input[type="color"],
+        @{ui}.form .field.@{state} input[type="date"],
+        @{ui}.form .field.@{state} input[type="datetime-local"],
+        @{ui}.form .field.@{state} input[type="email"],
+        @{ui}.form .field.@{state} input[type="month"],
+        @{ui}.form .field.@{state} input[type="number"],
+        @{ui}.form .field.@{state} input[type="password"],
+        @{ui}.form .field.@{state} input[type="search"],
+        @{ui}.form .field.@{state} input[type="tel"],
+        @{ui}.form .field.@{state} input[type="time"],
+        @{ui}.form .field.@{state} input[type="text"],
+        @{ui}.form .field.@{state} input[type="file"],
+        @{ui}.form .field.@{state} input[type="url"],
+        @{ui}.form .field.@{state} input[type="week"] {
             color: @c;
             background: @bg;
             border-color: @formStates[@@state][borderColor];
@@ -601,7 +601,7 @@
             box-shadow: @formStates[@@state][boxShadow];
         }
         & when (@state=error) and (@variationFormInvalid) {
-            .ui.form:not(.initial) .field input:invalid {
+            @{ui}.form:not(.initial) .field input:invalid {
                 color: @c;
                 background: @bg;
                 border-color: @formStates[@@state][borderColor];
@@ -610,23 +610,23 @@
             }
         }
 
-        .ui.form .field.@{state} textarea:focus,
-        .ui.form .field.@{state} select:focus,
-        .ui.form .field.@{state} input:not([type]):focus,
-        .ui.form .field.@{state} input[type="color"]:focus,
-        .ui.form .field.@{state} input[type="date"]:focus,
-        .ui.form .field.@{state} input[type="datetime-local"]:focus,
-        .ui.form .field.@{state} input[type="email"]:focus,
-        .ui.form .field.@{state} input[type="month"]:focus,
-        .ui.form .field.@{state} input[type="number"]:focus,
-        .ui.form .field.@{state} input[type="password"]:focus,
-        .ui.form .field.@{state} input[type="search"]:focus,
-        .ui.form .field.@{state} input[type="tel"]:focus,
-        .ui.form .field.@{state} input[type="time"]:focus,
-        .ui.form .field.@{state} input[type="text"]:focus,
-        .ui.form .field.@{state} input[type="file"]:focus,
-        .ui.form .field.@{state} input[type="url"]:focus,
-        .ui.form .field.@{state} input[type="week"]:focus {
+        @{ui}.form .field.@{state} textarea:focus,
+        @{ui}.form .field.@{state} select:focus,
+        @{ui}.form .field.@{state} input:not([type]):focus,
+        @{ui}.form .field.@{state} input[type="color"]:focus,
+        @{ui}.form .field.@{state} input[type="date"]:focus,
+        @{ui}.form .field.@{state} input[type="datetime-local"]:focus,
+        @{ui}.form .field.@{state} input[type="email"]:focus,
+        @{ui}.form .field.@{state} input[type="month"]:focus,
+        @{ui}.form .field.@{state} input[type="number"]:focus,
+        @{ui}.form .field.@{state} input[type="password"]:focus,
+        @{ui}.form .field.@{state} input[type="search"]:focus,
+        @{ui}.form .field.@{state} input[type="tel"]:focus,
+        @{ui}.form .field.@{state} input[type="time"]:focus,
+        @{ui}.form .field.@{state} input[type="text"]:focus,
+        @{ui}.form .field.@{state} input[type="file"]:focus,
+        @{ui}.form .field.@{state} input[type="url"]:focus,
+        @{ui}.form .field.@{state} input[type="week"]:focus {
             background: @formStates[@@state][inputFocusBackground];
             border-color: @formStates[@@state][inputFocusBorderColor];
             color: @formStates[@@state][inputFocusColor];
@@ -634,13 +634,13 @@
             box-shadow: @formStates[@@state][inputFocusBoxShadow];
         }
 
-        .ui.form .field.@{state} > textarea:hover:not(:focus),
-        .ui.form .field.@{state} > input:hover:not(:focus) {
+        @{ui}.form .field.@{state} > textarea:hover:not(:focus),
+        @{ui}.form .field.@{state} > input:hover:not(:focus) {
             border-color: @formStates[@@state][inputHoverBorderColor];
         }
 
         /* Preserve Native Select Styling */
-        .ui.form .field.@{state} select {
+        @{ui}.form .field.@{state} select {
             -webkit-appearance: menulist-button;
         }
 
@@ -649,29 +649,29 @@
         --------------------*/
         & when (@variationFormTransparent) {
             /* Transparent */
-            .ui.form .field.@{state} .transparent.input input,
-            .ui.form .field.@{state} .transparent.input textarea,
-            .ui.form .field.@{state} input.transparent,
-            .ui.form .field.@{state} textarea.transparent {
+            @{ui}.form .field.@{state} .transparent.input input,
+            @{ui}.form .field.@{state} .transparent.input textarea,
+            @{ui}.form .field.@{state} input.transparent,
+            @{ui}.form .field.@{state} textarea.transparent {
                 background-color: @formStates[@@state][transparentBackground] !important;
                 color: @formStates[@@state][transparentColor] !important;
             }
         }
 
         /* Autofilled */
-        .ui.form .@{state}.@{state} input:-webkit-autofill {
+        @{ui}.form .@{state}.@{state} input:-webkit-autofill {
             box-shadow: 0 0 0 100px @formStates[@@state][inputAutoFillBackground] inset !important;
             border-color: @formStates[@@state][inputAutoFillBorderColor] !important;
         }
 
         /* Placeholder */
-        .ui.form .@{state} .ui.dropdown > .default.text,
-        .ui.form .@{state} ::placeholder {
+        @{ui}.form .@{state} @{ui}.dropdown > .default.text,
+        @{ui}.form .@{state} ::placeholder {
             color: @formStates[@@state][inputPlaceholderColor];
         }
 
-        .ui.form .@{state} .ui.dropdown > input:focus ~ .default.text,
-        .ui.form .@{state} :focus::placeholder {
+        @{ui}.form .@{state} @{ui}.dropdown > input:focus ~ .default.text,
+        @{ui}.form .@{state} :focus::placeholder {
             color: @formStates[@@state][inputPlaceholderFocusColor];
         }
 
@@ -679,75 +679,75 @@
             Dropdown State
         --------------------*/
 
-        .ui.form .fields.@{state} .field .ui.dropdown,
-        .ui.form .fields.@{state} .field .ui.dropdown .item,
-        .ui.form .field.@{state} .ui.dropdown,
-        .ui.form .field.@{state} .ui.dropdown > .text,
-        .ui.form .field.@{state} .ui.dropdown .item {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown,
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown .item,
+        @{ui}.form .field.@{state} @{ui}.dropdown,
+        @{ui}.form .field.@{state} @{ui}.dropdown > .text,
+        @{ui}.form .field.@{state} @{ui}.dropdown .item {
             background: @bg;
             color: @c;
         }
-        .ui.form .fields.@{state} .field .ui.dropdown,
-        .ui.form .field.@{state} .ui.dropdown {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown,
+        @{ui}.form .field.@{state} @{ui}.dropdown {
             border-color: @bdc !important;
         }
-        .ui.form .fields.@{state} .field .ui.dropdown:hover,
-        .ui.form .field.@{state} .ui.dropdown:hover {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown:hover,
+        @{ui}.form .field.@{state} @{ui}.dropdown:hover {
             border-color: @bdc !important;
         }
-        .ui.form .fields.@{state} .field .ui.dropdown:hover .menu,
-        .ui.form .field.@{state} .ui.dropdown:hover .menu {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown:hover .menu,
+        @{ui}.form .field.@{state} @{ui}.dropdown:hover .menu {
             border-color: @bdc;
         }
-        .ui.form .fields.@{state} .field .ui.multiple.selection.dropdown > .label,
-        .ui.form .field.@{state} .ui.multiple.selection.dropdown > .label {
+        @{ui}.form .fields.@{state} .field @{ui}.multiple.selection.dropdown > .label,
+        @{ui}.form .field.@{state} @{ui}.multiple.selection.dropdown > .label {
             background-color: @formStates[@@state][dropdownLabelBackground];
             color: @formStates[@@state][dropdownLabelColor];
         }
 
         /* Hover */
-        .ui.form .fields.@{state} .field .ui.dropdown .menu .item:hover,
-        .ui.form .field.@{state} .ui.dropdown .menu .item:hover {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown .menu .item:hover,
+        @{ui}.form .field.@{state} @{ui}.dropdown .menu .item:hover {
             background-color: @formStates[@@state][dropdownHoverBackground];
         }
 
         /* Selected */
-        .ui.form .fields.@{state} .field .ui.dropdown .menu .selected.item,
-        .ui.form .field.@{state} .ui.dropdown .menu .selected.item {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown .menu .selected.item,
+        @{ui}.form .field.@{state} @{ui}.dropdown .menu .selected.item {
             background-color: @formStates[@@state][dropdownSelectedBackground];
         }
 
         /* Active */
-        .ui.form .fields.@{state} .field .ui.dropdown .menu .active.item,
-        .ui.form .field.@{state} .ui.dropdown .menu .active.item {
+        @{ui}.form .fields.@{state} .field @{ui}.dropdown .menu .active.item,
+        @{ui}.form .field.@{state} @{ui}.dropdown .menu .active.item {
             background-color: @formStates[@@state][dropdownActiveBackground] !important;
         }
 
         /*--------------------
             Checkbox State
         ---------------------*/
-        .ui.form .fields.@{state} .field .checkbox@{notToggle}@{notSlider} label,
-        .ui.form .field.@{state} .checkbox@{notToggle}@{notSlider} label {
+        @{ui}.form .fields.@{state} .field .checkbox@{notToggle}@{notSlider} label,
+        @{ui}.form .field.@{state} .checkbox@{notToggle}@{notSlider} label {
             color: @c;
         }
-        .ui.form .fields.@{state} .field .checkbox@{notToggle}@{notSlider} label::before,
-        .ui.form .field.@{state} .checkbox@{notToggle}@{notSlider} label::before {
+        @{ui}.form .fields.@{state} .field .checkbox@{notToggle}@{notSlider} label::before,
+        @{ui}.form .field.@{state} .checkbox@{notToggle}@{notSlider} label::before {
             background: @bg;
             border-color: @bdc;
         }
-        .ui.form .fields.@{state} .field .checkbox label::after,
-        .ui.form .field.@{state} .checkbox label::after {
+        @{ui}.form .fields.@{state} .field .checkbox label::after,
+        @{ui}.form .field.@{state} .checkbox label::after {
             color: @c;
         }
 
         & when (@variationFormInverted) {
-            .ui.inverted.form .fields.@{state} .field label,
-            .ui.inverted.form .@{state}.field label {
+            @{ui}.inverted.form .fields.@{state} .field label,
+            @{ui}.inverted.form .@{state}.field label {
                 color: @lbg;
             }
 
             @supports selector(:has(.f)) {
-                .ui.inverted.form .fields:has(.@{state}) > label {
+                @{ui}.inverted.form .fields:has(.@{state}) > label {
                     color: @lbg;
                 }
             }
@@ -760,17 +760,17 @@
            Disabled
     --------------------- */
 
-    .ui.form .disabled.fields .field,
-    .ui.form .disabled.field,
-    .ui.form .field :disabled {
+    @{ui}.form .disabled.fields .field,
+    @{ui}.form .disabled.field,
+    @{ui}.form .field :disabled {
         pointer-events: @disabledPointerEvents;
         opacity: @disabledOpacity;
     }
-    .ui.form .field.disabled > label,
-    .ui.form .fields.disabled > label {
+    @{ui}.form .field.disabled > label,
+    @{ui}.form .fields.disabled > label {
         opacity: @disabledLabelOpacity;
     }
-    .ui.form .field.disabled :disabled {
+    @{ui}.form .field.disabled :disabled {
         opacity: 1;
     }
 }
@@ -780,12 +780,12 @@
         Loading
     --------------- */
 
-    .ui.loading.form {
+    @{ui}.loading.form {
         position: relative;
         cursor: default;
         pointer-events: none;
     }
-    .ui.loading.form::before {
+    @{ui}.loading.form::before {
         position: absolute;
         content: "";
         top: 0;
@@ -796,11 +796,11 @@
         z-index: @loaderDimmerZIndex;
     }
 
-    .ui.loading.form.segments::before {
+    @{ui}.loading.form.segments::before {
         border-radius: @defaultBorderRadius;
     }
 
-    .ui.loading.form::after {
+    @{ui}.loading.form::after {
         position: absolute;
         content: "";
         top: 50%;
@@ -826,42 +826,42 @@
          Required Field
     --------------------- */
 
-    .ui.form .required.fields@{notGrouped}@{notInline} > .field > label::after,
-    .ui.form .required.fields.inline > label::after,
-    .ui.form .required.fields.grouped > label::after,
-    .ui.form .required.field > label::after,
-    .ui.form .required.fields@{notGrouped}@{notInline} > .field > .checkbox::after,
-    .ui.form .required.field > .checkbox::after,
-    .ui.form label.required::after {
+    @{ui}.form .required.fields@{notGrouped}@{notInline} > .field > label::after,
+    @{ui}.form .required.fields.inline > label::after,
+    @{ui}.form .required.fields.grouped > label::after,
+    @{ui}.form .required.field > label::after,
+    @{ui}.form .required.fields@{notGrouped}@{notInline} > .field > .checkbox::after,
+    @{ui}.form .required.field > .checkbox::after,
+    @{ui}.form label.required::after {
         margin: @requiredMargin;
         content: @requiredContent;
         color: @requiredColor;
     }
 
-    .ui.form .required.fields@{notGrouped}@{notInline} > .field > label::after,
-    .ui.form .required.fields.inline > label::after,
-    .ui.form .required.fields.grouped > label::after,
-    .ui.form .required.field > label::after,
-    .ui.form label.required::after {
+    @{ui}.form .required.fields@{notGrouped}@{notInline} > .field > label::after,
+    @{ui}.form .required.fields.inline > label::after,
+    @{ui}.form .required.fields.grouped > label::after,
+    @{ui}.form .required.field > label::after,
+    @{ui}.form label.required::after {
         display: inline-block;
         vertical-align: top;
     }
 
-    .ui.form .required.fields@{notGrouped}@{notInline} > .field > .checkbox::after,
-    .ui.form .required.field > .checkbox::after {
+    @{ui}.form .required.fields@{notGrouped}@{notInline} > .field > .checkbox::after,
+    @{ui}.form .required.field > .checkbox::after {
         position: absolute;
         top: 0;
         left: 100%;
     }
 }
 
-.ui.ui.ui.ui.form .fields@{notRequired} > label:empty::after,
-.ui.ui.ui.ui.form .fields@{notGrouped}@{notInline} > .field@{notRequired} > label:empty::after {
+@{ui}@{ui}@{ui}@{ui}.form .fields@{notRequired} > label:empty::after,
+@{ui}@{ui}@{ui}@{ui}.form .fields@{notGrouped}@{notInline} > .field@{notRequired} > label:empty::after {
     content: " ";
     display: inline-block;
 }
 
-.ui.ui.ui.ui.form .inline.fields .field@{notRequired} > label:empty {
+@{ui}@{ui}@{ui}@{ui}.form .inline.fields .field@{notRequired} > label:empty {
     display: none;
 }
 
@@ -874,41 +874,41 @@
         Inverted Colors
     --------------------- */
 
-    .ui.inverted.form label,
-    .ui.form .inverted.segment label,
-    .ui.form .inverted.segment .ui.checkbox label,
-    .ui.inverted.form .ui.checkbox label,
-    .ui.inverted.form .grouped.fields > label,
-    .ui.inverted.form .inline.fields > label,
-    .ui.inverted.form .inline.fields .field > label,
-    .ui.inverted.form .inline.fields .field > p,
-    .ui.inverted.form .inline.field > label,
-    .ui.inverted.form .inline.field > p {
+    @{ui}.inverted.form label,
+    @{ui}.form .inverted.segment label,
+    @{ui}.form .inverted.segment @{ui}.checkbox label,
+    @{ui}.inverted.form @{ui}.checkbox label,
+    @{ui}.inverted.form .grouped.fields > label,
+    @{ui}.inverted.form .inline.fields > label,
+    @{ui}.inverted.form .inline.fields .field > label,
+    @{ui}.inverted.form .inline.fields .field > p,
+    @{ui}.inverted.form .inline.field > label,
+    @{ui}.inverted.form .inline.field > p {
         color: @invertedLabelColor;
     }
-    .ui.inverted.loading.form {
+    @{ui}.inverted.loading.form {
         color: @invertedLoaderLineColor;
     }
-    .ui.inverted.loading.form::before {
+    @{ui}.inverted.loading.form::before {
         background: @loaderInvertedDimmerColor;
     }
 
     /* Inverted Field */
-    .ui.inverted.form input:not([type]),
-    .ui.inverted.form input[type="color"],
-    .ui.inverted.form input[type="date"],
-    .ui.inverted.form input[type="datetime-local"],
-    .ui.inverted.form input[type="email"],
-    .ui.inverted.form input[type="month"],
-    .ui.inverted.form input[type="number"],
-    .ui.inverted.form input[type="password"],
-    .ui.inverted.form input[type="search"],
-    .ui.inverted.form input[type="tel"],
-    .ui.inverted.form input[type="time"],
-    .ui.inverted.form input[type="text"],
-    .ui.inverted.form input[type="file"],
-    .ui.inverted.form input[type="url"],
-    .ui.inverted.form input[type="week"] {
+    @{ui}.inverted.form input:not([type]),
+    @{ui}.inverted.form input[type="color"],
+    @{ui}.inverted.form input[type="date"],
+    @{ui}.inverted.form input[type="datetime-local"],
+    @{ui}.inverted.form input[type="email"],
+    @{ui}.inverted.form input[type="month"],
+    @{ui}.inverted.form input[type="number"],
+    @{ui}.inverted.form input[type="password"],
+    @{ui}.inverted.form input[type="search"],
+    @{ui}.inverted.form input[type="tel"],
+    @{ui}.inverted.form input[type="time"],
+    @{ui}.inverted.form input[type="text"],
+    @{ui}.inverted.form input[type="file"],
+    @{ui}.inverted.form input[type="url"],
+    @{ui}.inverted.form input[type="week"] {
         background: @invertedInputBackground;
         border-color: @invertedInputBorderColor;
         color: @invertedInputColor;
@@ -923,16 +923,16 @@
 
     /* Grouped Vertically */
 
-    .ui.form .grouped.fields {
+    @{ui}.form .grouped.fields {
         display: block;
         margin: @groupedMargin;
     }
 
-    .ui.form .grouped.fields:last-child {
+    @{ui}.form .grouped.fields:last-child {
         margin-bottom: 0;
     }
 
-    .ui.form .grouped.fields > label {
+    @{ui}.form .grouped.fields > label {
         margin: @groupedLabelMargin;
         color: @groupedLabelColor;
         font-size: @groupedLabelFontSize;
@@ -940,13 +940,13 @@
         text-transform: @groupedLabelTextTransform;
     }
 
-    .ui.form .grouped.fields .field,
-    .ui.form .grouped.inline.fields .field {
+    @{ui}.form .grouped.fields .field,
+    @{ui}.form .grouped.inline.fields .field {
         display: block;
         margin: @groupedFieldMargin;
         padding: 0;
     }
-    .ui.form .grouped.inline.fields .ui.checkbox {
+    @{ui}.form .grouped.inline.fields @{ui}.checkbox {
         margin-bottom: @groupedInlineCheckboxBottomMargin;
     }
 }
@@ -956,70 +956,70 @@
 --------------------- */
 
 /* Split fields */
-.ui.form .fields {
+@{ui}.form .fields {
     display: flex;
     flex-direction: row;
     margin: @fieldsMargin;
 }
-.ui.form .fields > .field {
+@{ui}.form .fields > .field {
     flex: 0 1 auto;
     padding-left: (@gutterWidth / 2);
     padding-right: (@gutterWidth / 2);
 }
-.ui.form .fields > .field:first-child {
+@{ui}.form .fields > .field:first-child {
     border-left: none;
     box-shadow: none;
 }
 
 & when (@variationFormEqualWidth) {
     /* Other Combinations */
-    .ui.form .two.fields > .fields,
-    .ui.form .two.fields > .field {
+    @{ui}.form .two.fields > .fields,
+    @{ui}.form .two.fields > .field {
         width: @twoColumn;
     }
-    .ui.form .three.fields > .fields,
-    .ui.form .three.fields > .field {
+    @{ui}.form .three.fields > .fields,
+    @{ui}.form .three.fields > .field {
         width: @threeColumn;
     }
-    .ui.form .four.fields > .fields,
-    .ui.form .four.fields > .field {
+    @{ui}.form .four.fields > .fields,
+    @{ui}.form .four.fields > .field {
         width: @fourColumn;
     }
-    .ui.form .five.fields > .fields,
-    .ui.form .five.fields > .field {
+    @{ui}.form .five.fields > .fields,
+    @{ui}.form .five.fields > .field {
         width: @fiveColumn;
     }
-    .ui.form .six.fields > .fields,
-    .ui.form .six.fields > .field {
+    @{ui}.form .six.fields > .fields,
+    @{ui}.form .six.fields > .field {
         width: @sixColumn;
     }
-    .ui.form .seven.fields > .fields,
-    .ui.form .seven.fields > .field {
+    @{ui}.form .seven.fields > .fields,
+    @{ui}.form .seven.fields > .field {
         width: @sevenColumn;
     }
-    .ui.form .eight.fields > .fields,
-    .ui.form .eight.fields > .field {
+    @{ui}.form .eight.fields > .fields,
+    @{ui}.form .eight.fields > .field {
         width: @eightColumn;
     }
-    .ui.form .nine.fields > .fields,
-    .ui.form .nine.fields > .field {
+    @{ui}.form .nine.fields > .fields,
+    @{ui}.form .nine.fields > .field {
         width: @nineColumn;
     }
-    .ui.form .ten.fields > .fields,
-    .ui.form .ten.fields > .field {
+    @{ui}.form .ten.fields > .fields,
+    @{ui}.form .ten.fields > .field {
         width: @tenColumn;
     }
 }
 
 /* Swap to full width on mobile */
 @media only screen and (max-width: @largestMobileScreen) {
-    .ui.form .fields {
+    @{ui}.form .fields {
         flex-wrap: wrap;
         margin-bottom: 0;
     }
 
-    .ui.form@{notUnstackable} .fields@{notUnstackable} > .fields,
-    .ui.form@{notUnstackable} .fields@{notUnstackable} > .field {
+    @{ui}.form@{notUnstackable} .fields@{notUnstackable} > .fields,
+    @{ui}.form@{notUnstackable} .fields@{notUnstackable} > .field {
         width: @oneColumn;
         margin: 0 0 @rowDistance;
     }
@@ -1027,58 +1027,58 @@
 
 & when (@variationFormWide) {
     /* Sizing Combinations */
-    .ui.form .fields .wide.field {
+    @{ui}.form .fields .wide.field {
         width: @oneWide;
         padding-left: (@gutterWidth / 2);
         padding-right: (@gutterWidth / 2);
     }
 
-    .ui.form .one.wide.field {
+    @{ui}.form .one.wide.field {
         width: @oneWide;
     }
-    .ui.form .two.wide.field {
+    @{ui}.form .two.wide.field {
         width: @twoWide;
     }
-    .ui.form .three.wide.field {
+    @{ui}.form .three.wide.field {
         width: @threeWide;
     }
-    .ui.form .four.wide.field {
+    @{ui}.form .four.wide.field {
         width: @fourWide;
     }
-    .ui.form .five.wide.field {
+    @{ui}.form .five.wide.field {
         width: @fiveWide;
     }
-    .ui.form .six.wide.field {
+    @{ui}.form .six.wide.field {
         width: @sixWide;
     }
-    .ui.form .seven.wide.field {
+    @{ui}.form .seven.wide.field {
         width: @sevenWide;
     }
-    .ui.form .eight.wide.field {
+    @{ui}.form .eight.wide.field {
         width: @eightWide;
     }
-    .ui.form .nine.wide.field {
+    @{ui}.form .nine.wide.field {
         width: @nineWide;
     }
-    .ui.form .ten.wide.field {
+    @{ui}.form .ten.wide.field {
         width: @tenWide;
     }
-    .ui.form .eleven.wide.field {
+    @{ui}.form .eleven.wide.field {
         width: @elevenWide;
     }
-    .ui.form .twelve.wide.field {
+    @{ui}.form .twelve.wide.field {
         width: @twelveWide;
     }
-    .ui.form .thirteen.wide.field {
+    @{ui}.form .thirteen.wide.field {
         width: @thirteenWide;
     }
-    .ui.form .fourteen.wide.field {
+    @{ui}.form .fourteen.wide.field {
         width: @fourteenWide;
     }
-    .ui.form .fifteen.wide.field {
+    @{ui}.form .fifteen.wide.field {
         width: @fifteenWide;
     }
-    .ui.form .sixteen.wide.field {
+    @{ui}.form .sixteen.wide.field {
         width: @sixteenWide;
     }
 }
@@ -1088,8 +1088,8 @@
 --------------------- */
 
 & when (@variationFormEqualWidth) {
-    .ui[class*="equal width"].form .fields > .field,
-    .ui.form [class*="equal width"].fields > .field {
+    @{ui}[class*="equal width"].form .fields > .field,
+    @{ui}.form [class*="equal width"].fields > .field {
         width: 100%;
         flex: 1 1 auto;
     }
@@ -1100,21 +1100,21 @@
         Inline Fields
     --------------------- */
 
-    .ui.form .inline.fields {
+    @{ui}.form .inline.fields {
         margin: @fieldMargin;
         align-items: center;
     }
-    .ui.form .inline.fields .field {
+    @{ui}.form .inline.fields .field {
         margin: 0;
         padding: @inlineFieldsMargin;
     }
 
     /* Inline Label */
-    .ui.form .inline.fields > label,
-    .ui.form .inline.fields .field > label,
-    .ui.form .inline.fields .field > p,
-    .ui.form .inline.field > label,
-    .ui.form .inline.field > p {
+    @{ui}.form .inline.fields > label,
+    @{ui}.form .inline.fields .field > label,
+    @{ui}.form .inline.fields .field > p,
+    @{ui}.form .inline.field > label,
+    @{ui}.form .inline.field > p {
         display: inline-block;
         width: auto;
         margin-top: 0;
@@ -1127,15 +1127,15 @@
     }
 
     /* Grouped Inline Label */
-    .ui.form .inline.fields > label {
+    @{ui}.form .inline.fields > label {
         margin: @groupedInlineLabelMargin;
     }
 
     /* Inline Input */
-    .ui.form .inline.fields .field > input,
-    .ui.form .inline.fields .field > select,
-    .ui.form .inline.field > input,
-    .ui.form .inline.field > select {
+    @{ui}.form .inline.fields .field > input,
+    @{ui}.form .inline.fields .field > select,
+    @{ui}.form .inline.field > input,
+    @{ui}.form .inline.field > select {
         display: inline-block;
         width: auto;
         margin-top: 0;
@@ -1144,33 +1144,33 @@
         font-size: @inlineInputSize;
     }
 
-    .ui.form .inline.fields .field .calendar:not(.popup),
-    .ui.form .inline.field .calendar:not(.popup) {
+    @{ui}.form .inline.fields .field .calendar:not(.popup),
+    @{ui}.form .inline.field .calendar:not(.popup) {
         display: inline-block;
     }
 
-    .ui.form .inline.fields .field .calendar:not(.popup) > .input > input,
-    .ui.form .inline.field .calendar:not(.popup) > .input > input {
+    @{ui}.form .inline.fields .field .calendar:not(.popup) > .input > input,
+    @{ui}.form .inline.field .calendar:not(.popup) > .input > input {
         width: @inlineCalendarWidth;
     }
 
     /* Label */
-    .ui.form .inline.fields .field > :first-child,
-    .ui.form .inline.field > :first-child {
+    @{ui}.form .inline.fields .field > :first-child,
+    @{ui}.form .inline.field > :first-child {
         margin: 0 @inlineLabelDistance 0 0;
     }
-    .ui.form .inline.fields .field > :only-child,
-    .ui.form .inline.field > :only-child {
+    @{ui}.form .inline.fields .field > :only-child,
+    @{ui}.form .inline.field > :only-child {
         margin: 0;
     }
 
     /* Wide */
-    .ui.form .inline.fields .wide.field {
+    @{ui}.form .inline.fields .wide.field {
         display: flex;
         align-items: center;
     }
-    .ui.form .inline.fields .wide.field > input,
-    .ui.form .inline.fields .wide.field > select {
+    @{ui}.form .inline.fields .wide.field > input,
+    @{ui}.form .inline.fields .wide.field > select {
         width: 100%;
     }
 }
@@ -1179,17 +1179,17 @@
         Sizes
 --------------------- */
 
-.ui.form,
-.ui.form .field .dropdown,
-.ui.form .field .dropdown .menu > .item {
+@{ui}.form,
+@{ui}.form .field .dropdown,
+@{ui}.form .field .dropdown .menu > .item {
     font-size: @medium;
 }
 & when not (@variationFormSizes = false) {
     each(@variationFormSizes, {
         @s: @@value;
-        .ui.@{value}.form,
-        .ui.@{value}.form .field .dropdown,
-        .ui.@{value}.form .field .dropdown .menu > .item {
+        @{ui}.@{value}.form,
+        @{ui}.@{value}.form .field .dropdown,
+        @{ui}.@{value}.form .field .dropdown .menu > .item {
             font-size: @s;
         }
     });

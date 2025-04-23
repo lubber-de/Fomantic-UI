@@ -21,7 +21,7 @@
            UI Tabs
 *******************************/
 
-.ui.tab {
+@{ui}.tab {
     display: none;
 }
 
@@ -33,8 +33,8 @@
        Active
 --------------------- */
 
-.ui.tab.active,
-.ui.tab.open {
+@{ui}.tab.active,
+@{ui}.tab.open {
     display: block;
 }
 
@@ -43,19 +43,19 @@
            Loading
     --------------------- */
 
-    .ui.tab.loading {
+    @{ui}.tab.loading {
         position: relative;
         overflow: hidden;
         display: block;
         min-height: @loadingMinHeight;
     }
-    .ui.tab.loading * {
+    @{ui}.tab.loading * {
         position: @loadingContentPosition !important;
         left: @loadingContentOffset !important;
     }
 
-    .ui.tab.loading::before,
-    .ui.tab.loading.segment::before {
+    @{ui}.tab.loading::before,
+    @{ui}.tab.loading.segment::before {
         position: absolute;
         content: "";
         top: @loaderDistanceFromTop;
@@ -66,8 +66,8 @@
         border-radius: @circularRadius;
         border: @loaderLineWidth solid @loaderFillColor;
     }
-    .ui.tab.loading::after,
-    .ui.tab.loading.segment::after {
+    @{ui}.tab.loading::after,
+    @{ui}.tab.loading.segment::after {
         position: absolute;
         content: "";
         top: @loaderDistanceFromTop;

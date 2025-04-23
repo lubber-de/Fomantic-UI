@@ -4,8 +4,8 @@
 
 @import (css) url("https://fonts.googleapis.com/css2?family=Montserrat");
 
-.ui.cards > .card,
-.ui.card {
+@{ui}.cards > .card,
+@{ui}.card {
     font-family: Montserrat;
     font-size-adjust: 0.5;
 }
