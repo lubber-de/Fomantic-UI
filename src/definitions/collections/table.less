@@ -79,7 +79,7 @@
 .ui.table > thead {
     box-shadow: @headerBoxShadow;
 }
-.ui.table > thead > tr > th {
+.ui.table > thead > tr > * {
     cursor: auto;
     background: @headerBackground;
     text-align: @headerAlign;
@@ -87,23 +87,25 @@
     padding: @headerVerticalPadding @headerHorizontalPadding;
     vertical-align: @headerVerticalAlign;
     font-style: @headerFontStyle;
-    font-weight: @headerFontWeight;
     text-transform: @headerTextTransform;
     border-bottom: @headerBorder;
     border-left: @headerDivider;
 }
+.ui.table > thead > tr > th {
+    font-weight: @headerFontWeight;
+}
 
-.ui.table > thead > tr > th:first-child {
+.ui.table > thead > tr > *:first-child {
     border-left: none;
 }
 
-.ui.table > thead > tr:first-child > th:first-child {
+.ui.table > thead > tr:first-child > *:first-child {
     border-radius: @borderRadius 0 0 0;
 }
-.ui.table > thead > tr:first-child > th:last-child {
+.ui.table > thead > tr:first-child > *:last-child {
     border-radius: 0 @borderRadius 0 0;
 }
-.ui.table > thead > tr:first-child > th:only-child {
+.ui.table > thead > tr:first-child > *:only-child {
     border-radius: @borderRadius @borderRadius 0 0;
 }
 
@@ -111,8 +113,7 @@
 .ui.table > tfoot {
     box-shadow: @footerBoxShadow;
 }
-.ui.table > tfoot > tr > th,
-.ui.table > tfoot > tr > td {
+.ui.table > tfoot > tr > * {
     cursor: auto;
     border-top: @footerBorder;
     background: @footerBackground;
@@ -121,44 +122,40 @@
     padding: @footerVerticalPadding @footerHorizontalPadding;
     vertical-align: @footerVerticalAlign;
     font-style: @footerFontStyle;
-    font-weight: @footerFontWeight;
     text-transform: @footerTextTransform;
 }
-.ui.table > tfoot > tr > th:first-child,
-.ui.table > tfoot > tr > td:first-child {
+.ui.table > tfoot > tr > th {
+    font-weight: @footerFontWeight;
+}
+
+.ui.table > tfoot > tr > *:first-child {
     border-left: none;
 }
-.ui.table > tfoot > tr:last-child > th:first-child,
-.ui.table > tfoot > tr:last-child > td:first-child {
+.ui.table > tfoot > tr:last-child > *:first-child {
     border-radius: 0 0 0 @borderRadius;
 }
-.ui.table > tfoot > tr:last-child > th:last-child,
-.ui.table > tfoot > tr:last-child > td:last-child {
+.ui.table > tfoot > tr:last-child > *:last-child {
     border-radius: 0 0 @borderRadius 0;
 }
-.ui.table > tfoot > tr:last-child > th:only-child,
-.ui.table > tfoot > tr:last-child > td:only-child {
+.ui.table > tfoot > tr:last-child > *:only-child {
     border-radius: 0 0 @borderRadius @borderRadius;
 }
 
 /* Table Row */
-.ui.table > tr > td,
-.ui.table > tbody > tr > td {
+.ui.table > tbody > tr > * {
     border-top: @rowBorder;
 }
-.ui.table > tr:first-child > td,
-.ui.table > tbody > tr:first-child > td {
+.ui.table > tbody > tr:first-child > * {
     border-top: none;
 }
 
 /* Repeated tbody */
-.ui.table > tbody + tbody tr:first-child > td {
+.ui.table > tbody + tbody tr:first-child > * {
     border-top: @rowBorder;
 }
 
 /* Table Cells */
-.ui.table > tbody > tr > td,
-.ui.table > tr > td {
+.ui.table > tbody > tr > * {
     padding: @cellVerticalPadding @cellHorizontalPadding;
     text-align: @cellTextAlign;
 }
@@ -193,15 +190,10 @@
     .ui.table@{notUnstackable} > tfoot,
     .ui.table@{notUnstackable} > tfoot > tr,
     .ui.table@{notUnstackable} > tbody,
-    .ui.table@{notUnstackable} > tr,
     .ui.table@{notUnstackable} > tbody > tr,
-    .ui.table@{notUnstackable} > tr > th@{notRowSpanned},
-    .ui.table@{notUnstackable} > thead > tr > th@{notRowSpanned},
-    .ui.table@{notUnstackable} > tbody > tr > th@{notRowSpanned},
-    .ui.table@{notUnstackable} > tfoot > tr > th@{notRowSpanned},
-    .ui.table@{notUnstackable} > tr > td@{notRowSpanned},
-    .ui.table@{notUnstackable} > tbody > tr > td@{notRowSpanned},
-    .ui.table@{notUnstackable} > tfoot > tr > td@{notRowSpanned} {
+    .ui.table@{notUnstackable} > thead > tr > *@{notRowSpanned},
+    .ui.table@{notUnstackable} > tbody > tr > *@{notRowSpanned},
+    .ui.table@{notUnstackable} > tfoot > tr > *@{notRowSpanned} {
         display: block !important;
         width: auto !important;
     }
@@ -212,7 +204,6 @@
     .ui.table@{notUnstackable} > tfoot {
         display: @responsiveFooterDisplay;
     }
-    .ui.ui.ui.ui.table@{notUnstackable} > tr,
     .ui.ui.ui.ui.table@{notUnstackable} > thead > tr,
     .ui.ui.ui.ui.table@{notUnstackable} > tbody > tr,
     .ui.ui.ui.ui.table@{notUnstackable} > tfoot > tr {
@@ -221,30 +212,22 @@
         box-shadow: @responsiveRowBoxShadow;
     }
 
-    .ui.ui.ui.ui.table@{notUnstackable} > tr > th,
-    .ui.ui.ui.ui.table@{notUnstackable} > thead > tr > th,
-    .ui.ui.ui.ui.table@{notUnstackable} > tbody > tr > th,
-    .ui.ui.ui.ui.table@{notUnstackable} > tfoot > tr > th,
-    .ui.ui.ui.ui.table@{notUnstackable} > tr > td,
-    .ui.ui.ui.ui.table@{notUnstackable} > tbody > tr > td,
-    .ui.ui.ui.ui.table@{notUnstackable} > tfoot > tr > td {
+    .ui.ui.ui.ui.table@{notUnstackable} > thead > tr > *,
+    .ui.ui.ui.ui.table@{notUnstackable} > tbody > tr > *,
+    .ui.ui.ui.ui.table@{notUnstackable} > tfoot > tr > * {
         background: none;
         border: none;
         padding: @responsiveCellVerticalPadding @responsiveCellHorizontalPadding;
         box-shadow: @responsiveCellBoxShadow;
     }
-    .ui.table@{notUnstackable} > tr > th:first-child,
-    .ui.table@{notUnstackable} > thead > tr > th:first-child,
-    .ui.table@{notUnstackable} > tbody > tr > th:first-child,
-    .ui.table@{notUnstackable} > tfoot > tr > th:first-child,
-    .ui.table@{notUnstackable} > tr > td:first-child,
-    .ui.table@{notUnstackable} > tbody > tr > td:first-child,
-    .ui.table@{notUnstackable} > tfoot > tr > td:first-child {
+    .ui.table@{notUnstackable} > thead > tr > *:first-child,
+    .ui.table@{notUnstackable} > tbody > tr > *:first-child,
+    .ui.table@{notUnstackable} > tfoot > tr > *:first-child {
         font-weight: @responsiveCellHeaderFontWeight;
     }
 
     /* Definition Table */
-    .ui.definition.table@{notUnstackable} > thead > tr > th:first-child {
+    .ui.definition.table@{notUnstackable} > thead > tr > *:first-child {
         box-shadow: none !important;
     }
     & when (@variationTableMarked) and not (@variationTableColors = false) {
@@ -655,33 +638,28 @@
     .ui.structured.table {
         border-collapse: collapse;
     }
-    .ui.structured.table > thead > tr > th {
+    .ui.structured.table > thead > tr > * {
         border-left: @headerDivider;
         border-right: @headerDivider;
     }
     & when (@variationTableSortable) {
-        .ui.structured.sortable.table > thead > tr > th {
+        .ui.structured.sortable.table > thead > tr > * {
             border-left: @sortableBorder;
             border-right: @sortableBorder;
         }
     }
     & when (@variationTableBasic) {
-        .ui.structured.basic.table > tr > th,
-        .ui.structured.basic.table > thead > tr > th,
-        .ui.structured.basic.table > tbody > tr > th,
-        .ui.structured.basic.table > tfoot > tr > th {
+        .ui.structured.basic.table > thead > tr > *,
+        .ui.structured.basic.table > tbody > tr > *,
+        .ui.structured.basic.table > tfoot > tr > * {
             border-left: @basicTableHeaderDivider;
             border-right: @basicTableHeaderDivider;
         }
     }
     & when (@variationTableCelled) {
-        .ui.structured.celled.table > tr > th,
-        .ui.structured.celled.table > thead > tr > th,
-        .ui.structured.celled.table > tbody > tr > th,
-        .ui.structured.celled.table > tfoot > tr > th,
-        .ui.structured.celled.table > tr > td,
-        .ui.structured.celled.table > tbody > tr > td,
-        .ui.structured.celled.table > tfoot > tr > td {
+        .ui.structured.celled.table > thead > tr > *,
+        .ui.structured.celled.table > tbody > tr > *,
+        .ui.structured.celled.table > tfoot > tr > * {
             border-left: @cellBorder;
             border-right: @cellBorder;
         }
@@ -693,7 +671,7 @@
        Definition
     --------------- */
 
-    .ui.definition.table > thead@{notFullWidth} > tr > th:first-child {
+    .ui.definition.table > thead@{notFullWidth} > tr > *:first-child {
         pointer-events: none;
         background: @definitionHeaderBackground;
         font-weight: @definitionHeaderFontWeight;
@@ -704,11 +682,11 @@
         -moz-transform: scale(1);
     }
 
-    .ui.definition.table > thead@{notFullWidth} > tr > th:first-child:not(:empty) {
+    .ui.definition.table > thead@{notFullWidth} > tr > *:first-child:not(:empty) {
         pointer-events: auto;
     }
 
-    .ui.definition.table > tfoot@{notFullWidth} > tr > th:first-child {
+    .ui.definition.table > tfoot@{notFullWidth} > tr > *:first-child {
         pointer-events: none;
         background: @definitionFooterBackground;
         font-weight: @definitionFooterFontWeight;
@@ -720,9 +698,8 @@
     }
 
     /* Highlight Defining Column */
-    .ui.definition.table > tr > td:first-child:not(.ignored),
-    .ui.definition.table > tbody > tr > td:first-child:not(.ignored),
-    .ui.definition.table > tfoot > tr > td:first-child:not(.ignored),
+    .ui.definition.table > tbody > tr > *:first-child:not(.ignored),
+    .ui.definition.table > tfoot > tr > *:first-child:not(.ignored),
     .ui.definition.table tr td.definition {
         background: @definitionColumnBackground;
         font-weight: @definitionColumnFontWeight;
@@ -736,14 +713,12 @@
     }
 
     /* Fix 2nd Column */
-    .ui.definition.table > thead@{notFullWidth} > tr > th:nth-child(2) {
+    .ui.definition.table > thead@{notFullWidth} > tr > *:nth-child(2) {
         border-left: @borderWidth solid @borderColor;
     }
-    .ui.definition.table > tfoot@{notFullWidth} > tr > th:nth-child(2),
-    .ui.definition.table > tfoot@{notFullWidth} > tr > td:nth-child(2) {
+    .ui.definition.table > tfoot@{notFullWidth} > tr > *:nth-child(2) {
         border-left: @borderWidth solid @borderColor;
     }
-    .ui.definition.table > tr > td:nth-child(2),
     .ui.definition.table > tbody > tr > td:nth-child(2) {
         border-left: @borderWidth solid @borderColor;
     }
@@ -883,14 +858,12 @@
         .ui[class*="tablet stackable"].table > tfoot > tr,
         .ui[class*="tablet stackable"].table > tbody,
         .ui[class*="tablet stackable"].table > tbody > tr,
-        .ui[class*="tablet stackable"].table > tr,
-        .ui[class*="tablet stackable"].table > thead > tr > th@{notRowSpanned},
-        .ui[class*="tablet stackable"].table > tbody > tr > th@{notRowSpanned},
-        .ui[class*="tablet stackable"].table > tfoot > tr > th@{notRowSpanned},
-        .ui[class*="tablet stackable"].table > tr > th@{notRowSpanned},
-        .ui[class*="tablet stackable"].table > tbody > tr > td@{notRowSpanned},
-        .ui[class*="tablet stackable"].table > tfoot > tr > td@{notRowSpanned},
-        .ui[class*="tablet stackable"].table > tr > td@{notRowSpanned} {
+        .ui[class*="tablet stackable"].table > thead > tr > *@{notRowSpanned},
+        .ui[class*="tablet stackable"].table > tbody > tr > *@{notRowSpanned},
+        .ui[class*="tablet stackable"].table > tfoot > tr > *@{notRowSpanned},
+        .ui[class*="tablet stackable"].table > tbody > tr > *@{notRowSpanned},
+        .ui[class*="tablet stackable"].table > tfoot > tr > *@{notRowSpanned},
+        .ui[class*="tablet stackable"].table > tr > *@{notRowSpanned} {
             display: block !important;
             width: 100% !important;
         }
@@ -906,19 +879,14 @@
         }
         .ui.ui.ui.ui[class*="tablet stackable"].table > thead > tr,
         .ui.ui.ui.ui[class*="tablet stackable"].table > tbody > tr,
-        .ui.ui.ui.ui[class*="tablet stackable"].table > tfoot > tr,
-        .ui.ui.ui.ui[class*="tablet stackable"].table > tr {
+        .ui.ui.ui.ui[class*="tablet stackable"].table > tfoot > tr {
             padding-top: @responsiveRowVerticalPadding;
             padding-bottom: @responsiveRowVerticalPadding;
             box-shadow: @responsiveRowBoxShadow;
         }
-        .ui[class*="tablet stackable"].table > thead > tr > th,
-        .ui[class*="tablet stackable"].table > tbody > tr > th,
-        .ui[class*="tablet stackable"].table > tfoot > tr > th,
-        .ui[class*="tablet stackable"].table > tr > th,
-        .ui[class*="tablet stackable"].table > tbody > tr > td,
-        .ui[class*="tablet stackable"].table > tfoot > tr > td,
-        .ui[class*="tablet stackable"].table > tr > td {
+        .ui[class*="tablet stackable"].table > thead > tr > *,
+        .ui[class*="tablet stackable"].table > tbody > tr > *,
+        .ui[class*="tablet stackable"].table > tfoot > tr > * {
             background: none;
             border: none !important;
             padding: @responsiveCellVerticalPadding @responsiveCellHorizontalPadding;
@@ -926,7 +894,7 @@
         }
         & when (@variationTableDefinition) {
             /* Definition Table */
-            .ui.definition[class*="tablet stackable"].table > thead > tr > th:first-child {
+            .ui.definition[class*="tablet stackable"].table > thead > tr > *:first-child {
                 box-shadow: none !important;
             }
         }
@@ -1051,10 +1019,8 @@
     .ui.table:not(.compact) tbody tr td.selectable > a:not(.ui) {
         padding: @cellVerticalPadding @cellHorizontalPadding;
     }
-    .ui.table > tr > td.selectable,
     .ui.table > tbody > tr > td.selectable,
-    .ui.selectable.table > tbody > tr,
-    .ui.selectable.table > tr {
+    .ui.selectable.table > tbody > tr {
         cursor: pointer;
     }
     & when (@variationTableError) {
@@ -1152,13 +1118,11 @@
     --------------- */
 
     /* Table Striping */
-    .ui.striped.table > tr:nth-child(2n),
     .ui.striped.table > tbody > tr:nth-child(2n) {
         background-color: @stripedBackground;
     }
     & when (@variationTableInverted) {
         /* Stripes */
-        .ui.inverted.striped.table > tr:nth-child(2n),
         .ui.inverted.striped.table > tbody > tr:nth-child(2n) {
             background-color: @invertedStripedBackground;
         }
@@ -1265,12 +1229,10 @@
                 color: @t;
             }
         }
-        .ui.table > thead > tr[class*="@{color} colored"] > th,
-        .ui.table > tfoot > tr[class*="@{color} colored"] > th,
-        .ui.table > tfoot > tr[class*="@{color} colored"] > td,
-        .ui.table > thead > tr.@{color}@{notMarked} > th,
-        .ui.table > tfoot > tr.@{color}@{notMarked} > th,
-        .ui.table > tfoot > tr.@{color}@{notMarked} > td {
+        .ui.table > thead > tr[class*="@{color} colored"] > *,
+        .ui.table > tfoot > tr[class*="@{color} colored"] > *,
+        .ui.table > thead > tr.@{color}@{notMarked} > *,
+        .ui.table > tfoot > tr.@{color}@{notMarked} > * {
             background: inherit;
             & when (@isVeryDark) {
                 color: @white;
@@ -1290,12 +1252,10 @@
                 background: @c;
                 color: @white;
             }
-            .ui.inverted.table > thead > tr[class*="@{color} colored"] > th,
-            .ui.inverted.table > tfoot > tr[class*="@{color} colored"] > th,
-            .ui.inverted.table > tfoot > tr[class*="@{color} colored"] > td,
-            .ui.inverted.table > thead > tr.@{color}@{notMarked} > th,
-            .ui.inverted.table > tfoot > tr.@{color}@{notMarked} > th,
-            .ui.inverted.table > tfoot > tr.@{color}@{notMarked} > td {
+            .ui.inverted.table > thead > tr[class*="@{color} colored"] > *,
+            .ui.inverted.table > tfoot > tr[class*="@{color} colored"] > *,
+            .ui.inverted.table > thead > tr.@{color}@{notMarked} > *,
+            .ui.inverted.table > tfoot > tr.@{color}@{notMarked} > * {
                 background: inherit;
                 color: @white;
             }
@@ -1497,13 +1457,13 @@
         Sortable
     --------------- */
 
-    .ui.sortable.table > thead > tr > th {
+    .ui.sortable.table > thead > tr > * {
         cursor: pointer;
         white-space: nowrap;
         color: @sortableColor;
     }
     & when (@variationTableCelled) {
-        .ui.celled.sortable.table > thead > tr > th:not(:first-child) {
+        .ui.celled.sortable.table > thead > tr > *:not(:first-child) {
             border-left: @sortableBorder;
         }
     }
@@ -1512,7 +1472,7 @@
         user-select: none;
     }
 
-    .ui.sortable.table > thead > tr > th::after {
+    .ui.sortable.table > thead > tr > *::after {
         display: none;
         font-style: normal;
         font-weight: @normal;
@@ -1538,10 +1498,10 @@
             color: @sortableDisabledColor;
         }
     }
-    .ui.sortable.table > thead > tr > th:hover {
+    .ui.sortable.table > thead > tr > *:hover {
         color: @sortableHoverColor;
     }
-    .ui.sortable.table@{notBasic} > thead > tr > th:hover {
+    .ui.sortable.table@{notBasic} > thead > tr > *:hover {
         background: @sortableHoverBackground;
     }
 
@@ -1571,13 +1531,13 @@
         .ui.inverted.sortable.table@{notBasic} thead th.sorted {
             background: @sortableInvertedActiveBackground;
         }
-        .ui.inverted.sortable.table > thead > tr > th:hover {
+        .ui.inverted.sortable.table > thead > tr > *:hover {
             color: @sortableInvertedHoverColor;
         }
-        .ui.inverted.sortable.table@{notBasic} > thead > tr > th:hover {
+        .ui.inverted.sortable.table@{notBasic} > thead > tr > *:hover {
             background: @sortableInvertedHoverBackground;
         }
-        .ui.inverted.sortable.table@{notBasic} > thead > tr > th {
+        .ui.inverted.sortable.table@{notBasic} > thead > tr > * {
             border-left-color: @sortableInvertedBorderColor;
             border-right-color: @sortableInvertedBorderColor;
         }
@@ -1596,21 +1556,18 @@
         border: @invertedBorder;
     }
     .ui.ui.inverted.table > thead > tr > th,
-    .ui.ui.inverted.table > tbody > tr > th,
-    .ui.ui.inverted.table > tr > th {
+    .ui.ui.inverted.table > tbody > tr > th {
         background-color: @invertedHeaderBackground;
         border-color: @invertedHeaderBorderColor;
         color: @invertedHeaderColor;
     }
-    .ui.ui.inverted.table > tfoot > tr > th,
-    .ui.ui.inverted.table > tfoot > tr > td {
+    .ui.ui.inverted.table > tfoot > tr > * {
         background-color: @invertedFooterBackground;
         border-color: @invertedFooterBorderColor;
         color: @invertedFooterColor;
     }
     .ui.inverted.table > tbody > tr > td,
-    .ui.inverted.table > tfoot > tr > td,
-    .ui.inverted.table > tr > td {
+    .ui.inverted.table > tfoot > tr > td {
         border-color: @invertedCellBorderColor;
     }
     & when (@variationTableDisabled) {
@@ -1635,8 +1592,7 @@
             background: @definitionPageBackground;
         }
         .ui.inverted.definition.table > tbody > tr > td:first-child,
-        .ui.inverted.definition.table > tfoot > tr > td:first-child,
-        .ui.inverted.definition.table > tr > td:first-child {
+        .ui.inverted.definition.table > tfoot > tr > td:first-child {
             background: @invertedDefinitionColumnBackground;
             color: @invertedDefinitionColumnColor;
         }
@@ -1669,8 +1625,7 @@
     }
     .ui.basic.table > thead > tr > th,
     .ui.basic.table > tbody > tr > th,
-    .ui.basic.table > tfoot > tr > th,
-    .ui.basic.table > tr > th {
+    .ui.basic.table > tfoot > tr > th {
         background: @basicTableHeaderBackground;
         border-left: @basicTableHeaderDivider;
     }
@@ -1678,8 +1633,7 @@
         border-bottom: @basicTableCellBorder;
     }
     .ui.basic.table > tbody > tr > td,
-    .ui.basic.table > tfoot > tr > td,
-    .ui.basic.table > tr > td {
+    .ui.basic.table > tfoot > tr > td {
         background: @basicTableCellBackground;
     }
     & when (@variationTableStriped) {
@@ -1692,33 +1646,22 @@
         .ui[class*="very basic"].table {
             border: none;
         }
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tr > th,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr > th,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > th,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > th,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tr > td,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > td {
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr > *,
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > *,
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > * {
             padding: @basicTableCellPadding;
         }
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tr > th:first-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr > th:first-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > th:first-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > th:first-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tr > td:first-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > td:first-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > td:first-child {
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr > *:first-child,
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > *:first-child,
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > *:first-child {
             padding-left: 0;
         }
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tr > th:last-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr > th:last-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > th:last-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > th:last-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tr > td:last-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > td:last-child,
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > td:last-child {
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr > *:last-child,
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tbody > tr > *:last-child,
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > tfoot > tr > *:last-child {
             padding-right: 0;
         }
-        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr:first-child > th {
+        .ui[class*="very basic"].table@{notSortable}@{notStriped} > thead > tr:first-child > * {
             padding-top: 0;
         }
     }
@@ -1729,28 +1672,19 @@
          Celled
     --------------- */
 
-    .ui.celled.table > tr > th,
-    .ui.celled.table > thead > tr > th,
-    .ui.celled.table > tbody > tr > th,
-    .ui.celled.table > tfoot > tr > th,
-    .ui.celled.table > tr > td,
-    .ui.celled.table > tbody > tr > td,
-    .ui.celled.table > tfoot > tr > td {
+    .ui.celled.table > thead > tr > *,
+    .ui.celled.table > tbody > tr > *,
+    .ui.celled.table > tfoot > tr > * {
         border-left: @cellBorder;
     }
     & when (@variationTableInverted) {
-        .ui.inverted.celled.table > tbody > tr > td,
-        .ui.inverted.celled.table > tr > td {
+        .ui.inverted.celled.table > tbody > tr > * {
             border-left: @invertedCellBorder;
         }
     }
-    .ui.celled.table > tr > th:first-child,
-    .ui.celled.table > thead > tr > th:first-child,
-    .ui.celled.table > tbody > tr > th:first-child,
-    .ui.celled.table > tfoot > tr > th:first-child,
-    .ui.celled.table > tr > td:first-child,
-    .ui.celled.table > tbody > tr > td:first-child,
-    .ui.celled.table > tfoot > tr > td:first-child {
+    .ui.celled.table > thead > tr > *:first-child,
+    .ui.celled.table > tbody > tr > *:first-child,
+    .ui.celled.table > tfoot > tr > *:first-child {
         border-left: none;
     }
 }
@@ -1760,35 +1694,28 @@
          Padded
     --------------- */
 
-    .ui.padded.table > tr > th,
-    .ui.padded.table > thead > tr > th,
-    .ui.padded.table > tbody > tr > th,
-    .ui.padded.table > tfoot > tr > th {
+    .ui.padded.table > thead > tr > *,
+    .ui.padded.table > tbody > tr > *,
+    .ui.padded.table > tfoot > tr > * {
         padding-left: @paddedHorizontalPadding;
         padding-right: @paddedHorizontalPadding;
     }
-    .ui.padded.table > tr > th,
-    .ui.padded.table > thead > tr > th,
-    .ui.padded.table > tbody > tr > th,
-    .ui.padded.table > tfoot > tr > th,
-    .ui.padded.table > tr > td,
-    .ui.padded.table > tbody > tr > td,
-    .ui.padded.table > tfoot > tr > td {
+    .ui.padded.table > thead > tr > *,
+    .ui.padded.table > tbody > tr > *,
+    .ui.padded.table > tfoot > tr > * {
         padding: @paddedVerticalPadding @paddedHorizontalPadding;
     }
 
     & when (@variationTableVeryPadded) {
         /* Very */
-        .ui[class*="very padded"].table > tr > th,
-        .ui[class*="very padded"].table > thead > tr > th,
-        .ui[class*="very padded"].table > tbody > tr > th,
-        .ui[class*="very padded"].table > tfoot > tr > th {
+        .ui[class*="very padded"].table > thead > tr > *,
+        .ui[class*="very padded"].table > tbody > tr > *,
+        .ui[class*="very padded"].table > tfoot > tr > * {
             padding-left: @veryPaddedHorizontalPadding;
             padding-right: @veryPaddedHorizontalPadding;
         }
-        .ui[class*="very padded"].table > tr > td,
-        .ui[class*="very padded"].table > tbody > tr > td,
-        .ui[class*="very padded"].table > tfoot > tr > td {
+        .ui[class*="very padded"].table > tbody > tr > *,
+        .ui[class*="very padded"].table > tfoot > tr > * {
             padding: @veryPaddedVerticalPadding @veryPaddedHorizontalPadding;
         }
     }
@@ -1799,31 +1726,27 @@
          Compact
     --------------- */
 
-    .ui.compact.table > tr > th,
-    .ui.compact.table > thead > tr > th,
-    .ui.compact.table > tbody > tr > th,
-    .ui.compact.table > tfoot > tr > th {
+    .ui.compact.table > thead > tr > *,
+    .ui.compact.table > tbody > tr > *,
+    .ui.compact.table > tfoot > tr > * {
         padding-left: @compactHorizontalPadding;
         padding-right: @compactHorizontalPadding;
     }
-    .ui.compact.table > tr > td,
-    .ui.compact.table > tbody > tr > td,
-    .ui.compact.table > tfoot > tr > td {
+    .ui.compact.table > tbody > tr > *,
+    .ui.compact.table > tfoot > tr > * {
         padding: @compactVerticalPadding @compactHorizontalPadding;
     }
 
     & when (@variationTableVeryCompact) {
         /* Very */
-        .ui[class*="very compact"].table > tr > th,
-        .ui[class*="very compact"].table > thead > tr > th,
-        .ui[class*="very compact"].table > tbody > tr > th,
-        .ui[class*="very compact"].table > tfoot > tr > th {
+        .ui[class*="very compact"].table > thead > tr > *,
+        .ui[class*="very compact"].table > tbody > tr > *,
+        .ui[class*="very compact"].table > tfoot > tr > * {
             padding-left: @veryCompactHorizontalPadding;
             padding-right: @veryCompactHorizontalPadding;
         }
-        .ui[class*="very compact"].table > tr > td,
-        .ui[class*="very compact"].table > tbody > tr > td,
-        .ui[class*="very compact"].table > tfoot > tr > td {
+        .ui[class*="very compact"].table > tbody > tr > *,
+        .ui[class*="very compact"].table > tfoot > tr > * {
             padding: @veryCompactVerticalPadding @veryCompactHorizontalPadding;
         }
     }
@@ -1881,7 +1804,7 @@
         & > thead {
             top: 0;
             bottom: auto;
-            & > tr:first-child > th {
+            & > tr:first-child > * {
                 border-top: @cellBorder;
             }
         }
@@ -1894,14 +1817,12 @@
         & > tfoot {
             top: auto;
             bottom: 0;
-            & > tr:last-child > td,
-            > tr:last-child > th {
+            & > tr:last-child > * {
                 border-bottom: @cellBorder;
             }
         }
         & when (@variationTableInverted) {
-            &.inverted > tfoot > tr:first-child > td,
-            &.inverted > tfoot > tr:first-child > th {
+            &.inverted > tfoot > tr:first-child > * {
                 border-top: @invertedCellBorder;
             }
         }
