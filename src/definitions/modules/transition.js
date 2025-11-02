@@ -241,11 +241,11 @@
                         animation = animation || settings.animation;
                         if (typeof animation === 'string') {
                             animation = animation.split(' ');
-                            $.each(animation, function (index, word) {
+                            for (const word of animation) {
                                 if (word === className.inward || word === className.outward) {
                                     hasDirection = true;
                                 }
-                            });
+                            }
                         }
 
                         return hasDirection;
@@ -496,13 +496,13 @@
                         if (typeof animation === 'string') {
                             animation = animation.split(' ');
                             // search animation name for out/in class
-                            $.each(animation, function (index, word) {
+                            for (const word of animation) {
                                 if (word === className.inward) {
                                     direction = className.inward;
                                 } else if (word === className.outward) {
                                     direction = className.outward;
                                 }
-                            });
+                            }
                         }
                         // return found direction
                         if (direction) {
@@ -793,9 +793,9 @@
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
-                        $.each(performance, function (index, data) {
+                        for (const data of performance) {
                             totalTime += data['Execution Time'];
-                        });
+                        }
                         title += ' ' + totalTime + 'ms';
                         if ($allModules.length > 1) {
                             title += ' (' + $allModules.length + ')';
@@ -817,7 +817,7 @@
                     if (typeof query === 'string' && object !== undefined) {
                         query = query.split(/[ .]/);
                         maxDepth = query.length - 1;
-                        $.each(query, function (depth, value) {
+                        for (const [depth, value] of query.entries()) {
                             const camelCaseValue = depth !== maxDepth
                                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                                 : query;
@@ -826,17 +826,17 @@
                             } else if (object[camelCaseValue] !== undefined) {
                                 found = object[camelCaseValue];
 
-                                return false;
+                                break;
                             } else if ($.isPlainObject(object[value]) && (depth !== maxDepth)) {
                                 object = object[value];
                             } else if (object[value] !== undefined) {
                                 found = object[value];
 
-                                return false;
+                                break;
                             } else {
-                                return false;
+                                break;
                             }
-                        });
+                        }
                     }
                     if (isFunction(found)) {
                         response = found.apply(context, passedArguments);

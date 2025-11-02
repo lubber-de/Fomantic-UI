@@ -442,15 +442,15 @@
                         let result = false;
                         if (settings.type === 'category') {
                             module.debug('Finding result that matches', value);
-                            $.each(results, function (index, category) {
+                            for (const category of results) {
                                 if (Array.isArray(category.results)) {
                                     result = module.search.object(value, category.results)[0];
                                     // don't continue searching if a result is found
                                     if (result) {
-                                        return false;
+                                        break;
                                     }
                                 }
-                            });
+                            }
                         } else {
                             module.debug('Finding result in results object', value);
                             result = module.search.object(value, results)[0];
@@ -775,20 +775,19 @@
                 create: {
                     categoryResults: function (results) {
                         const categoryResults = {};
-                        $.each(results, function (index, result) {
-                            if (!result.category) {
-                                return;
+                        for (const result of results) {
+                            if (result.category) {
+                                if (categoryResults[result.category] === undefined) {
+                                    module.verbose('Creating new category of results', result.category);
+                                    categoryResults[result.category] = {
+                                        name: result.category,
+                                        results: [result],
+                                    };
+                                } else {
+                                    categoryResults[result.category].results.push(result);
+                                }
                             }
-                            if (categoryResults[result.category] === undefined) {
-                                module.verbose('Creating new category of results', result.category);
-                                categoryResults[result.category] = {
-                                    name: result.category,
-                                    results: [result],
-                                };
-                            } else {
-                                categoryResults[result.category].results.push(result);
-                            }
-                        });
+                        }
 
                         return categoryResults;
                     },
@@ -840,28 +839,28 @@
                         let resultIndex = 0;
                         if (settings.type === 'category') {
                             // iterate through each category result
-                            $.each(results, function (index, category) {
+                            for (const category of results) {
                                 if (category.results.length > 0) {
                                     resultIndex = 0;
-                                    $.each(category.results, function (index, result) {
+                                    for (const result of category.results) {
                                         if (result.id === undefined) {
                                             result.id = module.create.id(resultIndex, categoryIndex);
                                         }
                                         module.inject.result(result, resultIndex, categoryIndex);
                                         resultIndex++;
-                                    });
+                                    }
                                     categoryIndex++;
                                 }
-                            });
+                            }
                         } else {
                             // top level
-                            $.each(results, function (index, result) {
+                            for (const result of results) {
                                 if (result.id === undefined) {
                                     result.id = module.create.id(resultIndex);
                                 }
                                 module.inject.result(result, resultIndex);
                                 resultIndex++;
-                            });
+                            }
                         }
 
                         return results;
@@ -1004,8 +1003,8 @@
 
                                 return args.join('');
                             };
-                            $.each(results, function (label, content) {
-                                $.each(settings.searchFields, function (index, field) {
+                            for (const [label, content] of results.entries()) {
+                                for (const field of settings.searchFields) {
                                     const fieldExists = typeof content[field] === 'string' || typeof content[field] === 'number';
                                     if (fieldExists) {
                                         let markedHTML = typeof content[field] === 'string'
@@ -1015,10 +1014,10 @@
                                             markedHTML = markedHTML.normalize('NFD');
                                         }
                                         markedHTML = markedHTML.replace(/<\/?mark>/g, '');
-                                        response[fields.results][label][field] = markedHTML.replace(markedRegExp, markedReplacer);
+                                        results[label][field] = markedHTML.replace(markedRegExp, markedReplacer);
                                     }
-                                });
-                            });
+                                }
+                            }
                         }
                         if (isFunction(template)) {
                             html = template(response, settings);
@@ -1111,9 +1110,9 @@
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
-                        $.each(performance, function (index, data) {
+                        for (const data of performance) {
                             totalTime += data['Execution Time'];
-                        });
+                        }
                         title += ' ' + totalTime + 'ms';
                         if ($allModules.length > 1) {
                             title += ' (' + $allModules.length + ')';
@@ -1134,7 +1133,7 @@
                     if (typeof query === 'string' && object !== undefined) {
                         query = query.split(/[ .]/);
                         maxDepth = query.length - 1;
-                        $.each(query, function (depth, value) {
+                        for (const [depth, value] of query.entries()) {
                             const camelCaseValue = depth !== maxDepth
                                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                                 : query;
@@ -1143,19 +1142,19 @@
                             } else if (object[camelCaseValue] !== undefined) {
                                 found = object[camelCaseValue];
 
-                                return false;
+                                break;
                             } else if ($.isPlainObject(object[value]) && (depth !== maxDepth)) {
                                 object = object[value];
                             } else if (object[value] !== undefined) {
                                 found = object[value];
 
-                                return false;
+                                break;
                             } else {
                                 module.error(error.method, query);
 
-                                return false;
+                                break;
                             }
-                        });
+                        }
                     }
                     if (isFunction(found)) {
                         response = found.apply(context, passedArguments);
@@ -1383,7 +1382,7 @@
                 const escape = settings.templates.escape;
                 if (response[fields.categoryResults] !== undefined) {
                     // each category
-                    $.each(response[fields.categoryResults], function (index, category) {
+                    for (const category of response[fields.categoryResults]) {
                         if (category[fields.results] !== undefined && category.results.length > 0) {
                             html += '<div class="category">';
 
@@ -1393,7 +1392,7 @@
 
                             // each item inside category
                             html += '<div class="results">';
-                            $.each(category.results, function (index, result) {
+                            for (const result of category.results) {
                                 html += result[fields.url]
                                     ? '<a href="' + result[fields.url].replaceAll('"', '') + '" '
                                     : '<div ';
@@ -1427,12 +1426,12 @@
                                 html += result[fields.url]
                                     ? '</a>'
                                     : '</div>';
-                            });
+                            }
                             html += '</div>';
                             html += ''
                                 + '</div>';
                         }
-                    });
+                    }
                     if (response[fields.action]) {
                         html += fields.actionURL === false
                             ? ''
@@ -1456,7 +1455,7 @@
                 const escape = settings.templates.escape;
                 if (response[fields.results] !== undefined) {
                     // each result
-                    $.each(response[fields.results], function (index, result) {
+                    for (const result of response[fields.results]) {
                         html += result[fields.url]
                             ? '<a href="' + result[fields.url].replaceAll('"', '') + '" '
                             : '<div ';
@@ -1490,7 +1489,7 @@
                         html += result[fields.url]
                             ? '</a>'
                             : '</div>';
-                    });
+                    }
                     if (response[fields.action]) {
                         html += fields.actionURL === false
                             ? ''

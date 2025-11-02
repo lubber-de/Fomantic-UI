@@ -107,12 +107,12 @@
                         const userStates = parameters && $.isPlainObject(parameters.states)
                             ? parameters.states
                             : {};
-                        $.each(settings.defaults, function (type, typeStates) {
+                        for (const [type, typeStates] of Object.entries(settings.defaults)) {
                             if (module.is[type] !== undefined && module.is[type]()) {
                                 module.verbose('Adding default states', type, element);
                                 $.extend(settings.states, typeStates, userStates);
                             }
-                        });
+                        }
                     },
                 },
 
@@ -460,9 +460,9 @@
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
-                        $.each(performance, function (index, data) {
+                        for (const data of performance) {
                             totalTime += data['Execution Time'];
-                        });
+                        }
                         title += ' ' + totalTime + 'ms';
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
@@ -480,7 +480,7 @@
                     if (typeof query === 'string' && object !== undefined) {
                         query = query.split(/[ .]/);
                         maxDepth = query.length - 1;
-                        $.each(query, function (depth, value) {
+                        for (const [depth, value] of query.entries()) {
                             const camelCaseValue = depth !== maxDepth
                                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                                 : query;
@@ -489,19 +489,19 @@
                             } else if (object[camelCaseValue] !== undefined) {
                                 found = object[camelCaseValue];
 
-                                return false;
+                                break;
                             } else if ($.isPlainObject(object[value]) && (depth !== maxDepth)) {
                                 object = object[value];
                             } else if (object[value] !== undefined) {
                                 found = object[value];
 
-                                return false;
+                                break;
                             } else {
                                 module.error(error.method, query);
 
-                                return false;
+                                break;
                             }
-                        });
+                        }
                     }
                     if (isFunction(found)) {
                         response = found.apply(context, passedArguments);

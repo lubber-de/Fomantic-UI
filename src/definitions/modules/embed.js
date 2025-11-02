@@ -198,7 +198,7 @@
                     source: function (url) {
                         return settings.source || ($module.data(metadata.source) !== undefined
                             ? $module.data(metadata.source)
-                            : module.determine.source());
+                            : module.determine.source(url));
                     },
                     type: function () {
                         const source = module.get.source();
@@ -223,13 +223,13 @@
                     source: function (url = module.get.url()) {
                         let matchedSource = false;
                         if (url) {
-                            $.each(sources, function (name, source) {
+                            for (const source of sources) {
                                 if (url.search(source.domain) !== -1) {
-                                    matchedSource = name;
+                                    matchedSource = source;
 
-                                    return false;
+                                    break;
                                 }
-                            });
+                            }
                         }
 
                         return matchedSource;
@@ -421,9 +421,9 @@
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
-                        $.each(performance, function (index, data) {
+                        for (const data of performance) {
                             totalTime += data['Execution Time'];
-                        });
+                        }
                         title += ' ' + totalTime + 'ms';
                         if ($allModules.length > 1) {
                             title += ' (' + $allModules.length + ')';
@@ -444,7 +444,7 @@
                     if (typeof query === 'string' && object !== undefined) {
                         query = query.split(/[ .]/);
                         maxDepth = query.length - 1;
-                        $.each(query, function (depth, value) {
+                        for (const [depth, value] of query.entries()) {
                             const camelCaseValue = depth !== maxDepth
                                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                                 : query;
@@ -453,19 +453,19 @@
                             } else if (object[camelCaseValue] !== undefined) {
                                 found = object[camelCaseValue];
 
-                                return false;
+                                break;
                             } else if ($.isPlainObject(object[value]) && (depth !== maxDepth)) {
                                 object = object[value];
                             } else if (object[value] !== undefined) {
                                 found = object[value];
 
-                                return false;
+                                break;
                             } else {
                                 module.error(error.method, query);
 
-                                return false;
+                                break;
                             }
-                        });
+                        }
                     }
                     if (isFunction(found)) {
                         response = found.apply(context, passedArguments);

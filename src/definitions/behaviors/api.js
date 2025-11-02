@@ -338,7 +338,7 @@
                             optionalVariables = url.match(regExp.optional);
                             if (requiredVariables) {
                                 module.debug('Looking for required URL variables', requiredVariables);
-                                $.each(requiredVariables, function (index, templatedString) {
+                                for (const templatedString of requiredVariables) {
                                     const variable = templatedString.slice(1, -1);
                                     let value = $.isPlainObject(urlData) && urlData[variable] !== undefined
                                         ? urlData[variable]
@@ -352,7 +352,7 @@
                                         module.error(error.requiredParameter, variable, url);
                                         url = false;
 
-                                        return false;
+                                        break;
                                     }
 
                                     module.verbose('Found required variable', variable, value);
@@ -360,11 +360,11 @@
                                         ? module.get.urlEncodedValue(value)
                                         : value;
                                     url = url.replace(templatedString, value);
-                                });
+                                }
                             }
                             if (optionalVariables) {
-                                module.debug('Looking for optional URL variables', requiredVariables);
-                                $.each(optionalVariables, function (index, templatedString) {
+                                module.debug('Looking for optional URL variables', optionalVariables);
+                                for (const templatedString of optionalVariables) {
                                     const variable = templatedString.slice(2, -1);
                                     const value = $.isPlainObject(urlData) && urlData[variable] !== undefined
                                         ? urlData[variable]
@@ -384,7 +384,7 @@
                                             ? url.replace('/' + templatedString, '')
                                             : url.replace(templatedString, '');
                                     }
-                                });
+                                }
                             }
                         }
 
@@ -409,57 +409,56 @@
                                 return base;
                             };
                             // add files
-                            $.each($('input[type="file"]', $form), function (i, tag) {
-                                $.each($(tag)[0].files, function (j, file) {
+                            for (const tag of $('input[type="file"]', $form)) {
+                                for (const file of $(tag)[0].files) {
                                     formArray.push({ name: tag.name, value: file });
-                                });
-                            });
-                            $.each(formArray, function (i, el) {
-                                if (!regExp.validate.test(el.name)) {
-                                    return;
                                 }
-                                const isCheckbox = $('[name="' + CSS.escape(el.name) + '"]', $form).attr('type') === 'checkbox';
-                                const floatValue = parseFloat(el.value);
-                                let value = (isCheckbox && el.value === 'on')
+                            }
+                            for (const el of formArray) {
+                                if (regExp.validate.test(el.name)) {
+                                    const isCheckbox = $('[name="' + CSS.escape(el.name) + '"]', $form).attr('type') === 'checkbox';
+                                    const floatValue = parseFloat(el.value);
+                                    let value = (isCheckbox && el.value === 'on')
                                         || el.value === 'true'
                                         || (String(floatValue) === el.value
                                             ? floatValue
                                             : (el.value === 'false' ? false : el.value));
-                                const nameKeys = el.name.match(regExp.key) || [];
-                                const pushKey = el.name.replace(/\[]$/, '');
-                                if (!(pushKey in pushes)) {
-                                    pushes[pushKey] = 0;
-                                    pushValues[pushKey] = value;
-                                } else if (Array.isArray(pushValues[pushKey])) {
-                                    pushValues[pushKey].push(value);
-                                } else {
-                                    pushValues[pushKey] = [pushValues[pushKey], value];
-                                }
-                                if (!pushKey.includes('[]')) {
-                                    value = pushValues[pushKey];
-                                }
-
-                                while (nameKeys.length > 0) {
-                                    const k = nameKeys.pop();
-
-                                    if (k === '' && !Array.isArray(value)) { // foo[]
-                                        value = build([], pushes[pushKey]++, value);
-                                    } else if (regExp.fixed.test(k)) { // foo[n]
-                                        value = build([], k, value);
-                                    } else if (regExp.named.test(k)) { // foo; foo[bar]
-                                        value = build({}, k, value);
+                                    const nameKeys = el.name.match(regExp.key) || [];
+                                    const pushKey = el.name.replace(/\[]$/, '');
+                                    if (!(pushKey in pushes)) {
+                                        pushes[pushKey] = 0;
+                                        pushValues[pushKey] = value;
+                                    } else if (Array.isArray(pushValues[pushKey])) {
+                                        pushValues[pushKey].push(value);
+                                    } else {
+                                        pushValues[pushKey] = [pushValues[pushKey], value];
                                     }
+                                    if (!pushKey.includes('[]')) {
+                                        value = pushValues[pushKey];
+                                    }
+
+                                    while (nameKeys.length > 0) {
+                                        const k = nameKeys.pop();
+
+                                        if (k === '' && !Array.isArray(value)) { // foo[]
+                                            value = build([], pushes[pushKey]++, value);
+                                        } else if (regExp.fixed.test(k)) { // foo[n]
+                                            value = build([], k, value);
+                                        } else if (regExp.named.test(k)) { // foo; foo[bar]
+                                            value = build({}, k, value);
+                                        }
+                                    }
+                                    formData = $.extend(true, formData, value);
                                 }
-                                formData = $.extend(true, formData, value);
-                            });
+                            }
                         }
 
                         if (hasOtherData) {
                             module.debug('Extending existing data with form data', data, formData);
                             if (useFormDataApi) {
-                                $.each(Object.keys(data), function (i, el) {
+                                for (const el of Object.keys(data)) {
                                     formData.append(el, data[el]);
-                                });
+                                }
                                 data = formData;
                             } else {
                                 data = $.extend(true, {}, data, formData);
@@ -884,9 +883,9 @@
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
-                        $.each(performance, function (index, data) {
+                        for (const data of performance) {
                             totalTime += data['Execution Time'];
-                        });
+                        }
                         title += ' ' + totalTime + 'ms';
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
@@ -904,7 +903,7 @@
                     if (typeof query === 'string' && object !== undefined) {
                         query = query.split(/[ .]/);
                         maxDepth = query.length - 1;
-                        $.each(query, function (depth, value) {
+                        for (const [depth, value] of query.entries()) {
                             const camelCaseValue = depth !== maxDepth
                                 ? value + query[depth + 1].charAt(0).toUpperCase() + query[depth + 1].slice(1)
                                 : query;
@@ -913,19 +912,19 @@
                             } else if (object[camelCaseValue] !== undefined) {
                                 found = object[camelCaseValue];
 
-                                return false;
+                                break;
                             } else if ($.isPlainObject(object[value]) && (depth !== maxDepth)) {
                                 object = object[value];
                             } else if (object[value] !== undefined) {
                                 found = object[value];
 
-                                return false;
+                                break;
                             } else {
                                 module.error(error.method, query);
 
-                                return false;
+                                break;
                             }
-                        });
+                        }
                     }
                     if (isFunction(found)) {
                         response = found.apply(context, passedArguments);
