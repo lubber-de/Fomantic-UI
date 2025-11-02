@@ -329,11 +329,11 @@
                         }
 
                         module.verbose('Checking if form is valid');
-                        $.each(validation, function (fieldName, field) {
+                        for (const fieldName of Object.keys(validation)) {
                             if (!module.is.valid(fieldName, showErrors)) {
                                 allValid = false;
                             }
-                        });
+                        }
 
                         return allValid;
                     },
@@ -504,9 +504,9 @@
                                 fullFields[name] = {
                                     rules: [],
                                 };
-                                $.each(rules, function (index, rule) {
+                                for (const rule of rules) {
                                     fullFields[name].rules.push({ type: rule });
-                                });
+                                }
                             }
                         });
 
@@ -615,9 +615,9 @@
                     },
                     fields: function (fields, strict) {
                         let $fields = $();
-                        $.each(fields, function (index, name) {
+                        for (const name of fields) {
                             $fields = $fields.add(module.get.field(name, strict));
-                        });
+                        }
 
                         return $fields;
                     },

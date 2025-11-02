@@ -228,7 +228,7 @@
                         values = Array.isArray(values)
                             ? values
                             : [values];
-                        $.each(values, function (index, value) {
+                        for (const value of values) {
                             if (module.get.item(value) === false) {
                                 html = settings.templates.addition(module.add.variables(message.addResult, settings.templates.escape(value, settings)));
                                 $userChoice = $('<div />')
@@ -245,7 +245,7 @@
                                     : $userChoices.add($userChoice);
                                 module.verbose('Creating user choices for value', value, $userChoice);
                             }
-                        });
+                        }
 
                         return $userChoices;
                     },
@@ -253,10 +253,10 @@
                         const userValues = module.get.userValues();
                         if (userValues) {
                             module.debug('Adding user labels', userValues);
-                            $.each(userValues, function (index, value) {
+                            for (const value of userValues) {
                                 module.verbose('Adding custom user value');
                                 module.add.label(value, value);
-                            });
+                            }
                         }
                     },
                     menu: function () {
@@ -729,10 +729,10 @@
                                     preSelected = preSelected && preSelected !== '' ? preSelected.split(settings.delimiter) : [];
                                 }
                                 if (module.is.multiple()) {
-                                    $.each(preSelected, function (index, value) {
+                                    for (const value of preSelected) {
                                         $item.filter('[data-' + metadata.value + '="' + CSS.escape(value) + '"]')
                                             .addClass(className.filtered);
-                                    });
+                                    }
                                 }
                                 module.focusSearch(true);
                                 afterFiltered();
@@ -882,14 +882,14 @@
 
                                 return args.join('');
                             };
-                            $.each(results, function (index, result) {
+                            for (const result of results) {
                                 const $result = $(result);
                                 let markedHTML = module.get.choiceText($result, true);
                                 if (settings.ignoreDiacritics) {
                                     markedHTML = markedHTML.normalize('NFD');
                                 }
                                 $result.html(markedHTML.replace(markedRegExp, markedReplacer));
-                            });
+                            }
                         }
                     }
 
@@ -1006,7 +1006,7 @@
                         module.setup.menu(menuConfig);
                         const findSelected = function (values) {
                             let hasMultiple = true;
-                            $.each(values, function (index, item) {
+                            for (const item of values) {
                                 const itemType = item.type || 'item';
                                 if (item.selected === true) {
                                     module.debug('Setting initial selection to', item[fields.value]);
@@ -1017,9 +1017,10 @@
                                 } else if (itemType.includes('menu')) {
                                     hasMultiple = findSelected(item.values || []);
                                 }
-
-                                return hasMultiple;
-                            });
+                                if (!hasMultiple) {
+                                    break;
+                                }
+                            }
 
                             return hasMultiple;
                         };
@@ -1029,11 +1030,11 @@
                             module.disconnect.selectObserver();
                             $input.html('');
                             $input.append('<option disabled selected value></option>');
-                            $.each(values, function (index, item) {
+                            for (const item of values) {
                                 const value = item[fields.value];
                                 const name = item[fields.name] || '';
                                 $input.append('<option value="' + settings.templates.escape(value) + '"' + (item.selected === true ? ' selected' : '') + '>' + settings.templates.escape(name, settings) + '</option>');
-                            });
+                            }
                             module.observe.select();
                         }
                     },
@@ -1303,9 +1304,9 @@
                                 clearTimeout(module.itemTimer);
                                 module.itemTimer = setTimeout(function () {
                                     module.verbose('Showing sub-menu', $subMenu);
-                                    $.each($otherMenus, function () {
-                                        module.animate.hide(false, $(this));
-                                    });
+                                    for (const otherMenu of $otherMenus) {
+                                        module.animate.hide(false, $(otherMenu));
+                                    }
                                     module.animate.show(false, $subMenu);
                                 }, settings.delay.show);
                                 event.preventDefault();
@@ -2850,10 +2851,10 @@
                     },
                     filteredItem: function () {
                         if (settings.highlightMatches) {
-                            $.each($item, function (index, item) {
+                            for (const item of $item) {
                                 const $markItem = $(item);
                                 $markItem.html($markItem.html().replace(/<\/?mark>/g, ''));
-                            });
+                            }
                         }
                         if (settings.useLabels && module.has.maxSelections()) {
                             return;
@@ -3112,13 +3113,13 @@
                         if (!Array.isArray(values)) {
                             values = [values];
                         }
-                        $.each(values, function (index, existingValue) {
+                        for (const existingValue of values) {
                             if (String(value).toLowerCase() === String(existingValue).toLowerCase()) {
                                 hasValue = true;
 
-                                return false;
+                                break;
                             }
-                        });
+                        }
 
                         return hasValue;
                     },
@@ -3211,13 +3212,13 @@
                     },
                     selectMutation: function (mutations) {
                         let selectChanged = false;
-                        $.each(mutations, function (index, mutation) {
+                        for (const mutation of mutations) {
                             if ($(mutation.target).is('option, optgroup') || $(mutation.addedNodes).is('select') || ($(mutation.target).is('select') && mutation.type !== 'attributes')) {
                                 selectChanged = true;
 
-                                return false;
+                                break;
                             }
-                        });
+                        }
 
                         return selectChanged;
                     },
@@ -3925,7 +3926,7 @@
             let html = '';
             const className = settings.className;
             const escape = settings.templates.escape;
-            $.each(values, function (index, option) {
+            for (const option of values) {
                 const itemType = option[fields.type] || 'item';
                 const isMenu = itemType.includes('menu');
                 let maybeData = '';
@@ -3998,7 +3999,7 @@
                         html += '<div class="' + escape(className.divider) + '"></div>';
                     }
                 }
-            });
+            }
 
             return html;
         },
