@@ -60,8 +60,8 @@
             const error = settings.error;
             const templates = settings.templates;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             let $module = $(this);
             const $context = contextCheck(settings.context, window);
@@ -214,8 +214,8 @@
 
                 create: {
                     id: function () {
-                        id = (Math.random().toString(16) + '000000000').slice(2, 10);
-                        elementNamespace = '.' + id;
+                        id = `${Math.random().toString(16)}000000000`.slice(2, 10);
+                        elementNamespace = `.${id}`;
                         module.verbose('Creating unique id for element', id);
                     },
                     userChoice: function (values = module.get.userValues()) {
@@ -233,8 +233,8 @@
                                 html = settings.templates.addition(module.add.variables(message.addResult, settings.templates.escape(value, settings)));
                                 $userChoice = $('<div />')
                                     .html(html)
-                                    .attr('data-' + metadata.value, value)
-                                    .attr('data-' + metadata.text, value)
+                                    .attr(`data-${metadata.value}`, value)
+                                    .attr(`data-${metadata.text}`, value)
                                     .addClass(className.addition)
                                     .addClass(className.item);
                                 if (settings.hideAdditions) {
@@ -343,7 +343,7 @@
                                 .prop('autocomplete', module.is.chrome() ? 'fomantic-search' : 'off');
                             if (labelNode.length > 0) {
                                 if (!labelNode.attr('id')) {
-                                    labelNode.attr('id', '_' + module.get.id() + '_formLabel');
+                                    labelNode.attr('id', `_${module.get.id()}_formLabel`);
                                 }
                                 $search.attr('aria-labelledby', labelNode.attr('id'));
                             }
@@ -554,7 +554,7 @@
                     module.verbose('Finding other dropdowns to hide');
                     $allModules
                         .not($module)
-                        .has(selector.menu + '.' + className.visible)
+                        .has(`${selector.menu}.${className.visible}`)
                         .dropdown('hide');
                 },
 
@@ -580,87 +580,87 @@
                     keyboardEvents: function () {
                         module.verbose('Binding keyboard events');
                         $module
-                            .on('keydown' + eventNamespace, module.event.keydown);
+                            .on(`keydown${eventNamespace}`, module.event.keydown);
                         if (module.has.search()) {
                             $module
                                 .on(module.get.inputEvent() + eventNamespace, selector.search, module.event.input);
                         }
                         if (module.is.multiple()) {
                             $document
-                                .on('keydown' + elementNamespace, module.event.document.keydown);
+                                .on(`keydown${elementNamespace}`, module.event.document.keydown);
                         }
                     },
                     inputEvents: function () {
                         module.verbose('Binding input change events');
                         $module
-                            .on('change' + eventNamespace, selector.input, module.event.change);
+                            .on(`change${eventNamespace}`, selector.input, module.event.change);
                         if (module.is.multiple() && module.is.searchSelection()) {
                             $module
-                                .on('paste' + eventNamespace, selector.search, module.event.paste);
+                                .on(`paste${eventNamespace}`, selector.search, module.event.paste);
                         }
                     },
                     mouseEvents: function () {
                         module.verbose('Binding mouse events');
                         if (module.is.multiple()) {
                             $module
-                                .on('click' + eventNamespace, selector.label, module.event.label.click)
-                                .on('click' + eventNamespace, selector.remove, module.event.remove.click);
+                                .on(`click${eventNamespace}`, selector.label, module.event.label.click)
+                                .on(`click${eventNamespace}`, selector.remove, module.event.remove.click);
                         }
                         if (module.is.searchSelection()) {
                             $module
-                                .on('mousedown' + eventNamespace, module.event.mousedown)
-                                .on('mouseup' + eventNamespace, module.event.mouseup)
-                                .on('mousedown' + eventNamespace, selector.menu, module.event.menu.mousedown)
-                                .on('mouseup' + eventNamespace, selector.menu, module.event.menu.mouseup)
-                                .on('click' + eventNamespace, selector.icon, module.event.icon.click)
-                                .on('click' + eventNamespace, selector.clearIcon, module.event.clearIcon.click)
-                                .on('focus' + eventNamespace, selector.search, module.event.search.focus)
-                                .on('click' + eventNamespace, selector.search, module.event.search.focus)
-                                .on('blur' + eventNamespace, selector.search, module.event.search.blur)
-                                .on('click' + eventNamespace, selector.text, module.event.text.focus);
+                                .on(`mousedown${eventNamespace}`, module.event.mousedown)
+                                .on(`mouseup${eventNamespace}`, module.event.mouseup)
+                                .on(`mousedown${eventNamespace}`, selector.menu, module.event.menu.mousedown)
+                                .on(`mouseup${eventNamespace}`, selector.menu, module.event.menu.mouseup)
+                                .on(`click${eventNamespace}`, selector.icon, module.event.icon.click)
+                                .on(`click${eventNamespace}`, selector.clearIcon, module.event.clearIcon.click)
+                                .on(`focus${eventNamespace}`, selector.search, module.event.search.focus)
+                                .on(`click${eventNamespace}`, selector.search, module.event.search.focus)
+                                .on(`blur${eventNamespace}`, selector.search, module.event.search.blur)
+                                .on(`click${eventNamespace}`, selector.text, module.event.text.focus);
                             if (module.is.multiple()) {
                                 $module
-                                    .on('click' + eventNamespace, module.event.click)
-                                    .on('click' + eventNamespace, module.event.search.focus);
+                                    .on(`click${eventNamespace}`, module.event.click)
+                                    .on(`click${eventNamespace}`, module.event.search.focus);
                             }
                         } else {
                             if (settings.on === 'click') {
                                 $module
-                                    .on('click' + eventNamespace, selector.icon, module.event.icon.click)
-                                    .on('click' + eventNamespace, module.event.test.toggle);
+                                    .on(`click${eventNamespace}`, selector.icon, module.event.icon.click)
+                                    .on(`click${eventNamespace}`, module.event.test.toggle);
                             } else if (settings.on === 'hover') {
                                 $module
-                                    .on('mouseenter' + eventNamespace, module.delay.show)
-                                    .on('mouseleave' + eventNamespace, module.delay.hide)
-                                    .on('touchstart' + eventNamespace, module.event.test.toggle)
-                                    .on('touchstart' + eventNamespace, selector.icon, module.event.icon.click);
+                                    .on(`mouseenter${eventNamespace}`, module.delay.show)
+                                    .on(`mouseleave${eventNamespace}`, module.delay.hide)
+                                    .on(`touchstart${eventNamespace}`, module.event.test.toggle)
+                                    .on(`touchstart${eventNamespace}`, selector.icon, module.event.icon.click);
                             } else {
                                 $module
                                     .on(settings.on + eventNamespace, module.toggle);
                             }
                             $module
-                                .on('mousedown' + eventNamespace, module.event.mousedown)
-                                .on('mouseup' + eventNamespace, module.event.mouseup)
-                                .on('focus' + eventNamespace, module.event.focus)
-                                .on('click' + eventNamespace, selector.clearIcon, module.event.clearIcon.click);
+                                .on(`mousedown${eventNamespace}`, module.event.mousedown)
+                                .on(`mouseup${eventNamespace}`, module.event.mouseup)
+                                .on(`focus${eventNamespace}`, module.event.focus)
+                                .on(`click${eventNamespace}`, selector.clearIcon, module.event.clearIcon.click);
                             if (module.has.menuSearch()) {
                                 $module
-                                    .on('blur' + eventNamespace, selector.search, module.event.search.blur);
+                                    .on(`blur${eventNamespace}`, selector.search, module.event.search.blur);
                             } else {
                                 $module
-                                    .on('blur' + eventNamespace, module.event.blur);
+                                    .on(`blur${eventNamespace}`, module.event.blur);
                             }
                         }
                         $menu
-                            .on('mouseenter' + eventNamespace, selector.item, module.event.item.mouseenter)
-                            .on('touchstart' + eventNamespace, selector.item, module.event.item.mouseenter)
-                            .on('mouseleave' + eventNamespace, selector.item, module.event.item.mouseleave)
-                            .on('click' + eventNamespace, selector.item, module.event.item.click);
+                            .on(`mouseenter${eventNamespace}`, selector.item, module.event.item.mouseenter)
+                            .on(`touchstart${eventNamespace}`, selector.item, module.event.item.mouseenter)
+                            .on(`mouseleave${eventNamespace}`, selector.item, module.event.item.mouseleave)
+                            .on(`click${eventNamespace}`, selector.item, module.event.item.click);
                     },
                     intent: function () {
                         module.verbose('Binding hide intent event to document');
                         $document
-                            .on('click' + elementNamespace, module.event.test.hide);
+                            .on(`click${elementNamespace}`, module.event.test.hide);
                     },
                 },
 
@@ -668,7 +668,7 @@
                     intent: function () {
                         module.verbose('Removing hide intent event from document');
                         $document
-                            .off('click' + elementNamespace);
+                            .off(`click${elementNamespace}`);
                     },
                 },
 
@@ -730,7 +730,7 @@
                                 }
                                 if (module.is.multiple()) {
                                     $.each(preSelected, function (index, value) {
-                                        $item.filter('[data-' + metadata.value + '="' + CSS.escape(value) + '"]')
+                                        $item.filter(`[data-${metadata.value}="${CSS.escape(value)}"]`)
                                             .addClass(className.filtered);
                                     });
                                 }
@@ -823,8 +823,8 @@
                     let results = null;
                     const escapedTerm = module.escape.string(searchTerm);
                     const regExpIgnore = settings.ignoreSearchCase ? 'i' : '';
-                    const regExpFlags = regExpIgnore + 'gm';
-                    const beginsWithRegExp = new RegExp('^' + escapedTerm, regExpFlags);
+                    const regExpFlags = `${regExpIgnore}gm`;
+                    const beginsWithRegExp = new RegExp(`^${escapedTerm}`, regExpFlags);
                     module.remove.filteredItem();
                     // avoid loop if we're matching nothing
                     if (module.has.query()) {
@@ -874,10 +874,10 @@
                             const querySplit = [...query];
                             const diacriticReg = settings.ignoreDiacritics ? '[\u0300-\u036F]?' : '';
                             const htmlReg = '(?![^<]*>)';
-                            const markedRegExp = new RegExp(htmlReg + '(' + querySplit.join(diacriticReg + ')(.*?)' + htmlReg + '(') + diacriticReg + ')', regExpIgnore);
+                            const markedRegExp = new RegExp(`${htmlReg}(${querySplit.join(`${diacriticReg})(.*?)${htmlReg}(`)}${diacriticReg})`, regExpIgnore);
                             const markedReplacer = function (...args) {
                                 args = args.slice(1, querySplit.length * 2).map(function (x, i) {
-                                    return i & 1 ? x : '<mark>' + x + '</mark>'; // eslint-disable-line no-bitwise
+                                    return i & 1 ? x : `<mark>${x}</mark>`; // eslint-disable-line no-bitwise
                                 });
 
                                 return args.join('');
@@ -910,7 +910,7 @@
                                 return ($lastDivider.length > 0 ? $lastDivider : $(this))
                                     // Count all non-filtered items until the next divider (or end of the dropdown)
                                     .nextUntil(selector.divider)
-                                    .filter(selector.item + ':not(.' + className.filtered + ')')
+                                    .filter(`${selector.item}:not(.${className.filtered})`)
                                     // Hide divider if no items are found
                                     .length === 0;
                             })
@@ -957,7 +957,7 @@
                 },
                 filterActive: function () {
                     if (settings.useLabels) {
-                        $item.filter('.' + className.active)
+                        $item.filter(`.${className.active}`)
                             .addClass(className.filtered);
                     }
                 },
@@ -965,9 +965,9 @@
                 focusSearch: function (skipHandler) {
                     if (module.has.search() && !module.is.focusedOnSearch()) {
                         if (skipHandler) {
-                            $module.off('focus' + eventNamespace, selector.search);
+                            $module.off(`focus${eventNamespace}`, selector.search);
                             $search.trigger('focus');
-                            $module.on('focus' + eventNamespace, selector.search, module.event.search.focus);
+                            $module.on(`focus${eventNamespace}`, selector.search, module.event.search.focus);
                         } else {
                             $search.trigger('focus');
                         }
@@ -981,8 +981,8 @@
                 },
 
                 forceSelection: function () {
-                    const $currentlySelected = $item.not(className.filtered).filter('.' + className.selected).eq(0);
-                    const $activeItem = $item.not(className.filtered).filter('.' + className.active).eq(0);
+                    const $currentlySelected = $item.not(className.filtered).filter(`.${className.selected}`).eq(0);
+                    const $activeItem = $item.not(className.filtered).filter(`.${className.active}`).eq(0);
                     const $selectedItem = $currentlySelected.length > 0
                         ? $currentlySelected
                         : $activeItem;
@@ -1032,7 +1032,7 @@
                             $.each(values, function (index, item) {
                                 const value = item[fields.value];
                                 const name = item[fields.name] || '';
-                                $input.append('<option value="' + settings.templates.escape(value) + '"' + (item.selected === true ? ' selected' : '') + '>' + settings.templates.escape(name, settings) + '</option>');
+                                $input.append(`<option value="${settings.templates.escape(value)}"${item.selected === true ? ' selected' : ''}>${settings.templates.escape(name, settings)}</option>`);
                             });
                             module.observe.select();
                         }
@@ -1188,9 +1188,9 @@
                         click: function (event) {
                             const $label = $(this);
                             const $labels = $module.find(selector.label);
-                            const $activeLabels = $labels.filter('.' + className.active);
-                            const $nextActive = $label.nextAll('.' + className.active);
-                            const $prevActive = $label.prevAll('.' + className.active);
+                            const $activeLabels = $labels.filter(`.${className.active}`);
+                            const $nextActive = $label.nextAll(`.${className.active}`);
+                            const $prevActive = $label.prevAll(`.${className.active}`);
                             const $range = $nextActive.length > 0
                                 ? $label.nextUntil($nextActive).add($activeLabels).add($label)
                                 : $label.prevUntil($prevActive).add($activeLabels).add($label);
@@ -1203,7 +1203,7 @@
                                 $activeLabels.removeClass(className.active);
                                 $label.addClass(className.active);
                             }
-                            settings.onLabelSelect.call(this, $labels.filter('.' + className.active));
+                            settings.onLabelSelect.call(this, $labels.filter(`.${className.active}`));
                             event.stopPropagation();
                         },
                     },
@@ -1364,7 +1364,7 @@
                             const isShortcutKey = module.is.inObject(pressedKey, keys);
                             if (isShortcutKey) {
                                 const $label = $module.find(selector.label);
-                                let $activeLabel = $label.filter('.' + className.active);
+                                let $activeLabel = $label.filter(`.${className.active}`);
                                 const activeValue = $activeLabel.data(metadata.value);
                                 const labelIndex = $label.index($activeLabel);
                                 const labelCount = $label.length;
@@ -1475,14 +1475,14 @@
                         let pressedKey = event.which;
                         const isShortcutKey = module.is.inObject(pressedKey, keys) || event.key === settings.delimiter;
                         if (isShortcutKey) {
-                            const $currentlySelected = $item.not(selector.unselectable).filter('.' + className.selected).eq(0);
-                            const $activeItem = $menu.children('.' + className.active).eq(0);
+                            const $currentlySelected = $item.not(selector.unselectable).filter(`.${className.selected}`).eq(0);
+                            const $activeItem = $menu.children(`.${className.active}`).eq(0);
                             const $selectedItem = $currentlySelected.length > 0
                                 ? $currentlySelected
                                 : $activeItem;
                             const $visibleItems = $selectedItem.length > 0
-                                ? $selectedItem.siblings(':not(.' + className.filtered + ')').addBack()
-                                : $menu.children(':not(.' + className.filtered + ')');
+                                ? $selectedItem.siblings(`:not(.${className.filtered})`).addBack()
+                                : $menu.children(`:not(.${className.filtered})`);
                             const $subMenu = $selectedItem.children(selector.menu);
                             const $parentMenu = $selectedItem.closest(selector.menu);
                             const inVisibleMenu = $parentMenu.hasClass(className.visible) || $parentMenu.hasClass(className.animating) || $parentMenu.parent(selector.menu).length > 0;
@@ -1562,7 +1562,7 @@
                                 // up arrow (traverse menu up)
                                 if (pressedKey === keys.upArrow) {
                                     $nextItem = hasSelectedItem && inVisibleMenu
-                                        ? $selectedItem.prevAll(selector.item + ':not(' + selector.unselectable + ')').eq(0)
+                                        ? $selectedItem.prevAll(`${selector.item}:not(${selector.unselectable})`).eq(0)
                                         : $item.eq(0);
                                     if ($visibleItems.index($nextItem) < 0) {
                                         module.verbose('Up key pressed but reached top of current menu');
@@ -1587,7 +1587,7 @@
                                 // down arrow (traverse menu down)
                                 if (pressedKey === keys.downArrow) {
                                     $nextItem = hasSelectedItem && inVisibleMenu
-                                        ? $selectedItem.nextAll(selector.item + ':not(' + selector.unselectable + ')').eq(0)
+                                        ? $selectedItem.nextAll(`${selector.item}:not(${selector.unselectable})`).eq(0)
                                         : $item.eq(0);
                                     if ($nextItem.length === 0) {
                                         module.verbose('Down key pressed but reached bottom of current menu');
@@ -1974,10 +1974,10 @@
                         return select;
                     },
                     activeItem: function () {
-                        return $item.filter('.' + className.active);
+                        return $item.filter(`.${className.active}`);
                     },
                     selectedItem: function () {
-                        const $selectedItem = $item.not(selector.unselectable).filter('.' + className.selected);
+                        const $selectedItem = $item.not(selector.unselectable).filter(`.${className.selected}`);
 
                         return $selectedItem.length > 0
                             ? $selectedItem
@@ -2280,7 +2280,7 @@
                         const valueIsSet = searchValue !== '';
                         if (isMultiple && hasSearchValue) {
                             module.verbose('Adjusting input width', searchWidth);
-                            $search.css('width', searchWidth + 'px');
+                            $search.css('width', `${searchWidth}px`);
                         }
                         if (hasSearchValue || (isSearchMultiple && valueIsSet)) {
                             module.verbose('Hiding placeholder text');
@@ -2405,7 +2405,7 @@
                         module.set.text(text);
                     },
                     selectedLetter: function (letter) {
-                        const $selectedItem = $item.filter('.' + className.selected);
+                        const $selectedItem = $item.filter(`.${className.selected}`);
                         const alreadySelectedLetter = $selectedItem.length > 0 && module.has.firstLetter($selectedItem, letter);
                         let $nextValue = false;
                         let $nextItem;
@@ -2643,7 +2643,7 @@
                         }
                         $label = $('<a />')
                             .addClass(className.label)
-                            .attr('data-' + metadata.value, value)
+                            .attr(`data-${metadata.value}`, value)
                             .html(templates.label(value, text, settings));
                         $label = settings.onLabelCreate.call($label, value, text);
 
@@ -2687,7 +2687,7 @@
                         }
                     },
                     optionValue: function (value) {
-                        const $option = $input.find('option[value="' + CSS.escape(value) + '"]');
+                        const $option = $input.find(`option[value="${CSS.escape(value)}"]`);
                         const hasOption = $option.length > 0;
                         if (hasOption) {
                             return;
@@ -2696,7 +2696,7 @@
                         module.disconnect.selectObserver();
                         if (module.is.single()) {
                             module.verbose('Removing previous user addition');
-                            $input.find('option.' + className.addition).remove();
+                            $input.find(`option.${className.addition}`).remove();
                         }
                         $('<option/>')
                             .prop('value', value)
@@ -2724,8 +2724,8 @@
                             $addition
                                 .data(metadata.value, value)
                                 .data(metadata.text, value)
-                                .attr('data-' + metadata.value, value)
-                                .attr('data-' + metadata.text, value)
+                                .attr(`data-${metadata.value}`, value)
+                                .attr(`data-${metadata.text}`, value)
                                 .removeClass(className.filtered);
                             if (!settings.hideAdditions) {
                                 html = settings.templates.addition(module.add.variables(message.addResult, settings.templates.escape(value, settings)));
@@ -2853,7 +2853,7 @@
                             return;
                         }
                         if (settings.useLabels && module.is.multiple()) {
-                            $item.not('.' + className.active).removeClass(className.filtered);
+                            $item.not(`.${className.active}`).removeClass(className.filtered);
                         } else {
                             $item.removeClass(className.filtered);
                         }
@@ -2863,7 +2863,7 @@
                         module.remove.empty();
                     },
                     optionValue: function (value) {
-                        const $option = $input.find('option[value="' + CSS.escape(value) + '"]');
+                        const $option = $input.find(`option[value="${CSS.escape(value)}"]`);
                         const hasOption = $option.length > 0;
                         if (!hasOption || !$option.hasClass(className.addition)) {
                             return;
@@ -2961,12 +2961,12 @@
                     },
                     label: function (value, shouldAnimate) {
                         const $labels = $module.find(selector.label);
-                        const $removedLabel = $labels.filter('[data-' + metadata.value + '="' + CSS.escape(settings.ignoreCase ? value.toLowerCase() : value) + '"]');
+                        const $removedLabel = $labels.filter(`[data-${metadata.value}="${CSS.escape(settings.ignoreCase ? value.toLowerCase() : value)}"]`);
                         module.verbose('Removing label', $removedLabel);
                         $removedLabel.remove();
                     },
                     activeLabels: function ($activeLabels) {
-                        $activeLabels = $activeLabels || $module.find(selector.label).filter('.' + className.active);
+                        $activeLabels = $activeLabels || $module.find(selector.label).filter(`.${className.active}`);
                         module.verbose('Removing active label selections', $activeLabels);
                         module.remove.labels($activeLabels);
                     },
@@ -3071,7 +3071,7 @@
                             value = value.toLowerCase();
                         }
 
-                        return $labels.filter('[data-' + metadata.value + '="' + CSS.escape(value) + '"]').length > 0;
+                        return $labels.filter(`[data-${metadata.value}="${CSS.escape(value)}"]`).length > 0;
                     },
                     maxSelections: function () {
                         return settings.maxSelections && module.get.selectionCount() >= settings.maxSelections;
@@ -3382,7 +3382,7 @@
                             } else if (module.can.useElement('transition')) {
                                 $currentMenu
                                     .transition({
-                                        animation: transition + ' in',
+                                        animation: `${transition} in`,
                                         debug: settings.debug,
                                         verbose: settings.verbose,
                                         silent: settings.silent,
@@ -3421,7 +3421,7 @@
                             } else if ($.fn.transition !== undefined) {
                                 $currentMenu
                                     .transition({
-                                        animation: transition + ' out',
+                                        animation: `${transition} out`,
                                         duration: settings.transition.hideDuration || settings.duration,
                                         debug: settings.debug,
                                         verbose: settings.verbose,
@@ -3523,7 +3523,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -3533,14 +3533,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -3567,14 +3567,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);
@@ -3903,9 +3903,9 @@
             const escape = settings.templates.escape;
             html += '<i class="dropdown icon"></i>';
             html += placeholder
-                ? '<div class="default text">' + escape(placeholder, settings) + '</div>'
+                ? `<div class="default text">${escape(placeholder, settings)}</div>`
                 : '<div class="text"></div>';
-            html += '<div class="' + escape(className.menu) + '">';
+            html += `<div class="${escape(className.menu)}">`;
             html += settings.templates.menu(select, settings);
             html += '</div>';
 
@@ -3931,46 +3931,46 @@
                         if (Object.prototype.hasOwnProperty.call(dataObject, dataKey)) {
                             dataKeyEscaped = String(dataKey).replace(/\W/g, '');
                             if (!['text', 'value'].includes(dataKeyEscaped.toLowerCase())) {
-                                maybeData += ' data-' + dataKeyEscaped + '="' + escape(String(dataObject[dataKey])) + '"';
+                                maybeData += ` data-${dataKeyEscaped}="${escape(String(dataObject[dataKey]))}"`;
                             }
                         }
                     }
                 }
                 if (itemType === 'item' || isMenu) {
                     const maybeText = option[fields.text]
-                        ? ' data-text="' + escape(option[fields.text]) + '"'
+                        ? ` data-text="${escape(option[fields.text])}"`
                         : '';
                     const maybeActionable = option[fields.actionable]
-                        ? className.actionable + ' '
+                        ? `${className.actionable} `
                         : '';
                     const maybeDisabled = option[fields.disabled]
-                        ? className.disabled + ' '
+                        ? `${className.disabled} `
                         : '';
                     const maybeDescriptionVertical = option[fields.descriptionVertical]
-                        ? className.descriptionVertical + ' '
+                        ? `${className.descriptionVertical} `
                         : '';
                     const hasDescription = escape(option[fields.description] || '', settings) !== '';
-                    html += '<div class="' + escape(maybeActionable + maybeDisabled + maybeDescriptionVertical + (option[fields.class] || className.item)) + '" data-value="' + escape(option[fields.value]) + '"' + maybeText + maybeData + '>';
+                    html += `<div class="${escape(maybeActionable + maybeDisabled + maybeDescriptionVertical + (option[fields.class] || className.item))}" data-value="${escape(option[fields.value])}"${maybeText}${maybeData}>`;
                     if (isMenu) {
-                        html += '<i class="' + (itemType.includes('left') ? 'left' : '') + ' dropdown icon"></i>';
+                        html += `<i class="${itemType.includes('left') ? 'left' : ''} dropdown icon"></i>`;
                     }
                     if (option[fields.image]) {
-                        html += '<img class="' + escape(option[fields.imageClass] || className.image) + '" src="' + escape(option[fields.image]) + '"' + (option[fields.alt] ? ' alt="' + escape(option[fields.alt]) + '"' : '') + '>';
+                        html += `<img class="${escape(option[fields.imageClass] || className.image)}" src="${escape(option[fields.image])}"${option[fields.alt] ? ` alt="${escape(option[fields.alt])}"` : ''}>`;
                     }
                     if (option[fields.icon]) {
-                        html += '<i class="' + escape(option[fields.icon] + ' ' + (option[fields.iconClass] || className.icon)) + '"></i>';
+                        html += `<i class="${escape(`${option[fields.icon]} ${option[fields.iconClass] || className.icon}`)}"></i>`;
                     }
                     if (hasDescription) {
-                        html += '<span class="' + escape(className.description) + '">' + escape(option[fields.description] || '', settings) + '</span>';
-                        html += !isMenu ? '<span class="' + escape(className.text) + '">' : '';
+                        html += `<span class="${escape(className.description)}">${escape(option[fields.description] || '', settings)}</span>`;
+                        html += !isMenu ? `<span class="${escape(className.text)}">` : '';
                     }
                     if (isMenu) {
-                        html += '<span class="' + escape(className.text) + '">';
+                        html += `<span class="${escape(className.text)}">`;
                     }
                     html += escape(option[fields.name] || '', settings);
                     if (isMenu) {
                         html += '</span>';
-                        html += '<div class="' + escape(itemType) + '">';
+                        html += `<div class="${escape(itemType)}">`;
                         html += settings.templates.menu(option, settings);
                         html += '</div>';
                     } else if (hasDescription) {
@@ -3981,15 +3981,15 @@
                     const groupName = option[fields.name] || '';
                     const groupIcon = option[fields.icon] || className.groupIcon;
                     if (groupName !== '' || groupIcon !== '') {
-                        html += '<div class="' + escape(option[fields.class] || className.header) + '">';
+                        html += `<div class="${escape(option[fields.class] || className.header)}">`;
                         if (groupIcon !== '') {
-                            html += '<i class="' + escape(groupIcon + ' ' + (option[fields.iconClass] || className.icon)) + '"></i>';
+                            html += `<i class="${escape(`${groupIcon} ${option[fields.iconClass] || className.icon}`)}"></i>`;
                         }
                         html += escape(groupName, settings);
                         html += '</div>';
                     }
                     if (option[fields.divider]) {
-                        html += '<div class="' + escape(className.divider) + '"></div>';
+                        html += `<div class="${escape(className.divider)}"></div>`;
                     }
                 }
             });
@@ -4002,7 +4002,7 @@
             const className = settings.className;
             const escape = settings.templates.escape;
 
-            return escape(text, settings) + '<i class="' + escape(className.delete) + ' icon"></i>';
+            return `${escape(text, settings)}<i class="${escape(className.delete)} icon"></i>`;
         },
 
         // generates messages like "No results"

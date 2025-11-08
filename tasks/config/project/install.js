@@ -184,25 +184,25 @@ module.exports = {
             answers.dist = path.normalize(answers.dist);
 
             json.paths.output = {
-                packaged: path.normalize(answers.dist + '/'),
-                uncompressed: path.normalize(answers.dist + '/components/'),
-                compressed: path.normalize(answers.dist + '/components/'),
-                themes: path.normalize(answers.dist + '/themes/'),
+                packaged: path.normalize(`${answers.dist}/`),
+                uncompressed: path.normalize(`${answers.dist}/components/`),
+                compressed: path.normalize(`${answers.dist}/components/`),
+                themes: path.normalize(`${answers.dist}/themes/`),
             };
         }
 
         // add site path
         if (answers.site) {
-            json.paths.source.site = path.normalize(answers.site + '/');
+            json.paths.source.site = path.normalize(`${answers.site}/`);
         }
         if (answers.packaged) {
-            json.paths.output.packaged = path.normalize(answers.packaged + '/');
+            json.paths.output.packaged = path.normalize(`${answers.packaged}/`);
         }
         if (answers.compressed) {
-            json.paths.output.compressed = path.normalize(answers.compressed + '/');
+            json.paths.output.compressed = path.normalize(`${answers.compressed}/`);
         }
         if (answers.uncompressed) {
-            json.paths.output.uncompressed = path.normalize(answers.uncompressed + '/');
+            json.paths.output.uncompressed = path.normalize(`${answers.uncompressed}/`);
         }
 
         return json;

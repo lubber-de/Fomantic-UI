@@ -51,7 +51,7 @@ function parser(file, callback) {
         const text = String(file.contents.toString('utf8'));
         const lines = text.split('\n');
         let filename = file.path.slice(0, -4);
-        const key = 'server' + path.sep + 'documents';
+        const key = `server${path.sep}documents`;
         const position = filename.indexOf(key);
 
         // exit conditions
@@ -100,7 +100,7 @@ function parser(file, callback) {
         if (meta && meta.type && meta.title && inArray(meta.type, categories)) {
             meta.category = meta.type;
             meta.filename = filename;
-            meta.url = '/' + filename;
+            meta.url = `/${filename}`;
             // Primary key will be filepath
             data[meta.element.toLowerCase()] = meta;
         }

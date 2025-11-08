@@ -34,7 +34,7 @@
         const namespace = settings.namespace;
         const error = settings.error;
 
-        const moduleNamespace = 'module-' + namespace;
+        const moduleNamespace = `module-${namespace}`;
 
         const $document = $(document);
         const $module = $document;
@@ -114,7 +114,7 @@
                             module.verbose('Changing default setting', setting, value, name);
                             $.fn[name].settings[setting] = value;
                             if (modifyExisting && namespace) {
-                                $existingModules = $(':data(module-' + namespace + ')');
+                                $existingModules = $(`:data(module-${namespace})`);
                                 if ($existingModules.length > 0) {
                                     module.verbose('Modifying existing settings', $existingModules);
                                     $existingModules[name]('setting', setting, value);
@@ -133,7 +133,7 @@
                             module.verbose('Changing default setting', newSettings, name);
                             $.extend(true, $.fn[name].settings, newSettings);
                             if (modifyExisting && namespace) {
-                                $existingModules = $(':data(module-' + namespace + ')');
+                                $existingModules = $(`:data(module-${namespace})`);
                                 if ($existingModules.length > 0) {
                                     module.verbose('Modifying existing settings', $existingModules);
                                     $existingModules[name]('setting', newSettings);
@@ -228,7 +228,7 @@
                     if (settings.performance) {
                         module.performance.log(args);
                     } else {
-                        module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                        module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                         module.debug.apply(console, args);
                     }
                 }
@@ -238,13 +238,13 @@
                     if (settings.performance) {
                         module.performance.log(args);
                     } else {
-                        module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                        module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                         module.verbose.apply(console, args);
                     }
                 }
             },
             error: function (...args) {
-                module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                 module.error.apply(console, args);
             },
             performance: {
@@ -270,14 +270,14 @@
                     }, 500);
                 },
                 display: function () {
-                    let title = settings.name + ':';
+                    let title = `${settings.name}:`;
                     let totalTime = 0;
                     time = false;
                     clearTimeout(module.performance.timer);
                     $.each(performance, function (index, data) {
                         totalTime += data['Execution Time'];
                     });
-                    title += ' ' + totalTime + 'ms';
+                    title += ` ${totalTime}ms`;
                     if (performance.length > 0) {
                         console.groupCollapsed(title);
                         console.table(performance);

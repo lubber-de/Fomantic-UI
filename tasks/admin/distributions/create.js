@@ -78,7 +78,7 @@ module.exports = function (callback) {
 
             // spaces out list correctly
             const createList = function (files) {
-                return files.map((f) => "'" + f + "'").join(',\n    ');
+                return files.map((f) => `'${f}'`).join(',\n    ');
             };
 
             tasks.push(function () {

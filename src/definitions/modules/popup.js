@@ -61,8 +61,8 @@
             const metadata = settings.metadata;
             const namespace = settings.namespace;
 
-            const eventNamespace = '.' + settings.namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${settings.namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             const $module = $(this);
             const $context = contextCheck(settings.context, window);
@@ -286,8 +286,8 @@
                 },
 
                 createID: function () {
-                    id = (Math.random().toString(16) + '000000000').slice(2, 10);
-                    elementNamespace = '.' + id;
+                    id = `${Math.random().toString(16)}000000000`.slice(2, 10);
+                    elementNamespace = `.${id}`;
                     module.verbose('Creating unique id for element', id);
                 },
 
@@ -344,7 +344,7 @@
 
                 hideAll: function () {
                     $document.find(selector.popup)
-                        .filter('.' + className.popupVisible)
+                        .filter(`.${className.popupVisible}`)
                         .each(function () {
                             $(this)
                                 .data(metadata.activator)
@@ -404,7 +404,7 @@
                             module.set.visible();
                             $popup
                                 .transition({
-                                    animation: (settings.transition.showMethod || settings.transition) + ' in',
+                                    animation: `${settings.transition.showMethod || settings.transition} in`,
                                     queue: false,
                                     debug: settings.debug,
                                     verbose: settings.verbose,
@@ -424,7 +424,7 @@
                         if (settings.transition && $.fn.transition !== undefined) {
                             $popup
                                 .transition({
-                                    animation: (settings.transition.hideMethod || settings.transition) + ' out',
+                                    animation: `${settings.transition.hideMethod || settings.transition} out`,
                                     queue: false,
                                     duration: settings.transition.hideDuration || settings.duration,
                                     debug: settings.debug,
@@ -957,7 +957,7 @@
                         }
                         if (settings.on === 'hover') {
                             $module
-                                .on('touchstart' + eventNamespace, module.event.touchstart);
+                                .on(`touchstart${eventNamespace}`, module.event.touchstart);
                         }
                         if (module.get.startEvent()) {
                             $module
@@ -967,14 +967,14 @@
                         if (settings.target) {
                             module.debug('Target set to element', $target);
                         }
-                        $window.on('resize' + elementNamespace, module.event.resize);
+                        $window.on(`resize${elementNamespace}`, module.event.resize);
                     },
                     popup: function () {
                         module.verbose('Allowing hover events on popup to prevent closing');
                         if ($popup && module.has.popup()) {
                             $popup
-                                .on('mouseenter' + eventNamespace, module.event.start)
-                                .on('mouseleave' + eventNamespace, module.event.end);
+                                .on(`mouseenter${eventNamespace}`, module.event.start)
+                                .on(`mouseleave${eventNamespace}`, module.event.end);
                         }
                     },
                     close: function () {
@@ -995,7 +995,7 @@
                     touchClose: function () {
                         module.verbose('Binding popup touchclose event to document');
                         $document
-                            .on('touchstart' + elementNamespace, function (event) {
+                            .on(`touchstart${elementNamespace}`, function (event) {
                                 module.verbose('Touched away from popup');
                                 module.event.hideGracefully.call(element, event);
                             });
@@ -1132,7 +1132,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -1142,14 +1142,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -1176,14 +1176,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);
@@ -1441,11 +1441,11 @@
                 if (text !== undefined) {
                     if (text.title) {
                         text.title = escape(text.title);
-                        html += '<div class="header">' + text.title + '</div>';
+                        html += `<div class="header">${text.title}</div>`;
                     }
                     if (text.content) {
                         text.content = escape(text.content);
-                        html += '<div class="content">' + text.content + '</div>';
+                        html += `<div class="content">${text.content}</div>`;
                     }
                 }
 

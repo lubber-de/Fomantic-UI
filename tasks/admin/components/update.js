@@ -59,17 +59,17 @@ module.exports = function (callback) {
         const repoName = release.componentRepoRoot + capitalizedComponent;
 
         const commitArgs = oAuth.name !== undefined && oAuth.email !== undefined
-            ? '--author "' + oAuth.name + ' <' + oAuth.email + '>"'
+            ? `--author "${oAuth.name} <${oAuth.email}>"`
             : '';
 
-        const componentPackage = fs.existsSync(outputDirectory + 'package.json')
-            ? require(outputDirectory + 'package.json') // eslint-disable-line global-require, import/no-dynamic-require
+        const componentPackage = fs.existsSync(`${outputDirectory}package.json`)
+            ? require(`${outputDirectory}package.json`) // eslint-disable-line global-require, import/no-dynamic-require
             : false;
 
         const isNewVersion = version && componentPackage.version !== version;
 
         const commitMessage = isNewVersion
-            ? 'Updated component to version ' + version
+            ? `Updated component to version ${version}`
             : 'Updated files from main repo';
 
         const gitOptions = { cwd: outputDirectory };
@@ -77,14 +77,14 @@ module.exports = function (callback) {
         const releaseOptions = { tag_name: version, owner: release.org, repo: repoName };
 
         const fileModeOptions = { args: 'config core.fileMode false', cwd: outputDirectory };
-        const usernameOptions = { args: 'config user.name "' + oAuth.name + '"', cwd: outputDirectory };
-        const emailOptions = { args: 'config user.email "' + oAuth.email + '"', cwd: outputDirectory };
+        const usernameOptions = { args: `config user.name "${oAuth.name}"`, cwd: outputDirectory };
+        const emailOptions = { args: `config user.email "${oAuth.email}"`, cwd: outputDirectory };
         const versionOptions = { args: 'rev-parse --verify HEAD', cwd: outputDirectory };
 
         const localRepoSetup = fs.existsSync(path.join(outputDirectory, '.git'));
         const canProceed = true;
 
-        console.info('Processing repository:' + outputDirectory);
+        console.info(`Processing repository:${outputDirectory}`);
 
         function setConfig() {
             git.exec(fileModeOptions, function () {
@@ -99,7 +99,7 @@ module.exports = function (callback) {
         // standard path
         function commitFiles() {
             // commit files
-            console.info('Committing ' + component + ' files', commitArgs);
+            console.info(`Committing ${component} files`, commitArgs);
             gulp.src('./', gitOptions)
                 .pipe(git.add(gitOptions))
                 .pipe(git.commit(commitMessage, commitOptions), function () {})
@@ -118,7 +118,7 @@ module.exports = function (callback) {
 
         // push changes to remote
         function pushFiles() {
-            console.info('Pushing files for ' + component);
+            console.info(`Pushing files for ${component}`);
             git.push('origin', 'master', { args: '', cwd: outputDirectory }, function () {
                 console.info('Push completed successfully');
                 getSHA();

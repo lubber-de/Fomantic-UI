@@ -42,8 +42,8 @@
             const error = settings.error;
             const namespace = settings.namespace;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = namespace + '-module';
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `${namespace}-module`;
 
             const $module = $(this);
             let $prompt = $module.find(selector.prompt);
@@ -107,16 +107,16 @@
                         }
                         $module
                             // prompt
-                            .on('focus' + eventNamespace, selector.prompt, module.event.focus)
-                            .on('blur' + eventNamespace, selector.prompt, module.event.blur)
-                            .on('keydown' + eventNamespace, selector.prompt, module.handleKeyboard)
+                            .on(`focus${eventNamespace}`, selector.prompt, module.event.focus)
+                            .on(`blur${eventNamespace}`, selector.prompt, module.event.blur)
+                            .on(`keydown${eventNamespace}`, selector.prompt, module.handleKeyboard)
                             // search button
-                            .on('click' + eventNamespace, selector.searchButton, module.query)
+                            .on(`click${eventNamespace}`, selector.searchButton, module.query)
                             // results
-                            .on('mousedown' + eventNamespace, selector.results, module.event.result.mousedown)
-                            .on('mouseup' + eventNamespace, selector.results, module.event.result.mouseup)
-                            .on('click' + eventNamespace, selector.result, module.event.result.click)
-                            .on('click' + eventNamespace, selector.remove, module.event.remove.click);
+                            .on(`mousedown${eventNamespace}`, selector.results, module.event.result.mousedown)
+                            .on(`mouseup${eventNamespace}`, selector.results, module.event.result.mouseup)
+                            .on(`click${eventNamespace}`, selector.result, module.event.result.click)
+                            .on(`click${eventNamespace}`, selector.remove, module.event.remove.click);
                     },
                 },
 
@@ -171,7 +171,7 @@
                         if (module.resultsClicked) {
                             module.debug('Determining if user action caused search to close');
                             $module
-                                .one('click.close' + eventNamespace, selector.results, function (event) {
+                                .one(`click.close${eventNamespace}`, selector.results, function (event) {
                                     if (module.is.inMessage(event) || disabledBubbled) {
                                         $prompt.trigger('focus');
 
@@ -256,7 +256,7 @@
                     // force selector refresh
                     const $result = $module.find(selector.result);
                     const $category = $module.find(selector.category);
-                    const $activeResult = $result.filter('.' + className.active);
+                    const $activeResult = $result.filter(`.${className.active}`);
                     const currentIndex = $result.index($activeResult);
                     const resultSize = $result.length;
                     const hasActiveResult = $activeResult.length > 0;
@@ -284,8 +284,8 @@
                     if (module.is.visible()) {
                         if (keyCode === keys.enter) {
                             module.verbose('Enter key pressed, selecting active result');
-                            if ($result.filter('.' + className.active).length > 0) {
-                                module.event.result.click.call($result.filter('.' + className.active), event);
+                            if ($result.filter(`.${className.active}`).length > 0) {
+                                module.event.result.click.call($result.filter(`.${className.active}`), event);
                                 event.preventDefault();
 
                                 return false;
@@ -922,7 +922,7 @@
                             module.debug('Showing results with css animations');
                             $results
                                 .transition({
-                                    animation: settings.transition + ' in',
+                                    animation: `${settings.transition} in`,
                                     debug: settings.debug,
                                     verbose: settings.verbose,
                                     silent: settings.silent,
@@ -954,7 +954,7 @@
                             module.debug('Hiding results with css animations');
                             $results
                                 .transition({
-                                    animation: settings.transition + ' out',
+                                    animation: `${settings.transition} out`,
                                     debug: settings.debug,
                                     verbose: settings.verbose,
                                     silent: settings.silent,
@@ -996,10 +996,10 @@
                             const querySplit = [...module.get.value()];
                             const diacriticReg = settings.ignoreDiacritics ? '[\u0300-\u036F]?' : '';
                             const htmlReg = '(?![^<]*>)';
-                            const markedRegExp = new RegExp(htmlReg + '(' + querySplit.join(diacriticReg + ')(.*?)' + htmlReg + '(') + diacriticReg + ')', regExpIgnore);
+                            const markedRegExp = new RegExp(`${htmlReg}(${querySplit.join(`${diacriticReg})(.*?)${htmlReg}(`)}${diacriticReg})`, regExpIgnore);
                             const markedReplacer = function (...args) {
                                 args = args.slice(1, querySplit.length * 2).map(function (x, i) {
-                                    return i & 1 ? x : '<mark>' + x + '</mark>'; // eslint-disable-line no-bitwise
+                                    return i & 1 ? x : `<mark>${x}</mark>`; // eslint-disable-line no-bitwise
                                 });
 
                                 return args.join('');
@@ -1063,7 +1063,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -1073,14 +1073,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -1107,16 +1107,16 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if ($allModules.length > 1) {
-                            title += ' (' + $allModules.length + ')';
+                            title += ` (${$allModules.length})`;
                         }
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
@@ -1366,12 +1366,12 @@
                 let html = '';
                 if (message !== undefined && type !== undefined) {
                     html += ''
-                        + '<div class="message ' + type + '">';
+                        + `<div class="message ${type}">`;
                     if (header) {
                         html += ''
-                            + '<div class="header">' + header + '</div>';
+                            + `<div class="header">${header}</div>`;
                     }
-                    html += ' <div class="description">' + message + '</div>';
+                    html += ` <div class="description">${message}</div>`;
                     html += '</div>';
                 }
 
@@ -1388,39 +1388,39 @@
                             html += '<div class="category">';
 
                             if (category[fields.categoryName] !== undefined) {
-                                html += '<div class="name">' + escape(category[fields.categoryName], settings) + '</div>';
+                                html += `<div class="name">${escape(category[fields.categoryName], settings)}</div>`;
                             }
 
                             // each item inside category
                             html += '<div class="results">';
                             $.each(category.results, function (index, result) {
                                 html += result[fields.url]
-                                    ? '<a href="' + result[fields.url].replaceAll('"', '') + '" '
+                                    ? `<a href="${result[fields.url].replaceAll('"', '')}" `
                                     : '<div ';
 
                                 html += result[fields.id] !== undefined
-                                    ? ' id="' + result[fields.id].replaceAll('"', '') + '" '
+                                    ? ` id="${result[fields.id].replaceAll('"', '')}" `
                                     : '';
 
                                 html += result[fields.class] !== undefined
-                                    ? ' class="result ' + result[fields.class].replaceAll('"', '') + '">'
+                                    ? ` class="result ${result[fields.class].replaceAll('"', '')}">`
                                     : ' class="result">';
 
                                 if (result[fields.image] !== undefined) {
                                     html += ''
                                         + '<div class="image">'
-                                        + ' <img src="' + result[fields.image].replaceAll('"', '') + '"' + (result[fields.alt] ? ' alt="' + result[fields.alt].replaceAll('"', '') + '"' : '') + '>'
+                                        + ` <img src="${result[fields.image].replaceAll('"', '')}"${result[fields.alt] ? ` alt="${result[fields.alt].replaceAll('"', '')}"` : ''}>`
                                         + '</div>';
                                 }
                                 html += '<div class="content">';
                                 if (result[fields.price] !== undefined) {
-                                    html += '<div class="price">' + escape(result[fields.price], settings) + '</div>';
+                                    html += `<div class="price">${escape(result[fields.price], settings)}</div>`;
                                 }
                                 if (result[fields.title] !== undefined) {
-                                    html += '<div class="title">' + escape(result[fields.title], settings) + '</div>';
+                                    html += `<div class="title">${escape(result[fields.title], settings)}</div>`;
                                 }
                                 if (result[fields.description] !== undefined) {
-                                    html += '<div class="description">' + escape(result[fields.description], settings) + '</div>';
+                                    html += `<div class="description">${escape(result[fields.description], settings)}</div>`;
                                 }
                                 html += ''
                                     + '</div>';
@@ -1436,13 +1436,13 @@
                     if (response[fields.action]) {
                         html += fields.actionURL === false
                             ? ''
-                                + '<div class="action">'
-                                + escape(response[fields.action][fields.actionText], settings)
-                                + '</div>'
+                                + `<div class="action">${
+                                    escape(response[fields.action][fields.actionText], settings)
+                                }</div>`
                             : ''
-                                + '<a href="' + response[fields.action][fields.actionURL].replaceAll('"', '') + '" class="action">'
-                                + escape(response[fields.action][fields.actionText], settings)
-                                + '</a>';
+                                + `<a href="${response[fields.action][fields.actionURL].replaceAll('"', '')}" class="action">${
+                                    escape(response[fields.action][fields.actionText], settings)
+                                }</a>`;
                     }
 
                     return html;
@@ -1458,32 +1458,32 @@
                     // each result
                     $.each(response[fields.results], function (index, result) {
                         html += result[fields.url]
-                            ? '<a href="' + result[fields.url].replaceAll('"', '') + '" '
+                            ? `<a href="${result[fields.url].replaceAll('"', '')}" `
                             : '<div ';
 
                         html += result[fields.id] !== undefined
-                            ? 'id="' + result[fields.id].replaceAll('"', '') + '" '
+                            ? `id="${result[fields.id].replaceAll('"', '')}" `
                             : '';
 
                         html += result[fields.class] !== undefined
-                            ? 'class="result ' + result[fields.class].replaceAll('"', '') + '">'
+                            ? `class="result ${result[fields.class].replaceAll('"', '')}">`
                             : 'class="result">';
 
                         if (result[fields.image] !== undefined) {
                             html += ''
                                 + '<div class="image">'
-                                + ' <img src="' + result[fields.image].replaceAll('"', '') + '"' + (result[fields.alt] ? ' alt="' + result[fields.alt].replaceAll('"', '') + '"' : '') + '>'
+                                + ` <img src="${result[fields.image].replaceAll('"', '')}"${result[fields.alt] ? ` alt="${result[fields.alt].replaceAll('"', '')}"` : ''}>`
                                 + '</div>';
                         }
                         html += '<div class="content">';
                         if (result[fields.price] !== undefined) {
-                            html += '<div class="price">' + escape(result[fields.price], settings) + '</div>';
+                            html += `<div class="price">${escape(result[fields.price], settings)}</div>`;
                         }
                         if (result[fields.title] !== undefined) {
-                            html += '<div class="title">' + escape(result[fields.title], settings) + '</div>';
+                            html += `<div class="title">${escape(result[fields.title], settings)}</div>`;
                         }
                         if (result[fields.description] !== undefined) {
-                            html += '<div class="description">' + escape(result[fields.description], settings) + '</div>';
+                            html += `<div class="description">${escape(result[fields.description], settings)}</div>`;
                         }
                         html += ''
                             + '</div>';
@@ -1494,13 +1494,13 @@
                     if (response[fields.action]) {
                         html += fields.actionURL === false
                             ? ''
-                                + '<div class="action">'
-                                + escape(response[fields.action][fields.actionText], settings)
-                                + '</div>'
+                                + `<div class="action">${
+                                    escape(response[fields.action][fields.actionText], settings)
+                                }</div>`
                             : ''
-                                + '<a href="' + response[fields.action][fields.actionURL].replaceAll('"', '') + '" class="action">'
-                                + escape(response[fields.action][fields.actionText], settings)
-                                + '</a>';
+                                + `<a href="${response[fields.action][fields.actionURL].replaceAll('"', '')}" class="action">${
+                                    escape(response[fields.action][fields.actionText], settings)
+                                }</a>`;
                     }
 
                     return html;

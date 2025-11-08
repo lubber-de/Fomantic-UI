@@ -45,8 +45,8 @@ $.flyout('prompt', 'Enter Code', function () { /* make eslint happy */ }); // $E
 
 $.fn.flyout.settings.templates.greet = function (username) {
     return {
-        title: 'Greetings to ' + username + '!',
-        content: '' + username.toUpperCase() + 'is the best!',
+        title: `Greetings to ${username}!`,
+        content: `${username.toUpperCase()}is the best!`,
         closeIcon: true,
         class: 'inverted',
         classContent: 'centered',
@@ -137,8 +137,8 @@ $.modal('alert', {
 $.fn.modal.settings.templates.greet = function (username: string) {
     // do something according to modals settings and/or given parameters
     return {
-        title: 'Greetings to ' + username + '!',
-        content: '' + username.toUpperCase() + 'is the best!',
+        title: `Greetings to ${username}!`,
+        content: `${username.toUpperCase()}is the best!`,
         class: 'inverted',
         classContent: 'centered',
         dimmerSettings: {

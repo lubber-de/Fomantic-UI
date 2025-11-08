@@ -43,7 +43,7 @@ const getPublishedVersion = async function () {
                 const nightly = p['dist-tags'].nightly ?? '';
                 const versionInfo = p.versions[nightly] ?? {};
                 const buildCommit = !nightly.includes('+') && versionInfo.gitHead
-                    ? '+' + (versionInfo.gitHead ?? '').slice(0, 7)
+                    ? `+${(versionInfo.gitHead ?? '').slice(0, 7)}`
                     : '';
 
                 return nightly + buildCommit;

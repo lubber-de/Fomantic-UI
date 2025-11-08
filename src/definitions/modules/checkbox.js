@@ -38,8 +38,8 @@
             const selector = settings.selector;
             const error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             let $module = $(this);
             let $label = $(this).children(selector.label);
@@ -147,7 +147,7 @@
                     if ($element.length > 0) {
                         module.debug('Attaching checkbox events to element', selector, event);
                         $element
-                            .on('click' + eventNamespace, event);
+                            .on(`click${eventNamespace}`, event);
                     } else {
                         module.error(error.notFound);
                     }
@@ -336,7 +336,7 @@
                     radios: function () {
                         const name = module.get.name();
 
-                        return $('input[name="' + CSS.escape(name) + '"]').closest(selector.checkbox);
+                        return $(`input[name="${CSS.escape(name)}"]`).closest(selector.checkbox);
                     },
                     otherRadios: function () {
                         return module.get.radios().not($module);
@@ -581,10 +581,10 @@
                     events: function () {
                         module.verbose('Attaching checkbox events');
                         $module
-                            .on('click' + eventNamespace, module.event.click)
-                            .on('change' + eventNamespace, module.event.change)
-                            .on('keydown' + eventNamespace, selector.input, module.event.keydown)
-                            .on('keyup' + eventNamespace, selector.input, module.event.keyup);
+                            .on(`click${eventNamespace}`, module.event.click)
+                            .on(`change${eventNamespace}`, module.event.change)
+                            .on(`keydown${eventNamespace}`, selector.input, module.event.keydown)
+                            .on(`keyup${eventNamespace}`, selector.input, module.event.keyup);
                     },
                 },
 
@@ -646,7 +646,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -656,14 +656,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -690,14 +690,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

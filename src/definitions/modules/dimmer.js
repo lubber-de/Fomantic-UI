@@ -41,8 +41,8 @@
             const className = settings.className;
             const error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             const clickEvent = 'ontouchstart' in document.documentElement
                 ? 'touchstart'
@@ -65,7 +65,7 @@
                         $dimmable = $module;
                         if (module.has.dimmer()) {
                             $dimmer = settings.dimmerName
-                                ? $dimmable.find(selector.dimmer).filter('.' + settings.dimmerName)
+                                ? $dimmable.find(selector.dimmer).filter(`.${settings.dimmerName}`)
                                 : $dimmable.find(selector.dimmer);
                         } else {
                             $dimmer = module.create();
@@ -100,8 +100,8 @@
                     events: function () {
                         if (settings.on === 'hover') {
                             $dimmable
-                                .on('mouseenter' + eventNamespace, module.show)
-                                .on('mouseleave' + eventNamespace, module.hide);
+                                .on(`mouseenter${eventNamespace}`, module.show)
+                                .on(`mouseleave${eventNamespace}`, module.hide);
                         } else if (settings.on === 'click') {
                             $dimmable
                                 .on(clickEvent + eventNamespace, module.toggle);
@@ -228,7 +228,7 @@
                                     displayType: settings.useFlex
                                         ? 'flex'
                                         : 'block',
-                                    animation: (settings.transition.showMethod || settings.transition) + ' in',
+                                    animation: `${settings.transition.showMethod || settings.transition} in`,
                                     queue: false,
                                     duration: module.get.duration(),
                                     useFailSafe: true,
@@ -276,7 +276,7 @@
                                     displayType: settings.useFlex
                                         ? 'flex'
                                         : 'block',
-                                    animation: (settings.transition.hideMethod || settings.transition) + ' out',
+                                    animation: `${settings.transition.hideMethod || settings.transition} out`,
                                     queue: false,
                                     duration: module.get.duration(),
                                     useFailSafe: true,
@@ -319,7 +319,7 @@
                 has: {
                     dimmer: function () {
                         if (settings.dimmerName) {
-                            return $module.find(selector.dimmer).filter('.' + settings.dimmerName).length > 0;
+                            return $module.find(selector.dimmer).filter(`.${settings.dimmerName}`).length > 0;
                         }
 
                         return $module.find(selector.dimmer).length > 0;
@@ -377,10 +377,10 @@
                         opacity = settings.opacity === 0 ? 0 : settings.opacity || opacity;
                         if (isRGB) {
                             colorArray[2] = colorArray[2].replace(')', '');
-                            colorArray[3] = opacity + ')';
+                            colorArray[3] = `${opacity})`;
                             color = colorArray.join(',');
                         } else {
-                            color = 'rgba(0, 0, 0, ' + opacity + ')';
+                            color = `rgba(0, 0, 0, ${opacity})`;
                         }
                         module.debug('Setting opacity to', opacity);
                         $dimmer.css('background-color', color);
@@ -459,7 +459,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -469,14 +469,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -503,16 +503,16 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if ($allModules.length > 1) {
-                            title += ' (' + $allModules.length + ')';
+                            title += ` (${$allModules.length})`;
                         }
                         if (performance.length > 0) {
                             console.groupCollapsed(title);

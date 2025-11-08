@@ -44,12 +44,12 @@ module.exports = function (callback) {
         // streams... designed to save time and make coding fun...
         (function (component) {
             const outputDirectory = path.join(release.outputRoot, component);
-            const isJavascript = fs.existsSync(output.compressed + component + '.js');
-            const isCSS = fs.existsSync(output.compressed + component + '.css');
+            const isJavascript = fs.existsSync(`${output.compressed + component}.js`);
+            const isCSS = fs.existsSync(`${output.compressed + component}.css`);
             const capitalizedComponent = component.charAt(0).toUpperCase() + component.slice(1);
             const packageName = release.packageRoot + component;
             const repoName = release.componentRepoRoot + capitalizedComponent;
-            const gitURL = 'https://github.com/' + release.org + '/' + repoName + '.git';
+            const gitURL = `https://github.com/${release.org}/${repoName}.git`;
             const concatSettings = {
                 newline: '',
                 root: outputDirectory,
@@ -67,11 +67,11 @@ module.exports = function (callback) {
                     spacedVersions: /(###.*\n)\n+(?=###)/gm,
                     spacedLists: /(^- .*\n)\n+(?=^-)/gm,
                     trim: /^\s+|\s+$/g,
-                    unrelatedNotes: new RegExp('^((?!(^.*(' + component + ').*$|###.*)).)*$', 'gmi'),
+                    unrelatedNotes: new RegExp(`^((?!(^.*(${component}).*$|###.*)).)*$`, 'gmi'),
                     whitespace: /\n\s*\n\s*\n/gm,
                     // npm
                     componentExport: /(.*)\$\.fn\.\w+\s*=\s*function\(([^)]*)\)\s*{/g,
-                    componentReference: '$.fn.' + component,
+                    componentReference: `$.fn.${component}`,
                     settingsExport: /\$\.fn\.\w+\.settings\s*=/g,
                     settingsReference: /\$\.fn\.\w+\.settings/g,
                     trailingComma: /,(?=[^,]*$)/,
@@ -97,13 +97,13 @@ module.exports = function (callback) {
             };
             // paths to includable assets
             const manifest = {
-                assets: outputDirectory + '/assets/**/' + component + '?(s).*',
-                component: outputDirectory + '/' + component + '+(.js|.css)',
+                assets: `${outputDirectory}/assets/**/${component}?(s).*`,
+                component: `${outputDirectory}/${component}+(.js|.css)`,
             };
 
             // copy dist files into output folder adjusting asset paths
             function copyDist() {
-                return gulp.src(release.source + component + '.*', { encoding: false })
+                return gulp.src(`${release.source + component}.*`, { encoding: false })
                     .pipe(plumber())
                     .pipe(flatten())
                     .pipe(replace(release.paths.source, release.paths.output))
@@ -112,7 +112,7 @@ module.exports = function (callback) {
 
             // create npm module
             function createNpmModule() {
-                return gulp.src(release.source + component + '!(*.min|*.map).js')
+                return gulp.src(`${release.source + component}!(*.min|*.map).js`)
                     .pipe(plumber())
                     .pipe(flatten())
                     .pipe(replace(regExp.match.componentExport, regExp.replace.componentExport))
@@ -141,17 +141,17 @@ module.exports = function (callback) {
                     .pipe(flatten())
                     .pipe(jsonEditor(function (bower) {
                         bower.name = packageName;
-                        bower.description = capitalizedComponent + ' - Fomantic UI';
+                        bower.description = `${capitalizedComponent} - Fomantic UI`;
                         if (isJavascript) {
                             bower.main = isCSS
-                                ? [component + '.js', component + '.css']
-                                : [component + '.js'];
+                                ? [`${component}.js`, `${component}.css`]
+                                : [`${component}.js`];
                             bower.dependencies = {
                                 jquery: '>=1.8',
                             };
                         } else {
                             bower.main = [
-                                component + '.css',
+                                `${component}.css`,
                             ];
                         }
 
@@ -176,8 +176,8 @@ module.exports = function (callback) {
                         if (version) {
                             npm.version = version;
                         }
-                        npm.title = 'Fomantic UI - ' + capitalizedComponent;
-                        npm.description = 'Single component release of ' + component;
+                        npm.title = `Fomantic UI - ${capitalizedComponent}`;
+                        npm.description = `Single component release of ${component}`;
                         npm.repository = {
                             type: 'git',
                             url: gitURL,
@@ -198,13 +198,13 @@ module.exports = function (callback) {
                             composer.dependencies = {
                                 jquery: 'x.x.x',
                             };
-                            composer.main = component + '.js';
+                            composer.main = `${component}.js`;
                         }
-                        composer.name = 'semantic/' + component;
+                        composer.name = `semantic/${component}`;
                         if (version) {
                             composer.version = version;
                         }
-                        composer.description = 'Single component release of ' + component;
+                        composer.description = `Single component release of ${component}`;
 
                         return composer;
                     }))

@@ -73,7 +73,7 @@ function pack(type, compress) {
     const src = globs.components
         .replace(/[{}]/g, '')
         .split(',')
-        .map((c) => gulp.src(output.uncompressed + '/**/' + c + globs.ignored + '.js'));
+        .map((c) => gulp.src(`${output.uncompressed}/**/${c}${globs.ignored}.js`));
 
     return ordered(src)
         .pipe(plumber())
@@ -100,13 +100,13 @@ function buildJS(src, type, config, callback) {
         callback = config;
         config = type;
         type = src;
-        src = config.paths.source.definitions + '/**/' + config.globs.components + (config.globs.ignored || '') + '.js';
+        src = `${config.paths.source.definitions}/**/${config.globs.components}${config.globs.ignored || ''}.js`;
     }
 
     if (globs.individuals !== undefined && typeof src === 'string') {
-        const components = config.globs.components.replace(/[{}]/g, '') + ',' + config.globs.individuals.replace(/[{}]/g, '');
+        const components = `${config.globs.components.replace(/[{}]/g, '')},${config.globs.individuals.replace(/[{}]/g, '')}`;
 
-        src = config.paths.source.definitions + '/**/{' + components + '}' + (config.globs.ignored || '') + '.js';
+        src = `${config.paths.source.definitions}/**/{${components}}${config.globs.ignored || ''}.js`;
     }
 
     // copy source javascript
@@ -132,7 +132,7 @@ let files = [];
 
 module.exports.watch = function (type, config) {
     gulp
-        .watch([normalize(config.paths.source.definitions + '/**/*.js')])
+        .watch([normalize(`${config.paths.source.definitions}/**/*.js`)])
         .on('all', function (event, path) {
             // We don't handle deleted files yet
             if (event === 'unlink' || event === 'unlinkDir') {

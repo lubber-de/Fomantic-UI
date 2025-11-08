@@ -63,8 +63,8 @@
             const className = settings.className;
 
             // define namespaces for modules
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             // element that creates request
             const $module = $(this);
@@ -380,8 +380,8 @@
                                     } else {
                                         module.verbose('Optional variable not found', variable);
                                         // remove preceding slash if set
-                                        url = url.includes('/' + templatedString)
-                                            ? url.replace('/' + templatedString, '')
+                                        url = url.includes(`/${templatedString}`)
+                                            ? url.replace(`/${templatedString}`, '')
                                             : url.replace(templatedString, '');
                                     }
                                 });
@@ -418,7 +418,7 @@
                                 if (!regExp.validate.test(el.name)) {
                                     return;
                                 }
-                                const isCheckbox = $('[name="' + CSS.escape(el.name) + '"]', $form).attr('type') === 'checkbox';
+                                const isCheckbox = $(`[name="${CSS.escape(el.name)}"]`, $form).attr('type') === 'checkbox';
                                 const floatValue = Number.parseFloat(el.value);
                                 let value = (isCheckbox && el.value === 'on')
                                         || el.value === 'true'
@@ -836,7 +836,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -846,14 +846,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -880,14 +880,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

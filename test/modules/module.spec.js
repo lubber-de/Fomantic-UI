@@ -23,7 +23,7 @@ function moduleTests(ui) {
 
     beforeEach(function () {
         // load fixtures
-        fixtures.load(module + '.html');
+        fixtures.load(`${module}.html`);
         // save settings
         originalSettings = $.fn[module].settings;
 
@@ -74,7 +74,7 @@ function moduleTests(ui) {
 
         it('has an instance in metadata after init', function () {
             $oneModule[module]();
-            expect($module).toHaveData('module-' + module);
+            expect($module).toHaveData(`module-${module}`);
         });
     });
 
@@ -190,7 +190,7 @@ function moduleTests(ui) {
 
         it('removes instance metadata', function () {
             $module[module]('destroy');
-            expect($module.data('module-' + module)).toBe(undefined);
+            expect($module.data(`module-${module}`)).toBe(undefined);
         });
     });
 }

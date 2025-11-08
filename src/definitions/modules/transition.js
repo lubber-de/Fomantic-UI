@@ -58,8 +58,8 @@
                     metadata = settings.metadata;
 
                     // define namespace
-                    eventNamespace = '.' + settings.namespace;
-                    moduleNamespace = 'module-' + settings.namespace;
+                    eventNamespace = `.${settings.namespace}`;
+                    moduleNamespace = `module-${settings.namespace}`;
                     instance = $module.data(moduleNamespace) || module;
 
                     if (methodInvoked) {
@@ -170,7 +170,7 @@
                     module.debug('Queueing animation of', animation);
                     module.queuing = true;
                     $module
-                        .one('animationend.queue' + eventNamespace, function () {
+                        .one(`animationend.queue${eventNamespace}`, function () {
                             module.queuing = false;
                             module.repaint();
                             module.animate.call(this, settings);
@@ -206,7 +206,7 @@
                         const style = $module.attr('style');
                         const userStyle = module.get.userStyle(style);
                         const displayType = module.get.displayType();
-                        const overrideStyle = userStyle + 'display: ' + displayType + ' !important;';
+                        const overrideStyle = `${userStyle}display: ${displayType} !important;`;
                         const inlineDisplay = $module[0].style.display;
                         const mustStayHidden = !displayType || (inlineDisplay === 'none' && settings.skipInlineHidden) || $module[0].tagName.match(/(script|link|style)/i);
                         if (mustStayHidden) {
@@ -278,7 +278,7 @@
                     },
                     duration: function (duration = settings.duration) {
                         duration = typeof duration === 'number'
-                            ? duration + 'ms'
+                            ? `${duration}ms`
                             : duration;
                         if (duration || duration === 0) {
                             module.verbose('Setting animation duration', duration);
@@ -329,7 +329,7 @@
                         module.debug('Starting tween', animationClass);
                         $module
                             .addClass(animationClass)
-                            .one('animationend.complete' + eventNamespace, module.complete);
+                            .one(`animationend.complete${eventNamespace}`, module.complete);
                         if (settings.useFailSafe) {
                             module.add.failSafe();
                         }
@@ -387,10 +387,10 @@
                         module.remove.completeCallback();
                     },
                     queueCallback: function () {
-                        $module.off('.queue' + eventNamespace);
+                        $module.off(`.queue${eventNamespace}`);
                     },
                     completeCallback: function () {
-                        $module.off('.complete' + eventNamespace);
+                        $module.off(`.complete${eventNamespace}`);
                     },
                     display: function () {
                         $module.css('display', '');
@@ -468,13 +468,13 @@
                     },
                     animationClass: function (animationClass = settings.animation) {
                         const directionClass = module.can.transition() && !module.has.direction()
-                            ? module.get.direction() + ' '
+                            ? `${module.get.direction()} `
                             : '';
 
-                        return className.animating + ' '
-                            + className.transition + ' '
-                            + directionClass
-                            + animationClass;
+                        return `${className.animating} ${
+                            className.transition} ${
+                            directionClass
+                        }${animationClass}`;
                     },
                     currentAnimation: function () {
                         return module.cache && module.cache.animation !== undefined
@@ -564,7 +564,7 @@
                             elementClass = $module.attr('class');
                             tagName = $module.prop('tagName');
 
-                            $clone = $('<' + tagName + ' />').addClass(elementClass).insertAfter($module);
+                            $clone = $(`<${tagName} />`).addClass(elementClass).insertAfter($module);
                             currentAnimation = $clone
                                 .addClass(animation)
                                 .removeClass(className.inward)
@@ -628,7 +628,7 @@
                         return $module.hasClass(className.looping);
                     },
                     occurring: function (animation = settings.animation) {
-                        animation = '.' + animation.replace(' ', '.');
+                        animation = `.${animation.replace(' ', '.')}`;
 
                         return $module.filter(animation).length > 0;
                     },
@@ -745,7 +745,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -755,14 +755,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -789,16 +789,16 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if ($allModules.length > 1) {
-                            title += ' (' + $allModules.length + ')';
+                            title += ` (${$allModules.length})`;
                         }
                         if (performance.length > 0) {
                             console.groupCollapsed(title);

@@ -60,8 +60,8 @@
             const regExp = settings.regExp;
             let error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             let $module = $(this);
             let $context = contextCheck(settings.context, window);
@@ -120,13 +120,13 @@
                     if (module.has.configActions()) {
                         let $actions = $module.find(selector.actions).addClass(settings.classActions);
                         if ($actions.length === 0) {
-                            $actions = $('<div/>', { class: className.actions + ' ' + (settings.classActions || '') }).appendTo($module);
+                            $actions = $('<div/>', { class: `${className.actions} ${settings.classActions || ''}` }).appendTo($module);
                         } else {
                             $actions.empty();
                         }
                         for (const el of settings.actions) {
                             const icon = el[fields.icon]
-                                ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '') + ' class="' + module.helpers.escape(el[fields.icon]) + ' icon"></i>'
+                                ? `<i ${el[fields.text] ? 'aria-hidden="true"' : ''} class="${module.helpers.escape(el[fields.icon])} icon"></i>`
                                 : '';
                             const text = module.helpers.escape(el[fields.text] || '', settings);
                             const cls = module.helpers.escape(el[fields.class] || '');
@@ -138,7 +138,7 @@
                             $actions.append($('<button/>', {
                                 html: icon + text,
                                 'aria-label': (el[fields.text] || el[fields.icon] || '').replace(/<[^>]+(>|$)/g, ''),
-                                class: className.button + ' ' + cls,
+                                class: `${className.button} ${cls}`,
                                 on: {
                                     click: function () {
                                         if (click.call(elementRef, $moduleRef) === false) {
@@ -196,12 +196,12 @@
                             $module.append($closeIcon);
                         }
                         if (settings.title !== '') {
-                            const titleId = '_' + module.get.id() + 'title';
+                            const titleId = `_${module.get.id()}title`;
                             $module.attr('aria-labelledby', titleId);
                             $('<div/>', { class: className.header, id: titleId }).appendTo($module);
                         }
                         if (settings.content !== '') {
-                            const descId = '_' + module.get.id() + 'desc';
+                            const descId = `_${module.get.id()}desc`;
                             $module.attr('aria-describedby', descId);
                             $('<div/>', { class: className.content, id: descId }).appendTo($module);
                         }
@@ -212,8 +212,8 @@
                         element = $module[0];
                     },
                     id: function () {
-                        id = (Math.random().toString(16) + '000000000').slice(2, 10);
-                        elementNamespace = '.' + id;
+                        id = `${Math.random().toString(16)}000000000`.slice(2, 10);
+                        elementNamespace = `.${id}`;
                         module.verbose('Creating unique id for element', id);
                     },
                 },
@@ -343,26 +343,26 @@
                 bind: {
                     resize: function () {
                         module.verbose('Adding resize event to window', $window);
-                        $window.on('resize' + elementNamespace, module.event.resize);
+                        $window.on(`resize${elementNamespace}`, module.event.resize);
                     },
                     events: function () {
                         module.verbose('Attaching events');
                         $module
-                            .on('click' + eventNamespace, selector.close, module.event.close)
-                            .on('click' + eventNamespace, selector.approve, module.event.approve)
-                            .on('click' + eventNamespace, selector.deny, module.event.deny);
+                            .on(`click${eventNamespace}`, selector.close, module.event.close)
+                            .on(`click${eventNamespace}`, selector.approve, module.event.approve)
+                            .on(`click${eventNamespace}`, selector.deny, module.event.deny);
                         $closeIcon
-                            .on('keyup' + elementNamespace, module.event.closeKeyUp);
+                            .on(`keyup${elementNamespace}`, module.event.closeKeyUp);
                         $window
-                            .on('focus' + elementNamespace, module.event.focus);
+                            .on(`focus${elementNamespace}`, module.event.focus);
                         $context
-                            .on('click' + elementNamespace, module.event.click);
+                            .on(`click${elementNamespace}`, module.event.click);
                     },
                     clickaway: function () {
                         module.verbose('Adding clickaway events to context', $context);
                         $context
-                            .on('click' + elementNamespace, module.event.clickaway)
-                            .on('touchend' + elementNamespace, module.event.clickaway);
+                            .on(`click${elementNamespace}`, module.event.clickaway)
+                            .on(`touchend${elementNamespace}`, module.event.clickaway);
                     },
                     scrollLock: function () {
                         if (settings.scrollLock) {
@@ -376,9 +376,9 @@
                         }
                         module.verbose('Adding events to contain flyout scroll');
                         $document
-                            .on('touchmove' + elementNamespace, module.event.touch);
+                            .on(`touchmove${elementNamespace}`, module.event.touch);
                         $module
-                            .on('scroll' + eventNamespace, module.event.containScroll);
+                            .on(`scroll${eventNamespace}`, module.event.containScroll);
                     },
                 },
                 unbind: {
@@ -393,7 +393,7 @@
                         }
                         $context.removeClass(className.locked);
                         $document.off(elementNamespace);
-                        $module.off('scroll' + eventNamespace);
+                        $module.off(`scroll${eventNamespace}`);
                     },
                 },
 
@@ -422,15 +422,15 @@
                         if (direction === 'left' || direction === 'right') {
                             module.debug('Adding CSS rules for animation distance', width);
                             style += ''
-                                + ' .ui.visible.' + direction + '.flyout ~ .fixed,'
-                                + ' .ui.visible.' + direction + '.flyout ~ .pusher {'
-                                + '           transform: translate3d(' + distance[direction] + 'px, 0, 0);'
+                                + ` .ui.visible.${direction}.flyout ~ .fixed,`
+                                + ` .ui.visible.${direction}.flyout ~ .pusher {`
+                                + `           transform: translate3d(${distance[direction]}px, 0, 0);`
                                 + ' }';
                         } else if (direction === 'top' || direction === 'bottom') {
                             style += ''
-                                + ' .ui.visible.' + direction + '.flyout ~ .fixed,'
-                                + ' .ui.visible.' + direction + '.flyout ~ .pusher {'
-                                + '           transform: translate3d(0, ' + distance[direction] + 'px, 0);'
+                                + ` .ui.visible.${direction}.flyout ~ .fixed,`
+                                + ` .ui.visible.${direction}.flyout ~ .pusher {`
+                                + `           transform: translate3d(0, ${distance[direction]}px, 0);`
                                 + ' }';
                         }
 
@@ -442,7 +442,7 @@
                     keyboardShortcuts: function () {
                         module.verbose('Adding keyboard shortcuts');
                         $document
-                            .on('keydown' + eventNamespace, module.event.keyboard);
+                            .on(`keydown${eventNamespace}`, module.event.keyboard);
                     },
                 },
                 observeChanges: function () {
@@ -506,7 +506,7 @@
                 refreshInputs: function (ignoreAutofocus) {
                     if ($inputs) {
                         $inputs
-                            .off('keydown' + elementNamespace);
+                            .off(`keydown${elementNamespace}`);
                     }
                     if (!settings.dimPage) {
                         return;
@@ -521,9 +521,9 @@
                         $module.removeAttr('tabindex');
                     }
                     $inputs.first()
-                        .on('keydown' + elementNamespace, module.event.inputKeyDown.first);
+                        .on(`keydown${elementNamespace}`, module.event.inputKeyDown.first);
                     $inputs.last()
-                        .on('keydown' + elementNamespace, module.event.inputKeyDown.last);
+                        .on(`keydown${elementNamespace}`, module.event.inputKeyDown.last);
                     if (!ignoreAutofocus && settings.autofocus && $inputs.filter(':focus').length === 0) {
                         module.set.autofocus();
                     }
@@ -568,7 +568,7 @@
                         const $actions = $module.children(selector.actions);
                         const newContentHeight = ($context.height() || 0) - ($header.outerHeight() || 0) - ($actions.outerHeight() || 0);
                         if (newContentHeight > 0) {
-                            $content.css('min-height', String(newContentHeight) + 'px');
+                            $content.css('min-height', `${String(newContentHeight)}px`);
                         }
                     },
                 },
@@ -581,7 +581,7 @@
                     if ($toggle.length > 0) {
                         module.debug('Attaching flyout events to element', selector, event);
                         $toggle
-                            .on('click' + eventNamespace, event);
+                            .on(`click${eventNamespace}`, event);
                     } else {
                         module.error(error.notFound, selector);
                     }
@@ -650,17 +650,17 @@
                 },
 
                 othersAnimating: function () {
-                    return $flyouts.not($module).filter('.' + className.animating).length > 0;
+                    return $flyouts.not($module).filter(`.${className.animating}`).length > 0;
                 },
                 othersVisible: function () {
-                    return $flyouts.not($module).filter('.' + className.visible).length > 0;
+                    return $flyouts.not($module).filter(`.${className.visible}`).length > 0;
                 },
                 othersActive: function () {
                     return module.othersVisible() || module.othersAnimating();
                 },
 
                 hideOthers: function (callback = function () {}) {
-                    const $otherFlyouts = $flyouts.not($module).filter('.' + className.visible);
+                    const $otherFlyouts = $flyouts.not($module).filter(`.${className.visible}`);
                     const flyoutCount = $otherFlyouts.length;
                     let callbackCount = 0;
                     $otherFlyouts
@@ -701,13 +701,13 @@
                     };
                     const transitionEnd = function (event) {
                         if (event.target === $module[0]) {
-                            $module.off('transitionend' + elementNamespace, transitionEnd);
+                            $module.off(`transitionend${elementNamespace}`, transitionEnd);
                             module.remove.animating();
                             callback.call(element);
                         }
                     };
-                    $module.off('transitionend' + elementNamespace);
-                    $module.on('transitionend' + elementNamespace, transitionEnd);
+                    $module.off(`transitionend${elementNamespace}`);
+                    $module.on(`transitionend${elementNamespace}`, transitionEnd);
                     requestAnimationFrame(animate);
                     if (settings.dimPage && !module.othersVisible()) {
                         requestAnimationFrame(dim);
@@ -738,7 +738,7 @@
                     };
                     const transitionEnd = function (event) {
                         if (event.target === $module[0]) {
-                            $module.off('transitionend' + elementNamespace, transitionEnd);
+                            $module.off(`transitionend${elementNamespace}`, transitionEnd);
                             module.remove.animating();
                             module.remove.closing();
                             module.remove.overlay();
@@ -752,8 +752,8 @@
                             callback.call(element);
                         }
                     };
-                    $module.off('transitionend' + elementNamespace);
-                    $module.on('transitionend' + elementNamespace, transitionEnd);
+                    $module.off(`transitionend${elementNamespace}`);
+                    $module.on(`transitionend${elementNamespace}`, transitionEnd);
                     requestAnimationFrame(animate);
                 },
 
@@ -799,11 +799,11 @@
                     },
                     bodyMargin: function () {
                         const position = module.can.leftBodyScrollbar() ? 'left' : 'right';
-                        $context.css((isBody ? 'margin-' : 'padding-') + position, tempBodyMargin + 'px');
+                        $context.css((isBody ? 'margin-' : 'padding-') + position, `${tempBodyMargin}px`);
                         $context.find(selector.bodyFixed.replace('right', position)).each(function () {
                             const el = $(this);
-                            const attribute = el.css('position') === 'fixed' ? 'padding-' + position : position;
-                            el.css(attribute, 'calc(' + el.css(attribute) + ' + ' + tempBodyMargin + 'px)');
+                            const attribute = el.css('position') === 'fixed' ? `padding-${position}` : position;
+                            el.css(attribute, `calc(${el.css(attribute)} + ${tempBodyMargin}px)`);
                         });
                     },
 
@@ -851,7 +851,7 @@
                     keyboardShortcuts: function () {
                         module.verbose('Removing keyboard shortcuts');
                         $document
-                            .off('keydown' + eventNamespace);
+                            .off(`keydown${eventNamespace}`);
                     },
 
                     // context
@@ -1003,7 +1003,7 @@
                         $context.css((isBody ? 'margin-' : 'padding-') + position, initialBodyMarginInt === 0 ? '' : initialBodyMargin);
                         $context.find(selector.bodyFixed.replace('right', position)).each(function () {
                             const el = $(this);
-                            const attribute = el.css('position') === 'fixed' ? 'padding-' + position : position;
+                            const attribute = el.css('position') === 'fixed' ? `padding-${position}` : position;
                             el.css(attribute, '');
                         });
                     },
@@ -1055,7 +1055,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -1065,14 +1065,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -1099,14 +1099,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);
@@ -1377,7 +1377,7 @@
             args = settings.templates.getArguments(args);
             const input = $($.parseHTML(args.content)).filter('.ui.input');
             if (input.length === 0) {
-                args.content += '<p><div class="' + settings.className.prompt + '"><input placeholder="' + this.helpers.escape(args.placeholder || '') + '" type="text" value="' + this.helpers.escape(args.defaultValue || '') + '"></div></p>';
+                args.content += `<p><div class="${settings.className.prompt}"><input placeholder="${this.helpers.escape(args.placeholder || '')}" type="text" value="${this.helpers.escape(args.defaultValue || '')}"></div></p>`;
             }
 
             return {

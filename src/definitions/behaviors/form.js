@@ -139,7 +139,7 @@
                         action = 'submit';
                     }
 
-                    $(selector).on('click' + eventNamespace, function (event) {
+                    $(selector).on(`click${eventNamespace}`, function (event) {
                         module[action]();
                         event.preventDefault();
                     });
@@ -151,14 +151,14 @@
                 bindEvents: function () {
                     module.verbose('Attaching form events');
                     $module
-                        .on('submit' + eventNamespace, module.validate.form)
-                        .on('blur' + eventNamespace, selector.field, module.event.field.blur)
-                        .on('click' + eventNamespace, selector.submit, module.submit)
-                        .on('click' + eventNamespace, selector.reset, module.reset)
-                        .on('click' + eventNamespace, selector.clear, module.clear);
-                    $field.on('invalid' + eventNamespace, module.event.field.invalid);
+                        .on(`submit${eventNamespace}`, module.validate.form)
+                        .on(`blur${eventNamespace}`, selector.field, module.event.field.blur)
+                        .on(`click${eventNamespace}`, selector.submit, module.submit)
+                        .on(`click${eventNamespace}`, selector.reset, module.reset)
+                        .on(`click${eventNamespace}`, selector.clear, module.clear);
+                    $field.on(`invalid${eventNamespace}`, module.event.field.invalid);
                     if (settings.keyboardShortcuts) {
-                        $module.on('keydown' + eventNamespace, selector.field, module.event.field.keydown);
+                        $module.on(`keydown${eventNamespace}`, selector.field, module.event.field.keydown);
                     }
                     $field.each(function (index, el) {
                         const $input = $(el);
@@ -169,22 +169,22 @@
 
                     // Dirty events
                     if (settings.preventLeaving) {
-                        $window.on('beforeunload' + eventNamespace, module.event.beforeUnload);
+                        $window.on(`beforeunload${eventNamespace}`, module.event.beforeUnload);
                     }
 
-                    $field.on('change' + eventNamespace
-                        + ' click' + eventNamespace
-                        + ' keyup' + eventNamespace
-                        + ' keydown' + eventNamespace
-                        + ' blur' + eventNamespace, function (event) {
+                    $field.on(`change${eventNamespace
+                    } click${eventNamespace
+                    } keyup${eventNamespace
+                    } keydown${eventNamespace
+                    } blur${eventNamespace}`, function (event) {
                         module.determine.isDirty(event);
                     });
 
-                    $module.on('dirty' + eventNamespace, function (event) {
+                    $module.on(`dirty${eventNamespace}`, function (event) {
                         settings.onDirty.call(element, event);
                     });
 
-                    $module.on('clean' + eventNamespace, function (event) {
+                    $module.on(`clean${eventNamespace}`, function (event) {
                         settings.onClean.call(element, event);
                     });
                     if (attachEventsSelector) {
@@ -362,7 +362,7 @@
                         const boolRegex = /^(true|false)$/i;
                         const isBoolValue = boolRegex.test(initialValue) && boolRegex.test(currentValue);
                         if (isBoolValue) {
-                            const regex = new RegExp('^' + initialValue + '$', 'i');
+                            const regex = new RegExp(`^${initialValue}$`, 'i');
 
                             return !regex.test(currentValue);
                         }
@@ -415,7 +415,7 @@
                             }
                             if (!event.ctrlKey && key === keyCode.enter && isInput && !isInDropdown && !isCheckbox) {
                                 if (!keyHeldDown) {
-                                    $field.one('keyup' + eventNamespace, module.event.field.keyup);
+                                    $field.one(`keyup${eventNamespace}`, module.event.field.keyup);
                                     module.submit(event);
                                     module.debug('Enter pressed on input submitting form');
                                 }
@@ -480,7 +480,7 @@
 
                         return rule.value !== undefined
                             ? rule.value
-                            : rule.type.match(settings.regExp.bracket)[1] + '';
+                            : `${rule.type.match(settings.regExp.bracket)[1]}`;
                     },
                     ruleName: function (rule) {
                         if (module.is.bracketedRule(rule)) {
@@ -536,7 +536,7 @@
                                     : (parts[1] === ''
                                         ? settings.prompt.minValue.replaceAll('{ruleValue}', '{min}')
                                         : settings.prompt.range);
-                                prompt += suffixPrompt.replaceAll('{name}', ' ' + settings.text.and);
+                                prompt += suffixPrompt.replaceAll('{name}', ` ${settings.text.and}`);
                             }
                             prompt = prompt.replaceAll('{min}', parts[0]);
                             prompt = prompt.replaceAll('{max}', parts[1]);
@@ -579,8 +579,8 @@
                         className = settings.className;
                         regExp = settings.regExp;
                         error = settings.error;
-                        moduleNamespace = 'module-' + namespace;
-                        eventNamespace = '.' + namespace;
+                        moduleNamespace = `module-${namespace}`;
+                        eventNamespace = `.${namespace}`;
 
                         // grab instance
                         instance = $module.data(moduleNamespace);
@@ -591,19 +591,19 @@
                     field: function (identifier, strict, ignoreMissing) {
                         module.verbose('Finding field with identifier', identifier);
                         let t;
-                        t = $field.filter('#' + CSS.escape(identifier));
+                        t = $field.filter(`#${CSS.escape(identifier)}`);
                         if (t.length > 0) {
                             return t;
                         }
-                        t = $field.filter('[name="' + CSS.escape(identifier) + '"]');
+                        t = $field.filter(`[name="${CSS.escape(identifier)}"]`);
                         if (t.length > 0) {
                             return t;
                         }
-                        t = $field.filter('[name="' + CSS.escape(identifier) + '[]"]');
+                        t = $field.filter(`[name="${CSS.escape(identifier)}[]"]`);
                         if (t.length > 0) {
                             return t;
                         }
-                        t = $field.filter('[data-' + metadata.validate + '="' + CSS.escape(identifier) + '"]');
+                        t = $field.filter(`[data-${metadata.validate}="${CSS.escape(identifier)}"]`);
                         if (t.length > 0) {
                             return t;
                         }
@@ -881,14 +881,14 @@
                                     $prompt.css('display', 'none');
                                 }
                                 $prompt
-                                    .appendTo($fieldGroup.filter('.' + className.error));
+                                    .appendTo($fieldGroup.filter(`.${className.error}`));
                             }
                             $prompt
                                 .html(settings.templates.prompt(errors));
                             if (!promptExists) {
                                 if (canTransition) {
                                     module.verbose('Displaying error with css transition', settings.transition);
-                                    $prompt.transition(settings.transition + ' in', settings.duration);
+                                    $prompt.transition(`${settings.transition} in`, settings.duration);
                                 } else {
                                     module.verbose('Displaying error with fallback javascript animation');
                                     $prompt
@@ -1002,7 +1002,7 @@
                         if (settings.inline && $prompt.is(':visible')) {
                             module.verbose('Removing prompt for field', identifier);
                             if (settings.transition && module.can.useElement('transition')) {
-                                $prompt.transition(settings.transition + ' out', settings.duration, function () {
+                                $prompt.transition(`${settings.transition} out`, settings.duration, function () {
                                     $prompt.remove();
                                 });
                             } else {
@@ -1077,7 +1077,7 @@
                                     module.verbose('Selecting multiple', value, $field);
                                     $element.checkbox('uncheck');
                                     $.each(value, function (index, value) {
-                                        $multipleField = $field.filter('[value="' + CSS.escape(value) + '"]');
+                                        $multipleField = $field.filter(`[value="${CSS.escape(value)}"]`);
                                         $element = $multipleField.parent();
                                         if ($multipleField.length > 0) {
                                             $element.checkbox('check');
@@ -1085,7 +1085,7 @@
                                     });
                                 } else if (isRadio) {
                                     module.verbose('Selecting radio value', value, $field);
-                                    $field.filter('[value="' + CSS.escape(value) + '"]')
+                                    $field.filter(`[value="${CSS.escape(value)}"]`)
                                         .parent(selector.uiCheckbox)
                                         .checkbox('check');
                                 } else if (isCheckbox) {
@@ -1226,7 +1226,7 @@
                                         $focusElement.attr('tabindex', -1);
                                     }
                                 } else {
-                                    $focusElement = $group.filter('.' + className.error).first().find(selector.field);
+                                    $focusElement = $group.filter(`.${className.error}`).first().find(selector.field);
                                 }
                                 $focusElement.trigger('focus');
                                 // only remove tabindex if it was dynamically created above
@@ -1347,8 +1347,8 @@
                             value = value === undefined || value === '' || value === null
                                 ? ''
                                 : ((settings.shouldTrim && rule.shouldTrim !== false) || rule.shouldTrim
-                                    ? String(value + '').trim()
-                                    : String(value + ''));
+                                    ? String(`${value}`).trim()
+                                    : String(`${value}`));
 
                             return ruleFunction.call(field, value, ancillary, module);
                         };
@@ -1396,7 +1396,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -1406,20 +1406,20 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
                 warn: function (...args) {
                     if (!settings.silent) {
-                        module.warn = Function.prototype.bind.call(console.warn, console, settings.name + ':');
+                        module.warn = Function.prototype.bind.call(console.warn, console, `${settings.name}:`);
                         module.warn.apply(console, args);
                     }
                 },
@@ -1446,16 +1446,16 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if ($allModules.length > 1) {
-                            title += ' (' + $allModules.length + ')';
+                            title += ` (${$allModules.length})`;
                         }
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
@@ -1660,7 +1660,7 @@
             error: function (errors) {
                 let html = '<ul class="list">';
                 $.each(errors, function (index, value) {
-                    html += '<li>' + value + '</li>';
+                    html += `<li>${value}</li>`;
                 });
                 html += '</ul>';
 
@@ -1674,7 +1674,7 @@
                 }
                 let html = '<ul class="ui list">';
                 $.each(errors, function (index, value) {
-                    html += '<li>' + value + '</li>';
+                    html += `<li>${value}</li>`;
                 });
                 html += '</ul>';
 
@@ -1758,10 +1758,10 @@
                 return value.match(new RegExp(regExp, flags));
             },
             minValue: function (value, range) {
-                return $.fn.form.settings.rules.range(value, range + '..', 'number');
+                return $.fn.form.settings.rules.range(value, `${range}..`, 'number');
             },
             maxValue: function (value, range) {
-                return $.fn.form.settings.rules.range(value, '..' + range, 'number');
+                return $.fn.form.settings.rules.range(value, `..${range}`, 'number');
             },
             // is valid integer or matches range
             integer: function (value, range) {
@@ -1883,17 +1883,17 @@
 
             // is at least string length
             minLength: function (value, minLength) {
-                return $.fn.form.settings.rules.range(value, minLength + '..', 'integer', true);
+                return $.fn.form.settings.rules.range(value, `${minLength}..`, 'integer', true);
             },
 
             // is exactly length
             exactLength: function (value, requiredLength) {
-                return $.fn.form.settings.rules.range(value, requiredLength + '..' + requiredLength, 'integer', true);
+                return $.fn.form.settings.rules.range(value, `${requiredLength}..${requiredLength}`, 'integer', true);
             },
 
             // is less than length
             maxLength: function (value, maxLength) {
-                return $.fn.form.settings.rules.range(value, '..' + maxLength, 'integer', true);
+                return $.fn.form.settings.rules.range(value, `..${maxLength}`, 'integer', true);
             },
 
             size: function (value, range) {

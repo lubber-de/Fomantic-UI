@@ -56,7 +56,7 @@ module.exports = function (callback) {
             .pipe(map(metadata.parser))
             .on('end', function () {
                 fs.mkdirSync(output.metadata, { recursive: true });
-                fs.writeFileSync(output.metadata + '/metadata.json', JSON.stringify(metadata.result, null, 2));
+                fs.writeFileSync(`${output.metadata}/metadata.json`, JSON.stringify(metadata.result, null, 2));
             });
     }
 

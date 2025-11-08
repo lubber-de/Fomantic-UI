@@ -52,7 +52,6 @@ module.exports = {
             prev: '*',
         }],
         'prefer-destructuring': 'off',
-        'prefer-template': 'off',
         'spaced-comment': ['error', 'always', {
             block: {
                 balanced: true,

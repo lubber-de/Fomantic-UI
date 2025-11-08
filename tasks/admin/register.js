@@ -33,7 +33,7 @@ module.exports = function (callback) {
             return;
         }
         const repo = repos[index].toLowerCase();
-        const outputDirectory = release.outputRoot + repo + '/';
+        const outputDirectory = `${release.outputRoot + repo}/`;
         const exec = process.exec;
         const execSettings = { cwd: outputDirectory };
         const updateNPM = 'npm publish;meteor publish;';

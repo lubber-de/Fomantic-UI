@@ -90,7 +90,7 @@ function build(src, type, compress, config, opts) {
  */
 function pack(type, compress) {
     const output = type === 'docs' ? docsConfig.paths.output : config.paths.output;
-    const ignoredGlobs = type === 'rtl' ? globs.ignoredRTL + '.rtl.css' : globs.ignored + '.css';
+    const ignoredGlobs = type === 'rtl' ? `${globs.ignoredRTL}.rtl.css` : `${globs.ignored}.css`;
 
     let concatenatedCSS;
     if (type === 'rtl') {
@@ -103,9 +103,9 @@ function pack(type, compress) {
         .replace(/[{}]/g, '')
         .split(',')
         .map((c) => {
-            let srcSingle = output.uncompressed + '/**/' + c + ignoredGlobs;
+            let srcSingle = `${output.uncompressed}/**/${c}${ignoredGlobs}`;
             if (c === 'tab' && !globs.components.includes('table')) {
-                srcSingle = [srcSingle, '!' + output.uncompressed + '/**/table.css'];
+                srcSingle = [srcSingle, `!${output.uncompressed}/**/table.css`];
             }
 
             return gulp.src(srcSingle);
@@ -137,13 +137,13 @@ function buildCSS(src, type, config, opts, callback) {
         opts = config;
         config = type;
         type = src;
-        src = config.paths.source.definitions + '/**/' + config.globs.components + '.less';
+        src = `${config.paths.source.definitions}/**/${config.globs.components}.less`;
     }
 
     if (globs.individuals !== undefined && typeof src === 'string') {
-        const components = config.globs.components.replace(/[{}]/g, '') + ',' + config.globs.individuals.replace(/[{}]/g, '');
+        const components = `${config.globs.components.replace(/[{}]/g, '')},${config.globs.individuals.replace(/[{}]/g, '')}`;
 
-        src = config.paths.source.definitions + '/**/{' + components + '}.less';
+        src = `${config.paths.source.definitions}/**/{${components}}.less`;
     }
 
     const buildUncompressed = () => build(src, type, false, config, opts);
@@ -170,7 +170,7 @@ function buildCSS(src, type, config, opts, callback) {
 function rtlAndNormal(src, callback) {
     if (callback === undefined) {
         callback = src;
-        src = config.paths.source.definitions + '/**/' + config.globs.components + '.less';
+        src = `${config.paths.source.definitions}/**/${config.globs.components}.less`;
     }
 
     const rtl = (callback) => buildCSS(src, 'rtl', config, {}, callback);
@@ -190,7 +190,7 @@ function rtlAndNormal(src, callback) {
 function docs(src, callback) {
     if (callback === undefined) {
         callback = src;
-        src = config.paths.source.definitions + '/**/' + config.globs.components + '.less';
+        src = `${config.paths.source.definitions}/**/${config.globs.components}.less`;
     }
 
     const func = (callback) => buildCSS(src, 'docs', config, {}, callback);
@@ -217,8 +217,8 @@ module.exports.watch = function (type, config) {
     // Watch theme.config file
     gulp.watch([
         normalize(config.paths.source.config),
-        normalize(config.paths.source.site + '/**/site.variables'),
-        normalize(config.paths.source.themes + '/**/site.variables'),
+        normalize(`${config.paths.source.site}/**/site.variables`),
+        normalize(`${config.paths.source.themes}/**/site.variables`),
     ])
         .on('all', function () {
             // Clear timeout and reset files
@@ -232,9 +232,9 @@ module.exports.watch = function (type, config) {
 
     // Watch any less / overrides / variables files
     gulp.watch([
-        normalize(config.paths.source.definitions + '/**/*.less'),
-        normalize(config.paths.source.site + '/**/*.{overrides,variables}'),
-        normalize(config.paths.source.themes + '/**/*.{overrides,variables}'),
+        normalize(`${config.paths.source.definitions}/**/*.less`),
+        normalize(`${config.paths.source.site}/**/*.{overrides,variables}`),
+        normalize(`${config.paths.source.themes}/**/*.{overrides,variables}`),
     ])
         .on('all', function (event, path) {
             // We don't handle deleted files yet

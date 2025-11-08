@@ -25,20 +25,20 @@ module.exports = {
 
     log: {
         created: function (file) {
-            return 'Created: ' + file;
+            return `Created: ${file}`;
         },
         modified: function (file) {
-            return 'Modified: ' + file;
+            return `Modified: ${file}`;
         },
     },
 
     filenames: {
-        concatenatedCSS: config.fileName + release.versionInFileName + '.css',
-        concatenatedJS: config.fileName + release.versionInFileName + '.js',
-        concatenatedMinifiedCSS: config.fileName + release.versionInFileName + '.min.css',
-        concatenatedMinifiedJS: config.fileName + release.versionInFileName + '.min.js',
-        concatenatedRTLCSS: config.fileName + release.versionInFileName + '.rtl.css',
-        concatenatedMinifiedRTLCSS: config.fileName + release.versionInFileName + '.rtl.min.css',
+        concatenatedCSS: `${config.fileName + release.versionInFileName}.css`,
+        concatenatedJS: `${config.fileName + release.versionInFileName}.js`,
+        concatenatedMinifiedCSS: `${config.fileName + release.versionInFileName}.min.css`,
+        concatenatedMinifiedJS: `${config.fileName + release.versionInFileName}.min.js`,
+        concatenatedRTLCSS: `${config.fileName + release.versionInFileName}.rtl.css`,
+        concatenatedMinifiedRTLCSS: `${config.fileName + release.versionInFileName}.rtl.min.css`,
     },
 
     regExp: {
@@ -59,7 +59,7 @@ module.exports = {
             // add the version to the first comment
             license: {
                 in: /(^\/\*[\S\s]+)(# Fomantic-UI )([\S\s]+?\*\/)/,
-                out: '$1$2' + release.version + ' $3',
+                out: `$1$2${release.version} $3`,
             },
 
             // adds uniform spacing around comments

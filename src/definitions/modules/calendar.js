@@ -53,8 +53,8 @@
             const timeGap = timeGapTable[settings.minTimeGap];
             const error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             const $module = $(this);
             const $input = $module.find(selector.input);
@@ -62,7 +62,7 @@
 
             const element = this;
             let instance = $module.data(moduleNamespace);
-            let $container = instance && instance.popupId ? $document.find('#' + instance.popupId) : $module.find(selector.popup);
+            let $container = instance && instance.popupId ? $document.find(`#${instance.popupId}`) : $module.find(selector.popup);
 
             let isTouch;
             let isTouchDown = false;
@@ -140,7 +140,7 @@
                         }
                         if ($container.length === 0) {
                             if (settings.context) {
-                                module.popupId = namespace + '_popup_' + (Math.random().toString(16) + '000000000').slice(2, 10);
+                                module.popupId = `${namespace}_popup_${`${Math.random().toString(16)}000000000`.slice(2, 10)}`;
                                 $container = $('<div/>', { id: module.popupId }).addClass(className.popup).appendTo($document.find(settings.context));
                             } else {
                                 // prepend the popup element to the activator's parent so that it has less chance of messing with
@@ -324,7 +324,7 @@
                             if (isDay && settings.showWeekNumbers) {
                                 tempMode += ' andweek';
                             }
-                            const table = $('<table/>').addClass(className.table).addClass(tempMode).addClass(numberText[columns] + ' column')
+                            const table = $('<table/>').addClass(className.table).addClass(tempMode).addClass(`${numberText[columns]} column`)
                                 .appendTo(container);
                             if (isInverted) {
                                 table.addClass(className.inverted);
@@ -335,7 +335,7 @@
                                 const thead = $('<thead/>').appendTo(table);
 
                                 row = $('<tr/>').appendTo(thead);
-                                cell = $('<th/>').attr('colspan', '' + columns).appendTo(row);
+                                cell = $('<th/>').attr('colspan', `${columns}`).appendTo(row);
 
                                 const headerDate = isYear || isMonth
                                     ? new Date(year, 0, 1)
@@ -343,7 +343,7 @@
                                         ? new Date(year, month, 1)
                                         : new Date(year, month, day, hour, minute));
                                 const headerText = $('<span/>').addClass(className.link).appendTo(cell);
-                                headerText.text(module.helper.dateFormat(formatter[mode + 'Header'], headerDate));
+                                headerText.text(module.helper.dateFormat(formatter[`${mode}Header`], headerDate));
                                 const newMode = isMonth
                                     ? (settings.disableYear ? 'day' : 'year')
                                     : (isDay
@@ -483,7 +483,7 @@
 
                             if (settings.today) {
                                 const todayRow = $('<tr/>').appendTo(tbody);
-                                const todayButton = $('<td/>').attr('colspan', '' + columns).addClass(className.today).appendTo(todayRow);
+                                const todayButton = $('<td/>').attr('colspan', `${columns}`).addClass(className.today).appendTo(todayRow);
                                 todayButton.text(formatter.today(settings));
                                 todayButton.data(metadata.date, today);
                             }
@@ -551,18 +551,18 @@
                 bind: {
                     events: function () {
                         module.debug('Binding events');
-                        $container.on('mousedown' + eventNamespace, module.event.mousedown);
-                        $container.on('touchstart' + eventNamespace, module.event.mousedown);
-                        $container.on('mouseup' + eventNamespace, module.event.mouseup);
-                        $container.on('touchend' + eventNamespace, module.event.mouseup);
-                        $container.on('mouseover' + eventNamespace, module.event.mouseover);
+                        $container.on(`mousedown${eventNamespace}`, module.event.mousedown);
+                        $container.on(`touchstart${eventNamespace}`, module.event.mousedown);
+                        $container.on(`mouseup${eventNamespace}`, module.event.mouseup);
+                        $container.on(`touchend${eventNamespace}`, module.event.mouseup);
+                        $container.on(`mouseover${eventNamespace}`, module.event.mouseover);
                         if ($input.length > 0) {
-                            $input.on('input' + eventNamespace, module.event.inputChange);
-                            $input.on('focus' + eventNamespace, module.event.inputFocus);
-                            $input.on('blur' + eventNamespace, module.event.inputBlur);
-                            $input.on('keydown' + eventNamespace, module.event.keydown);
+                            $input.on(`input${eventNamespace}`, module.event.inputChange);
+                            $input.on(`focus${eventNamespace}`, module.event.inputFocus);
+                            $input.on(`blur${eventNamespace}`, module.event.inputBlur);
+                            $input.on(`keydown${eventNamespace}`, module.event.keydown);
                         } else {
-                            $container.on('keydown' + eventNamespace, module.event.keydown);
+                            $container.on(`keydown${eventNamespace}`, module.event.keydown);
                         }
                     },
                 },
@@ -1080,9 +1080,9 @@
                         const a = H < 12 ? settings.text.am.toLowerCase() : settings.text.pm.toLowerCase();
                         const tokens = {
                             D: D,
-                            DD: ('0' + D).slice(-2),
+                            DD: `0${D}`.slice(-2),
                             M: M + 1,
-                            MM: ('0' + (M + 1)).slice(-2),
+                            MM: `0${M + 1}`.slice(-2),
                             MMM: settings.text.monthsShort[M],
                             MMMM: settings.text.months[M],
                             Y: Y,
@@ -1093,18 +1093,18 @@
                             ddd: settings.text.dayNamesShort[d],
                             dddd: settings.text.dayNames[d],
                             h: h,
-                            hh: ('0' + h).slice(-2),
+                            hh: `0${h}`.slice(-2),
                             H: H,
-                            HH: ('0' + H).slice(-2),
+                            HH: `0${H}`.slice(-2),
                             m: m,
-                            mm: ('0' + m).slice(-2),
+                            mm: `0${m}`.slice(-2),
                             s: s,
-                            ss: ('0' + s).slice(-2),
+                            ss: `0${s}`.slice(-2),
                             a: a,
                             A: a.toUpperCase(),
                             S: ['th', 'st', 'nd', 'rd'][(D % 10) > 3 ? 0 : ((D % 100) - (D % 10) === 10 ? 0 : D % 10)],
                             w: w,
-                            ww: ('0' + w).slice(-2),
+                            ww: `0${w}`.slice(-2),
                         };
 
                         return format.replace(settings.regExp.token, function (match) {
@@ -1321,7 +1321,7 @@
                     },
                     sanitiseDate: function (date) {
                         if (!(date instanceof Date)) {
-                            date = parser.date('' + date, settings);
+                            date = parser.date(`${date}`, settings);
                         }
                         if (!date || Number.isNaN(date.getTime())) {
                             return null;
@@ -1427,7 +1427,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -1437,14 +1437,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -1471,14 +1471,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);
@@ -1622,7 +1622,7 @@
             yearHeader: function (date, settings) {
                 const decadeYear = Math.ceil(date.getFullYear() / 10) * 10;
 
-                return (decadeYear - 9) + ' - ' + (decadeYear + 2);
+                return `${decadeYear - 9} - ${decadeYear + 2}`;
             },
             monthHeader: 'YYYY',
             dayHeader: 'MMMM YYYY',
@@ -1657,7 +1657,7 @@
                     return null;
                 }
                 if (/^\d{4}(?:[./-]\d{1,2}){2}$/.test(text)) {
-                    text = text.replace(/[./-]/g, '/') + ' 00:00:00';
+                    text = `${text.replace(/[./-]/g, '/')} 00:00:00`;
                 }
                 // Reverse date and month in some cases
                 text = settings.monthFirst || !/^\d{1,2}[./-]/.test(text) ? text : text.replace(/[./-]/g, '/').replace(/(\d+)\/(\d+)/, '$2/$1');

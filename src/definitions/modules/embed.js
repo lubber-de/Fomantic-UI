@@ -44,8 +44,8 @@
             const namespace = settings.namespace;
             const templates = settings.templates;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             const $module = $(this);
             let $placeholder = $module.find(selector.placeholder);
@@ -92,8 +92,8 @@
                         if (module.has.placeholder()) {
                             module.debug('Adding placeholder events');
                             $module
-                                .on('click' + eventNamespace, selector.placeholder, module.createAndShow)
-                                .on('click' + eventNamespace, selector.icon, module.createAndShow);
+                                .on(`click${eventNamespace}`, selector.placeholder, module.createAndShow)
+                                .on(`click${eventNamespace}`, selector.icon, module.createAndShow);
                         }
                     },
                 },
@@ -285,7 +285,7 @@
                         let index;
                         for (index in parameters) {
                             if (Object.prototype.hasOwnProperty.call(parameters, index)) {
-                                urlString.push(encodeURIComponent(index) + '=' + encodeURIComponent(parameters[index]));
+                                urlString.push(`${encodeURIComponent(index)}=${encodeURIComponent(parameters[index])}`);
                             }
                         }
 
@@ -373,7 +373,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -383,14 +383,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -417,16 +417,16 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if ($allModules.length > 1) {
-                            title += ' (' + $allModules.length + ')';
+                            title += ` (${$allModules.length})`;
                         }
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
@@ -614,11 +614,11 @@
                 let src = url;
                 const escape = $.fn.embed.settings.templates.escape;
                 if (parameters) {
-                    src += '?' + parameters;
+                    src += `?${parameters}`;
                 }
 
                 return ''
-                    + '<iframe src="' + escape(src) + '"'
+                    + `<iframe src="${escape(src)}"`
                     + ' width="100%" height="100%"'
                     + ' msallowFullScreen allowFullScreen></iframe>';
             },
@@ -626,10 +626,10 @@
                 let html = '';
                 const escape = $.fn.embed.settings.templates.escape;
                 if (icon) {
-                    html += '<i class="' + escape(icon) + ' icon"></i>';
+                    html += `<i class="${escape(icon)} icon"></i>`;
                 }
                 if (image) {
-                    html += '<img class="placeholder" src="' + escape(image) + '"' + (alt ? ' alt="' + escape(alt) + '"' : '') + '>';
+                    html += `<img class="placeholder" src="${escape(image)}"${alt ? ` alt="${escape(alt)}"` : ''}>`;
                 }
 
                 return html;

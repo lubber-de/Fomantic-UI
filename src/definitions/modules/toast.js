@@ -54,8 +54,8 @@
             const namespace = settings.namespace;
             const fields = settings.fields;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = namespace + '-module';
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `${namespace}-module`;
 
             let $module = $(this);
             let $toastBox;
@@ -150,13 +150,13 @@
                     container: function () {
                         module.verbose('Creating container');
                         $context.append($('<div/>', {
-                            class: settings.position + ' ' + className.container + ' '
-                            + (settings.horizontal ? className.horizontal : '') + ' '
-                            + (settings.context && settings.context !== 'body' ? className.absolute : ''),
+                            class: `${settings.position} ${className.container} ${
+                                settings.horizontal ? className.horizontal : ''} ${
+                                settings.context && settings.context !== 'body' ? className.absolute : ''}`,
                         }));
                     },
                     id: function () {
-                        id = (Math.random().toString(16) + '000000000').slice(2, 10);
+                        id = `${Math.random().toString(16)}000000000`.slice(2, 10);
                         module.verbose('Creating unique id for element', id);
                     },
                     toast: function () {
@@ -167,18 +167,18 @@
                             $toast = $('<div/>', { role: 'alert' });
                             const $content = $('<div/>', { class: className.content });
                             if (iconClass !== '') {
-                                $toast.append($('<i/>', { class: iconClass + ' ' + className.icon }));
+                                $toast.append($('<i/>', { class: `${iconClass} ${className.icon}` }));
                             }
 
                             if (settings.showImage) {
                                 $toast.append($('<img>', {
-                                    class: className.image + ' ' + settings.classImage,
+                                    class: `${className.image} ${settings.classImage}`,
                                     src: settings.showImage,
                                     alt: settings.alt || '',
                                 }));
                             }
                             if (settings.title !== '') {
-                                const titleId = '_' + module.get.id() + 'title';
+                                const titleId = `_${module.get.id()}title`;
                                 $toast.attr('aria-labelledby', titleId);
                                 $content.append($('<div/>', {
                                     class: className.title,
@@ -186,7 +186,7 @@
                                     html: module.helpers.escape(settings.title, settings),
                                 }));
                             }
-                            const descId = '_' + module.get.id() + 'desc';
+                            const descId = `_${module.get.id()}desc`;
                             $toast.attr('aria-describedby', descId);
                             $content.append($('<div/>', {
                                 class: className.message,
@@ -195,12 +195,12 @@
                             }));
 
                             $toast
-                                .addClass(settings.class + ' ' + className.toast)
+                                .addClass(`${settings.class} ${className.toast}`)
                                 .append($content);
                             $toast.css('opacity', String(settings.opacity));
                             if (settings.closeIcon) {
                                 $close = $('<i/>', {
-                                    class: className.close + ' ' + (typeof settings.closeIcon === 'string' ? settings.closeIcon : ''),
+                                    class: `${className.close} ${typeof settings.closeIcon === 'string' ? settings.closeIcon : ''}`,
                                     role: 'button',
                                     tabindex: 0,
                                     'aria-label': settings.text.close,
@@ -213,10 +213,10 @@
                             }
                         } else {
                             $toast = settings.cloneModule ? $module.clone().removeAttr('id') : $module;
-                            $close = $toast.find('> i' + module.helpers.toClass(className.close));
+                            $close = $toast.find(`> i${module.helpers.toClass(className.close)}`);
                             settings.closeIcon = $close.length > 0;
                             if (iconClass !== '') {
-                                $toast.find(selector.icon).attr('class', iconClass + ' ' + className.icon);
+                                $toast.find(selector.icon).attr('class', `${iconClass} ${className.icon}`);
                             }
                             if (settings.showImage) {
                                 $toast.find(selector.image).attr('src', settings.showImage).attr('alt', settings.alt || '');
@@ -237,7 +237,7 @@
                         $actions = $toast.find('.actions');
                         if (module.has.configActions()) {
                             if ($actions.length === 0) {
-                                $actions = $('<div/>', { class: className.actions + ' ' + (settings.classActions || '') }).appendTo($toast);
+                                $actions = $('<div/>', { class: `${className.actions} ${settings.classActions || ''}` }).appendTo($toast);
                             }
                             if ($toast.hasClass('card') && !$actions.hasClass(className.attached)) {
                                 $actions.addClass(className.extraContent);
@@ -248,8 +248,8 @@
                             }
                             for (const el of settings.actions) {
                                 const icon = el[fields.icon]
-                                    ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '')
-                                            + ' class="' + module.helpers.escape(el[fields.icon]) + ' icon"></i>'
+                                    ? `<i ${el[fields.text] ? 'aria-hidden="true"' : ''
+                                    } class="${module.helpers.escape(el[fields.icon])} icon"></i>`
                                     : '';
                                 const text = module.helpers.escape(el[fields.text] || '', settings);
                                 const cls = module.helpers.escape(el[fields.class] || '');
@@ -261,7 +261,7 @@
                                 $actions.append($('<button/>', {
                                     html: icon + text,
                                     'aria-label': (el[fields.text] || el[fields.icon] || '').replace(/<[^>]+(>|$)/g, ''),
-                                    class: className.button + ' ' + cls,
+                                    class: `${className.button} ${cls}`,
                                     on: {
                                         click: function () {
                                             const $button = $(this);
@@ -300,9 +300,9 @@
                             } else {
                                 $toast.wrap(
                                     $('<div/>', {
-                                        class: className.vertical + ' '
-                                            + className.attached + ' '
-                                            + (settings.compact ? className.compact : ''),
+                                        class: `${className.vertical} ${
+                                            className.attached} ${
+                                            settings.compact ? className.compact : ''}`,
                                     })
                                 );
                                 if ($actions.hasClass(className.left)) {
@@ -317,10 +317,10 @@
                             element = $toast[0];
                         }
                         if (settings.displayTime > 0) {
-                            const progressingClass = className.progressing + ' ' + (settings.pauseOnHover ? className.pausable : '');
+                            const progressingClass = `${className.progressing} ${settings.pauseOnHover ? className.pausable : ''}`;
                             if (settings.showProgress) {
                                 $progress = $('<div/>', {
-                                    class: className.progress + ' ' + (settings.classProgress || settings.class),
+                                    class: `${className.progress} ${settings.classProgress || settings.class}`,
                                     'data-percent': '',
                                 });
                                 if (!settings.classProgress) {
@@ -330,7 +330,7 @@
                                         $progress.removeClass(className.inverted);
                                     }
                                 }
-                                $progressBar = $('<div/>', { class: 'bar ' + (settings.progressUp ? 'up ' : 'down ') + progressingClass });
+                                $progressBar = $('<div/>', { class: `bar ${settings.progressUp ? 'up ' : 'down '}${progressingClass}` });
                                 $progress
                                     .addClass(settings.showProgress)
                                     .append($progressBar);
@@ -339,10 +339,10 @@
                                 } else {
                                     $toastBox.append($progress);
                                 }
-                                $progressBar.css('animation-duration', settings.displayTime / 1000 + 's');
+                                $progressBar.css('animation-duration', `${settings.displayTime / 1000}s`);
                             }
-                            $animationObject = $('<span/>', { class: 'wait ' + progressingClass });
-                            $animationObject.css('animation-duration', settings.displayTime / 1000 + 's');
+                            $animationObject = $('<span/>', { class: `wait ${progressingClass}` });
+                            $animationObject.css('animation-duration', `${settings.displayTime / 1000}s`);
                             $animationObject.appendTo($toast);
                         }
                         if (settings.compact) {
@@ -364,15 +364,15 @@
                     events: function () {
                         module.debug('Binding events to toast');
                         if (settings.closeIcon) {
-                            $close.on('click' + eventNamespace, module.event.close);
+                            $close.on(`click${eventNamespace}`, module.event.close);
                         }
-                        $toast.on('click' + eventNamespace, module.event.click);
+                        $toast.on(`click${eventNamespace}`, module.event.click);
                         if ($animationObject) {
-                            $animationObject.on('animationend' + eventNamespace, module.event.close);
+                            $animationObject.on(`animationend${eventNamespace}`, module.event.close);
                         }
                         $toastBox
-                            .on('click' + eventNamespace, selector.approve, module.event.approve)
-                            .on('click' + eventNamespace, selector.deny, module.event.deny);
+                            .on(`click${eventNamespace}`, selector.approve, module.event.approve)
+                            .on(`click${eventNamespace}`, selector.deny, module.event.deny);
                     },
                 },
 
@@ -380,14 +380,14 @@
                     events: function () {
                         module.debug('Unbinding events to toast');
                         if (settings.closeIcon) {
-                            $close.off('click' + eventNamespace);
+                            $close.off(`click${eventNamespace}`);
                         }
-                        $toast.off('click' + eventNamespace);
+                        $toast.off(`click${eventNamespace}`);
                         if ($animationObject) {
-                            $animationObject.off('animationend' + eventNamespace);
+                            $animationObject.off(`animationend${eventNamespace}`);
                         }
                         $toastBox
-                            .off('click' + eventNamespace);
+                            .off(`click${eventNamespace}`);
                     },
                 },
 
@@ -398,7 +398,7 @@
                             module.set.visible();
                             $toastBox
                                 .transition({
-                                    animation: settings.transition.showMethod + ' in',
+                                    animation: `${settings.transition.showMethod} in`,
                                     queue: false,
                                     debug: settings.debug,
                                     verbose: settings.verbose,
@@ -416,7 +416,7 @@
                         if (settings.transition && $.fn.transition !== undefined) {
                             $toastBox
                                 .transition({
-                                    animation: settings.transition.hideMethod + ' out',
+                                    animation: `${settings.transition.hideMethod} out`,
                                     queue: false,
                                     duration: settings.transition.hideDuration,
                                     debug: settings.debug,
@@ -489,10 +489,10 @@
                         return $context.children(module.helpers.toClass(settings.position) + selector.container
                             + (settings.horizontal
                                 ? module.helpers.toClass(className.horizontal)
-                                : ':not(' + module.helpers.toClass(className.horizontal) + ')')
+                                : `:not(${module.helpers.toClass(className.horizontal)})`)
                             + (settings.context && settings.context !== 'body'
                                 ? module.helpers.toClass(className.absolute)
-                                : ':not(' + module.helpers.toClass(className.absolute) + ')'));
+                                : `:not(${module.helpers.toClass(className.absolute)})`));
                     },
                     container: function () {
                         return module.get.containers()[0];
@@ -568,7 +568,7 @@
                         let result = '';
 
                         for (const element of classes) {
-                            result += '.' + element;
+                            result += `.${element}`;
                         }
 
                         return result;
@@ -629,7 +629,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -639,14 +639,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -673,14 +673,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

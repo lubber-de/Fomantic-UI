@@ -10,7 +10,7 @@ const issueLinks = function (item) {
         return item;
     }
     const repository = semver.gte(loopVersion, '2.4.0') ? 'fomantic/Fomantic-UI' : 'Semantic-Org/Semantic-UI';
-    item.subject = item.subject.replace(/#(\d+)([ ,]|$)/, '[`#$1`](https://github.com/' + repository + '/issues/$1) ');
+    item.subject = item.subject.replace(/#(\d+)([ ,]|$)/, `[\`#$1\`](https://github.com/${repository}/issues/$1) `);
 
     return item;
 };

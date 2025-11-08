@@ -66,7 +66,7 @@ module.exports = function (callback) {
     }
 
     if (!fs.pathExistsSync(source.site)) {
-        console.log('Missing _site folder. \u001B[92mgulp install\u001B[0m must run inside \u001B[92mnode_modules' + path.sep + 'fomantic-ui\u001B[0m');
+        console.log(`Missing _site folder. \u001B[92mgulp install\u001B[0m must run inside \u001B[92mnode_modules${path.sep}fomantic-ui\u001B[0m`);
         console.error('Aborting.');
         callback();
 
@@ -95,7 +95,7 @@ module.exports = function (callback) {
         if (fs.pathExistsSync(updatePaths.definition)) {
             // perform update if new version
             if (currentConfig.version !== release.version) {
-                console.log('Updating Fomantic UI from ' + currentConfig.version + ' to ' + release.version);
+                console.log(`Updating Fomantic UI from ${currentConfig.version} to ${release.version}`);
 
                 console.info('Updating ui definitions...');
                 fs.copySync(source.definitions, updatePaths.definition, settings.copy.overwrite);
@@ -159,7 +159,7 @@ module.exports = function (callback) {
     // PM that supports Build Tools (NPM Only Now)
     if (manager.name === 'NPM') {
         rootQuestions[0].message = rootQuestions[0].message
-            .replace('{packageMessage}', 'We detected you are using ' + manager.name + ' Nice!')
+            .replace('{packageMessage}', `We detected you are using ${manager.name} Nice!`)
             .replace('{root}', manager.root);
         // set default path to the detected PM root
         rootQuestions[0].default = manager.root;
@@ -277,7 +277,7 @@ module.exports = function (callback) {
                 console.error('NPM does not have permissions to create folders at your specified path. Adjust your folders permissions and run "npm install" again');
             }
 
-            console.log('Installing to \u001B[92m' + answers.semanticRoot + '\u001B[0m');
+            console.log(`Installing to \u001B[92m${answers.semanticRoot}\u001B[0m`);
 
             console.info('Copying UI definitions');
             fs.copySync(source.definitions, installPaths.definition, settings.copy.overwrite);
@@ -328,10 +328,10 @@ module.exports = function (callback) {
             // determine path to site theme folder from theme config
             // force CSS path variable to use forward slashes for paths
             const pathToSite = path.relative(path.resolve(installPaths.themeConfigFolder), path.resolve(installPaths.site)).replaceAll('\\', '/');
-            const siteVariable = "@siteFolder: '" + pathToSite + "/';";
+            const siteVariable = `@siteFolder: '${pathToSite}/';`;
 
             // rewrite site variable in theme.less
-            console.info('Adjusting @siteFolder to:', pathToSite + '/');
+            console.info('Adjusting @siteFolder to:', `${pathToSite}/`);
 
             if (fs.pathExistsSync(installPaths.themeConfig)) {
                 console.info('Modifying src/theme.config (LESS config)', installPaths.themeConfig);
@@ -384,7 +384,7 @@ module.exports = function (callback) {
     gulp.task('clean up install', function (callback) {
         // Completion Message
         if (installFolder && !install.shouldAutoInstall()) {
-            console.log('\n Setup Complete! \n Installing Peer Dependencies. \u001B[0;31mPlease refrain from ctrl + c\u001B[0m... \n After completion navigate to \u001B[92m' + answers.semanticRoot + '\u001B[0m and run "\u001B[92mgulp build\u001B[0m" to build');
+            console.log(`\n Setup Complete! \n Installing Peer Dependencies. \u001B[0;31mPlease refrain from ctrl + c\u001B[0m... \n After completion navigate to \u001B[92m${answers.semanticRoot}\u001B[0m and run "\u001B[92mgulp build\u001B[0m" to build`);
             callback();
         } else {
             console.log('');

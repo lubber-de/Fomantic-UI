@@ -40,8 +40,8 @@
             const selector = settings.selector;
             const error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             const $module = $(this);
             let $title = $module.find(selector.title);
@@ -255,8 +255,8 @@
                         : $(this).closest(selector.title);
                     const $parentTitles = $activeTitle.parents(selector.content).prev(selector.title);
                     const $activeAccordion = $activeTitle.closest(selector.accordion);
-                    const activeSelector = selector.title + '.' + className.active + ':visible';
-                    const activeContent = selector.content + '.' + className.active + ':visible';
+                    const activeSelector = `${selector.title}.${className.active}:visible`;
+                    const activeContent = `${selector.content}.${className.active}:visible`;
                     let $openTitles;
                     let $nestedTitles;
                     let $openContents;
@@ -363,7 +363,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -373,14 +373,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -407,14 +407,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

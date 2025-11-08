@@ -57,8 +57,8 @@
             let fields = settings.fields;
             let error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             let $module = $(this);
             const $context = contextCheck(settings.context, window);
@@ -115,13 +115,13 @@
                     if (module.has.configActions()) {
                         let $actions = $module.find(selector.actions).addClass(settings.classActions);
                         if ($actions.length === 0) {
-                            $actions = $('<div/>', { class: className.actions + ' ' + (settings.classActions || '') }).appendTo($module);
+                            $actions = $('<div/>', { class: `${className.actions} ${settings.classActions || ''}` }).appendTo($module);
                         } else {
                             $actions.empty();
                         }
                         for (const el of settings.actions) {
                             const icon = el[fields.icon]
-                                ? '<i ' + (el[fields.text] ? 'aria-hidden="true"' : '') + ' class="' + module.helpers.escape(el[fields.icon]) + ' icon"></i>'
+                                ? `<i ${el[fields.text] ? 'aria-hidden="true"' : ''} class="${module.helpers.escape(el[fields.icon])} icon"></i>`
                                 : '';
                             const text = module.helpers.escape(el[fields.text] || '', settings);
                             const cls = module.helpers.escape(el[fields.class] || '');
@@ -133,7 +133,7 @@
                             $actions.append($('<button/>', {
                                 html: icon + text,
                                 'aria-label': (el[fields.text] || el[fields.icon] || '').replace(/<[^>]+(>|$)/g, ''),
-                                class: className.button + ' ' + cls,
+                                class: `${className.button} ${cls}`,
                                 on: {
                                     click: function () {
                                         const button = $(this);
@@ -186,12 +186,12 @@
                             $module.append($closeIcon);
                         }
                         if (settings.title !== '') {
-                            const titleId = '_' + module.get.id() + 'title';
+                            const titleId = `_${module.get.id()}title`;
                             $module.attr('aria-labelledby', titleId);
                             $('<div/>', { class: className.title, id: titleId }).appendTo($module);
                         }
                         if (settings.content !== '') {
-                            const descId = '_' + module.get.id() + 'desc';
+                            const descId = `_${module.get.id()}desc`;
                             $module.attr('aria-describedby', descId);
                             $('<div/>', { class: className.content, id: descId }).appendTo($module);
                         }
@@ -224,8 +224,8 @@
                         $dimmer = $dimmable.dimmer('get dimmer');
                     },
                     id: function () {
-                        id = (Math.random().toString(16) + '000000000').slice(2, 10);
-                        elementEventNamespace = '.' + id;
+                        id = `${Math.random().toString(16)}000000000`.slice(2, 10);
+                        elementEventNamespace = `.${id}`;
                         module.verbose('Creating unique id for element', id);
                     },
                     innerDimmer: function () {
@@ -323,7 +323,7 @@
                 refreshInputs: function (ignoreAutofocus) {
                     if ($inputs) {
                         $inputs
-                            .off('keydown' + elementEventNamespace);
+                            .off(`keydown${elementEventNamespace}`);
                     }
                     $inputs = $module.find('a[href], [tabindex], :input:enabled').filter(':visible').filter(function () {
                         return $(this).closest('.disabled').length === 0;
@@ -335,9 +335,9 @@
                         $module.removeAttr('tabindex');
                     }
                     $inputs.first()
-                        .on('keydown' + elementEventNamespace, module.event.inputKeyDown.first);
+                        .on(`keydown${elementEventNamespace}`, module.event.inputKeyDown.first);
                     $inputs.last()
-                        .on('keydown' + elementEventNamespace, module.event.inputKeyDown.last);
+                        .on(`keydown${elementEventNamespace}`, module.event.inputKeyDown.last);
                     if (!ignoreAutofocus && settings.autofocus && $inputs.filter(':focus').length === 0) {
                         module.set.autofocus();
                     }
@@ -352,7 +352,7 @@
                         module.debug('Attaching modal events to element', selector, event);
                         $toggle
                             .off(eventNamespace)
-                            .on('click' + eventNamespace, event);
+                            .on(`click${eventNamespace}`, event);
                     } else {
                         module.error(error.notFound, selector);
                     }
@@ -362,16 +362,16 @@
                     events: function () {
                         module.verbose('Attaching events');
                         $module
-                            .on('click' + eventNamespace, selector.close, module.event.close)
-                            .on('click' + eventNamespace, selector.approve, module.event.approve)
-                            .on('click' + eventNamespace, selector.deny, module.event.deny);
+                            .on(`click${eventNamespace}`, selector.close, module.event.close)
+                            .on(`click${eventNamespace}`, selector.approve, module.event.approve)
+                            .on(`click${eventNamespace}`, selector.deny, module.event.deny);
                         $closeIcon
-                            .on('keyup' + elementEventNamespace, module.event.closeKeyUp);
+                            .on(`keyup${elementEventNamespace}`, module.event.closeKeyUp);
                         $window
-                            .on('resize' + elementEventNamespace, module.event.resize)
-                            .on('focus' + elementEventNamespace, module.event.focus);
+                            .on(`resize${elementEventNamespace}`, module.event.resize)
+                            .on(`focus${elementEventNamespace}`, module.event.focus);
                         $context
-                            .on('click' + elementEventNamespace, module.event.click);
+                            .on(`click${elementEventNamespace}`, module.event.click);
                     },
                     scrollLock: function () {
                         // touch events default to passive, due to changes in chrome to optimize mobile perf
@@ -590,7 +590,7 @@
                             ignoreRepeatedEvents = false;
                             if (settings.allowMultiple) {
                                 if (module.others.active()) {
-                                    $otherModals.filter('.' + className.active).find(selector.dimmer).removeClass('out').addClass('transition fade in active');
+                                    $otherModals.filter(`.${className.active}`).find(selector.dimmer).removeClass('out').addClass('transition fade in active');
                                 }
 
                                 if (settings.detachable) {
@@ -605,7 +605,7 @@
                                         debug: settings.debug,
                                         verbose: settings.verbose,
                                         silent: settings.silent,
-                                        animation: (settings.transition.showMethod || settings.transition) + ' in',
+                                        animation: `${settings.transition.showMethod || settings.transition} in`,
                                         queue: settings.queue,
                                         duration: settings.transition.showDuration || settings.duration,
                                         useFailSafe: true,
@@ -631,7 +631,7 @@
                 },
 
                 hideModal: function (callback, keepDimmed, hideOthersToo) {
-                    const $previousModal = $otherModals.filter('.' + className.active).last();
+                    const $previousModal = $otherModals.filter(`.${className.active}`).last();
                     callback = isFunction(callback)
                         ? callback
                         : function () {};
@@ -652,7 +652,7 @@
                                     debug: settings.debug,
                                     verbose: settings.verbose,
                                     silent: settings.silent,
-                                    animation: (settings.transition.hideMethod || settings.transition) + ' out',
+                                    animation: `${settings.transition.hideMethod || settings.transition} out`,
                                     queue: settings.queue,
                                     duration: settings.transition.hideDuration || settings.duration,
                                     useFailSafe: true,
@@ -720,7 +720,7 @@
                 },
 
                 hideAll: function (callback) {
-                    const $visibleModals = $allModals.filter('.' + className.active + ', .' + className.animating);
+                    const $visibleModals = $allModals.filter(`.${className.active}, .${className.animating}`);
                     callback = isFunction(callback)
                         ? callback
                         : function () {};
@@ -742,7 +742,7 @@
                 },
 
                 hideOthers: function (callback) {
-                    const $visibleModals = $otherModals.filter('.' + className.active + ', .' + className.animating);
+                    const $visibleModals = $otherModals.filter(`.${className.active}, .${className.animating}`);
                     callback = isFunction(callback)
                         ? callback
                         : function () {};
@@ -755,10 +755,10 @@
 
                 others: {
                     active: function () {
-                        return $otherModals.filter('.' + className.active).length > 0;
+                        return $otherModals.filter(`.${className.active}`).length > 0;
                     },
                     animating: function () {
-                        return $otherModals.filter('.' + className.animating).length > 0;
+                        return $otherModals.filter(`.${className.animating}`).length > 0;
                     },
                 },
 
@@ -766,7 +766,7 @@
                     keyboardShortcuts: function () {
                         module.verbose('Adding keyboard shortcuts');
                         $document
-                            .on('keydown' + eventNamespace, module.event.keyboard);
+                            .on(`keydown${eventNamespace}`, module.event.keyboard);
                     },
                 },
 
@@ -797,7 +797,7 @@
                         $context.css((isBody ? 'margin-' : 'padding-') + position, initialBodyMarginInt === 0 ? '' : initialBodyMargin);
                         $context.find(selector.bodyFixed.replace('right', position)).each(function () {
                             const el = $(this);
-                            const attribute = el.css('position') === 'fixed' ? 'padding-' + position : position;
+                            const attribute = el.css('position') === 'fixed' ? `padding-${position}` : position;
                             el.css(attribute, '');
                         });
                     },
@@ -813,12 +813,12 @@
                     clickaway: function () {
                         if (!settings.detachable) {
                             $module
-                                .off('mousedown' + elementEventNamespace);
+                                .off(`mousedown${elementEventNamespace}`);
                         }
                         $dimmer
-                            .off('mousedown' + elementEventNamespace);
+                            .off(`mousedown${elementEventNamespace}`);
                         $dimmer
-                            .off('mouseup' + elementEventNamespace);
+                            .off(`mouseup${elementEventNamespace}`);
                     },
                     dimmerStyles: function () {
                         $dimmer.removeClass(className.inverted);
@@ -839,7 +839,7 @@
                     keyboardShortcuts: function () {
                         module.verbose('Removing keyboard shortcuts');
                         $document
-                            .off('keydown' + eventNamespace);
+                            .off(`keydown${eventNamespace}`);
                     },
                     scrolling: function () {
                         if (!keepScrollingClass) {
@@ -980,23 +980,23 @@
                     bodyMargin: function () {
                         const position = module.can.leftBodyScrollbar() ? 'left' : 'right';
                         if (settings.detachable || module.can.fit()) {
-                            $context.css((isBody ? 'margin-' : 'padding-') + position, tempBodyMargin + 'px');
+                            $context.css((isBody ? 'margin-' : 'padding-') + position, `${tempBodyMargin}px`);
                         }
                         $context.find(selector.bodyFixed.replace('right', position)).each(function () {
                             const el = $(this);
-                            const attribute = el.css('position') === 'fixed' ? 'padding-' + position : position;
-                            el.css(attribute, 'calc(' + el.css(attribute) + ' + ' + tempBodyMargin + 'px)');
+                            const attribute = el.css('position') === 'fixed' ? `padding-${position}` : position;
+                            el.css(attribute, `calc(${el.css(attribute)} + ${tempBodyMargin}px)`);
                         });
                     },
                     clickaway: function () {
                         if (!settings.detachable) {
                             $module
-                                .on('mousedown' + elementEventNamespace, module.event.mousedown);
+                                .on(`mousedown${elementEventNamespace}`, module.event.mousedown);
                         }
                         $dimmer
-                            .on('mousedown' + elementEventNamespace, module.event.mousedown);
+                            .on(`mousedown${elementEventNamespace}`, module.event.mousedown);
                         $dimmer
-                            .on('mouseup' + elementEventNamespace, module.event.mouseup);
+                            .on(`mouseup${elementEventNamespace}`, module.event.mouseup);
                     },
                     dimmerSettings: function () {
                         if ($.fn.dimmer === undefined) {
@@ -1017,7 +1017,7 @@
                         const dimmerSettings = $.extend(true, defaultSettings, settings.dimmerSettings);
                         if (settings.inverted) {
                             dimmerSettings.variation = dimmerSettings.variation !== undefined
-                                ? dimmerSettings.variation + ' inverted'
+                                ? `${dimmerSettings.variation} inverted`
                                 : 'inverted';
                         }
                         $context.dimmer('setting', dimmerSettings);
@@ -1063,12 +1063,12 @@
                         } else if (!$module.hasClass('bottom')) {
                             module.debug('Modal is taller than page content, resizing page height');
                             $context
-                                .css('height', module.cache.height + (settings.padding * 2) + 'px');
+                                .css('height', `${module.cache.height + (settings.padding * 2)}px`);
                         }
                     },
                     active: function () {
-                        $module.addClass(className.active + ' ' + className.front);
-                        $otherModals.filter('.' + className.active).removeClass(className.front);
+                        $module.addClass(`${className.active} ${className.front}`);
+                        $otherModals.filter(`.${className.active}`).removeClass(className.front);
                     },
                     scrolling: function () {
                         $dimmable.addClass(className.scrolling);
@@ -1125,7 +1125,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -1135,14 +1135,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -1169,14 +1169,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);
@@ -1482,7 +1482,7 @@
                 args.handler(null);
             };
             if (input.length === 0) {
-                args.content += '<p><div class="' + this.helpers.escape(settings.className.prompt) + '"><input placeholder="' + this.helpers.escape(args.placeholder || '') + '" type="text" value="' + this.helpers.escape(args.defaultValue || '') + '"></div></p>';
+                args.content += `<p><div class="${this.helpers.escape(settings.className.prompt)}"><input placeholder="${this.helpers.escape(args.placeholder || '')}" type="text" value="${this.helpers.escape(args.defaultValue || '')}"></div></p>`;
             }
 
             return {

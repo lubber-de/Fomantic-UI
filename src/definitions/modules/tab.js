@@ -61,8 +61,8 @@
             const selector = settings.selector;
             const error = settings.error;
 
-            const eventNamespace = '.' + settings.namespace;
-            const moduleNamespace = 'module-' + settings.namespace;
+            const eventNamespace = `.${settings.namespace}`;
+            const moduleNamespace = `module-${settings.namespace}`;
 
             const $module = $(this);
             let $context;
@@ -133,7 +133,7 @@
                         if (!isWindow(element)) {
                             module.debug('Attaching tab activation events to element', $module);
                             $module
-                                .on('click' + eventNamespace, module.event.click);
+                                .on(`click${eventNamespace}`, module.event.click);
                         }
                     },
                 },
@@ -253,7 +253,7 @@
                 set: {
                     auto: function () {
                         const url = typeof settings.path === 'string'
-                            ? settings.path.replace(/\/$/, '') + '/{$tab}'
+                            ? `${settings.path.replace(/\/$/, '')}/{$tab}`
                             : '/{$tab}';
                         module.verbose('Setting up automatic tab retrieval from server', url);
                         if ($.isPlainObject(settings.apiSettings)) {
@@ -272,7 +272,7 @@
                             $tab
                                 .addClass(className.loading)
                                 .siblings($tabs)
-                                .removeClass(className.active + ' ' + className.loading);
+                                .removeClass(`${className.active} ${className.loading}`);
                             if ($tab.length > 0) {
                                 settings.onRequest.call($tab[0], tabPath);
                             }
@@ -352,7 +352,7 @@
                             settings.onLoad.call($tab[0], currentPath, parameterArray, historyEvent);
                         } else if (tabPath.search('/') === -1 && tabPath !== '') {
                             // look for in page anchor
-                            $anchor = $('#' + CSS.escape(tabPath) + ', a[name="' + CSS.escape(tabPath) + '"]');
+                            $anchor = $(`#${CSS.escape(tabPath)}, a[name="${CSS.escape(tabPath)}"]`);
                             currentPath = $anchor.closest('[data-tab]').data(metadata.tab);
                             $tab = module.get.tabElement(currentPath);
                             // if anchor exists, use parent tab
@@ -500,7 +500,7 @@
                             $tab
                                 .addClass(className.active);
                             $deactiveTabs
-                                .removeClass(className.active + ' ' + className.loading);
+                                .removeClass(`${className.active} ${className.loading}`);
                             if ($tab.length > 0) {
                                 settings.onVisible.call($tab[0], tabPath);
                             }
@@ -517,7 +517,7 @@
                             $navigation
                                 .addClass(className.active);
                             $deactiveNavigation
-                                .removeClass(className.active + ' ' + className.loading);
+                                .removeClass(`${className.active} ${className.loading}`);
                         }
                     },
                 },
@@ -533,7 +533,7 @@
                     },
                     tabs: function () {
                         $tabs
-                            .removeClass(className.active + ' ' + className.loading);
+                            .removeClass(`${className.active} ${className.loading}`);
                     },
                 },
 
@@ -557,7 +557,7 @@
                         return module.utilities.pathToArray(module.get.defaultPath(tabPath));
                     },
                     defaultPath: function (tabPath) {
-                        const $defaultNav = $allModules.filter('[data-' + metadata.tab + '^="' + CSS.escape(tabPath) + '/"]').eq(0);
+                        const $defaultNav = $allModules.filter(`[data-${metadata.tab}^="${CSS.escape(tabPath)}/"]`).eq(0);
                         const defaultTab = $defaultNav.data(metadata.tab) || false;
                         if (defaultTab) {
                             module.debug('Found default tab', defaultTab);
@@ -575,13 +575,13 @@
                         return tabPath;
                     },
                     navElement: function (tabPath = activeTabPath) {
-                        return $allModules.filter('[data-' + metadata.tab + '="' + CSS.escape(tabPath) + '"]');
+                        return $allModules.filter(`[data-${metadata.tab}="${CSS.escape(tabPath)}"]`);
                     },
                     tabElement: function (tabPath = activeTabPath) {
                         const tabPathArray = module.utilities.pathToArray(tabPath);
                         const lastTab = module.utilities.last(tabPathArray);
-                        const $fullPathTab = $tabs.filter('[data-' + metadata.tab + '="' + CSS.escape(tabPath) + '"]');
-                        const $simplePathTab = $tabs.filter('[data-' + metadata.tab + '="' + CSS.escape(lastTab) + '"]');
+                        const $fullPathTab = $tabs.filter(`[data-${metadata.tab}="${CSS.escape(tabPath)}"]`);
+                        const $simplePathTab = $tabs.filter(`[data-${metadata.tab}="${CSS.escape(lastTab)}"]`);
 
                         return $fullPathTab.length > 0
                             ? $fullPathTab
@@ -601,7 +601,7 @@
 
                             if ($tab.hasClass(className.active)) {
                                 const tabPath = $(this).data(metadata.tab);
-                                const $anchor = $allModules.filter('[data-' + metadata.tab + '="' + CSS.escape(tabPath) + '"]');
+                                const $anchor = $allModules.filter(`[data-${metadata.tab}="${CSS.escape(tabPath)}"]`);
 
                                 if ($anchor.hasClass(className.active)) {
                                     activeTab = tabPath;
@@ -668,7 +668,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -678,14 +678,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -712,14 +712,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

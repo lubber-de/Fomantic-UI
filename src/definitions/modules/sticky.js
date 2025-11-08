@@ -53,8 +53,8 @@
             const namespace = settings.namespace;
             const error = settings.error;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             const $module = $(this);
             const $window = $(window);
@@ -103,10 +103,10 @@
                         observer.disconnect();
                     }
                     $window
-                        .off('load' + eventNamespace, module.event.load)
-                        .off('resize' + eventNamespace, module.event.resize);
+                        .off(`load${eventNamespace}`, module.event.load)
+                        .off(`resize${eventNamespace}`, module.event.resize);
                     $scroll
-                        .off('scrollchange' + eventNamespace, module.event.scrollchange);
+                        .off(`scrollchange${eventNamespace}`, module.event.scrollchange);
                     $module.removeData(moduleNamespace);
                 },
 
@@ -152,13 +152,13 @@
                 bind: {
                     events: function () {
                         $window
-                            .on('load' + eventNamespace, module.event.load)
-                            .on('resize' + eventNamespace, module.event.resize);
+                            .on(`load${eventNamespace}`, module.event.load)
+                            .on(`resize${eventNamespace}`, module.event.resize);
                         // pub/sub pattern
                         $scroll
-                            .off('scroll' + eventNamespace)
-                            .on('scroll' + eventNamespace, module.event.scroll)
-                            .on('scrollchange' + eventNamespace, module.event.scrollchange);
+                            .off(`scroll${eventNamespace}`)
+                            .on(`scroll${eventNamespace}`, module.event.scroll)
+                            .on(`scrollchange${eventNamespace}`, module.event.scrollchange);
                     },
                 },
 
@@ -190,7 +190,7 @@
                     },
                     scroll: function () {
                         requestAnimationFrame(function () {
-                            $scroll.triggerHandler('scrollchange' + eventNamespace, $scroll.scrollTop());
+                            $scroll.triggerHandler(`scrollchange${eventNamespace}`, $scroll.scrollTop());
                         });
                     },
                     scrollchange: function (event, scrollPosition) {
@@ -385,18 +385,18 @@
                         if (module.is.top()) {
                             $module
                                 .css('bottom', '')
-                                .css('top', -scroll + 'px');
+                                .css('top', `${-scroll}px`);
                         }
                         if (module.is.bottom()) {
                             $module
                                 .css('top', '')
-                                .css('bottom', scroll + 'px');
+                                .css('bottom', `${scroll}px`);
                         }
                     },
                     size: function () {
                         if (module.cache.element.height !== 0 && module.cache.element.width !== 0) {
-                            element.style.setProperty('width', module.cache.element.width + 'px', 'important');
-                            element.style.setProperty('height', module.cache.element.height + 'px', 'important');
+                            element.style.setProperty('width', `${module.cache.element.width}px`, 'important');
+                            element.style.setProperty('height', `${module.cache.element.height}px`, 'important');
                         }
                     },
                 },
@@ -655,7 +655,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -665,14 +665,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -699,14 +699,14 @@
                         }, 0);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

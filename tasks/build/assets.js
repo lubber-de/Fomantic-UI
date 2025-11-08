@@ -35,7 +35,7 @@ function buildAssets(src, config, callback) {
     if (callback === undefined) {
         callback = config;
         config = src;
-        src = config.paths.source.themes + '/**/assets/**/*.*';
+        src = `${config.paths.source.themes}/**/assets/**/*.*`;
     }
 
     // copy assets
@@ -51,7 +51,7 @@ module.exports = function (callback) {
 
 module.exports.watch = function (type, config) {
     gulp
-        .watch([normalize(config.paths.source.themes + '/**/assets/**/*.*')])
+        .watch([normalize(`${config.paths.source.themes}/**/assets/**/*.*`)])
         .on('all', function (event, path) {
             console.log('Change in assets detected');
 

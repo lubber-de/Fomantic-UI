@@ -43,13 +43,13 @@
             const className = settings.className;
 
             // define namespaces for modules
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = 'module-' + namespace;
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `module-${namespace}`;
 
             // selector cache
             let $module = $(this);
-            let $sides = $module.find('>' + selector.sides);
-            let $side = $sides.find('>' + selector.side);
+            let $sides = $module.find(`>${selector.sides}`);
+            let $side = $sides.find(`>${selector.side}`);
 
             // private variables
             let nextIndex = false;
@@ -154,7 +154,7 @@
 
                 is: {
                     complete: function () {
-                        return $side.filter('.' + className.active)[0] === $nextSide[0];
+                        return $side.filter(`.${className.active}`)[0] === $nextSide[0];
                     },
                     animating: function () {
                         return $module.hasClass(className.animating);
@@ -167,7 +167,7 @@
                 set: {
 
                     defaultSide: function () {
-                        $activeSide = $side.filter('.' + className.active);
+                        $activeSide = $side.filter(`.${className.active}`);
                         $nextSide = $activeSide.next(selector.side).length > 0
                             ? $activeSide.next(selector.side)
                             : $side.first();
@@ -178,7 +178,7 @@
 
                     duration: function (duration = settings.duration) {
                         duration = typeof duration === 'number'
-                            ? duration + 'ms'
+                            ? `${duration}ms`
                             : duration;
                         module.verbose('Setting animation duration', duration);
                         if (settings.duration || settings.duration === 0) {
@@ -190,7 +190,7 @@
                     },
 
                     currentStageSize: function () {
-                        const $activeSide = $side.filter('.' + className.active);
+                        const $activeSide = $side.filter(`.${className.active}`);
                         const width = $activeSide.outerWidth(true);
                         const height = $activeSide.outerHeight(true);
                         $module
@@ -202,8 +202,8 @@
 
                     stageSize: function () {
                         const $clone = $module.clone().addClass(className.loading);
-                        const $side = $clone.find('>' + selector.sides + '>' + selector.side);
-                        const $activeSide = $side.filter('.' + className.active);
+                        const $side = $clone.find(`>${selector.sides}>${selector.side}`);
+                        const $activeSide = $side.filter(`.${className.active}`);
                         const $nextSide = nextIndex
                             ? $side.eq(nextIndex)
                             : ($activeSide.next(selector.side).length > 0
@@ -269,12 +269,12 @@
                         }
                         const transform = module.get.transform[type]();
                         if (!module.is.animating()) {
-                            module.debug('Flipping ' + type, $nextSide);
+                            module.debug(`Flipping ${type}`, $nextSide);
                             module.set.stageSize();
                             module.stage[stage]();
                             module.animate(transform);
                         } else {
-                            module.queue('flip ' + type);
+                            module.queue(`flip ${type}`);
                         }
                     },
 
@@ -312,7 +312,7 @@
                             const translateY = $nextSide.outerHeight(true) - translateZ;
 
                             return {
-                                transform: 'translateY(' + translateY + 'px) translateZ(-' + translateZ + 'px) rotateX(-90deg)',
+                                transform: `translateY(${translateY}px) translateZ(-${translateZ}px) rotateX(-90deg)`,
                             };
                         },
 
@@ -322,7 +322,7 @@
                             };
 
                             return {
-                                transform: 'translateY(-' + translate.z + 'px) translateZ(-' + translate.z + 'px) rotateX(90deg)',
+                                transform: `translateY(-${translate.z}px) translateZ(-${translate.z}px) rotateX(90deg)`,
                             };
                         },
 
@@ -331,7 +331,7 @@
                             const translateX = $nextSide.outerWidth(true) - translateZ;
 
                             return {
-                                transform: 'translateX(' + translateX + 'px) translateZ(-' + translateZ + 'px) rotateY(90deg)',
+                                transform: `translateX(${translateX}px) translateZ(-${translateZ}px) rotateY(90deg)`,
                             };
                         },
 
@@ -341,7 +341,7 @@
                             };
 
                             return {
-                                transform: 'translateX(-' + translate.z + 'px) translateZ(-' + translate.z + 'px) rotateY(-90deg)',
+                                transform: `translateX(-${translate.z}px) translateZ(-${translate.z}px) rotateY(-90deg)`,
                             };
                         },
 
@@ -351,7 +351,7 @@
                             };
 
                             return {
-                                transform: 'translateX(' + translate.x + 'px) rotateY(180deg)',
+                                transform: `translateX(${translate.x}px) rotateY(180deg)`,
                             };
                         },
 
@@ -361,7 +361,7 @@
                             };
 
                             return {
-                                transform: 'translateX(' + translate.x + 'px) rotateY(-180deg)',
+                                transform: `translateX(${translate.x}px) rotateY(-180deg)`,
                             };
                         },
                     },
@@ -392,8 +392,8 @@
                         $nextSide
                             .addClass(className.animating)
                             .css({
-                                top: box.origin + 'px',
-                                transform: 'rotateX(90deg) translateZ(' + box.depth.next + 'px) translateY(-' + box.depth.active + 'px)',
+                                top: `${box.origin}px`,
+                                transform: `rotateX(90deg) translateZ(${box.depth.next}px) translateY(-${box.depth.active}px)`,
                             });
                     },
 
@@ -413,8 +413,8 @@
                         $nextSide
                             .addClass(className.animating)
                             .css({
-                                top: box.origin + 'px',
-                                transform: 'rotateX(-90deg) translateZ(' + box.depth.next + 'px) translateY(' + box.depth.active + 'px)',
+                                top: `${box.origin}px`,
+                                transform: `rotateX(-90deg) translateZ(${box.depth.next}px) translateY(${box.depth.active}px)`,
                             });
                     },
 
@@ -438,8 +438,8 @@
                         $nextSide
                             .addClass(className.animating)
                             .css({
-                                left: box.origin + 'px',
-                                transform: 'rotateY(-90deg) translateZ(' + box.depth.next + 'px) translateX(-' + box.depth.active + 'px)',
+                                left: `${box.origin}px`,
+                                transform: `rotateY(-90deg) translateZ(${box.depth.next}px) translateX(-${box.depth.active}px)`,
                             });
                     },
 
@@ -463,8 +463,8 @@
                         $nextSide
                             .addClass(className.animating)
                             .css({
-                                left: box.origin + 'px',
-                                transform: 'rotateY(90deg) translateZ(' + box.depth.next + 'px) translateX(' + box.depth.active + 'px)',
+                                left: `${box.origin}px`,
+                                transform: `rotateY(90deg) translateZ(${box.depth.next}px) translateX(${box.depth.active}px)`,
                             });
                     },
 
@@ -488,7 +488,7 @@
                         $nextSide
                             .addClass(className.animating)
                             .css({
-                                left: box.origin + 'px',
+                                left: `${box.origin}px`,
                                 transform: 'rotateY(-180deg)',
                             });
                     },
@@ -521,7 +521,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -531,14 +531,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -565,16 +565,16 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if ($allModules.length > 1) {
-                            title += ' (' + $allModules.length + ')';
+                            title += ` (${$allModules.length})`;
                         }
                         if (performance.length > 0) {
                             console.groupCollapsed(title);

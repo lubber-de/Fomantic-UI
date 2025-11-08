@@ -52,8 +52,8 @@
             const error = settings.error;
             const namespace = settings.namespace;
 
-            const eventNamespace = '.' + namespace;
-            const moduleNamespace = namespace + '-module';
+            const eventNamespace = `.${namespace}`;
+            const moduleNamespace = `${namespace}-module`;
 
             const $module = $(this);
 
@@ -71,7 +71,7 @@
                     }
                     storage = module.get.storage();
                     $module
-                        .on('click' + eventNamespace, selector.close, module.dismiss)
+                        .on(`click${eventNamespace}`, selector.close, module.dismiss)
                         .data(moduleNamespace, module);
 
                     if (settings.detachable && $module.parent()[0] !== $context[0]) {
@@ -194,13 +194,13 @@
                                 let cookieOptions = '';
                                 for (const option in options) {
                                     if (Object.prototype.hasOwnProperty.call(options, option)) {
-                                        cookieOptions += '; ' + option;
+                                        cookieOptions += `; ${option}`;
                                         if (typeof options[option] === 'string') {
-                                            cookieOptions += '=' + options[option].split(';')[0];
+                                            cookieOptions += `=${options[option].split(';')[0]}`;
                                         }
                                     }
                                 }
-                                document.cookie = key + '=' + value + cookieOptions;
+                                document.cookie = `${key}=${value}${cookieOptions}`;
                             },
                             getItem: function (key) {
                                 const cookies = document.cookie.split('; ');
@@ -312,7 +312,7 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.debug = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.debug = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.debug.apply(console, args);
                         }
                     }
@@ -322,14 +322,14 @@
                         if (settings.performance) {
                             module.performance.log(args);
                         } else {
-                            module.verbose = Function.prototype.bind.call(console.info, console, settings.name + ':');
+                            module.verbose = Function.prototype.bind.call(console.info, console, `${settings.name}:`);
                             module.verbose.apply(console, args);
                         }
                     }
                 },
                 error: function (...args) {
                     if (!settings.silent) {
-                        module.error = Function.prototype.bind.call(console.error, console, settings.name + ':');
+                        module.error = Function.prototype.bind.call(console.error, console, `${settings.name}:`);
                         module.error.apply(console, args);
                     }
                 },
@@ -356,14 +356,14 @@
                         }, 500);
                     },
                     display: function () {
-                        let title = settings.name + ':';
+                        let title = `${settings.name}:`;
                         let totalTime = 0;
                         time = false;
                         clearTimeout(module.performance.timer);
                         $.each(performance, function (index, data) {
                             totalTime += data['Execution Time'];
                         });
-                        title += ' ' + totalTime + 'ms';
+                        title += ` ${totalTime}ms`;
                         if (performance.length > 0) {
                             console.groupCollapsed(title);
                             console.table(performance);

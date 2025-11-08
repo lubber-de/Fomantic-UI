@@ -56,10 +56,10 @@ module.exports = function (callback) {
         const pullOptions = { args: '-q', cwd: outputDirectory, quiet: true };
         const resetOptions = { args: '-q --hard', cwd: outputDirectory, quiet: true };
 
-        const gitURL = 'git@github.com:' + release.org + '/' + repoName + '.git';
+        const gitURL = `git@github.com:${release.org}/${repoName}.git`;
         const localRepoSetup = fs.pathExistsSync(path.join(outputDirectory, '.git'));
 
-        console.log('Processing repository: ' + outputDirectory);
+        console.log(`Processing repository: ${outputDirectory}`);
 
         // create folder if it doesn't exist
         fs.ensureDirSync(outputDirectory);
@@ -80,7 +80,7 @@ module.exports = function (callback) {
         }
 
         function initRepo() {
-            console.info('Initializing repository for ' + component);
+            console.info(`Initializing repository for ${component}`);
             git.init(gitOptions, function (error) {
                 if (error) {
                     console.error('Error initializing repo', error);
@@ -90,14 +90,14 @@ module.exports = function (callback) {
         }
 
         function addRemote() {
-            console.info('Adding remote origin as ' + gitURL);
+            console.info(`Adding remote origin as ${gitURL}`);
             git.addRemote('origin', gitURL, gitOptions, function () {
                 pullFiles();
             });
         }
 
         function pullFiles() {
-            console.info('Pulling ' + component + ' files');
+            console.info(`Pulling ${component} files`);
             git.pull('origin', 'master', pullOptions, function () {
                 resetFiles();
             });

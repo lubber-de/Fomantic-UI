@@ -34,9 +34,9 @@ const revision = config.revision === undefined ? '' : config.revision;
 const includeVersionInFileName = config.includeVersionInFileName === undefined ? false : config.includeVersionInFileName;
 
 if (includeVersionInFileName) {
-    versionInFileName = '-' + version;
+    versionInFileName = `-${version}`;
     if (revision !== '') {
-        versionInFileName += '-' + revision;
+        versionInFileName += `-${revision}`;
     }
 }
 
