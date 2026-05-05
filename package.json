@@ -59,17 +59,18 @@
     "gulp-uglify": "^3.0.1",
     "inquirer": "^8.2.0",
     "jquery": "^3.4.0",
+    "js-yaml": "^4.1.0",
     "less": "^3.12.0 || ^4.0.0",
     "map-stream": "^0.1.0",
     "merge-stream": "^2.0.0",
     "normalize-path": "^3.0.0",
     "ordered-read-streams": "^1.0.1",
     "replace-ext": "^1.0.0",
-    "require-dot-file": "^0.4.0",
-    "js-yaml": "^4.1.0"
+    "require-dot-file": "^0.4.0"
   },
   "devDependencies": {
     "@actions/core": "^1.6.0",
+    "@biomejs/biome": "2.4.10",
     "@internal/eslint-plugin": "file:.eslint",
     "@octokit/core": "^6.1.4",
     "@octokit/rest": "^21.1.1",
