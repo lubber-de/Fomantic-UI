@@ -1,0 +1,132 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.6.5/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "includes": [
+            "**",
+            "!**/.*",
+            "!**/*.json",
+            "!**/*.md",
+            "!**/*.yml",
+            "!**/dist",
+            "!**/types",
+            "!**/examples",
+            "!**/test",
+            "*.less",
+            "*.overrides",
+            "*.variables"
+        ]
+    },
+    "formatter": {
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "auto",
+        "attributePosition": "auto",
+        "bracketSameLine": false,
+        "bracketSpacing": true,
+        "expand": "auto",
+        "useEditorconfig": true
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "none",
+            "complexity": {
+                "noBannedTypes": "off",
+                "useDateNow": "error"
+            },
+            "correctness": {
+                "noInvalidDirectionInLinearGradient": "error",
+                "noInvalidGridAreas": "error",
+                "noInvalidUseBeforeDeclaration": "off",
+                "noMissingVarFunction": "error",
+                "noUnknownMediaFeatureName": "error",
+                "noUnknownProperty": "error",
+                "noUnknownPseudoClass": "error",
+                "noUnknownPseudoElement": "error",
+                "noUnknownTypeSelector": "error",
+                "noUnknownUnit": "error",
+                "noUnmatchableAnbSelector": "error",
+                "noUnusedVariables": "off"
+            },
+            "style": {
+                "noIncrementDecrement": "off",
+                "noNegationElse": "off",
+                "noNestedTernary": "off",
+                "noParameterAssign": "off",
+                "useBlockStatements": "error",
+                "useGlobalThis": "off",
+                "useTemplate": "off",
+                "useThisInClassMethods": "off"
+            },
+            "suspicious": {
+                "noConsole": "off",
+                "noDebugger": "error",
+                "noDoubleEquals": {
+                    "level": "off",
+                    "options": {
+                        "ignoreNull": false
+                    }
+                },
+                "noDuplicateAtImportRules": "error",
+                "noDuplicateCustomProperties": "error",
+                "noDuplicateFontNames": "error",
+                "noDuplicateProperties": "error",
+                "noDuplicateSelectorsKeyframeBlock": "error",
+                "noEmptySource": "error",
+                "noExplicitAny": "off",
+                "noImportantInKeyframe": "error",
+                "noIrregularWhitespace": "error",
+                "noShadow": "off",
+                "noShorthandPropertyOverrides": "error",
+                "noUnknownAtRules": "error"
+            }
+        },
+        "includes": [
+            "**",
+            "!**/.*",
+            "!examples",
+            "!test/coverage",
+            "!test/helpers",
+            "!dist"
+        ]
+    },
+    "javascript": {
+        "formatter": {
+            "quoteProperties": "asNeeded",
+            "trailingCommas": "es5",
+            "semicolons": "always",
+            "lineWidth": 90,
+            "arrowParentheses": "always",
+            "bracketSameLine": false,
+            "quoteStyle": "single",
+            "bracketSpacing": true
+        },
+        "globals": ["jQuery"]
+    },
+    "css": {
+        "formatter": {
+            "quoteStyle": "single"
+        }
+    },
+    "html": {
+        "formatter": {
+            "indentScriptAndStyle": false,
+            "selfCloseVoidElements": "always"
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    }
+}
